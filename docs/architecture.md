@@ -299,6 +299,14 @@ npm run build
 **Files Modified:**
 - `src/layouts/MainLayout.tsx` - Animation initialization timing
 - `src/utils/templateScripts.ts` - Swiper configuration updates
+- `src/App.css` - Cleared all default Vite styles to prevent CSS conflicts
+
+**Grid-Line Background Texture Fix:**
+- Identified missing grid-line patterns from `.banner-layout-wrapper::before` pseudo-element
+- Root cause: Default Vite CSS in `src/App.css` potentially interfering with template styles
+- Resolution: Cleared `src/App.css` to eliminate all conflicting base styles
+- Grid pattern CSS from template (`regular-square-grids-4AL3FJ8.png` at 0.3 opacity) now renders correctly
+- Note: `postcss.config.js` remains read-only but Tailwind conflicts resolved via CSS cleanup
 
 ### Notes for Future Development
 
