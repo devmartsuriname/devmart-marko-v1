@@ -60,44 +60,61 @@ export const initializeTemplateScripts = () => {
     });
   };
 
-  // Initialize Swiper sliders
+  // Initialize Swiper sliders - exact configuration from original template
   const initSwipers = () => {
     if (typeof window !== 'undefined' && (window as any).Swiper) {
       const Swiper = (window as any).Swiper;
       
-      // Partner slider
+      // Partner slider - matches swiper-script.js configuration
       new Swiper('.swiper.swiperPartner', {
-        slidesPerView: 2,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-        },
-        speed: 3000,
-        breakpoints: {
-          640: { slidesPerView: 3 },
-          768: { slidesPerView: 4 },
-          1024: { slidesPerView: 6 }
-        }
-      });
-
-      // Testimonial slider
-      new Swiper('.swiper.swiperTestimonial', {
-        slidesPerView: 1,
-        spaceBetween: 50,
-        loop: true,
         autoplay: {
           delay: 5000,
-          disableOnInteraction: false,
         },
         speed: 1000,
+        slidesPerView: 6,
+        spaceBetween: 20,
+        loop: true,
         grabCursor: true,
         breakpoints: {
-          319: { slidesPerView: 1 },
-          769: { slidesPerView: 2 },
-          1025: { slidesPerView: 3 }
-        }
+          1025: {
+            slidesPerView: 6
+          },
+          767: {
+            slidesPerView: 4
+          },
+          230: {
+            slidesPerView: 3
+          }
+        },
+        pagination: {
+          enabled: true,
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true,
+        },
+      });
+
+      // Testimonial slider - matches swiper-script.js configuration
+      new Swiper('.swiper.swiperTestimonial', {
+        autoplay: {
+          delay: 5000,
+        },
+        speed: 1000,
+        slidesPerView: 3,
+        spaceBetween: 50,
+        loop: true,
+        grabCursor: true,
+        breakpoints: {
+          1025: {
+            slidesPerView: 3,
+          },
+          769: {
+            slidesPerView: 2
+          },
+          319: {
+            slidesPerView: 1,
+          },
+        },
       });
     }
   };
