@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { initializeTemplateScripts } from "../utils/templateScripts";
 
 const MainLayout = () => {
+  const location = useLocation();
+  
   useEffect(() => {
     // Initialize template scripts after component mount
     const initScripts = () => {
@@ -107,7 +109,7 @@ const MainLayout = () => {
     }, 100);
 
     return () => clearInterval(checkJQuery);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>

@@ -314,7 +314,9 @@ npm run build
   4. Applied global grid overlay to `body::after` with proper z-index stacking (above body background, below all content)
   5. Set `#root { z-index: 2 }` to ensure all React content layers above the grid
   6. Imported fix in `src/main.tsx`
-- **Result**: Vertical line pattern from live demo (Line-Background-4.png) now visible site-wide - banner pages at 0.5-0.6 opacity, global overlay at 0.4-0.5 opacity using `body::after` with proper z-index stacking
+- **Result**: Vertical line pattern from live demo (Line-Background-4.png) now visible site-wide - banner pages at 0.5-0.6 opacity, global overlay at 0.5-0.6 opacity using `body::after` with proper z-index stacking
+- **Critical Fix**: Added CSS fallback animation for `.animate-box` elements to ensure visibility even if JavaScript IntersectionObserver fails to trigger (1s delay, 0.5s fade-in). Also added `location.pathname` dependency to MainLayout's useEffect to re-initialize animations on route changes, preventing sections from remaining invisible when navigating between pages
+- **Root Cause**: Template CSS sets `.animate-box { opacity: 0 }` by default, relying on JavaScript to set `opacity: 1`. Race conditions or missing observers could leave sections permanently invisible. CSS fallback ensures all content becomes visible after maximum 1 second, regardless of JavaScript execution
 - **Files created**: `src/styles/grid-fix.css`
 - **Files modified**: `src/main.tsx`, `src/App.css`
 
