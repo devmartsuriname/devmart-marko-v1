@@ -1,5 +1,19 @@
 /* Grid-Line Background Texture Fix - Phase 1A-3 */
 
+/* CSS Fallback: Ensure animate-box elements become visible even if JS animations fail */
+@keyframes fadeInFallback {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-box {
+  animation: fadeInFallback 0.5s ease-out 1s forwards !important;
+}
+
+.animate-box.animated {
+  opacity: 1 !important;
+}
+
 /* Fix for banner pages (About, Services, etc.) - uses vertical line pattern */
 .banner-layout-wrapper::before {
   background-image: url('https://pai.nomadenstudio.com/marko/wp-content/uploads/sites/10/2025/03/Line-Background-4.png') !important;
@@ -37,13 +51,13 @@ body::after {
   background-repeat: repeat-x;
   background-size: auto 100%;
   background-position: center top;
-  opacity: 0.4;
+  opacity: 0.5;
   pointer-events: none;
   z-index: 1;
 }
 
 body.lightmode::after {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 /* Ensure React root and all content is above the grid */
