@@ -1025,28 +1025,37 @@ const HomePage = () => {
                 <i className="fa-regular fa-circle-dot"></i>
                 <span>Our Core Services</span>
               </div>
-              <h2 className="title-heading heading-container heading-container-medium">Flexible Pricing Plans for Every Business</h2>
+              <h2 className="title-heading heading-container heading-container-short">Flexible Pricing Plans for Every Business</h2>
             </div>
-            <div className="card-pricing-wrapper">
-              <div className="row row-cols-xl-4 row-cols-md-2 row-cols-1 grid-spacer-2">
-                <div className="col">
+            <div className="row row-cols-xl-3 row-cols-1 grid-spacer-2">
+              {/* Column 1: Consultation + Starter */}
+              <div className="col">
+                <div className="pricing-container">
+                  <div className="card card-pricing-title animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                    <div className="spacer"></div>
+                    <div className="content">
+                      <h3 className="title-heading">Let's Find the Right Strategy for You!</h3>
+                      <div className="link-wrapper">
+                        <Link to="/contact">Book a Free Consultation</Link>
+                        <i className="fa-solid fa-arrow-circle-right"></i>
+                      </div>
+                    </div>
+                  </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
                     <h4>Starter</h4>
-                    <p>Best for small businesses starting</p>
+                    <p>Perfect for startups & small businesses</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>
-                        $99
-                      </h3>
+                      <h3>$99</h3>
                       <p>/Month</p>
                     </div>
-                    <a href="#" className="btn btn-accent">
+                    <Link to="/pricing" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
-                    </a>
+                    </Link>
                     <ul className="check-list">
                       <li><Link to="/services">Basic SEO & Marketing</Link></li>
                       <li><Link to="/services">Social Media Management (1 Platform)</Link></li>
@@ -1054,120 +1063,94 @@ const HomePage = () => {
                     </ul>
                   </div>
                 </div>
-                <div className="col">
+              </div>
+              
+              {/* Column 2: Enterprise (Highlighted) */}
+              <div className="col">
+                <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                  <div className="spacer"></div>
+                  <h4>Enterprise</h4>
+                  <p>Full scale marketing for maximum impact</p>
+                  <div className="d-flex flex-row gspace-1 align-items-center">
+                    <h3>$399</h3>
+                    <p>/Month</p>
+                  </div>
+                  <Link to="/pricing" className="btn btn-accent">
+                    <div className="btn-title">
+                      <span>View Details</span>
+                    </div>
+                    <div className="icon-circle">
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </Link>
+                  <div className="core-benefits">
+                    <div className="benefit">
+                      <i className="fa-solid fa-brain"></i>
+                      <a href="#">Dedicated Account Manager</a>
+                    </div>
+                    <div className="benefit">
+                      <i className="fa-brands fa-accessible-icon"></i>
+                      <a href="#">Priority Support 24/7</a>
+                    </div>
+                    <div className="benefit">
+                      <i className="fa-solid fa-bug"></i>
+                      <a href="#">Customized Growth Strategy</a>
+                    </div>
+                  </div>
+                  <ul className="check-list">
+                    <li><a href="#">Complete Digital Marketing Suite</a></li>
+                    <li><a href="#">Paid Ads Management</a></li>
+                    <li><a href="#">Dedicated Account Manager</a></li>
+                    <li><a href="#">Email Marketing & Automation</a></li>
+                    <li><a href="#">Dedicated Account Manager</a></li>
+                    <li><a href="#">Weekly Performance Insights</a></li>
+                  </ul>
+                </div>
+              </div>
+              
+              {/* Column 3: Your Growth + Growth Plan */}
+              <div className="col">
+                <div className="pricing-container">
+                  <div className="card pricing-highlight-box animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                    <div className="d-flex flex-column gspace-2 w-100">
+                      <h5>Your Growth, Our Priority!</h5>
+                      <div className="d-flex flex-column gspace-2">
+                        <div className="pricing-highlights">
+                          <a href="#">Data-Driven Digital Marketing</a>
+                          <i className="fa-solid fa-arrow-circle-right"></i>
+                        </div>
+                        <div className="pricing-highlights">
+                          <a href="#">Proven Strategies for Higher</a>
+                          <i className="fa-solid fa-arrow-circle-right"></i>
+                        </div>
+                        <div className="pricing-highlights">
+                          <a href="#">Scalable Solution for Every Business</a>
+                          <i className="fa-solid fa-arrow-circle-right"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="spacer"></div>
+                  </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Professional</h4>
-                    <p>Ideal for growing businesses looking</p>
+                    <h4>Growth</h4>
+                    <p>Best for growing businesses ready</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>
-                        $399
-                      </h3>
+                      <h3>$299</h3>
                       <p>/Month</p>
                     </div>
-                    <a href="#" className="btn btn-accent">
+                    <Link to="/pricing" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
-                    </a>
+                    </Link>
                     <ul className="check-list">
-                      <li><Link to="/services">Complate Digital Marketing Suite</Link></li>
-                      <li><Link to="/services">Paid Ads Management</Link></li>
-                      <li><Link to="/services">Dedicated Account Manager</Link></li>
-                      <li><Link to="/services">Email Marketing & Automation</Link></li>
-                      <li><Link to="/services">Weekly Performance insights</Link></li>
+                      <li><Link to="/services">Basic SEO & Marketing</Link></li>
+                      <li><Link to="/services">Social Media Management (1 Platform)</Link></li>
+                      <li><Link to="/services">Monthly Performance Report</Link></li>
                     </ul>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Enterprise</h4>
-                    <p>Best for large enterprises</p>
-                    <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>
-                        $299
-                      </h3>
-                      <p>/Month</p>
-                    </div>
-                    <a href="#" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </a>
-                    <div className="core-benefits">
-                      <div className="benefit">
-                        <i className="fa-solid fa-brain"></i>
-                        <a href="#">Dedicated Account Manager</a>
-                      </div>
-                      <div className="benefit">
-                        <i className="fa-brands fa-accessible-icon"></i>
-                        <a href="#">Priority Support 24/7</a>
-                      </div>
-                      <div className="benefit">
-                        <i className="fa-solid fa-bug"></i>
-                        <a href="#">Customized Growth Strength</a>
-                      </div>
-                    </div>
-                    <ul className="check-list">
-                      <li><a href="#">Complate Digital Marketing Suite</a></li>
-                      <li><a href="#">Paid Ads Management</a></li>
-                      <li><a href="#">Dedicated Account Manager</a></li>
-                      <li><a href="#">Email Marketing & Automation</a></li>
-                      <li><a href="#">Dedicated Account Manager</a></li>
-                      <li><a href="#">Weekly Performance insights</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="pricing-container">
-                    <div className="card pricing-highlight-box animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                      <div className="d-flex flex-column gspace-2 w-100">
-                        <h5>Your Growth, Our Priority!</h5>
-                        <div className="d-flex flex-column gspace-2">
-                          <div className="pricing-highlights">
-                            <a href="#">Data-Driven Digital Marketing</a>
-                            <i className="fa-solid fa-arrow-circle-right"></i>
-                          </div>
-                          <div className="pricing-highlights">
-                            <a href="#">Proven Strategies for Higher</a>
-                            <i className="fa-solid fa-arrow-circle-right"></i>
-                          </div>
-                          <div className="pricing-highlights">
-                            <a href="#">Scalable Solution for Every Business</a>
-                            <i className="fa-solid fa-arrow-circle-right"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="spacer"></div>
-                    </div>
-                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Growth</h4>
-                      <p>Best for growing businesses ready</p>
-                      <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                        <h3>
-                          $299
-                        </h3>
-                        <p>/Month</p>
-                      </div>
-                      <a href="#" className="btn btn-accent">
-                        <div className="btn-title">
-                          <span>View Details</span>
-                        </div>
-                        <div className="icon-circle">
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </div>
-                      </a>
-                      <ul className="check-list">
-                        <li><Link to="/services">Basic SEO & Marketing</Link></li>
-                        <li><Link to="/services">Social Media Management (1 Platform)</Link></li>
-                        <li><Link to="/services">Monthly Performance Report</Link></li>
-                      </ul>
-                    </div>
                   </div>
                 </div>
               </div>
