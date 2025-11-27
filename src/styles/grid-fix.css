@@ -1,23 +1,24 @@
 /* Grid-Line Background Texture Fix - Phase 1A-3 */
 
-/* Fix for banner pages (About, Services, etc.) - uses absolute paths for Vite */
+/* Fix for banner pages (About, Services, etc.) - uses vertical line pattern */
 .banner-layout-wrapper::before {
-  background-image: url('/marko-digital-marketing-agency-html/image/regular-square-grids-4AL3FJ8.png') !important;
+  background-image: url('https://pai.nomadenstudio.com/marko/wp-content/uploads/sites/10/2025/03/Line-Background-4.png') !important;
   content: '' !important;
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  opacity: 0.3 !important;
+  opacity: 0.5 !important;
   z-index: -1 !important;
-  background-repeat: repeat !important;
-  background-size: auto !important;
+  background-repeat: repeat-x !important;
+  background-size: auto 100% !important;
+  background-position: center top !important;
 }
 
-/* Light mode variant */
+/* Light mode - same pattern, slightly higher opacity */
 body.lightmode .banner-layout-wrapper::before {
-  background-image: url('/marko-digital-marketing-agency-html/image/regular-square-grids-4AL3FJ8-light.png') !important;
+  opacity: 0.6 !important;
 }
 
 /* Global grid pattern overlay for entire site */
@@ -32,17 +33,17 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/marko-digital-marketing-agency-html/image/regular-square-grids-4AL3FJ8.png');
-  background-repeat: repeat;
-  background-size: auto;
-  opacity: 0.15;
+  background-image: url('https://pai.nomadenstudio.com/marko/wp-content/uploads/sites/10/2025/03/Line-Background-4.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: center top;
+  opacity: 0.4;
   pointer-events: none;
   z-index: 1;
 }
 
 body.lightmode::after {
-  background-image: url('/marko-digital-marketing-agency-html/image/regular-square-grids-4AL3FJ8-light.png');
-  opacity: 0.20;
+  opacity: 0.5;
 }
 
 /* Ensure React root and all content is above the grid */

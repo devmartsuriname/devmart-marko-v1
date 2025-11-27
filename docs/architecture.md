@@ -314,7 +314,7 @@ npm run build
   4. Applied global grid overlay to `body::after` with proper z-index stacking (above body background, below all content)
   5. Set `#root { z-index: 2 }` to ensure all React content layers above the grid
   6. Imported fix in `src/main.tsx`
-- **Result**: Grid patterns now visible site-wide - banner pages (About, Services, etc.) at 0.3 opacity, and global grid overlay (0.15-0.20 opacity) visible across entire site matching live demo
+- **Result**: Vertical line pattern from live demo (Line-Background-4.png) now visible site-wide - banner pages at 0.5-0.6 opacity, global overlay at 0.4-0.5 opacity using `body::after` with proper z-index stacking
 - **Files created**: `src/styles/grid-fix.css`
 - **Files modified**: `src/main.tsx`, `src/App.css`
 
