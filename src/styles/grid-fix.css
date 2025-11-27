@@ -57,7 +57,7 @@ body::after {
 }
 
 body.lightmode::after {
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 /* Ensure React root and all content is above the grid */
