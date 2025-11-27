@@ -66,7 +66,7 @@ export const initializeTemplateScripts = () => {
       const Swiper = (window as any).Swiper;
       
       // Partner slider
-      new Swiper('.swiperPartner', {
+      new Swiper('.swiper.swiperPartner', {
         slidesPerView: 2,
         spaceBetween: 30,
         loop: true,
@@ -79,6 +79,24 @@ export const initializeTemplateScripts = () => {
           640: { slidesPerView: 3 },
           768: { slidesPerView: 4 },
           1024: { slidesPerView: 6 }
+        }
+      });
+
+      // Testimonial slider
+      new Swiper('.swiper.swiperTestimonial', {
+        slidesPerView: 1,
+        spaceBetween: 50,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        speed: 1000,
+        grabCursor: true,
+        breakpoints: {
+          319: { slidesPerView: 1 },
+          769: { slidesPerView: 2 },
+          1025: { slidesPerView: 3 }
         }
       });
     }
