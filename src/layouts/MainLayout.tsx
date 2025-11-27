@@ -54,9 +54,10 @@ const MainLayout = () => {
           });
         };
 
-        // Initialize animations
+        // Initialize animations with immediate fallback for visible elements
         const initAnimations = () => {
           const elements = document.querySelectorAll('[data-animate]');
+          
           const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
@@ -70,7 +71,21 @@ const MainLayout = () => {
             });
           }, { threshold: 0.1 });
           
+          // Observe all elements
           elements.forEach(el => observer.observe(el));
+
+          // Immediate fallback: trigger animations for elements already in viewport
+          setTimeout(() => {
+            elements.forEach(el => {
+              const rect = el.getBoundingClientRect();
+              const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+              
+              if (isInViewport && (el as HTMLElement).style.opacity !== '1') {
+                el.classList.add(el.getAttribute('data-animate') || '');
+                (el as HTMLElement).style.opacity = '1';
+              }
+            });
+          }, 100);
         };
 
         initCounter();
