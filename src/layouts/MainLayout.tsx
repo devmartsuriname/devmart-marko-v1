@@ -54,7 +54,7 @@ const MainLayout = () => {
           });
         };
 
-        // Initialize animations with immediate fallback for visible elements
+        // Initialize animations - matches original template behavior
         const initAnimations = () => {
           const elements = document.querySelectorAll('[data-animate]');
           
@@ -74,18 +74,22 @@ const MainLayout = () => {
           // Observe all elements
           elements.forEach(el => observer.observe(el));
 
-          // Immediate fallback: trigger animations for elements already in viewport
-          setTimeout(() => {
+          // Critical: Immediate visibility for hero/above-fold elements
+          // This ensures no flash of invisible content on initial load
+          requestAnimationFrame(() => {
             elements.forEach(el => {
               const rect = el.getBoundingClientRect();
-              const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+              const isAboveFold = rect.top < window.innerHeight;
               
-              if (isInViewport && (el as HTMLElement).style.opacity !== '1') {
-                el.classList.add(el.getAttribute('data-animate') || '');
-                (el as HTMLElement).style.opacity = '1';
+              if (isAboveFold && (el as HTMLElement).style.opacity !== '1') {
+                const delay = el.getAttribute('data-delay') || 0;
+                setTimeout(() => {
+                  el.classList.add(el.getAttribute('data-animate') || '');
+                  (el as HTMLElement).style.opacity = '1';
+                }, Number(delay));
               }
             });
-          }, 100);
+          });
         };
 
         initCounter();
