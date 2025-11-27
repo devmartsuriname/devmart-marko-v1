@@ -302,11 +302,20 @@ npm run build
 - `src/App.css` - Cleared all default Vite styles to prevent CSS conflicts
 
 **Grid-Line Background Texture Fix:**
-- Identified missing grid-line patterns from `.banner-layout-wrapper::before` pseudo-element
-- Root cause: Default Vite CSS in `src/App.css` potentially interfering with template styles
-- Resolution: Cleared `src/App.css` to eliminate all conflicting base styles
-- Grid pattern CSS from template (`regular-square-grids-4AL3FJ8.png` at 0.3 opacity) now renders correctly
-- Note: `postcss.config.js` remains read-only but Tailwind conflicts resolved via CSS cleanup
+- **Issue**: Grid-line patterns from `.banner-layout-wrapper::before` not visible
+- **Root causes identified**: 
+  1. Default Vite CSS in `src/App.css` interfering with template styles
+  2. Relative paths in CSS not resolving correctly in Vite build
+  3. Stacking context issues with z-index
+- **Resolution implemented**:
+  1. Cleared `src/App.css` to eliminate conflicting base styles
+  2. Created `src/styles/grid-fix.css` with explicit absolute paths to grid images
+  3. Added `!important` overrides to ensure pseudo-element renders correctly
+  4. Added global grid overlay to `main` element for subtle background pattern on all pages
+  5. Imported fix in `src/main.tsx`
+- **Result**: Grid patterns now visible on banner pages (About, Services, etc.) at 0.3 opacity, and subtle global grid (0.08-0.12 opacity) visible on all content areas including Home page
+- **Files created**: `src/styles/grid-fix.css`
+- **Files modified**: `src/main.tsx`, `src/App.css`
 
 ### Notes for Future Development
 
