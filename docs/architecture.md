@@ -310,10 +310,11 @@ npm run build
 - **Resolution implemented**:
   1. Cleared `src/App.css` to eliminate conflicting base styles
   2. Created `src/styles/grid-fix.css` with explicit absolute paths to grid images
-  3. Added `!important` overrides to ensure pseudo-element renders correctly
-  4. Added global grid overlay to `main` element for subtle background pattern on all pages
-  5. Imported fix in `src/main.tsx`
-- **Result**: Grid patterns now visible on banner pages (About, Services, etc.) at 0.3 opacity, and subtle global grid (0.08-0.12 opacity) visible on all content areas including Home page
+  3. Added `!important` overrides for banner pseudo-elements to ensure correct rendering
+  4. Applied global grid overlay to `body::after` with proper z-index stacking (above body background, below all content)
+  5. Set `#root { z-index: 2 }` to ensure all React content layers above the grid
+  6. Imported fix in `src/main.tsx`
+- **Result**: Grid patterns now visible site-wide - banner pages (About, Services, etc.) at 0.3 opacity, and global grid overlay (0.15-0.20 opacity) visible across entire site matching live demo
 - **Files created**: `src/styles/grid-fix.css`
 - **Files modified**: `src/main.tsx`, `src/App.css`
 
