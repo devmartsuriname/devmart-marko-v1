@@ -275,6 +275,54 @@ const PartnershipPage = () => {
                         <p className="testimonial-description">"Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."</p>
                       </div>
                     </div>
+                    <div className="swiper-slide">
+                      <div className="card card-testimonial">
+                        <div className="stars">
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                        </div>
+                        <div className="d-flex flex-row align-items-center justify-content-between">
+                          <div className="d-flex flex-row gspace-2">
+                            <div className="testimonial-image">
+                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column">
+                              <span className="profile-name">Michael Chen</span>
+                              <p className="profile-info">Head of Digital Strategy</p>
+                            </div>
+                          </div>
+                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
+                        </div>
+                        <p className="testimonial-description">"Working with Marko was a game-changer for our brand. Their strategic approach to social media marketing increased our engagement by 250%."</p>
+                      </div>
+                    </div>
+                    <div className="swiper-slide">
+                      <div className="card card-testimonial">
+                        <div className="stars">
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                        </div>
+                        <div className="d-flex flex-row align-items-center justify-content-between">
+                          <div className="d-flex flex-row gspace-2">
+                            <div className="testimonial-image">
+                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column">
+                              <span className="profile-name">Rachel Adams</span>
+                              <p className="profile-info">VP of Sales</p>
+                            </div>
+                          </div>
+                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
+                        </div>
+                        <p className="testimonial-description">"The ROI we've seen from Marko's campaigns exceeded all expectations. They truly understand how to convert clicks into customers."</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
