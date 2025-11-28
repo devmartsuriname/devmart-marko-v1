@@ -1,0 +1,1108 @@
+{
+  "metadata": {
+    "date": "2025-11-28",
+    "scope": "HomePage and AboutPage content fields only",
+    "purpose": "Character-limit-preserving content swap preparation",
+    "notes": "All maxChars values are set to currentText character count to preserve layout integrity"
+  },
+  "pages": [
+    {
+      "pageId": "home",
+      "filePath": "src/pages/HomePage.tsx",
+      "sections": [
+        {
+          "sectionId": "hero",
+          "description": "Hero banner with video background",
+          "entries": [
+            {
+              "key": "hero.title",
+              "type": "h1",
+              "currentText": "Build Powerful Digital Solutions That Drive Results",
+              "charCount": 56,
+              "maxChars": 56
+            },
+            {
+              "key": "hero.videoCaption",
+              "type": "paragraph",
+              "currentText": "See how organizations across Suriname achieve digital transformation with Devmart's proven solutions.",
+              "charCount": 113,
+              "maxChars": 113
+            },
+            {
+              "key": "hero.description",
+              "type": "paragraph",
+              "currentText": "Devmart empowers businesses and government with modern web apps, AI-powered tools, and enterprise-grade systems built in Suriname.",
+              "charCount": 140,
+              "maxChars": 140
+            },
+            {
+              "key": "hero.ctaButton",
+              "type": "button",
+              "currentText": "Book a Strategy Call",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "hero.reviewsLabel",
+              "type": "text",
+              "currentText": "2.7k Positive",
+              "charCount": 13,
+              "maxChars": 13
+            },
+            {
+              "key": "hero.reviewsText",
+              "type": "text",
+              "currentText": "Reviews",
+              "charCount": 7,
+              "maxChars": 7
+            }
+          ]
+        },
+        {
+          "sectionId": "expertise",
+          "description": "Expertise section with image and counter card",
+          "entries": [
+            {
+              "key": "expertise.subHeading",
+              "type": "text",
+              "currentText": "Our Expertise",
+              "charCount": 13,
+              "maxChars": 13
+            },
+            {
+              "key": "expertise.title",
+              "type": "h2",
+              "currentText": "Reliable Digital Products, Measurable Impact",
+              "charCount": 48,
+              "maxChars": 48
+            },
+            {
+              "key": "expertise.description",
+              "type": "paragraph",
+              "currentText": "At Devmart, we specialize in building robust web applications, government portals, and AI-powered systems. Our expertise ensures your digital presence is modern, secure, and scalable.",
+              "charCount": 190,
+              "maxChars": 190
+            },
+            {
+              "key": "expertise.cardTitle",
+              "type": "h4",
+              "currentText": "Ready to Elevate Your Digital Presence?",
+              "charCount": 42,
+              "maxChars": 42
+            },
+            {
+              "key": "expertise.cardDescription",
+              "type": "paragraph",
+              "currentText": "Let's create a custom strategy that fits your business goals.",
+              "charCount": 61,
+              "maxChars": 61
+            },
+            {
+              "key": "expertise.cardLink",
+              "type": "link",
+              "currentText": "Get Free Consultation",
+              "charCount": 21,
+              "maxChars": 21
+            },
+            {
+              "key": "expertise.listTitle",
+              "type": "h5",
+              "currentText": "What We Do Best",
+              "charCount": 15,
+              "maxChars": 15
+            },
+            {
+              "key": "expertise.list1",
+              "type": "link",
+              "currentText": "Web Development (React/Supabase)",
+              "charCount": 33,
+              "maxChars": 33
+            },
+            {
+              "key": "expertise.list2",
+              "type": "link",
+              "currentText": "Government & Enterprise Portals",
+              "charCount": 31,
+              "maxChars": 31
+            },
+            {
+              "key": "expertise.list3",
+              "type": "link",
+              "currentText": "Custom SaaS Platforms",
+              "charCount": 21,
+              "maxChars": 21
+            },
+            {
+              "key": "expertise.list4",
+              "type": "link",
+              "currentText": "AI-Assisted Automation",
+              "charCount": 22,
+              "maxChars": 22
+            },
+            {
+              "key": "expertise.list5",
+              "type": "link",
+              "currentText": "Ongoing Support & Maintenance",
+              "charCount": 29,
+              "maxChars": 29
+            },
+            {
+              "key": "expertise.list6",
+              "type": "link",
+              "currentText": "UX/UI Design",
+              "charCount": 12,
+              "maxChars": 12
+            },
+            {
+              "key": "expertise.counterLabel",
+              "type": "h6",
+              "currentText": "Years Building Digital Solutions in Suriname",
+              "charCount": 44,
+              "maxChars": 44
+            },
+            {
+              "key": "expertise.counterDescription",
+              "type": "paragraph",
+              "currentText": "Over two decades of building reliable web applications, government portals, and enterprise systems that transform how organizations operate in Suriname and beyond.",
+              "charCount": 172,
+              "maxChars": 172
+            }
+          ]
+        },
+        {
+          "sectionId": "partner",
+          "description": "Partner slider section with client logos",
+          "entries": [
+            {
+              "key": "partner.title",
+              "type": "h3",
+              "currentText": "Trusted by Organizations Across Suriname",
+              "charCount": 42,
+              "maxChars": 42
+            },
+            {
+              "key": "partner.description",
+              "type": "paragraph",
+              "currentText": "From government ministries to private enterprises, leading organizations rely on Devmart to deliver secure, scalable digital solutions that drive efficiency and modernize their operations.",
+              "charCount": 189,
+              "maxChars": 189
+            }
+          ]
+        },
+        {
+          "sectionId": "whyChooseUs",
+          "description": "Why Choose Us section with 3 value cards",
+          "entries": [
+            {
+              "key": "whyChooseUs.subHeading",
+              "type": "text",
+              "currentText": "Why Choose Devmart",
+              "charCount": 18,
+              "maxChars": 18
+            },
+            {
+              "key": "whyChooseUs.title",
+              "type": "h2",
+              "currentText": "Your Digital Future is Our Priority",
+              "charCount": 37,
+              "maxChars": 37
+            },
+            {
+              "key": "whyChooseUs.description",
+              "type": "paragraph",
+              "currentText": "In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just build applications—we craft solutions that deliver measurable impact.",
+              "charCount": 195,
+              "maxChars": 195
+            },
+            {
+              "key": "whyChooseUs.card1Title",
+              "type": "h4",
+              "currentText": "Reliable Long-Term Partnerships",
+              "charCount": 31,
+              "maxChars": 31
+            },
+            {
+              "key": "whyChooseUs.card1Description",
+              "type": "paragraph",
+              "currentText": "We build lasting relationships with our clients, providing continuous support and maintenance to ensure long-term success for your digital products.",
+              "charCount": 153,
+              "maxChars": 153
+            },
+            {
+              "key": "whyChooseUs.card2Title",
+              "type": "h4",
+              "currentText": "Government-Grade Quality",
+              "charCount": 24,
+              "maxChars": 24
+            },
+            {
+              "key": "whyChooseUs.card2Description",
+              "type": "paragraph",
+              "currentText": "Our development practices meet the highest standards for security, documentation, and compliance, trusted by government and enterprise clients.",
+              "charCount": 146,
+              "maxChars": 146
+            },
+            {
+              "key": "whyChooseUs.card3Title",
+              "type": "h4",
+              "currentText": "AI-Powered Efficiency",
+              "charCount": 21,
+              "maxChars": 21
+            },
+            {
+              "key": "whyChooseUs.card3Description",
+              "type": "paragraph",
+              "currentText": "We leverage artificial intelligence and modern automation tools to deliver projects faster without compromising quality or user experience.",
+              "charCount": 145,
+              "maxChars": 145
+            },
+            {
+              "key": "whyChooseUs.ctaCardTitle",
+              "type": "h5",
+              "currentText": "Partner with Devmart and build your digital future.",
+              "charCount": 53,
+              "maxChars": 53
+            },
+            {
+              "key": "whyChooseUs.ctaCardLink",
+              "type": "link",
+              "currentText": "Let's Discuss Your Project",
+              "charCount": 26,
+              "maxChars": 26
+            }
+          ]
+        },
+        {
+          "sectionId": "guide",
+          "description": "Guide CTA banner with video button",
+          "entries": [
+            {
+              "key": "guide.videoCaption",
+              "type": "paragraph",
+              "currentText": "See How We Help Organizations Grow",
+              "charCount": 35,
+              "maxChars": 35
+            },
+            {
+              "key": "guide.title",
+              "type": "h3",
+              "currentText": "Transform Your Organization with Devmart",
+              "charCount": 41,
+              "maxChars": 41
+            },
+            {
+              "key": "guide.description",
+              "type": "paragraph",
+              "currentText": "Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together.",
+              "charCount": 148,
+              "maxChars": 148
+            }
+          ]
+        },
+        {
+          "sectionId": "services",
+          "description": "Service cards grid (6 services)",
+          "entries": [
+            {
+              "key": "services.subHeading",
+              "type": "text",
+              "currentText": "Our Core Services",
+              "charCount": 17,
+              "maxChars": 17
+            },
+            {
+              "key": "services.title",
+              "type": "h2",
+              "currentText": "Digital Solutions That Drive Real Results",
+              "charCount": 42,
+              "maxChars": 42
+            },
+            {
+              "key": "services.card1Title",
+              "type": "h4",
+              "currentText": "Custom Web Applications",
+              "charCount": 23,
+              "maxChars": 23
+            },
+            {
+              "key": "services.card1Description",
+              "type": "paragraph",
+              "currentText": "Modern web apps built with React and Supabase for scalability, real-time features, and seamless user experiences.",
+              "charCount": 115,
+              "maxChars": 115
+            },
+            {
+              "key": "services.card2Title",
+              "type": "h4",
+              "currentText": "Government Portals",
+              "charCount": 18,
+              "maxChars": 18
+            },
+            {
+              "key": "services.card2Description",
+              "type": "paragraph",
+              "currentText": "Secure citizen-facing portals for public services with authentication, document management, and compliance built-in.",
+              "charCount": 118,
+              "maxChars": 118
+            },
+            {
+              "key": "services.card3Title",
+              "type": "h4",
+              "currentText": "Enterprise Platforms",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "services.card3Description",
+              "type": "paragraph",
+              "currentText": "Internal systems for businesses to manage operations, inventory, HR, CRM, and workflows efficiently and securely.",
+              "charCount": 115,
+              "maxChars": 115
+            },
+            {
+              "key": "services.card4Title",
+              "type": "h4",
+              "currentText": "AI & Automation",
+              "charCount": 15,
+              "maxChars": 15
+            },
+            {
+              "key": "services.card4Description",
+              "type": "paragraph",
+              "currentText": "Intelligent tools using AI to automate workflows, analyze data, and optimize business processes for faster decisions.",
+              "charCount": 120,
+              "maxChars": 120
+            },
+            {
+              "key": "services.card5Title",
+              "type": "h4",
+              "currentText": "Support & Maintenance",
+              "charCount": 21,
+              "maxChars": 21
+            },
+            {
+              "key": "services.card5Description",
+              "type": "paragraph",
+              "currentText": "Continuous updates, bug fixes, security patches, and feature enhancements to keep your systems running smoothly.",
+              "charCount": 115,
+              "maxChars": 115
+            },
+            {
+              "key": "services.card6Title",
+              "type": "h4",
+              "currentText": "UX/UI Design",
+              "charCount": 12,
+              "maxChars": 12
+            },
+            {
+              "key": "services.card6Description",
+              "type": "paragraph",
+              "currentText": "User-centered design focused on accessibility, mobile responsiveness, and intuitive interfaces for all stakeholders.",
+              "charCount": 118,
+              "maxChars": 118
+            }
+          ]
+        },
+        {
+          "sectionId": "caseStudies",
+          "description": "Case studies section with 4 project blocks",
+          "entries": [
+            {
+              "key": "caseStudies.subHeading",
+              "type": "text",
+              "currentText": "Case Studies",
+              "charCount": 12,
+              "maxChars": 12
+            },
+            {
+              "key": "caseStudies.title",
+              "type": "h2",
+              "currentText": "See How We Help Businesses Thrive",
+              "charCount": 34,
+              "maxChars": 34
+            },
+            {
+              "key": "caseStudies.description",
+              "type": "paragraph",
+              "currentText": "We don't just talk about results—we deliver them. Here are some of our most impactful case studies showcasing how our digital solutions drive success.",
+              "charCount": 151,
+              "maxChars": 151
+            },
+            {
+              "key": "caseStudies.linkText",
+              "type": "link",
+              "currentText": "More Case Studies",
+              "charCount": 17,
+              "maxChars": 17
+            },
+            {
+              "key": "caseStudies.case1Title",
+              "type": "h4",
+              "currentText": "Government Portal Implementation",
+              "charCount": 32,
+              "maxChars": 32
+            },
+            {
+              "key": "caseStudies.case1Description",
+              "type": "paragraph",
+              "currentText": "10x faster citizen services & 95% reduction in manual processing for government ministry applications.",
+              "charCount": 108,
+              "maxChars": 108
+            },
+            {
+              "key": "caseStudies.case2Title",
+              "type": "h4",
+              "currentText": "Enterprise Resource Management",
+              "charCount": 30,
+              "maxChars": 30
+            },
+            {
+              "key": "caseStudies.case2Description",
+              "type": "paragraph",
+              "currentText": "150% increase in operational efficiency & 70% reduction in administrative overhead costs.",
+              "charCount": 95,
+              "maxChars": 95
+            },
+            {
+              "key": "caseStudies.case3Title",
+              "type": "h4",
+              "currentText": "Custom SaaS Platform Launch",
+              "charCount": 27,
+              "maxChars": 27
+            },
+            {
+              "key": "caseStudies.case3Description",
+              "type": "paragraph",
+              "currentText": "3x increase in user adoption & 2x revenue growth in 6 months through modern web platform.",
+              "charCount": 96,
+              "maxChars": 96
+            },
+            {
+              "key": "caseStudies.case4Title",
+              "type": "h4",
+              "currentText": "AI-Powered Process Automation",
+              "charCount": 29,
+              "maxChars": 29
+            },
+            {
+              "key": "caseStudies.case4Description",
+              "type": "paragraph",
+              "currentText": "200% increase in data processing speed & 60% reduction in manual errors through AI implementation.",
+              "charCount": 104,
+              "maxChars": 104
+            }
+          ]
+        },
+        {
+          "sectionId": "testimonials",
+          "description": "Testimonial slider section",
+          "entries": [
+            {
+              "key": "testimonials.subHeading",
+              "type": "text",
+              "currentText": "What Our Client Says",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "testimonials.title",
+              "type": "h2",
+              "currentText": "Hear from Our Satisfied Clients, Real Success Stories",
+              "charCount": 54,
+              "maxChars": 54
+            },
+            {
+              "key": "testimonials.description",
+              "type": "paragraph",
+              "currentText": "Discover how businesses like yours achieved outstanding growth with Devmart's expert web development solutions.",
+              "charCount": 115,
+              "maxChars": 115
+            },
+            {
+              "key": "testimonials.reviewsLabel",
+              "type": "text",
+              "currentText": "2.7k Positive",
+              "charCount": 13,
+              "maxChars": 13
+            },
+            {
+              "key": "testimonials.reviewsText",
+              "type": "text",
+              "currentText": "Reviews",
+              "charCount": 7,
+              "maxChars": 7
+            }
+          ]
+        },
+        {
+          "sectionId": "digitalProcess",
+          "description": "Digital process steps (4 steps)",
+          "entries": [
+            {
+              "key": "digitalProcess.subHeading",
+              "type": "text",
+              "currentText": "How it Work",
+              "charCount": 11,
+              "maxChars": 11
+            },
+            {
+              "key": "digitalProcess.title",
+              "type": "h2",
+              "currentText": "Simple Steps to Digital Success",
+              "charCount": 32,
+              "maxChars": 32
+            },
+            {
+              "key": "digitalProcess.description",
+              "type": "paragraph",
+              "currentText": "Our streamlined process ensures your digital growth is seamless and effective. From discovery to deployment, we're with you every step of the way.",
+              "charCount": 147,
+              "maxChars": 147
+            },
+            {
+              "key": "digitalProcess.linkText",
+              "type": "link",
+              "currentText": "Get Started Now",
+              "charCount": 15,
+              "maxChars": 15
+            },
+            {
+              "key": "digitalProcess.step1Title",
+              "type": "h5",
+              "currentText": "Discovery & Consult",
+              "charCount": 19,
+              "maxChars": 19
+            },
+            {
+              "key": "digitalProcess.step1Description",
+              "type": "paragraph",
+              "currentText": "We analyze your needs, goals, and existing systems to design the perfect technical solution tailored to you.",
+              "charCount": 111,
+              "maxChars": 111
+            },
+            {
+              "key": "digitalProcess.step2Title",
+              "type": "h5",
+              "currentText": "Strategy & Planning",
+              "charCount": 19,
+              "maxChars": 19
+            },
+            {
+              "key": "digitalProcess.step2Description",
+              "type": "paragraph",
+              "currentText": "Detailed roadmap with milestones, tech stack, UX mockups, and clear timelines for delivery and deployment.",
+              "charCount": 109,
+              "maxChars": 109
+            },
+            {
+              "key": "digitalProcess.step3Title",
+              "type": "h5",
+              "currentText": "Execution & Optimize",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "digitalProcess.step3Description",
+              "type": "paragraph",
+              "currentText": "Agile development with regular check-ins, testing, and iterations to ensure quality and meet requirements.",
+              "charCount": 108,
+              "maxChars": 108
+            },
+            {
+              "key": "digitalProcess.step4Title",
+              "type": "h5",
+              "currentText": "Launch & Support",
+              "charCount": 16,
+              "maxChars": 16
+            },
+            {
+              "key": "digitalProcess.step4Description",
+              "type": "paragraph",
+              "currentText": "Smooth deployment with user training, documentation, and ongoing maintenance to keep your system running.",
+              "charCount": 108,
+              "maxChars": 108
+            }
+          ]
+        },
+        {
+          "sectionId": "pricing",
+          "description": "Pricing plans section (3 pricing tiers)",
+          "entries": [
+            {
+              "key": "pricing.subHeading",
+              "type": "text",
+              "currentText": "Our Core Services",
+              "charCount": 17,
+              "maxChars": 17
+            },
+            {
+              "key": "pricing.title",
+              "type": "h2",
+              "currentText": "Flexible Pricing Plans for Every Business",
+              "charCount": 42,
+              "maxChars": 42
+            },
+            {
+              "key": "pricing.ctaCardTitle",
+              "type": "h3",
+              "currentText": "Let's Find the Right Strategy for You!",
+              "charCount": 39,
+              "maxChars": 39
+            },
+            {
+              "key": "pricing.ctaCardLink",
+              "type": "link",
+              "currentText": "Book a Free Consultation",
+              "charCount": 24,
+              "maxChars": 24
+            },
+            {
+              "key": "pricing.plan1Title",
+              "type": "h4",
+              "currentText": "Starter",
+              "charCount": 7,
+              "maxChars": 7
+            },
+            {
+              "key": "pricing.plan1Description",
+              "type": "paragraph",
+              "currentText": "Perfect for startups & small businesses",
+              "charCount": 39,
+              "maxChars": 39
+            },
+            {
+              "key": "pricing.plan1Price",
+              "type": "text",
+              "currentText": "$99",
+              "charCount": 3,
+              "maxChars": 3
+            },
+            {
+              "key": "pricing.plan2Title",
+              "type": "h4",
+              "currentText": "Enterprise",
+              "charCount": 10,
+              "maxChars": 10
+            },
+            {
+              "key": "pricing.plan2Description",
+              "type": "paragraph",
+              "currentText": "Full scale solutions for maximum impact",
+              "charCount": 39,
+              "maxChars": 39
+            },
+            {
+              "key": "pricing.plan2Price",
+              "type": "text",
+              "currentText": "$399",
+              "charCount": 4,
+              "maxChars": 4
+            },
+            {
+              "key": "pricing.plan3Title",
+              "type": "h4",
+              "currentText": "Growth",
+              "charCount": 6,
+              "maxChars": 6
+            },
+            {
+              "key": "pricing.plan3Description",
+              "type": "paragraph",
+              "currentText": "Best for growing businesses ready",
+              "charCount": 33,
+              "maxChars": 33
+            },
+            {
+              "key": "pricing.plan3Price",
+              "type": "text",
+              "currentText": "$299",
+              "charCount": 4,
+              "maxChars": 4
+            }
+          ]
+        },
+        {
+          "sectionId": "newsletter",
+          "description": "Newsletter subscription section",
+          "entries": [
+            {
+              "key": "newsletter.title",
+              "type": "h2",
+              "currentText": "Stay Updated with Devmart Insights",
+              "charCount": 35,
+              "maxChars": 35
+            },
+            {
+              "key": "newsletter.description",
+              "type": "paragraph",
+              "currentText": "Subscribe to get the latest news on tech trends, development tips, and product updates from our team.",
+              "charCount": 104,
+              "maxChars": 104
+            },
+            {
+              "key": "newsletter.placeholder",
+              "type": "input",
+              "currentText": "Enter your email address",
+              "charCount": 24,
+              "maxChars": 24
+            },
+            {
+              "key": "newsletter.buttonText",
+              "type": "button",
+              "currentText": "Subscribe Now",
+              "charCount": 13,
+              "maxChars": 13
+            }
+          ]
+        },
+        {
+          "sectionId": "blog",
+          "description": "Blog section with featured posts",
+          "entries": [
+            {
+              "key": "blog.subHeading",
+              "type": "text",
+              "currentText": "Insights & Trends",
+              "charCount": 17,
+              "maxChars": 17
+            },
+            {
+              "key": "blog.title",
+              "type": "h2",
+              "currentText": "Latest Tech Insights & Development Tips",
+              "charCount": 40,
+              "maxChars": 40
+            },
+            {
+              "key": "blog.description",
+              "type": "paragraph",
+              "currentText": "Stay ahead with articles on web development, AI tools, government tech, and Suriname's digital transformation.",
+              "charCount": 112,
+              "maxChars": 112
+            },
+            {
+              "key": "blog.linkText",
+              "type": "link",
+              "currentText": "View All Articles",
+              "charCount": 17,
+              "maxChars": 17
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "about",
+      "filePath": "src/pages/AboutPage.tsx",
+      "sections": [
+        {
+          "sectionId": "banner",
+          "description": "Page banner with title and breadcrumb",
+          "entries": [
+            {
+              "key": "banner.title",
+              "type": "h2",
+              "currentText": "About Devmart",
+              "charCount": 13,
+              "maxChars": 13
+            }
+          ]
+        },
+        {
+          "sectionId": "aboutIntro",
+          "description": "Main about introduction section",
+          "entries": [
+            {
+              "key": "aboutIntro.subHeading",
+              "type": "text",
+              "currentText": "About Us",
+              "charCount": 8,
+              "maxChars": 8
+            },
+            {
+              "key": "aboutIntro.title",
+              "type": "h2",
+              "currentText": "Who We Are & What Drives Us",
+              "charCount": 28,
+              "maxChars": 28
+            },
+            {
+              "key": "aboutIntro.description1",
+              "type": "paragraph",
+              "currentText": "At Devmart, we build digital products that transform how organizations operate. Based in Suriname, we serve government, enterprise, and ambitious businesses with modern web applications, portals, and AI-powered tools.",
+              "charCount": 223,
+              "maxChars": 223
+            },
+            {
+              "key": "aboutIntro.description2",
+              "type": "paragraph",
+              "currentText": "Get to know the passionate team behind the solutions, the values that guide us, and the mission that fuels our growth.",
+              "charCount": 119,
+              "maxChars": 119
+            },
+            {
+              "key": "aboutIntro.counterLabel",
+              "type": "h6",
+              "currentText": "Years Building Digital Solutions in Suriname",
+              "charCount": 44,
+              "maxChars": 44
+            },
+            {
+              "key": "aboutIntro.list1",
+              "type": "link",
+              "currentText": "Government Portals",
+              "charCount": 18,
+              "maxChars": 18
+            },
+            {
+              "key": "aboutIntro.list2",
+              "type": "link",
+              "currentText": "Enterprise Systems",
+              "charCount": 18,
+              "maxChars": 18
+            },
+            {
+              "key": "aboutIntro.list3",
+              "type": "link",
+              "currentText": "AI Automation",
+              "charCount": 13,
+              "maxChars": 13
+            },
+            {
+              "key": "aboutIntro.list4",
+              "type": "link",
+              "currentText": "Web Development",
+              "charCount": 15,
+              "maxChars": 15
+            },
+            {
+              "key": "aboutIntro.list5",
+              "type": "link",
+              "currentText": "UX/UI Design",
+              "charCount": 12,
+              "maxChars": 12
+            },
+            {
+              "key": "aboutIntro.list6",
+              "type": "link",
+              "currentText": "Support & Maintenance",
+              "charCount": 21,
+              "maxChars": 21
+            }
+          ]
+        },
+        {
+          "sectionId": "partner",
+          "description": "Partner slider section",
+          "entries": [
+            {
+              "key": "partner.title",
+              "type": "h3",
+              "currentText": "Trusted by Organizations Across Suriname",
+              "charCount": 42,
+              "maxChars": 42
+            },
+            {
+              "key": "partner.description",
+              "type": "paragraph",
+              "currentText": "From government ministries to private enterprises, leading organizations rely on Devmart to deliver secure, scalable digital solutions that drive efficiency and modernize their operations.",
+              "charCount": 189,
+              "maxChars": 189
+            }
+          ]
+        },
+        {
+          "sectionId": "coreValues",
+          "description": "Core values section with 3 value cards",
+          "entries": [
+            {
+              "key": "coreValues.subHeading",
+              "type": "text",
+              "currentText": "Our Core Values",
+              "charCount": 15,
+              "maxChars": 15
+            },
+            {
+              "key": "coreValues.title",
+              "type": "h2",
+              "currentText": "The Principles That Define Us",
+              "charCount": 30,
+              "maxChars": 30
+            },
+            {
+              "key": "coreValues.description",
+              "type": "paragraph",
+              "currentText": "In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just write code—we build reliable systems that deliver measurable impact for your organization.",
+              "charCount": 217,
+              "maxChars": 217
+            },
+            {
+              "key": "coreValues.card1Title",
+              "type": "h4",
+              "currentText": "Reliability & Trust",
+              "charCount": 19,
+              "maxChars": 19
+            },
+            {
+              "key": "coreValues.card1Description",
+              "type": "paragraph",
+              "currentText": "We build lasting partnerships with our clients, providing dependable solutions and continuous support for long-term success.",
+              "charCount": 128,
+              "maxChars": 128
+            },
+            {
+              "key": "coreValues.card2Title",
+              "type": "h4",
+              "currentText": "Partnership Approach",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "coreValues.card2Description",
+              "type": "paragraph",
+              "currentText": "We work closely with your team to ensure solutions align with your goals and organizational culture.",
+              "charCount": 103,
+              "maxChars": 103
+            },
+            {
+              "key": "coreValues.card3Title",
+              "type": "h4",
+              "currentText": "Quality & Documentation",
+              "charCount": 23,
+              "maxChars": 23
+            },
+            {
+              "key": "coreValues.card3Description",
+              "type": "paragraph",
+              "currentText": "Government-grade quality standards with comprehensive documentation and compliance for all projects.",
+              "charCount": 103,
+              "maxChars": 103
+            },
+            {
+              "key": "coreValues.ctaCardTitle",
+              "type": "h5",
+              "currentText": "Partner with Devmart and build your digital future.",
+              "charCount": 53,
+              "maxChars": 53
+            },
+            {
+              "key": "coreValues.ctaCardLink",
+              "type": "link",
+              "currentText": "Let's Discuss Your Project",
+              "charCount": 26,
+              "maxChars": 26
+            }
+          ]
+        },
+        {
+          "sectionId": "guide",
+          "description": "Guide CTA banner with video button",
+          "entries": [
+            {
+              "key": "guide.videoCaption",
+              "type": "paragraph",
+              "currentText": "See How We Help Organizations Grow",
+              "charCount": 35,
+              "maxChars": 35
+            },
+            {
+              "key": "guide.title",
+              "type": "h3",
+              "currentText": "Transform Your Organization with Devmart",
+              "charCount": 41,
+              "maxChars": 41
+            },
+            {
+              "key": "guide.description",
+              "type": "paragraph",
+              "currentText": "Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together.",
+              "charCount": 148,
+              "maxChars": 148
+            }
+          ]
+        },
+        {
+          "sectionId": "team",
+          "description": "Team members section with 6 member cards",
+          "entries": [
+            {
+              "key": "team.subHeading",
+              "type": "text",
+              "currentText": "Our Team",
+              "charCount": 8,
+              "maxChars": 8
+            },
+            {
+              "key": "team.title",
+              "type": "h2",
+              "currentText": "Meet the Minds Behind Your Digital Success",
+              "charCount": 43,
+              "maxChars": 43
+            }
+          ]
+        },
+        {
+          "sectionId": "digitalProcess",
+          "description": "Digital process steps",
+          "entries": [
+            {
+              "key": "digitalProcess.subHeading",
+              "type": "text",
+              "currentText": "How it Work",
+              "charCount": 11,
+              "maxChars": 11
+            },
+            {
+              "key": "digitalProcess.title",
+              "type": "h2",
+              "currentText": "Simple Steps to Digital Success",
+              "charCount": 32,
+              "maxChars": 32
+            },
+            {
+              "key": "digitalProcess.description",
+              "type": "paragraph",
+              "currentText": "Our streamlined process ensures your digital growth is seamless and effective. From discovery to deployment, we're with you every step of the way.",
+              "charCount": 147,
+              "maxChars": 147
+            },
+            {
+              "key": "digitalProcess.linkText",
+              "type": "link",
+              "currentText": "Get Started Now",
+              "charCount": 15,
+              "maxChars": 15
+            }
+          ]
+        },
+        {
+          "sectionId": "testimonials",
+          "description": "Testimonial slider section",
+          "entries": [
+            {
+              "key": "testimonials.subHeading",
+              "type": "text",
+              "currentText": "What Our Client Says",
+              "charCount": 20,
+              "maxChars": 20
+            },
+            {
+              "key": "testimonials.title",
+              "type": "h2",
+              "currentText": "Hear from Our Satisfied Clients, Real Success Stories",
+              "charCount": 54,
+              "maxChars": 54
+            },
+            {
+              "key": "testimonials.description",
+              "type": "paragraph",
+              "currentText": "Discover how businesses like yours achieved outstanding growth with Devmart's expert web development solutions.",
+              "charCount": 115,
+              "maxChars": 115
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
