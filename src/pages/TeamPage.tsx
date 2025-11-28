@@ -57,7 +57,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Jordan Lee</h4>
-                      <span className="title">Head of Creative</span>
+                      <span className="title">Lead Developer</span>
                     </div>
                   </div>
                 </div>
@@ -85,7 +85,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Chloe Tan</h4>
-                      <span className="title">Senior SEO Specialist</span>
+                      <span className="title">Project Manager</span>
                     </div>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Daniel Cruz</h4>
-                      <span className="title">Performance Marketing Lead</span>
+                      <span className="title">Technical Architect</span>
                     </div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Olivia Bennett</h4>
-                      <span className="title">Creative Director</span>
+                      <span className="title">UX/UI Designer</span>
                     </div>
                   </div>
                 </div>
@@ -169,7 +169,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Daniel White</h4>
-                      <span className="title">Client Success Manager</span>
+                      <span className="title">DevOps Engineer</span>
                     </div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const TeamPage = () => {
                     </div>
                     <div className="team-profile">
                       <h4>Chloe Ramirez</h4>
-                      <span className="title">Social Media Manager</span>
+                      <span className="title">Frontend Developer</span>
                     </div>
                   </div>
                 </div>
@@ -216,12 +216,12 @@ const TeamPage = () => {
             <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
               <div className="col">
                 <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
-                  <h3 className="title-heading">Powering Success for Top Brands</h3>
+                  <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
                 </div>
               </div>
               <div className="col">
                 <div className="d-flex flex-column ps-xl-3 ps-0">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis. Quisque eget tincidunt lectus. Sed quis diam sed neque mattis feugiat.</p>
+                  <p>We've partnered with government agencies, enterprises, and SMEs across Suriname to deliver secure, scalable digital solutions that drive real results and transform how organizations operate.</p>
                 </div>
               </div>
             </div>
@@ -292,8 +292,8 @@ const TeamPage = () => {
                 <p>See How We Help Brands Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <p>Elevate your digital infrastructure with cutting-edge web development and modern tech solutions. Let's build something exceptional together!</p>
               </div>
             </div>
           </div>
@@ -352,11 +352,11 @@ const TeamPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Social Media Growth</a>
+                        <a href="#">Web Development</a>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Performance Marketing</a>
+                        <a href="#">Enterprise Solutions</a>
                       </div>
                     </div>
                   </div>
@@ -370,7 +370,7 @@ const TeamPage = () => {
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how businesses like yours achieved outstanding growth with Marko's expert digital marketing solutions.</p>
+                    <p>Discover how organizations like yours achieved digital transformation with Devmart's expert development solutions.</p>
                   </div>
                 </div>
               </div>
@@ -400,7 +400,7 @@ const TeamPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."</p>
+                        <p className="testimonial-description">"Devmart completely transformed our digital infrastructure! Their development expertise helped us modernize operations and improve service delivery significantly."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -424,7 +424,7 @@ const TeamPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."</p>
+                        <p className="testimonial-description">"We've worked with many agencies before, but Devmart stands out. Their technical expertise and commitment to quality gave us a competitive advantage."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -448,7 +448,7 @@ const TeamPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"</p>
+                        <p className="testimonial-description">"From concept to deployment, Devmart delivered exceptional results. Our platform now handles complex operations smoothly and our users love it!"</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -472,7 +472,7 @@ const TeamPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."</p>
+                        <p className="testimonial-description">"Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us build a reliable digital foundation for growth."</p>
                       </div>
                     </div>
                   </div>

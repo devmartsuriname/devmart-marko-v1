@@ -45,8 +45,8 @@ const PricingPage = () => {
                     </div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Starter</h4>
-                    <p>Perfect for startups & small businesses</p>
+                  <h4>Starter Website</h4>
+                  <p>Perfect for small businesses & startups</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$99</h3>
                       <p>/Month</p>
@@ -60,9 +60,9 @@ const PricingPage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/single-service">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/single-service">Social Media Management (1 Platform)</Link></li>
-                      <li><Link to="/single-service">Monthly Performance Report</Link></li>
+                      <li><Link to="/single-service">Modern Tech Stack (React + Supabase)</Link></li>
+                      <li><Link to="/single-service">Responsive Design</Link></li>
+                      <li><Link to="/single-service">Basic Maintenance & Support</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -70,8 +70,8 @@ const PricingPage = () => {
               <div className="col">
                 <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
                   <div className="spacer"></div>
-                  <h4>Enterprise</h4>
-                  <p>Full scale marketing for maximum impact</p>
+                  <h4>Government/Enterprise</h4>
+                  <p>Large-scale systems for maximum impact</p>
                   <div className="d-flex flex-row gspace-1 align-items-center">
                     <h3>$399</h3>
                     <p>/Month</p>
@@ -99,12 +99,12 @@ const PricingPage = () => {
                     </div>
                   </div>
                   <ul className="check-list">
-                    <li><a href="#">Complate Digital Marketing Suite</a></li>
-                    <li><a href="#">Paid Ads Management</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Email Marketing & Automation</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Weekly Performance insights</a></li>
+                    <li><a href="#">Complete Full-Stack Development</a></li>
+                    <li><a href="#">Advanced Security Features</a></li>
+                    <li><a href="#">Dedicated Project Manager</a></li>
+                    <li><a href="#">AI Integration & Automation</a></li>
+                    <li><a href="#">Priority Support 24/7</a></li>
+                    <li><a href="#">Weekly Progress Reports</a></li>
                   </ul>
                 </div>
               </div>
@@ -115,15 +115,15 @@ const PricingPage = () => {
                       <h5>Your Growth, Our Priority!</h5>
                       <div className="d-flex flex-column gspace-2">
                         <div className="pricing-highlights">
-                          <a href="#">Data-Driven Digital Marketing</a>
+                          <a href="#">Modern Tech Stack (React + Supabase)</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Proven Strategies for Higher</a>
+                          <a href="#">Government-Grade Security</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Scalable Solution for Every Business</a>
+                          <a href="#">Scalable Solutions for Every Organization</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                       </div>
@@ -131,8 +131,8 @@ const PricingPage = () => {
                     <div className="spacer"></div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Growth</h4>
-                    <p>Best for growing businesses ready</p>
+                  <h4>Business Platform</h4>
+                  <p>Best for growing organizations</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$299</h3>
                       <p>/Month</p>
@@ -146,8 +146,8 @@ const PricingPage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/single-service">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/single-service">Social Media Management (1 Platform)</Link></li>
+                      <li><Link to="/single-service">Full-Stack Web Development</Link></li>
+                      <li><Link to="/single-service">Database & API Integration</Link></li>
                       <li><Link to="/single-service">Monthly Performance Report</Link></li>
                     </ul>
                   </div>
@@ -175,7 +175,7 @@ const PricingPage = () => {
                 </div>
                 <div className="col">
                   <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
-                    <p>Our streamlined process ensures your digital growth is seamless and effective. ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis.</p>
+                    <p>Our streamlined development process ensures your digital solution is delivered on time and meets all requirements. We focus on quality, security, and scalability at every step.</p>
                     <div className="link-wrapper">
                       <Link to="/contact">Get Started Now</Link>
                       <i className="fa-solid fa-arrow-circle-right"></i>
@@ -195,8 +195,8 @@ const PricingPage = () => {
                           <span>01</span>
                         </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h5>Discovery & Consult</h5>
-                          <p>Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+                          <h5>Discovery & Requirements</h5>
+                          <p>We analyze your needs, define project scope, and establish clear technical requirements and timelines.</p>
                         </div>
                       </div>
                     </div>
@@ -211,8 +211,8 @@ const PricingPage = () => {
                             <span>02</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Strategy & Planning</h5>
-                            <p>Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+                            <h5>Architecture & Design</h5>
+                            <p>We design the system architecture, create wireframes, and plan the technical implementation strategy.</p>
                           </div>
                         </div>
                       </div>
@@ -228,8 +228,8 @@ const PricingPage = () => {
                             <span>03</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Execution & Optimize</h5>
-                            <p>Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+                            <h5>Development & Testing</h5>
+                            <p>Our developers build your solution using modern tech stacks while our QA team ensures quality and security.</p>
                           </div>
                         </div>
                       </div>
@@ -245,8 +245,8 @@ const PricingPage = () => {
                             <span>04</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Result & Growth</h5>
-                            <p>Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+                            <h5>Launch & Support</h5>
+                            <p>We deploy your solution, provide training, and offer ongoing maintenance and support to ensure success.</p>
                           </div>
                         </div>
                       </div>
@@ -276,8 +276,8 @@ const PricingPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Data-Driven Approach</h4>
-                    <p>Every decision is backed by real-time analytics for maximum impact lorem ipsum dolor sit  consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">Reliable Long-Term Partnerships</h4>
+                    <p>We build lasting relationships with our clients, offering consistent support and adapting solutions as your organization grows and evolves over time.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -295,8 +295,8 @@ const PricingPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Creative & Innovative</h4>
-                    <p>Cutting-edge marketing techniques to keep you ahead of the competition lorem ipsum dolor sit awsa consectetur adipiscing elit ut elit.</p>
+                    <h4 className="chooseus-title">Government-Grade Quality</h4>
+                    <p>Our solutions meet the highest security and accessibility standards, perfect for government agencies and enterprises that demand reliability.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -314,8 +314,8 @@ const PricingPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Transparent Reporting</h4>
-                    <p>Clear insights and performance tracking, so you always know your ROI lorem ipsum dolo consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">AI-Powered Efficiency</h4>
+                    <p>We leverage cutting-edge AI technologies to automate processes, improve decision-making, and deliver smarter solutions faster.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -342,7 +342,7 @@ const PricingPage = () => {
                       <div className="chooseus-cta-spacer"></div>    
                       <div className="chooseus-cta-spacer-wrapper">
                         <div className="card card-chooseus-cta animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                          <h5>Partner with Marko & take your brand to the next level.</h5>
+                          <h5>Partner with Devmart & take your organization to the next level.</h5>
                           <div className="link-wrapper">
                             <Link to="/contact">Let's Talk Strategy</Link>
                             <i className="fa-solid fa-circle-arrow-right"></i>
