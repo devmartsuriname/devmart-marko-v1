@@ -14,27 +14,6 @@
   opacity: 1 !important;
 }
 
-/* Fix for banner pages (About, Services, etc.) - uses vertical line pattern */
-.banner-layout-wrapper::before {
-  background-image: url('https://pai.nomadenstudio.com/marko/wp-content/uploads/sites/10/2025/03/Line-Background-4.png') !important;
-  content: '' !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  opacity: 0.5 !important;
-  z-index: -1 !important;
-  background-repeat: repeat-x !important;
-  background-size: auto 100% !important;
-  background-position: center top !important;
-}
-
-/* Light mode - same pattern, slightly higher opacity */
-body.lightmode .banner-layout-wrapper::before {
-  opacity: 0.6 !important;
-}
-
 /* Global grid pattern overlay for entire site */
 body {
   position: relative;
