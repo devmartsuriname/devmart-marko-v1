@@ -320,7 +320,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"The ROI we've seen from Marko's campaigns exceeded all expectations. They truly understand how to convert clicks into customers."</p>
+                        <p className="testimonial-description">"The results we've achieved with Devmart's solutions exceeded all expectations. They truly understand how to deliver technology that drives business success."</p>
                       </div>
                     </div>
                   </div>
