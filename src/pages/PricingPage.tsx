@@ -259,55 +259,97 @@ const PricingPage = () => {
         </div>
       </div>
 
-      {/* Section Why Choose */}
+      {/* Section Why Choose Us */}
       <div className="section">
         <div className="hero-container">
-          <div className="d-flex flex-column gspace-5">
-            <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5">
-              <div className="col">
-                <div className="d-flex flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInLeft">
-                  <div className="sub-heading">
-                    <i className="fa-regular fa-circle-dot"></i>
-                    <span>Why Choose Us</span>
+          <div className="d-flex flex-column flex-xl-row gspace-5">
+            <div className="chooseus-card-container">
+              <div className="d-flex flex-column gspace-2">
+                <div className="card card-chooseus animate-box animated fast animate__animated" data-animate="animate__fadeInLeft">
+                  <div className="chooseus-icon-wrapper">
+                    <div className="chooseus-spacer above"></div>
+                    <div className="chooseus-icon-layout">
+                      <div className="chooseus-icon">
+                        <img src="/marko-digital-marketing-agency-html/image/Icon-2.png" alt="Why Choose Us Icon" className="img-fluid" />
+                      </div>
+                    </div>
+                    <div className="chooseus-spacer below"></div>
                   </div>
-                  <h2 className="title-heading">We're Built on Trust and Results</h2>
+                  <div className="chooseus-content">
+                    <h4 className="chooseus-title">Data-Driven Approach</h4>
+                    <p>Every decision is backed by real-time analytics for maximum impact lorem ipsum dolor sit  consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <div className="link-wrapper">
+                      <a href="#">Read More</a>
+                      <i className="fa-solid fa-arrow-circle-right accent-color"></i>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="col">
-                <div className="d-flex flex-column h-100 justify-content-end gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                  <p>We're not just a service provider, we're your partner in growth. When you choose Marko, you're choosing transparency, expertise, and a genuine commitment to help your business succeed.</p>
-                  <div className="link-wrapper">
-                    <Link to="/contact">Partner with Us</Link>
-                    <i className="fa-solid fa-arrow-circle-right"></i>
+                <div className="card card-chooseus  animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                  <div className="chooseus-icon-wrapper">
+                    <div className="chooseus-spacer above"></div>
+                    <div className="chooseus-icon-layout">
+                      <div className="chooseus-icon">
+                        <img src="/marko-digital-marketing-agency-html/image/icon-1.png" alt="Why Choose Us Icon" className="img-fluid" />
+                      </div>
+                    </div>
+                    <div className="chooseus-spacer below"></div>
+                  </div>
+                  <div className="chooseus-content">
+                    <h4 className="chooseus-title">Creative & Innovative</h4>
+                    <p>Cutting-edge marketing techniques to keep you ahead of the competition lorem ipsum dolor sit awsa consectetur adipiscing elit ut elit.</p>
+                    <div className="link-wrapper">
+                      <a href="#">Read More</a>
+                      <i className="fa-solid fa-arrow-circle-right accent-color"></i>
+                    </div>
+                  </div>
+                </div>
+                <div className="card card-chooseus  animate-box animated slow animate__animated" data-animate="animate__fadeInLeft">
+                  <div className="chooseus-icon-wrapper">
+                    <div className="chooseus-spacer above"></div>
+                    <div className="chooseus-icon-layout">
+                      <div className="chooseus-icon">
+                        <img src="/marko-digital-marketing-agency-html/image/Icon-3.png" alt="Why Choose Us Icon" className="img-fluid" />
+                      </div>
+                    </div>
+                    <div className="chooseus-spacer below"></div>
+                  </div>
+                  <div className="chooseus-content">
+                    <h4 className="chooseus-title">Transparent Reporting</h4>
+                    <p>Clear insights and performance tracking, so you always know your ROI lorem ipsum dolo consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <div className="link-wrapper">
+                      <a href="#">Read More</a>
+                      <i className="fa-solid fa-arrow-circle-right accent-color"></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-3">
-              <div className="col">
-                <div className="card card-core-values animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                  <img src="/marko-digital-marketing-agency-html/image/Icon-2.png" alt="Icon" className="icon" />
-                  <div className="d-flex flex-column gspace-1">
-                    <h5>Data-Driven Approach</h5>
-                    <p>Every decision we make is backed by analytics, ensuring strategies that work.</p>
+            <div className="chooseus-content-container">
+              <div className="d-flex flex-column gspace-5">
+                <div className="d-flex flex-column gspace-2">
+                  <div className="sub-heading  animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                    <i className="fa-regular fa-circle-dot"></i>
+                    <span>Why Choose Marko</span>
                   </div>
+                  <h2 className="title-heading  animate-box animated animate__animated" data-animate="animate__fadeInDown">Your Success is Our Mission</h2>
+                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right marketing partner makes all the difference. At Marko, we don't just create campaigns—we craft strategies that deliver measurable success.</p>
                 </div>
-              </div>
-              <div className="col">
-                <div className="card card-core-values animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                  <img src="/marko-digital-marketing-agency-html/image/Icon-3.png" alt="Icon" className="icon" />
-                  <div className="d-flex flex-column gspace-1">
-                    <h5>Creativity Meets Strategy</h5>
-                    <p>Bold ideas executed with precision, helping your brand stand out online.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card card-core-values animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                  <img src="/marko-digital-marketing-agency-html/image/Icon-4.png" alt="Icon" className="icon" />
-                  <div className="d-flex flex-column gspace-1">
-                    <h5>Transparent Reporting</h5>
-                    <p>You'll always know what's working. We keep you informed with clear, actionable insights.</p>
+                <div className="image-container">
+                  <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Why Choose Us Image" className="chooseus-img" />
+                  <div className="card-chooseus-cta-layout">
+                    <div className="chooseus-cta-spacer"></div>
+                    <div className="d-flex flex-column align-items-end">
+                      <div className="chooseus-cta-spacer"></div>    
+                      <div className="chooseus-cta-spacer-wrapper">
+                        <div className="card card-chooseus-cta animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                          <h5>Partner with Marko & take your brand to the next level.</h5>
+                          <div className="link-wrapper">
+                            <Link to="/contact">Let's Talk Strategy</Link>
+                            <i className="fa-solid fa-circle-arrow-right"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
