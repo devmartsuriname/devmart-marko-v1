@@ -43,7 +43,7 @@ const Header = () => {
           <div className="navbar-container">
             <div className="logo-container">
               <Link className="navbar-brand" to="/">
-                <img src="/marko-digital-marketing-agency-html/image/marko-logo.png" className="site-logo img-fluid" alt="Marko Logo" />
+                <img src="/marko-digital-marketing-agency-html/image/marko-logo.png" className="site-logo img-fluid" alt="Devmart Logo" />
               </Link>
             </div>
             <button className="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -104,7 +104,7 @@ const Header = () => {
                 <div className="icon-circle">
                   <i className="fa-solid fa-phone-volume"></i>
                 </div>
-                <h6>+1 (62) 987 7543</h6>
+                <h6>+597 854-1211</h6>
               </div>
             </div>
           </div>
