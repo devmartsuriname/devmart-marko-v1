@@ -32,7 +32,7 @@ const ContactPage = () => {
                     <span>Reach out to us</span>
                   </div>
                   <h2 className="title-heading">Get in Touch</h2>
-                  <p>Reach out to us for tailored digital solutions that drive results sollicitudin nec.</p>
+                  <p>Reach out to us for tailored web development solutions that deliver reliable results for your organization.</p>
                   <div className="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
                     <div>
                       <div className="icon-wrapper">
@@ -43,7 +43,7 @@ const ContactPage = () => {
                     </div>
                     <div className="d-grid">
                       <span>Phone Number</span>
-                      <h5>+1 (62) 987 7543</h5>
+                      <h5>+597 854-1211</h5>
                     </div>
                   </div>
                   <div className="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
@@ -56,7 +56,7 @@ const ContactPage = () => {
                     </div>
                     <div className="d-grid">
                       <span>Email Address</span>
-                      <h5>hello@markoagency.com</h5>
+                      <h5>info@devmart.sr</h5>
                     </div>
                   </div>
                   <div className="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
@@ -69,7 +69,7 @@ const ContactPage = () => {
                     </div>
                     <div className="d-grid">
                       <span>Office Address</span>
-                      <h5>Marko HQ - 902 Digital Lane, San Francisco, CA 94110, USA</h5>
+                      <h5>Jagernath Lachmon straat nr. 152, Paramaribo, Suriname</h5>
                     </div>
                   </div>
                 </div>
@@ -128,8 +128,8 @@ const ContactPage = () => {
       <div className="section pt-0">
         <div className="hero-container">
           <iframe loading="lazy" className="maps overflow-hidden"
-            src="https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&amp;t=m&amp;z=14&amp;output=embed&amp;iwloc=near"
-            title="London Eye, London, United Kingdom" aria-label="London Eye, London, United Kingdom">
+            src="https://maps.google.com/maps?q=Jagernath+Lachmon+straat+nr.+152,+Paramaribo,+Suriname&amp;t=m&amp;z=15&amp;output=embed&amp;iwloc=near"
+            title="Devmart - Jagernath Lachmon straat nr. 152, Paramaribo, Suriname" aria-label="Devmart - Jagernath Lachmon straat nr. 152, Paramaribo, Suriname">
           </iframe>
         </div>
       </div>

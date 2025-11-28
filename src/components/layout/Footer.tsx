@@ -14,9 +14,9 @@ const Footer = () => {
                       <div className="logo-container-footer">
                         <img src="/marko-digital-marketing-agency-html/image/marko-logo.png" alt="Logo" className="site-logo img-fluid" />
                       </div>
-                      <h4>Driving Digital Growth with Innovation & Strategy</h4>
+                      <h4>Delivering Reliable Web Solutions with Innovation & Precision</h4>
                       <p>
-                        Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.
+                        Devmart specializes in building custom web applications, government portals, enterprise systems, and AI-powered tools. Based in Suriname, we deliver excellence across the Caribbean and beyond.
                       </p>
                     </div>
                   </div>
@@ -37,12 +37,12 @@ const Footer = () => {
                     <div className="footer-services-container">
                       <h5>Services</h5>
                       <ul className="footer-list">
-                        <li><Link to="/services/social-media">Social Media Marketing</Link></li>
-                        <li><Link to="/services/seo">SEO Optimization</Link></li>
-                        <li><Link to="/services/ppc">PPC Advertising</Link></li>
-                        <li><Link to="/services/content">Content Marketing</Link></li>
-                        <li><Link to="/services/branding">Branding Strategy</Link></li>
-                        <li><Link to="/services/email">Email Marketing</Link></li>
+                        <li><Link to="/services/web-development">Web Development</Link></li>
+                        <li><Link to="/services/government-portals">Government Portals</Link></li>
+                        <li><Link to="/services/enterprise-systems">Enterprise Systems</Link></li>
+                        <li><Link to="/services/mobile-apps">Mobile Applications</Link></li>
+                        <li><Link to="/services/ai-tools">AI-Powered Tools</Link></li>
+                        <li><Link to="/services/cloud-solutions">Cloud Solutions</Link></li>
                       </ul>
                     </div>
                   </div>
@@ -50,15 +50,15 @@ const Footer = () => {
                     <div className="footer-contact-container">
                       <h5>Contact Info</h5>
                       <ul className="contact-list">
-                        <li>hello@markoagency.com</li>
-                        <li>+1 234 567 890</li>
-                        <li>123 Digital Street, New York, USA</li>
+                        <li>info@devmart.sr</li>
+                        <li>+597 854-1211</li>
+                        <li>Jagernath Lachmon straat nr. 152, Paramaribo, Suriname</li>
                       </ul>
                       <div className="d-flex flex-column gspace-1">
                         <h5>Social Media</h5>
                         <div className="social-container">
                           <div className="social-item-wrapper">
-                            <a href="https://facebook.com" className="social-item">
+                            <a href="https://www.facebook.com/DevmartSuriname/" className="social-item" target="_blank" rel="noopener noreferrer">
                               <i className="fa-brands fa-facebook"></i>
                             </a>
                           </div>
@@ -85,7 +85,7 @@ const Footer = () => {
                 <div className="footer-content-spacer"></div>
               </div>
               <div className="copyright-container">
-                <span className="copyright">© 2025 Marko. Fox Creation All Rights Reserved.</span>
+                <span className="copyright">© 2025 Devmart Suriname. All Rights Reserved.</span>
                 <div className="d-flex flex-row gspace-2">
                   <a href="#" className="legal-link">Terms of Service</a>
                   <a href="#" className="legal-link">Privacy Policy</a>

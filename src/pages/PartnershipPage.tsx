@@ -92,8 +92,8 @@ const PartnershipPage = () => {
                 <p>See How We Help Brands Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart!</h3>
+                <p>Take your digital presence to the next level with reliable web solutions and innovative technology. Let's build something exceptional together!</p>
               </div>
             </div>
           </div>
@@ -152,11 +152,11 @@ const PartnershipPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Social Media Growth</a>
+                        <a href="#">Web Development</a>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Performance Marketing</a>
+                        <a href="#">Enterprise Solutions</a>
                       </div>
                     </div>
                   </div>
@@ -170,7 +170,7 @@ const PartnershipPage = () => {
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how businesses like yours achieved outstanding growth with Marko's expert digital marketing solutions.</p>
+                    <p>Discover how organizations like yours achieved outstanding results with Devmart's expert development solutions.</p>
                   </div>
                 </div>
               </div>
@@ -200,7 +200,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."</p>
+                        <p className="testimonial-description">"Devmart built our custom portal from the ground up. Their technical expertise and attention to detail exceeded all expectations."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -224,7 +224,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."</p>
+                        <p className="testimonial-description">"We've worked with many developers before, but Devmart stands out. Their systematic approach and technical expertise delivered exactly what we needed."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -248,7 +248,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"</p>
+                        <p className="testimonial-description">"From planning to deployment, Devmart handled every aspect of our web application. Performance is excellent and the system runs flawlessly."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -272,7 +272,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."</p>
+                        <p className="testimonial-description">"Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us modernize our entire infrastructure."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -296,7 +296,7 @@ const PartnershipPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Working with Marko was a game-changer for our brand. Their strategic approach to social media marketing increased our engagement by 250%."</p>
+                        <p className="testimonial-description">"Working with Devmart was a game-changer for our organization. Their strategic approach to system architecture improved our operational efficiency significantly."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
