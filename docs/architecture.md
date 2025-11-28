@@ -215,6 +215,36 @@ npm run build
 - All assets bundled and optimized
 - No server-side rendering required
 
+### Production Asset Deployment
+
+**Issue:** Template assets must be accessible in production builds, not just development.
+
+**Solution:** All template assets moved from `marko-digital-marketing-agency-html/` to `public/marko-digital-marketing-agency-html/`
+
+**Why This Works:**
+- Vite's build process automatically copies everything in `/public` to the `dist/` folder root
+- Absolute paths like `/marko-digital-marketing-agency-html/css/style.css` resolve correctly in both dev and production
+- CSS relative paths for webfonts (e.g., `url(../webfonts/fa-solid-900.woff2)`) continue to work because folder structure is preserved exactly
+- No code changes required in `index.html`, React components, or CSS files
+
+**Assets Moved:**
+- ✅ CSS files: `style.css` + all vendor CSS (Bootstrap, FontAwesome, Swiper, etc.)
+- ✅ JavaScript vendor files: `jquery.min.js`, `bootstrap.bundle.min.js`, `swiper-bundle.min.js`
+- ✅ Images: All 50+ PNG/JPG files (logos, icons, dummy images, grid patterns)
+- ✅ Webfonts: All Font Awesome TTF and WOFF2 files
+- ✅ SVG files: Theme switcher icons, decorative elements
+
+**Original Template Folder:**
+- `marko-digital-marketing-agency-html/` kept in project root as reference
+- Contains original HTML files for future page conversions
+- Not included in production build
+
+**Verification:**
+- ✅ Editor preview: All assets load correctly
+- ✅ Live URL preview: No 404 errors, all styles/scripts/images render
+- ✅ Production build: `npm run build` completes without errors
+- ✅ MIME types: CSS served as `text/css`, JS as `application/javascript`
+
 ### Next Phases (NOT IMPLEMENTED YET)
 
 **Phase 1B:** Content Swap
