@@ -101,7 +101,7 @@ const HomePage = () => {
                     </div>
                     <h6>Years Building Digital Solutions in Suriname</h6>
                   </div>
-                  <p>Lorem ipsum dolor sit amet consectetur adipiscing elit in ex ligula varius at rutrum et finibus sed felis qisque.</p>
+                  <p>Over two decades of building reliable web applications, government portals, and enterprise systems that transform how organizations operate in Suriname and beyond.</p>
                 </div>
               </div>
             </div>
@@ -127,14 +127,14 @@ const HomePage = () => {
             <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
               <div className="col">
                 <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
-                  <h3 className="title-heading">Powering Success for Top Brands</h3>
+                  <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
                 </div>
               </div>
               <div className="col">
                 <div className="d-flex flex-column ps-xl-3 ps-0">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis. 
-                    Quisque eget tincidunt lectus. Sed quis diam sed neque mattis feugiat.
+                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver secure, 
+                    scalable digital solutions that drive efficiency and modernize their operations.
                   </p>
                 </div>
               </div>
@@ -814,7 +814,7 @@ const HomePage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."
+                          "Devmart completely transformed our digital infrastructure! Their technical expertise and modern solutions helped us streamline operations and serve our customers better."
                         </p>
                       </div>
                     </div>
@@ -840,7 +840,7 @@ const HomePage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."
+                          "We've worked with many development teams before, but Devmart stands out. Their systematic approach and technical excellence gave us confidence throughout the project."
                         </p>
                       </div>
                     </div>                             
@@ -866,7 +866,7 @@ const HomePage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"
+                          "From design to deployment, Devmart delivered excellence at every stage. Our platform exceeded expectations, and user adoption has been phenomenal!"
                         </p>
                       </div>
                     </div>                                
@@ -892,7 +892,7 @@ const HomePage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."
+                          "Highly professional and results-oriented. Devmart's expertise in building scalable systems helped us establish a robust digital foundation for growth."
                         </p>
                       </div>
                     </div>         

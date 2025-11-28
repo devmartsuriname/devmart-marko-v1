@@ -35,7 +35,7 @@ const AboutPage = () => {
                           <span className="counter" data-target="21">0</span>
                           <span className="counter-detail">+</span>
                         </div>
-                        <h6>Years of Experience on Digital Marketing Services</h6>
+                        <h6>Years Building Digital Solutions in Suriname</h6>
                       </div>
                     </div>
                     <div className="about-spacer"></div>
@@ -83,14 +83,14 @@ const AboutPage = () => {
             <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
               <div className="col">
                 <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
-                  <h3 className="title-heading">Powering Success for Top Brands</h3>
+                  <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
                 </div>
               </div>
               <div className="col">
                 <div className="d-flex flex-column ps-xl-3 ps-0">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis. 
-                    Quisque eget tincidunt lectus. Sed quis diam sed neque mattis feugiat.
+                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver secure, 
+                    scalable digital solutions that drive efficiency and modernize their operations.
                   </p>
                 </div>
               </div>
@@ -281,7 +281,7 @@ const AboutPage = () => {
                     <span>Our Core Values</span>
                   </div>
                   <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">The Principles That Define Us</h2>
-                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right marketing partner makes all the difference. At Marko, we don't just create campaigns—we craft strategies that deliver measurable success.</p>
+                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just write code—we build reliable systems that deliver measurable impact for your organization.</p>
                 </div>
                 <div className="image-container">
                   <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Why Choose Us Image" className="chooseus-img" />
@@ -748,7 +748,7 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."
+                          "Devmart completely transformed our digital infrastructure! Their technical expertise and modern solutions helped us streamline operations and serve our customers better."
                         </p>
                       </div>
                     </div>
@@ -774,7 +774,7 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."
+                          "We've worked with many development teams before, but Devmart stands out. Their systematic approach and technical excellence gave us confidence throughout the project."
                         </p>
                       </div>
                     </div>
