@@ -459,7 +459,7 @@ const AboutPage = () => {
                 <div className="col">
                   <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
                     <p>
-                      Our streamlined process ensures your digital growth is seamless and effective. ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis.
+                      Our streamlined process ensures your digital transformation is seamless and effective. We guide you from initial concept through deployment and ongoing support.
                     </p>
                     <div className="link-wrapper">
                       <Link to="/contact">Get Started Now</Link>
@@ -480,9 +480,9 @@ const AboutPage = () => {
                           <span>01</span>
                         </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h5>Discovery & Consult</h5>
+                          <h5>Discovery & Requirements</h5>
                           <p>
-                            Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                            We understand your needs, gather requirements, and define project scope with clear deliverables and timelines.
                           </p>
                         </div>
                       </div>
@@ -498,9 +498,9 @@ const AboutPage = () => {
                             <span>02</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Strategy & Planning</h5>
+                            <h5>Architecture & Design</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We design the technical architecture, user interface, and database structure for optimal performance and scalability.
                             </p>
                           </div>
                         </div>
@@ -517,9 +517,9 @@ const AboutPage = () => {
                             <span>03</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Execution & Optimize</h5>
+                            <h5>Development & Testing</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We build your solution with clean code, rigorous testing, and quality assurance to ensure reliability and security.
                             </p>
                           </div>
                         </div>
@@ -536,9 +536,9 @@ const AboutPage = () => {
                             <span>04</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Result & Growth</h5>
+                            <h5>Launch & Support</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We deploy your application, provide training, and offer ongoing maintenance to ensure long-term success.
                             </p>
                           </div>
                         </div>
@@ -577,29 +577,29 @@ const AboutPage = () => {
                       <div className="testimonial-rating-container">
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
                           <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="90">0</span>
+                            <span className="counter" data-target="98">0</span>
                             <span className="counter-detail">%</span>
                           </div>
-                          <p>Improved Project</p>
+                          <p>On-Time Delivery</p>
                         </div>
                         <div className="underline-vertical"></div>
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
                           <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="49">0</span>
+                            <span className="counter" data-target="75">0</span>
                             <span className="counter-detail">%</span>
                           </div>
-                          <p>New Project</p>
+                          <p>Return Clients</p>
                         </div>
                       </div>
                     </div>
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Social Media Growth</a>
+                        <a href="#">Web Development</a>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Performance Marketing</a>
+                        <a href="#">Government Portals</a>
                       </div>
                     </div>
                   </div>
@@ -637,14 +637,14 @@ const AboutPage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">Emma Richard</span>
-                              <p className="profile-info">CEO Nexatech</p>
+                              <span className="profile-name">Sarah Williams</span>
+                              <p className="profile-info">IT Director, Regional Authority</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."
+                          "Devmart built our housing subsidy portal from the ground up. The system handles thousands of applications seamlessly, and our processing time was cut in half!"
                         </p>
                       </div>
                     </div>
@@ -663,14 +663,14 @@ const AboutPage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">David Mont</span>
-                              <p className="profile-info">Marketing Director</p>
+                              <span className="profile-name">Michael Chen</span>
+                              <p className="profile-info">Project Manager, Ministry</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."
+                          "We've worked with many developers, but Devmart stands out. Their technical expertise and reliability gave us confidence in delivering a mission-critical government system."
                         </p>
                       </div>
                     </div>
@@ -689,14 +689,14 @@ const AboutPage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">Sophia Lewis</span>
-                              <p className="profile-info">Founder</p>
+                              <span className="profile-name">Lisa Rodriguez</span>
+                              <p className="profile-info">CEO, Regional Enterprise</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"
+                          "From concept to deployment, Devmart delivered our enterprise platform on time and on budget. The ongoing support has been exceptional!"
                         </p>
                       </div>
                     </div>
@@ -715,14 +715,14 @@ const AboutPage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">James Peterson</span>
-                              <p className="profile-info">COO, BrightWave</p>
+                              <span className="profile-name">David Thompson</span>
+                              <p className="profile-info">Director, Public Services</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."
+                          "Highly professional and results-oriented. Devmart's expertise in building secure portals helped us modernize our operations and serve citizens better."
                         </p>
                       </div>
                     </div>
