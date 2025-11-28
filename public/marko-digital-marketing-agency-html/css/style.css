@@ -1117,6 +1117,9 @@ body.lightmode .keep-dark .btn-accent{
     height: 100%;
 }
 
+#banner-video-background iframe {
+    filter: hue-rotate(120deg);
+}
 
 .banner-video-content{
     display: flex;
