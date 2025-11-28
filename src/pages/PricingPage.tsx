@@ -329,10 +329,10 @@ const PricingPage = () => {
                 <div className="d-flex flex-column gspace-2">
                   <div className="sub-heading  animate-box animated animate__animated" data-animate="animate__fadeInDown">
                     <i className="fa-regular fa-circle-dot"></i>
-                    <span>Why Choose Marko</span>
+                    <span>Why Choose Devmart</span>
                   </div>
                   <h2 className="title-heading  animate-box animated animate__animated" data-animate="animate__fadeInDown">Your Success is Our Mission</h2>
-                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right marketing partner makes all the difference. At Marko, we don't just create campaigns—we craft strategies that deliver measurable success.</p>
+                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just write code—we build reliable systems that deliver measurable impact for your organization.</p>
                 </div>
                 <div className="image-container">
                   <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Why Choose Us Image" className="chooseus-img" />
