@@ -123,7 +123,7 @@ const HomePage = () => {
                 <span>Our Expertise</span>
               </div>
               <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                Reliable Digital Products, Measurable Impact
+                Reliable Products, Measurable Impact
               </h2>
               <p>
                 At Devmart, we specialize in building robust web applications, government portals, and AI-powered
