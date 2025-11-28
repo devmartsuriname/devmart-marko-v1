@@ -51,7 +51,7 @@ const PricingPage = () => {
                       <h3>$99</h3>
                       <p>/Month</p>
                     </div>
-                    <Link to="/single-service" className="btn btn-accent">
+                    <Link to="/contact" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -60,9 +60,9 @@ const PricingPage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/single-service">Modern Tech Stack (React + Supabase)</Link></li>
-                      <li><Link to="/single-service">Responsive Design</Link></li>
-                      <li><Link to="/single-service">Basic Maintenance & Support</Link></li>
+                      <li><Link to="/contact">Modern Tech Stack (React + Supabase)</Link></li>
+                      <li><Link to="/contact">Responsive Design</Link></li>
+                      <li><Link to="/contact">Basic Maintenance & Support</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ const PricingPage = () => {
                     <h3>$399</h3>
                     <p>/Month</p>
                   </div>
-                  <Link to="/single-service" className="btn btn-accent">
+                  <Link to="/contact" className="btn btn-accent">
                     <div className="btn-title">
                       <span>View Details</span>
                     </div>
@@ -137,7 +137,7 @@ const PricingPage = () => {
                       <h3>$299</h3>
                       <p>/Month</p>
                     </div>
-                    <Link to="/single-service" className="btn btn-accent">
+                    <Link to="/contact" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -146,9 +146,9 @@ const PricingPage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/single-service">Full-Stack Web Development</Link></li>
-                      <li><Link to="/single-service">Database & API Integration</Link></li>
-                      <li><Link to="/single-service">Monthly Performance Report</Link></li>
+                      <li><Link to="/contact">Full-Stack Web Development</Link></li>
+                      <li><Link to="/contact">Database & API Integration</Link></li>
+                      <li><Link to="/contact">Monthly Performance Report</Link></li>
                     </ul>
                   </div>
                 </div>
