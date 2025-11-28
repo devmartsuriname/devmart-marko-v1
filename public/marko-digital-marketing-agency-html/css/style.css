@@ -3509,7 +3509,7 @@ body.lightmode .newsletter-layout{
 .icon-circle {
     position: relative;
     background-color: var(--accent-color);
-    color: var(--primary);
+    color: #1F1F1F;
     font-size: var(--font-size-6xl);
     width: 59px;
     height: 59px;
