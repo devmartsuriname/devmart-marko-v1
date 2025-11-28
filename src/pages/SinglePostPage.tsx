@@ -37,7 +37,7 @@ const SinglePostPage = () => {
                         <i className="fa-solid fa-calendar accent-color"></i>
                         <span className="meta-data-post">April 14, 2025</span>
                       </div>
-                      <Link to="/single-post" className="blog-link-post">Mastering Instagram and Facebook Ads</Link>
+                      <Link to="/single-post" className="blog-link-post">How AI is Transforming Government Services</Link>
                     </div>
                   </div>
                   <div className="d-flex flex-row w-100 gspace-1">
@@ -49,14 +49,14 @@ const SinglePostPage = () => {
                         <i className="fa-solid fa-calendar accent-color"></i>
                         <span className="meta-data-post">April 14, 2025</span>
                       </div>
-                      <Link to="/single-post" className="blog-link-post">Growth Strategies for Digital Businesses</Link>
+                      <Link to="/single-post" className="blog-link-post">Building Secure Portals for Enterprise</Link>
                     </div>
                   </div>
                 </div>
                 <div className="cta-service-banner">
                   <div className="spacer"></div>
-                  <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                  <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                  <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                  <p>Elevate your digital infrastructure with cutting-edge web development and modern tech solutions. Let's build something exceptional together!</p>
                   <div className="link-wrapper">
                     <Link to="/about">Read More</Link>
                     <i className="fa-solid fa-circle-arrow-right"></i>
@@ -84,11 +84,11 @@ const SinglePostPage = () => {
                   </div>
                   <div className="d-flex flex-row gspace-1 align-items-center">
                     <i className="fa-solid fa-user accent-color"></i>
-                    <span className="meta-data">Fox Creation</span>
+                    <span className="meta-data">Devmart Team</span>
                   </div>
                 </div>
                 <div>
-                  <p>In today's fast-paced digital landscape, growing a business online requires more than just a website and a few ads. To achieve sustainable growth, digital businesses must implement a well-rounded strategy that includes brand positioning, performance marketing, and customer retention. In this post, we'll explore actionable growth strategies to help your digital business scale successfully.</p>
+                  <p>In today's fast-paced digital landscape, building robust web applications requires more than just coding skills. To achieve sustainable growth, organizations must implement well-architected solutions that prioritize user experience, security, and scalability. In this post, we'll explore actionable strategies to help your digital platform succeed.</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mollis ac odio et efficitur. Proin velit neque, sollicitudin nec purus eu, suscipit feugiat tellus. Mauris non iaculis nulla. Curabitur placerat nulla sodales, consequat nunc nec, consectetur ante. Aenean et enim eu orci dapibus maximus ut non ex. Sed eu pharetra orci, sed consequat nisi. Praesent porta ipsum id erat interdum, eleifend bibendum enim sodales. In ut nisl blandit, molestie enim sit amet, ultricies ipsum. Nunc eu sapien leo. Nullam a tristique lacus, sit amet fringilla turpis. Pellentesque tempor, diam sed consectetur fermentum, leo turpis lobortis mi, eu gravida lorem mauris ut est. Donec pellentesque nisl vel purus condimentum posuere. Nulla laoreet arcu non convallis lobortis. Aenean in lacus nec magna tincidunt faucibus vel sit amet risus.</p>
                 </div>
                 <div className="quote-container">

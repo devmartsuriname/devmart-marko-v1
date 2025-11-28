@@ -31,12 +31,12 @@ const BlogPage = () => {
                     <i className="fa-regular fa-circle-dot"></i>
                     <span>Insights & Trends</span>
                   </div>
-                  <h2 className="title-heading">Latest Digital Marketing Strategies & Tips</h2>
+                  <h2 className="title-heading">Latest Digital Solutions & Tech Insights</h2>
                 </div>
               </div>
               <div className="col col-xl-4 ps-0 pe-0">
                 <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                  <p>Explore our latest blog articles covering industry trends, expert insights, and actionable strategies to elevate your digital marketing game.</p>
+                  <p>Explore our latest insights covering tech trends, development best practices, and actionable strategies for digital transformation in Suriname.</p>
                   <div className="link-wrapper">
                     <Link to="/blog">View All Articles</Link>
                     <i className="fa-solid fa-circle-arrow-right"></i>
@@ -58,11 +58,11 @@ const BlogPage = () => {
                       </div>
                       <div className="d-flex flex-row gspace-1 align-items-center">
                         <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">Social Media</span>
+                        <span className="meta-data">AI & Government</span>
                       </div>
                     </div>
-                    <Link to="/blog/instagram-facebook-ads" className="blog-link">Mastering Instagram and Facebook Ads</Link>
-                    <p>Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.</p>
+                    <Link to="/blog/instagram-facebook-ads" className="blog-link">How AI is Transforming Government Services</Link>
+                    <p>Explore how artificial intelligence is revolutionizing public sector operations and improving citizen services across Suriname.</p>
                     <Link to="/blog/instagram-facebook-ads" className="read-more">Read More</Link>
                   </div>
                 </div>
@@ -80,11 +80,11 @@ const BlogPage = () => {
                       </div>
                       <div className="d-flex flex-row gspace-1 align-items-center">
                         <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">SEO</span>
+                        <span className="meta-data">Enterprise Tech</span>
                       </div>
                     </div>
-                    <Link to="/blog/growth-strategies" className="blog-link">Growth Strategies for Digital Business</Link>
-                    <p>Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.</p>
+                    <Link to="/blog/growth-strategies" className="blog-link">Building Secure Portals for Enterprise</Link>
+                    <p>Learn best practices for developing secure, scalable enterprise portals that meet government and corporate requirements.</p>
                     <Link to="/blog/growth-strategies" className="read-more">Read More</Link>
                   </div>
                 </div>

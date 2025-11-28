@@ -37,7 +37,7 @@ const CaseStudiesPage = () => {
                 </div>
                 <div className="col">
                   <div className="d-flex flex-column h-100 justify-content-end gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                    <p>We don't just talk about results—we deliver them. Here are some of our most impactful case studies showcasing how our digital marketing strategies drive success.</p>
+                    <p>We don't just talk about results—we deliver them. Here are some of our most impactful projects showcasing how our development expertise drives digital transformation.</p>
                     <div className="link-wrapper">
                       <Link to="/case-studies">More Case Studies</Link>
                       <i className="fa-solid fa-circle-arrow-right"></i>
@@ -49,64 +49,64 @@ const CaseStudiesPage = () => {
                 <div className="d-flex flex-column flex-xl-row gspace-2">
                   <div className="card case-studies-content local-business animate-box animated fast animate__animated" data-animate="animate__fadeInUp">
                     <div className="case-studies-component large align-self-end justify-content-end align-items-end">
-                      <div className="cs-component"><a href="#">Social</a></div>
-                      <div className="cs-component"><a href="#">Influencer</a></div>
-                      <div className="cs-component"><a href="#">Retargeting</a></div>
-                      <div className="cs-component"><a href="#">Google</a></div>
-                      <div className="cs-component"><a href="#">Video</a></div>
-                      <div className="cs-component"><a href="#">Local</a></div>
-                      <div className="cs-component"><a href="#">Community</a></div>
+                      <div className="cs-component"><a href="#">React</a></div>
+                      <div className="cs-component"><a href="#">Supabase</a></div>
+                      <div className="cs-component"><a href="#">Portal</a></div>
+                      <div className="cs-component"><a href="#">Government</a></div>
+                      <div className="cs-component"><a href="#">Authentication</a></div>
+                      <div className="cs-component"><a href="#">Database</a></div>
+                      <div className="cs-component"><a href="#">API</a></div>
                     </div>
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title"><h4>Local Business Digital Transformation</h4></a>
-                      <p>5x ROI on social media campaigns & 80% increase in engagement lorem ipsum dolor sit amet consectetur.</p>
+                      <a href="#" className="case-studies-title"><h4>Housing Subsidy Application Portal</h4></a>
+                      <p>Streamlined government housing application process with 80% faster processing and improved citizen experience.</p>
                     </div>
                   </div>
                   <div className="card case-studies-content saas-leads animate-box animated animate__animated" data-animate="animate__fadeInUp">
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title"><h4>SaaS Lead Generation Success</h4></a>
-                      <p>150% increase in qualified leads & 70% lower customer acquisition cost.</p>
+                      <a href="#" className="case-studies-title"><h4>Immigration Case Management System</h4></a>
+                      <p>Automated case tracking with 60% reduction in processing time and improved transparency for applicants.</p>
                     </div>
                     <div className="case-studies-component small align-self-end justify-content-end align-items-end">
-                      <div className="cs-component"><a href="#">Content</a></div>
-                      <div className="cs-component"><a href="#">Linkeind Ads</a></div>
-                      <div className="cs-component"><a href="#">Email</a></div>
-                      <div className="cs-component"><a href="#">Webinar</a></div>
-                      <div className="cs-component"><a href="#">Landing</a></div>
-                      <div className="cs-component"><a href="#">CRM</a></div>
-                      <div className="cs-component"><a href="#">Retargeting</a></div>
+                      <div className="cs-component"><a href="#">CMS</a></div>
+                      <div className="cs-component"><a href="#">React</a></div>
+                      <div className="cs-component"><a href="#">API</a></div>
+                      <div className="cs-component"><a href="#">Automation</a></div>
+                      <div className="cs-component"><a href="#">Security</a></div>
+                      <div className="cs-component"><a href="#">Dashboard</a></div>
+                      <div className="cs-component"><a href="#">Tracking</a></div>
                     </div>
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-xl-row gspace-2">
                   <div className="card case-studies-content ecommerce animate-box animated fast animate__animated" data-animate="animate__fadeInUp">
                     <div className="case-studies-component small align-self-start justify-content-start align-items-start">
+                      <div className="cs-component"><a href="#">React</a></div>
+                      <div className="cs-component"><a href="#">Frontend</a></div>
+                      <div className="cs-component"><a href="#">UX</a></div>
+                      <div className="cs-component"><a href="#">Responsive</a></div>
                       <div className="cs-component"><a href="#">SEO</a></div>
-                      <div className="cs-component"><a href="#">PPC Ads</a></div>
-                      <div className="cs-component"><a href="#">CRO</a></div>
-                      <div className="cs-component"><a href="#">Analytics</a></div>
-                      <div className="cs-component"><a href="#">Influencer</a></div>
-                      <div className="cs-component"><a href="#">A/B Testing</a></div>
-                      <div className="cs-component"><a href="#">Email</a></div>
+                      <div className="cs-component"><a href="#">Performance</a></div>
+                      <div className="cs-component"><a href="#">Accessible</a></div>
                     </div>
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title"><h4>E-Commerce Growth Boost</h4></a>
-                      <p>3x increase in organic traffic & 2x revenue growth in 6 months lorem ipsum dolor.</p>
+                      <a href="#" className="case-studies-title"><h4>High-Profile Government Website</h4></a>
+                      <p>Modern, accessible website serving 100k+ monthly visitors with 95% uptime and improved information delivery.</p>
                     </div>
                   </div>
                   <div className="card case-studies-content startup-branding animate-box animated animate__animated" data-animate="animate__fadeInUp">
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title"><h4>Startup Brand Awareness Expansion</h4></a>
-                      <p>200% increase in brand mentions & 60% higher engagement rates lorem ipsum dolor sit amet consectetur.</p>
+                      <a href="#" className="case-studies-title"><h4>SME Digital Transformation Platform</h4></a>
+                      <p>Complete business automation platform increasing productivity by 50% for local small businesses in Suriname.</p>
                     </div>
                     <div className="case-studies-component large align-self-start justify-content-start align-items-start">
-                      <div className="cs-component"><a href="#">Viral</a></div>
-                      <div className="cs-component"><a href="#">Partnership</a></div>
-                      <div className="cs-component"><a href="#">PR</a></div>
-                      <div className="cs-component"><a href="#">Growth</a></div>
-                      <div className="cs-component"><a href="#">UGC</a></div>
-                      <div className="cs-component"><a href="#">Media</a></div>
-                      <div className="cs-component"><a href="#">Brading</a></div>
+                      <div className="cs-component"><a href="#">Full-Stack</a></div>
+                      <div className="cs-component"><a href="#">Automation</a></div>
+                      <div className="cs-component"><a href="#">AI</a></div>
+                      <div className="cs-component"><a href="#">Integration</a></div>
+                      <div className="cs-component"><a href="#">Analytics</a></div>
+                      <div className="cs-component"><a href="#">Cloud</a></div>
+                      <div className="cs-component"><a href="#">Mobile</a></div>
                     </div>
                   </div>
                 </div>
@@ -127,8 +127,8 @@ const CaseStudiesPage = () => {
                 <p>See How We Help Brands Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <p>Elevate your digital infrastructure with cutting-edge web development and modern tech solutions. Let's build something exceptional together!</p>
               </div>
             </div>
           </div>
@@ -187,11 +187,11 @@ const CaseStudiesPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Social Media Growth</a>
+                        <a href="#">Web Development</a>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Performance Marketing</a>
+                        <a href="#">Enterprise Solutions</a>
                       </div>
                     </div>
                   </div>
@@ -205,7 +205,7 @@ const CaseStudiesPage = () => {
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how businesses like yours achieved outstanding growth with Marko's expert digital marketing solutions.</p>
+                    <p>Discover how organizations like yours achieved digital transformation with Devmart's expert development solutions.</p>
                   </div>
                 </div>
               </div>
@@ -235,7 +235,7 @@ const CaseStudiesPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."</p>
+                        <p className="testimonial-description">"Devmart completely transformed our digital infrastructure! Their development expertise helped us modernize operations and improve service delivery significantly."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -259,7 +259,7 @@ const CaseStudiesPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."</p>
+                        <p className="testimonial-description">"We've worked with many agencies before, but Devmart stands out. Their technical expertise and commitment to quality gave us a competitive advantage."</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -283,7 +283,7 @@ const CaseStudiesPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"</p>
+                        <p className="testimonial-description">"From concept to deployment, Devmart delivered exceptional results. Our platform now handles complex operations smoothly and our users love it!"</p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -307,7 +307,7 @@ const CaseStudiesPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."</p>
+                        <p className="testimonial-description">"Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us build a reliable digital foundation for growth."</p>
                       </div>
                     </div>
                   </div>

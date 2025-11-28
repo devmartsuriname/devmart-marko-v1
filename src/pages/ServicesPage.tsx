@@ -44,10 +44,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Social Media Marketing</h4>
-                      </div>
+                      <h4>Custom Web Applications</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Build powerful, scalable web applications tailored to your business needs with modern tech stacks.</p>
                     <Link to="/services/social-media" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -69,10 +69,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Content Marketing</h4>
-                      </div>
+                      <h4>Government Portals</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Secure, accessible government portals designed for efficient public service delivery and digital transformation.</p>
                     <Link to="/services/content" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -94,10 +94,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>PPC Advertising</h4>
-                      </div>
+                      <h4>Enterprise Systems</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Robust enterprise solutions that streamline operations, improve efficiency, and scale with your organization.</p>
                     <Link to="/services/ppc" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -119,10 +119,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Email Marketing</h4>
-                      </div>
+                      <h4>AI-Powered Tools</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Intelligent automation and AI solutions that transform how your organization processes data and serves users.</p>
                     <Link to="/services/email" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -144,10 +144,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Brading & Design</h4>
-                      </div>
+                      <h4>UX/UI Design</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Beautiful, intuitive interfaces that prioritize user experience and drive engagement across all devices.</p>
                     <Link to="/services/branding" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -169,10 +169,10 @@ const ServicesPage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Web Development</h4>
-                      </div>
+                      <h4>Maintenance & Support</h4>
                     </div>
-                    <p>Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.</p>
+                  </div>
+                  <p>Reliable ongoing maintenance and technical support to keep your digital systems running smoothly 24/7.</p>
                     <Link to="/services/web-development" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
@@ -186,7 +186,7 @@ const ServicesPage = () => {
               </div>
             </div>
             <div className="service-link-footer">
-              <p>Need a custom solution? Let's create a strategy tailored for your business. <Link to="/contact">Get a Free Strategy Call</Link></p>
+              <p>Need a custom solution? Let's create a digital platform tailored for your organization. <Link to="/contact">Get a Free Consultation</Link></p>
             </div>
           </div>
         </div>
@@ -202,8 +202,8 @@ const ServicesPage = () => {
                 <p>See How We Help Brands Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <p>Elevate your digital infrastructure with cutting-edge web development and modern tech solutions. Let's build something exceptional together!</p>
               </div>
             </div>
           </div>
@@ -245,8 +245,8 @@ const ServicesPage = () => {
                     </div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Starter</h4>
-                    <p>Perfect for startups & small businesses</p>
+                  <h4>Starter Website</h4>
+                  <p>Perfect for small businesses & startups</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$99</h3>
                       <p>/Month</p>
@@ -260,9 +260,9 @@ const ServicesPage = () => {
                       </div>
                     </a>
                     <ul className="check-list">
-                      <li><Link to="/services/social-media">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/services/social-media">Social Media Management (1 Platform)</Link></li>
-                      <li><Link to="/services/social-media">Monthly Performance Report</Link></li>
+                      <li><Link to="/services/social-media">Modern Tech Stack (React + Supabase)</Link></li>
+                      <li><Link to="/services/social-media">Responsive Design</Link></li>
+                      <li><Link to="/services/social-media">Basic Maintenance & Support</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -270,8 +270,8 @@ const ServicesPage = () => {
               <div className="col">
                 <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
                   <div className="spacer"></div>
-                  <h4>Enterprise</h4>
-                  <p>Full scale marketing for maximum impact</p>
+                  <h4>Government/Enterprise</h4>
+                  <p>Large-scale systems for maximum impact</p>
                   <div className="d-flex flex-row gspace-1 align-items-center">
                     <h3>$399</h3>
                     <p>/Month</p>
@@ -299,12 +299,12 @@ const ServicesPage = () => {
                     </div>
                   </div>
                   <ul className="check-list">
-                    <li><a href="#">Complate Digital Marketing Suite</a></li>
-                    <li><a href="#">Paid Ads Management</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Email Marketing & Automation</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Weekly Performance insights</a></li>
+                    <li><a href="#">Complete Full-Stack Development</a></li>
+                    <li><a href="#">Advanced Security Features</a></li>
+                    <li><a href="#">Dedicated Project Manager</a></li>
+                    <li><a href="#">AI Integration & Automation</a></li>
+                    <li><a href="#">Priority Support 24/7</a></li>
+                    <li><a href="#">Weekly Progress Reports</a></li>
                   </ul>
                 </div>
               </div>
@@ -315,15 +315,15 @@ const ServicesPage = () => {
                       <h5>Your Growth, Our Priority!</h5>
                       <div className="d-flex flex-column gspace-2">
                         <div className="pricing-highlights">
-                          <a href="#">Data-Driven Digital Marketing</a>
+                          <a href="#">Modern Tech Stack (React + Supabase)</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Proven Strategies for Higher</a>
+                          <a href="#">Government-Grade Security</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Scalable Solution for Every Business</a>
+                          <a href="#">Scalable Solutions for Every Organization</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                       </div>
@@ -331,8 +331,8 @@ const ServicesPage = () => {
                     <div className="spacer"></div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Growth</h4>
-                    <p>Best for growing businesses ready</p>
+                  <h4>Business Platform</h4>
+                  <p>Best for growing organizations</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$299</h3>
                       <p>/Month</p>
@@ -346,8 +346,8 @@ const ServicesPage = () => {
                       </div>
                     </a>
                     <ul className="check-list">
-                      <li><Link to="/services/social-media">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/services/social-media">Social Media Management (1 Platform)</Link></li>
+                      <li><Link to="/services/social-media">Full-Stack Web Development</Link></li>
+                      <li><Link to="/services/social-media">Database & API Integration</Link></li>
                       <li><Link to="/services/social-media">Monthly Performance Report</Link></li>
                     </ul>
                   </div>
