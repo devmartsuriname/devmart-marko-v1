@@ -185,6 +185,54 @@ const TestimonialsPage = () => {
                         <p className="testimonial-description">"Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."</p>
                       </div>
                     </div>
+                    <div className="swiper-slide">
+                      <div className="card card-testimonial">
+                        <div className="stars">
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                        </div>
+                        <div className="d-flex flex-row align-items-center justify-content-between">
+                          <div className="d-flex flex-row gspace-2">
+                            <div className="testimonial-image">
+                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column">
+                              <span className="profile-name">Emma Richard</span>
+                              <p className="profile-info">CEO Nexatech</p>
+                            </div>
+                          </div>
+                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
+                        </div>
+                        <p className="testimonial-description">"Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."</p>
+                      </div>
+                    </div>
+                    <div className="swiper-slide">
+                      <div className="card card-testimonial">
+                        <div className="stars">
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                        </div>
+                        <div className="d-flex flex-row align-items-center justify-content-between">
+                          <div className="d-flex flex-row gspace-2">
+                            <div className="testimonial-image">
+                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                            </div>
+                            <div className="d-flex flex-column">
+                              <span className="profile-name">David Mont</span>
+                              <p className="profile-info">Marketing Director</p>
+                            </div>
+                          </div>
+                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
+                        </div>
+                        <p className="testimonial-description">"We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
