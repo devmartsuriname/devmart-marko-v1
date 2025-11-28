@@ -1116,6 +1116,8 @@ body.lightmode .keep-dark .btn-accent{
     pointer-events: none;
     overflow: hidden;
     filter: hue-rotate(165deg) saturate(0.8) !important;
+    border-radius: var(--global-border-radius);
+    z-index: 0;
 }
 
 #banner-video-background iframe {
@@ -1126,7 +1128,7 @@ body.lightmode .keep-dark .btn-accent{
     min-width: 100%;
     min-height: 100%;
     width: 177.78vh;
-    height: 100vh;
+    height: 56.25vw;
     filter: hue-rotate(165deg) saturate(0.8) !important;
     pointer-events: none;
 }
