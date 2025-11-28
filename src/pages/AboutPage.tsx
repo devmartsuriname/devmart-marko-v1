@@ -8,7 +8,7 @@ const AboutPage = () => {
         <div className="banner-layout-wrapper">
           <div className="banner-layout">
             <div className="d-flex flex-column text-center align-items-center gspace-2">
-              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">About Marko</h2>
+              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">About Devmart</h2>
               <nav className="breadcrumb">
                 <Link to="/" className="gspace-2">Home</Link>
                 <span className="separator-link">/</span>
@@ -51,21 +51,21 @@ const AboutPage = () => {
                   <span>About Us</span>
                 </div>
                 <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Who We Are & What Drives Us</h2>
-                <p>At Marko, we specialize in crafting innovative digital marketing strategies that drive real business growth. Our about ensures your brand stays ahead in the competitive digital landscape.</p>
-                <p>Get to know the passionate team behind the strategies, the values that guide us, and the mission that fuels our growth.</p>
+                <p>At Devmart, we build digital products that transform how organizations operate. Based in Suriname, we serve government, enterprise, and ambitious businesses with modern web applications, portals, and AI-powered tools.</p>
+                <p>Get to know the passionate team behind the solutions, the values that guide us, and the mission that fuels our growth.</p>
                 <div className="d-flex flex-column flex-md-row gspace-1 gspace-md-5">
                   <div className="about-list">
                     <ul className="check-list">
-                      <li><Link to="/services/ppc">PPC & Paid Ads</Link></li>
-                      <li><Link to="/services/branding">Brand Strategy</Link></li>
-                      <li><Link to="/services/conversion">Conversion Optimization</Link></li>
+                      <li><Link to="/services/government-portals">Government Portals</Link></li>
+                      <li><Link to="/services/enterprise-systems">Enterprise Systems</Link></li>
+                      <li><Link to="/services/ai-automation">AI Automation</Link></li>
                     </ul>
                   </div>
                   <div className="about-list">
                     <ul className="check-list">
-                      <li><Link to="/services/performance">Performance Marketing</Link></li>
-                      <li><Link to="/services/social-media">Social Media Growth</Link></li>
-                      <li><Link to="/services/content">Content Marketing</Link></li>
+                      <li><Link to="/services/web-development">Web Development</Link></li>
+                      <li><Link to="/services/ux-ui-design">UX/UI Design</Link></li>
+                      <li><Link to="/services/support">Support & Maintenance</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -225,8 +225,8 @@ const AboutPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Innovation & Integrity</h4>
-                    <p>Every decision is backed by real-time analytics for maximum impact lorem ipsum dolor sit  consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">Reliability & Trust</h4>
+                    <p>We build lasting partnerships with our clients, providing dependable solutions and continuous support for long-term success.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -244,8 +244,8 @@ const AboutPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Collaboration</h4>
-                    <p>Cutting-edge marketing techniques to keep you ahead of the competition lorem ipsum dolor sit awsa consectetur adipiscing elit ut elit.</p>
+                    <h4 className="chooseus-title">Partnership Approach</h4>
+                    <p>We work closely with your team to ensure solutions align with your goals and organizational culture.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -263,8 +263,8 @@ const AboutPage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Result Driven</h4>
-                    <p>Clear insights and performance tracking, so you always know your ROI lorem ipsum dolo consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">Quality & Documentation</h4>
+                    <p>Government-grade quality standards with comprehensive documentation and compliance for all projects.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -291,9 +291,9 @@ const AboutPage = () => {
                       <div className="chooseus-cta-spacer"></div>    
                       <div className="card-chooseus-cta-wrapper">
                         <div className="card card-chooseus-cta animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                          <h5>Partner with Marko & take your brand to the next level.</h5>
+                          <h5>Partner with Devmart and build your digital future.</h5>
                           <div className="link-wrapper">
-                            <Link to="/contact">Let's Talk Strategy</Link>
+                            <Link to="/contact">Let's Discuss Your Project</Link>
                             <i className="fa-solid fa-circle-arrow-right"></i>
                           </div>
                         </div>
@@ -314,13 +314,13 @@ const AboutPage = () => {
             <div className="guide-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
               <div className="guide-video-container">
                 <button className="request-loader" data-video="https://www.youtube.com/embed/VhBl3dHT5SY?autoplay=1"><i className="fa-solid fa-play"></i></button>
-                <p>
-                  See How We Help Brands Grow
-                </p>
+                  <p>
+                    See How We Help Organizations Grow
+                  </p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <p>Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together.</p>
               </div>
             </div>
           </div>
@@ -373,8 +373,8 @@ const AboutPage = () => {
                       </div>
                     </div>
                     <div className="team-profile">
-                      <h4>Jordan Lee</h4>
-                      <span className="title">Head of Creative</span>
+                      <h4>Lead Developer</h4>
+                      <span className="title">Full-Stack Engineering</span>
                     </div>
                   </div>
                 </div>
@@ -401,8 +401,8 @@ const AboutPage = () => {
                       </div>
                     </div>
                     <div className="team-profile">
-                      <h4>Chloe Tan</h4>
-                      <span className="title">Senior SEO Specialist</span>
+                      <h4>Project Manager</h4>
+                      <span className="title">Delivery & Client Relations</span>
                     </div>
                   </div>
                 </div>
@@ -429,8 +429,8 @@ const AboutPage = () => {
                       </div>
                     </div>
                     <div className="team-profile">
-                      <h4>Daniel Cruz</h4>
-                      <span className="title">Performance Marketing Lead</span>
+                      <h4>Technical Architect</h4>
+                      <span className="title">System Design & Infrastructure</span>
                     </div>
                   </div>
                 </div>
@@ -613,7 +613,7 @@ const AboutPage = () => {
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how businesses like yours achieved outstanding growth with Marko's expert digital marketing solutions.</p>
+                    <p>Discover how organizations like yours achieved outstanding results with Devmart's expert digital solutions.</p>
                   </div>
                 </div>
               </div>
