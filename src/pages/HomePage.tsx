@@ -9,22 +9,22 @@ const HomePage = () => {
           <div id="banner-video-background"></div>
           <div className="hero-container position-relative">
             <div className="d-flex flex-column gspace-2">
-              <h1 className="title-heading-banner animate-box animated animate__animated" data-animate="animate__fadeInLeft">Amplify Your Brand with Cutting-Edge Digital Marketing</h1>
+              <h1 className="title-heading-banner animate-box animated animate__animated" data-animate="animate__fadeInLeft">Build Powerful Digital Solutions That Drive Results</h1>
               <div className="banner-heading">
                 <div className="banner-video-content order-xl-1 order-2 animate-box animated animate__animated" data-animate="animate__fadeInUp">
                   <div className="d-flex flex-column flex-xl-row text-xl-start text-center align-items-center gspace-5">
                     <button className="request-loader" data-video="https://www.youtube.com/embed/VhBl3dHT5SY?autoplay=1"><i className="fa-solid fa-play"></i></button>
                     <p>
-                      Watch our video reviews and see how businesses achieve success with Marko's digital marketing solutions.
+                      See how organizations across Suriname achieve digital transformation with Devmart's proven solutions.
                     </p>
                   </div>
                 </div>
                 <div className="banner-content order-xl-2 order-1 animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                  <p>Marko empowers businesses to grow online with data driven digital marketing, innovative branding, and performance focused strategies trusted by top brands lorem ipsum dolor sit amet consectetur.</p>
+                  <p>Devmart empowers businesses and government with modern web apps, AI-powered tools, and enterprise-grade systems built in Suriname.</p>
                   <div className="d-flex flex-md-row flex-column justify-content-center justify-content-xl-start align-self-center align-self-xl-start gspace-3">
                     <Link to="/about" className="btn btn-accent">
                       <div className="btn-title">
-                        <span>Get Started</span>
+                        <span>Book a Strategy Call</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
@@ -79,18 +79,18 @@ const HomePage = () => {
                 <i className="fa-regular fa-circle-dot"></i>
                 <span>Our Expertise</span>
               </div>
-              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Data Driven Strategies, Measurable Results</h2>
-              <p>At Marko, we specialize in crafting innovative digital marketing strategies that drive real business growth. Our expertise ensures your brand stays ahead in the competitive digital landscape.</p>
+              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Reliable Digital Products, Measurable Impact</h2>
+              <p>At Devmart, we specialize in building robust web applications, government portals, and AI-powered systems. Our expertise ensures your digital presence is modern, secure, and scalable.</p>
               <div className="d-flex flex-column flex-md-row gspace-2">
                 <div className="expertise-list">
                   <h5>What We Do Best</h5>
                   <ul className="check-list">
-                    <li><Link to="/services/performance-marketing">Performance Marketing</Link></li>
-                    <li><Link to="/services/social-media">Social Media Growth</Link></li>
-                    <li><Link to="/services/content">Content Marketing</Link></li>
-                    <li><Link to="/services/ppc">PPC & Paid Ads</Link></li>
-                    <li><Link to="/services/branding">Brand Strategy</Link></li>
-                    <li><Link to="/services/conversion">Conversion Optimization</Link></li>
+                    <li><Link to="/services/web-development">Web Development (React/Supabase)</Link></li>
+                    <li><Link to="/services/government-portals">Government & Enterprise Portals</Link></li>
+                    <li><Link to="/services/custom-saas">Custom SaaS Platforms</Link></li>
+                    <li><Link to="/services/ai-automation">AI-Assisted Automation</Link></li>
+                    <li><Link to="/services/support">Ongoing Support & Maintenance</Link></li>
+                    <li><Link to="/services/ux-ui-design">UX/UI Design</Link></li>
                   </ul>
                 </div>
                 <div className="card card-expertise card-expertise-counter animate-box animated animate__animated" data-animate="animate__fadeInUp">
@@ -99,7 +99,7 @@ const HomePage = () => {
                       <span className="counter" data-target="21">0</span>
                       <span className="counter-detail">+</span>
                     </div>
-                    <h6>Years of Experience on Digital Marketing Services</h6>
+                    <h6>Years Building Digital Solutions in Suriname</h6>
                   </div>
                   <p>Lorem ipsum dolor sit amet consectetur adipiscing elit in ex ligula varius at rutrum et finibus sed felis qisque.</p>
                 </div>
@@ -180,8 +180,8 @@ const HomePage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Data-Driven Approach</h4>
-                    <p>Every decision is backed by real-time analytics for maximum impact lorem ipsum dolor sit  consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">Reliable Long-Term Partnerships</h4>
+                    <p>We build lasting relationships with our clients, providing continuous support and maintenance to ensure long-term success for your digital products.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -199,8 +199,8 @@ const HomePage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Creative & Innovative</h4>
-                    <p>Cutting-edge marketing techniques to keep you ahead of the competition lorem ipsum dolor sit awsa consectetur adipiscing elit ut elit.</p>
+                    <h4 className="chooseus-title">Government-Grade Quality</h4>
+                    <p>Our development practices meet the highest standards for security, documentation, and compliance, trusted by government and enterprise clients.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -218,8 +218,8 @@ const HomePage = () => {
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
-                    <h4 className="chooseus-title">Transparent Reporting</h4>
-                    <p>Clear insights and performance tracking, so you always know your ROI lorem ipsum dolo consectetur adipiscing elit ut elit tellus luctus nec.</p>
+                    <h4 className="chooseus-title">AI-Powered Efficiency</h4>
+                    <p>We leverage artificial intelligence and modern automation tools to deliver projects faster without compromising quality or user experience.</p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -233,10 +233,10 @@ const HomePage = () => {
                 <div className="d-flex flex-column gspace-2">
                   <div className="sub-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">
                     <i className="fa-regular fa-circle-dot"></i>
-                    <span>Why Choose Marko</span>
+                    <span>Why Choose Devmart</span>
                   </div>
-                  <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">Your Success is Our Mission</h2>
-                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right marketing partner makes all the difference. At Marko, we don't just create campaigns—we craft strategies that deliver measurable success.</p>
+                  <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">Your Digital Future is Our Priority</h2>
+                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just build applications—we craft solutions that deliver measurable impact.</p>
                 </div>
                 <div className="image-container">
                   <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Why Choose Us Image" className="chooseus-img" />
@@ -246,9 +246,9 @@ const HomePage = () => {
                       <div className="chooseus-cta-spacer"></div>    
                       <div className="card-chooseus-cta-wrapper">
                         <div className="card card-chooseus-cta animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                          <h5>Partner with Marko & take your brand to the next level.</h5>
+                          <h5>Partner with Devmart and build your digital future.</h5>
                           <div className="link-wrapper">
-                            <Link to="/contact">Let's Talk Strategy</Link>
+                            <Link to="/contact">Let's Discuss Your Project</Link>
                             <i className="fa-solid fa-circle-arrow-right"></i>
                           </div>
                         </div>
@@ -270,12 +270,12 @@ const HomePage = () => {
               <div className="guide-video-container">
                 <button className="request-loader" data-video="https://www.youtube.com/embed/VhBl3dHT5SY?autoplay=1"><i className="fa-solid fa-play"></i></button>
                 <p>
-                  See How We Help Brands Grow
+                  See How We Help Organizations Grow
                 </p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Business with Marko!</h3>
-                <p>Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!</p>
+                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <p>Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together.</p>
               </div>
             </div>
           </div>
@@ -306,13 +306,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Social Media Marketing</h4>
+                        <h4>Custom Web Applications</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      Modern web apps built with React and Supabase for scalability, real-time features, and seamless user experiences.
                     </p>
-                    <Link to="/services/social-media" className="btn btn-accent">
+                    <Link to="/services/web-applications" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -333,13 +333,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Content Marketing</h4>
+                        <h4>Government Portals</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      Secure, compliant government systems for citizen services, case management, and public administration.
                     </p>
-                    <Link to="/services/content" className="btn btn-accent">
+                    <Link to="/services/government-portals" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -360,13 +360,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>PPC Advertising</h4>
+                        <h4>Enterprise Systems</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      Internal tools, dashboards, and business platforms tailored for large organizations and complex workflows.
                     </p>
-                    <Link to="/services/ppc" className="btn btn-accent">
+                    <Link to="/services/enterprise-systems" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -387,13 +387,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Email Marketing</h4>
+                        <h4>AI-Powered Tools</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      Intelligent automation, document processing, and AI-assisted features to streamline operations.
                     </p>
-                    <Link to="/services/email" className="btn btn-accent">
+                    <Link to="/services/ai-tools" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -414,13 +414,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Brading & Design</h4>
+                        <h4>UX/UI Design</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      User-centered design for intuitive interfaces that delight users and drive engagement.
                     </p>
-                    <Link to="/services/branding" className="btn btn-accent">
+                    <Link to="/services/ux-ui-design" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -441,13 +441,13 @@ const HomePage = () => {
                         </div>
                       </div>
                       <div className="service-title">
-                        <h4>Web Development</h4>
+                        <h4>Maintenance & Support</h4>
                       </div>
                     </div>
                     <p>
-                      Build brand awareness & engage your audience effectively lorem ipsum dolor sit amet consectetur adip.
+                      Ongoing updates, monitoring, and technical support to keep your systems running smoothly.
                     </p>
-                    <Link to="/services/web-development" className="btn btn-accent">
+                    <Link to="/services/maintenance-support" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
@@ -474,8 +474,8 @@ const HomePage = () => {
                     <i className="fa-regular fa-circle-dot"></i>
                     <span>Portfolio</span>
                   </div>
-                  <h2 className="title-heading">See How We Help Businesses Thrive</h2>
-                  <p>We don't just talk about results—we deliver them. Here are some of our most impactful case studies showcasing how our digital marketing strategies drive success.</p>
+                  <h2 className="title-heading">See How We Help Organizations Thrive</h2>
+                  <p>We don't just talk about results—we deliver them. Here are some of our most impactful projects showcasing how our digital solutions drive success for government, enterprise, and businesses across Suriname.</p>
                   <div className="link-wrapper">
                     <Link to="/case-studies">More Case Studies</Link>
                     <i className="fa-solid fa-circle-arrow-right"></i>
@@ -488,62 +488,62 @@ const HomePage = () => {
                 <div className="card case-studies-content local-business animate-box animated fast animate__animated" data-animate="animate__fadeInUp">
                   <div className="case-studies-component large align-self-end justify-content-end align-items-end">
                     <div className="cs-component">
-                      <a href="#">Social</a>
+                      <a href="#">React</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Influencer</a>
+                      <a href="#">Supabase</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Retargeting</a>
+                      <a href="#">Portal</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Google</a>
+                      <a href="#">Gov-Tech</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Video</a>
+                      <a href="#">Forms</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Local</a>
+                      <a href="#">PDF</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Community</a>
+                      <a href="#">Auth</a>
                     </div>
                   </div>
                   <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title"><h4>Local Business Digital Transformation</h4></a>
+                    <a href="#" className="case-studies-title"><h4>Housing Subsidy Application Portal</h4></a>
                     <p>
-                      5x ROI on social media campaigns & 80% increase in engagement lorem ipsum dolor sit amet consectetur.
+                      Streamlined application processing for 5,000+ citizens with automated eligibility checks and real-time status tracking.
                     </p>
                   </div>
                 </div>
                 <div className="card case-studies-content saas-leads animate-box animated animate__animated" data-animate="animate__fadeInUp">
                   <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title"><h4>SaaS Lead Generation Success</h4></a>
+                    <a href="#" className="case-studies-title"><h4>Immigration Case Management System</h4></a>
                     <p>
-                      150% increase in qualified leads & 70% lower customer acquisition cost.
+                      Complete case workflow digitalization for 2,000+ applications per month with document management and approval tracking.
                     </p>
                   </div>
                   <div className="case-studies-component small align-self-end justify-content-end align-items-end">
                     <div className="cs-component">
-                      <a href="#">Content</a>
+                      <a href="#">Workflow</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Linkeind Ads</a>
+                      <a href="#">Dashboard</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Email</a>
+                      <a href="#">CMS</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Webinar</a>
+                      <a href="#">Documents</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Landing</a>
+                      <a href="#">Reports</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">CRM</a>
+                      <a href="#">Multi-user</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Retargeting</a>
+                      <a href="#">Secure</a>
                     </div>
                   </div>
                 </div>
@@ -552,63 +552,63 @@ const HomePage = () => {
                 <div className="card case-studies-content ecommerce animate-box animated fast animate__animated" data-animate="animate__fadeInUp">
                   <div className="case-studies-component small align-self-start justify-content-start align-items-start">
                     <div className="cs-component">
+                      <a href="#">Website</a>
+                    </div>
+                    <div className="cs-component">
+                      <a href="#">CMS</a>
+                    </div>
+                    <div className="cs-component">
+                      <a href="#">Responsive</a>
+                    </div>
+                    <div className="cs-component">
                       <a href="#">SEO</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">PPC Ads</a>
+                      <a href="#">Accessibility</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">CRO</a>
+                      <a href="#">Fast</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Analytics</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Influencer</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">A/B Testing</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Email</a>
+                      <a href="#">Secure</a>
                     </div>
                   </div>
                   <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title"><h4>E-Commerce Growth Boost</h4></a>
+                    <a href="#" className="case-studies-title"><h4>High-Profile Government Website</h4></a>
                     <p>
-                      3x increase in organic traffic & 2x revenue growth in 6 months lorem ipsum dolor.
+                      Modern, accessible website meeting WCAG standards with multilingual support and content management for public communications.
                     </p>
                   </div>
                 </div>
     
                 <div className="card case-studies-content startup-branding animate-box animated animate__animated" data-animate="animate__fadeInUp">
                   <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title"><h4>Startup Brand Awareness Expansion</h4></a>
+                    <a href="#" className="case-studies-title"><h4>SME Digital Transformation Platform</h4></a>
                     <p>
-                      200% increase in brand mentions & 60% higher engagement rates lorem ipsum dolor sit amet consectetur.
+                      Custom business platform with CRM, inventory management, and reporting dashboards—driving 200% operational efficiency improvement.
                     </p>
                   </div>
                     <div className="case-studies-component large align-self-start justify-content-start align-items-start">
                     <div className="cs-component">
-                      <a href="#">Viral</a>
+                      <a href="#">SaaS</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Partnership</a>
+                      <a href="#">Multi-tenant</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">PR</a>
+                      <a href="#">API</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Growth</a>
+                      <a href="#">Real-time</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">UGC</a>
+                      <a href="#">Analytics</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Media</a>
+                      <a href="#">Integration</a>
                     </div>
                     <div className="cs-component">
-                      <a href="#">Brading</a>
+                      <a href="#">Scalable</a>
                     </div>
                   </div>
                 </div>
@@ -642,30 +642,30 @@ const HomePage = () => {
                       </div>
                       <div className="testimonial-rating-container">
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
-                            <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="90">0</span>
+                          <div className="d-flex flex-row align-items-center">
+                            <span className="counter" data-target="98">0</span>
                             <span className="counter-detail">%</span>
                           </div>
-                          <p>Improved Project</p>
+                          <p>On-Time Delivery</p>
                         </div>
                         <div className="underline-vertical"></div>
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
                             <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="49">0</span>
+                            <span className="counter" data-target="75">0</span>
                             <span className="counter-detail">%</span>
                           </div>
-                          <p>New Project</p>
+                          <p>Return Clients</p>
                         </div>
                       </div>
                     </div>
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Social Media Growth</a>
+                        <a href="#">Web Development</a>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Performance Marketing</a>
+                        <a href="#">Government Portals</a>
                       </div>
                     </div>
                   </div>
@@ -679,7 +679,7 @@ const HomePage = () => {
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how businesses like yours achieved outstanding growth with Marko's expert digital marketing solutions.</p>
+                    <p>Discover how organizations like yours achieved outstanding growth with Devmart's expert digital solutions.</p>
                   </div>
                 </div>
               </div>
@@ -703,14 +703,14 @@ const HomePage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">Emma Richard</span>
-                              <p className="profile-info">CEO Nexatech</p>
+                              <span className="profile-name">Sarah Williams</span>
+                              <p className="profile-info">IT Director, Regional Authority</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Marko completely transformed our online presence! Their digital marketing strategies helped us double our revenue in just six months."
+                          "Devmart built our housing subsidy portal from the ground up. The system handles thousands of applications seamlessly, and our processing time was cut in half!"
                         </p>
                       </div>
                     </div>
@@ -729,14 +729,14 @@ const HomePage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">David Mont</span>
-                              <p className="profile-info">Marketing Director</p>
+                              <span className="profile-name">Michael Chen</span>
+                              <p className="profile-info">Project Manager, Ministry</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many agencies before, but Marko stands out. Their data-driven approach and creative solutions gave us an edge over competitors."
+                          "We've worked with many developers, but Devmart stands out. Their technical expertise and reliability gave us confidence in delivering a mission-critical government system."
                         </p>
                       </div>
                     </div>
@@ -755,14 +755,14 @@ const HomePage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">Sophia Lewis</span>
-                              <p className="profile-info">Founder</p>
+                              <span className="profile-name">Lisa Rodriguez</span>
+                              <p className="profile-info">CEO, Regional Enterprise</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "From SEO to paid ads, Marko nailed every aspect of our campaign. Our website traffic skyrocketed, and lead generation has never been better!"
+                          "From concept to deployment, Devmart delivered our enterprise platform on time and on budget. The ongoing support has been exceptional!"
                         </p>
                       </div>
                     </div>
@@ -781,14 +781,14 @@ const HomePage = () => {
                               <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">James Peterson</span>
-                              <p className="profile-info">COO, BrightWave</p>
+                              <span className="profile-name">David Thompson</span>
+                              <p className="profile-info">Director, Public Services</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Highly professional and results-oriented. Marko's expertise in branding and content marketing helped us build a strong online identity."
+                          "Highly professional and results-oriented. Devmart's expertise in building secure portals helped us modernize our operations and serve citizens better."
                         </p>
                       </div>
                     </div>
@@ -922,7 +922,7 @@ const HomePage = () => {
                 <div className="col">
                   <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
                     <p>
-                      Our streamlined process ensures your digital growth is seamless and effective. ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis.
+                      Our streamlined process ensures your digital transformation is seamless and effective. We guide you from initial concept through deployment and ongoing support.
                     </p>
                     <div className="link-wrapper">
                       <Link to="/contact">Get Started Now</Link>
@@ -943,9 +943,9 @@ const HomePage = () => {
                           <span>01</span>
                         </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h5>Discovery & Consult</h5>
+                          <h5>Discovery & Requirements</h5>
                           <p>
-                            Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                            We understand your needs, gather requirements, and define project scope with clear deliverables and timelines.
                           </p>
                         </div>
                       </div>
@@ -961,9 +961,9 @@ const HomePage = () => {
                             <span>02</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Strategy & Planning</h5>
+                            <h5>Architecture & Design</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We design the technical architecture, user interface, and database structure for optimal performance and scalability.
                             </p>
                           </div>
                         </div>
@@ -980,9 +980,9 @@ const HomePage = () => {
                             <span>03</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Execution & Optimize</h5>
+                            <h5>Development & Testing</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We build your solution with clean code, rigorous testing, and quality assurance to ensure reliability and security.
                             </p>
                           </div>
                         </div>
@@ -999,9 +999,9 @@ const HomePage = () => {
                             <span>04</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
-                            <h5>Result & Growth</h5>
+                            <h5>Launch & Support</h5>
                             <p>
-                              Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis
+                              We deploy your application, provide training, and offer ongoing maintenance to ensure long-term success.
                             </p>
                           </div>
                         </div>
@@ -1034,7 +1034,7 @@ const HomePage = () => {
                   <div className="card card-pricing-title animate-box animated animate__animated" data-animate="animate__fadeInLeft">
                     <div className="spacer"></div>
                     <div className="content">
-                      <h3 className="title-heading">Let's Find the Right Strategy for You!</h3>
+                      <h3 className="title-heading">Let's Find the Right Solution for You!</h3>
                       <div className="link-wrapper">
                         <Link to="/contact">Book a Free Consultation</Link>
                         <i className="fa-solid fa-arrow-circle-right"></i>
@@ -1042,8 +1042,8 @@ const HomePage = () => {
                     </div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Starter</h4>
-                    <p>Perfect for startups & small businesses</p>
+                    <h4>Starter Website</h4>
+                    <p>Perfect for businesses needing a web presence</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$99</h3>
                       <p>/Month</p>
@@ -1057,9 +1057,9 @@ const HomePage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/services">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/services">Social Media Management (1 Platform)</Link></li>
-                      <li><Link to="/services">Monthly Performance Report</Link></li>
+                      <li><Link to="/services">Single-Page Website</Link></li>
+                      <li><Link to="/services">Basic SEO & Responsive Design</Link></li>
+                      <li><Link to="/services">Contact Form</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -1069,8 +1069,8 @@ const HomePage = () => {
               <div className="col">
                 <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
                   <div className="spacer"></div>
-                  <h4>Enterprise</h4>
-                  <p>Full scale marketing for maximum impact</p>
+                  <h4>Government/Enterprise</h4>
+                  <p>Full portal & application development</p>
                   <div className="d-flex flex-row gspace-1 align-items-center">
                     <h3>$399</h3>
                     <p>/Month</p>
@@ -1098,12 +1098,12 @@ const HomePage = () => {
                     </div>
                   </div>
                   <ul className="check-list">
-                    <li><a href="#">Complete Digital Marketing Suite</a></li>
-                    <li><a href="#">Paid Ads Management</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Email Marketing & Automation</a></li>
-                    <li><a href="#">Dedicated Account Manager</a></li>
-                    <li><a href="#">Weekly Performance Insights</a></li>
+                    <li><a href="#">Complete Portal/App Development</a></li>
+                    <li><a href="#">Admin Dashboard & CMS</a></li>
+                    <li><a href="#">AI Features & Automation</a></li>
+                    <li><a href="#">Multi-user & Role Management</a></li>
+                    <li><a href="#">Dedicated Support Team</a></li>
+                    <li><a href="#">Weekly Progress Reports</a></li>
                   </ul>
                 </div>
               </div>
@@ -1116,15 +1116,15 @@ const HomePage = () => {
                       <h5>Your Growth, Our Priority!</h5>
                       <div className="d-flex flex-column gspace-2">
                         <div className="pricing-highlights">
-                          <a href="#">Data-Driven Digital Marketing</a>
+                          <a href="#">Modern Tech Stack (React + Supabase)</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Proven Strategies for Higher</a>
+                          <a href="#">Proven Architecture for Scalability</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Scalable Solution for Every Business</a>
+                          <a href="#">Flexible Solutions for Any Business</a>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                       </div>
@@ -1132,8 +1132,8 @@ const HomePage = () => {
                     <div className="spacer"></div>
                   </div>
                   <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <h4>Growth</h4>
-                    <p>Best for growing businesses ready</p>
+                    <h4>Business Platform</h4>
+                    <p>Best for growing businesses</p>
                     <div className="d-flex flex-row gspace-1 align-items-center h-100">
                       <h3>$299</h3>
                       <p>/Month</p>
@@ -1147,9 +1147,9 @@ const HomePage = () => {
                       </div>
                     </Link>
                     <ul className="check-list">
-                      <li><Link to="/services">Basic SEO & Marketing</Link></li>
-                      <li><Link to="/services">Social Media Management (1 Platform)</Link></li>
-                      <li><Link to="/services">Monthly Performance Report</Link></li>
+                      <li><Link to="/services">Multi-Page Website</Link></li>
+                      <li><Link to="/services">Custom Design & CMS Integration</Link></li>
+                      <li><Link to="/services">Analytics & Reporting</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -1167,8 +1167,8 @@ const HomePage = () => {
               <div className="spacer"></div>
               <div className="d-flex flex-column gspace-5 position-relative z-2">
                 <div className="d-flex flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInLeft">
-                  <h3 className="title-heading">Stay Ahead in Digital Marketing</h3>
-                  <p>Get exclusive insights, trends, and strategies delivered straight to your inbox. Subscribe now!</p>
+                  <h3 className="title-heading">Stay Ahead in Digital Transformation</h3>
+                  <p>Get updates on AI tools, government digitalization, and digital product insights delivered to your inbox.</p>
                 </div>
                 <div id="newsletter-success" className="alert success hidden">
                   <span className="check-icon"><i className="fa-solid fa-2xl fa-check"></i></span>
@@ -1211,12 +1211,12 @@ const HomePage = () => {
                     <i className="fa-regular fa-circle-dot"></i>
                     <span>Insights & Trends</span>
                   </div>
-                  <h2 className="title-heading">Latest Digital Marketing Strategies & Tips</h2>
+                  <h2 className="title-heading">Latest Insights on Digital Products & AI</h2>
                 </div>
               </div>
               <div className="col col-xl-4 ps-0 pe-0">
                 <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                  <p>Explore our latest blog articles covering industry trends, expert insights, and actionable strategies to elevate your digital marketing game.</p>
+                  <p>Explore our latest articles covering government digitalization, AI-powered tools, and technical insights to elevate your digital transformation journey.</p>
                   <div className="link-wrapper">
                     <Link to="/blog">View All Articles</Link>
                     <i className="fa-solid fa-circle-arrow-right"></i>
@@ -1241,14 +1241,14 @@ const HomePage = () => {
                         <span className="meta-data">Social Media</span>
                       </div>
                     </div>
-                    <Link to="/blog/instagram-facebook-ads" className="blog-link">Mastering Instagram and Facebook Ads</Link>
-                    <p>Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.</p>
-                    <Link to="/blog/instagram-facebook-ads" className="read-more">Read More</Link>
+                    <Link to="/blog/ai-government-services" className="blog-link">How AI is Transforming Government Services</Link>
+                    <p>Exploring how artificial intelligence is revolutionizing public sector operations, from automated document processing to predictive analytics for policy planning.</p>
+                    <Link to="/blog/ai-government-services" className="read-more">Read More</Link>
                   </div>
                 </div>
               </div>
               <div className="col">
-                <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp" onClick={() => window.location.href='/blog/growth-strategies'}>
+                <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp" onClick={() => window.location.href='/blog/secure-enterprise-portals'}>
                   <div className="blog-image">
                     <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Blog Image" />
                   </div>
@@ -1260,12 +1260,12 @@ const HomePage = () => {
                       </div>
                       <div className="d-flex flex-row gspace-1 align-items-center">
                         <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">SEO</span>
+                        <span className="meta-data">Security</span>
                       </div>
                     </div>
-                    <Link to="/blog/growth-strategies" className="blog-link">Growth Strategies for Digital Business</Link>
-                    <p>Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.</p>
-                    <Link to="/blog/growth-strategies" className="read-more">Read More</Link>
+                    <Link to="/blog/secure-enterprise-portals" className="blog-link">Building Secure Portals for Enterprise</Link>
+                    <p>Best practices for developing enterprise-grade portals with robust authentication, encryption, and compliance standards for sensitive data handling.</p>
+                    <Link to="/blog/secure-enterprise-portals" className="read-more">Read More</Link>
                   </div>
                 </div>
               </div>
