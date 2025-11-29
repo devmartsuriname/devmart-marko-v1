@@ -167,8 +167,8 @@ const HomePage = () => {
                     <h6>Years Building Digital Solutions in Suriname</h6>
                   </div>
                   <p>
-                    Over two decades of building reliable web applications, government portals, and enterprise systems
-                    that transform how organizations operate in Suriname and beyond.
+                    Over two decades of building reliable web applications, and enterprise systems that transform how
+                    organizations operate beyond.
                   </p>
                 </div>
               </div>
