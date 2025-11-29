@@ -874,7 +874,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
@@ -905,7 +905,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
@@ -936,7 +936,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
@@ -967,7 +967,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-13.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
@@ -998,7 +998,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
@@ -1029,7 +1029,7 @@ const AboutPage = () => {
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
                               <img
-                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
                               />
