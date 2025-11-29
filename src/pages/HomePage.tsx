@@ -134,10 +134,10 @@ const HomePage = () => {
                   <h5>What We Do Best</h5>
                   <ul className="check-list">
                     <li>
-                      <Link to="/services/web-development">Web Development (React/Supabase)</Link>
+                      <Link to="/services/web-development">Web Development</Link>
                     </li>
                     <li>
-                      <Link to="/services/government-portals">Government & Enterprise Portals</Link>
+                      <Link to="/services/government-portals">Enterprise Portals</Link>
                     </li>
                     <li>
                       <Link to="/services/custom-saas">Custom SaaS Platforms</Link>
