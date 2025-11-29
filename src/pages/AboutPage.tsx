@@ -8,9 +8,13 @@ const AboutPage = () => {
         <div className="banner-layout-wrapper">
           <div className="banner-layout">
             <div className="d-flex flex-column text-center align-items-center gspace-2">
-              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">About Devmart</h2>
+              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                About Devmart
+              </h2>
               <nav className="breadcrumb">
-                <Link to="/" className="gspace-2">Home</Link>
+                <Link to="/" className="gspace-2">
+                  Home
+                </Link>
                 <span className="separator-link">/</span>
                 <p className="current-page">About Us</p>
               </nav>
@@ -26,13 +30,23 @@ const AboutPage = () => {
           <div className="d-flex flex-column flex-xl-row gspace-5">
             <div className="about-img-layout">
               <div className="image-container about-img">
-                <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="About Us Image" className="img-fluid animate-box animated animate__animated" data-animate="animate__fadeInUp" />
+                <img
+                  src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
+                  alt="About Us Image"
+                  className="img-fluid animate-box animated animate__animated"
+                  data-animate="animate__fadeInUp"
+                />
                 <div className="about-layout">
                   <div className="d-flex flex-column">
                     <div className="card-about-wrapper">
-                      <div className="card card-about animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                      <div
+                        className="card card-about animate-box animated animate__animated"
+                        data-animate="animate__fadeInDown"
+                      >
                         <div className="d-flex flex-row align-items-center">
-                          <span className="counter" data-target="21">0</span>
+                          <span className="counter" data-target="21">
+                            0
+                          </span>
                           <span className="counter-detail">+</span>
                         </div>
                         <h6>Years Building Digital Solutions in Suriname</h6>
@@ -50,22 +64,46 @@ const AboutPage = () => {
                   <i className="fa-regular fa-circle-dot"></i>
                   <span>About Us</span>
                 </div>
-                <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Who We Are & What Drives Us</h2>
-                <p>At Devmart, we build digital products that transform how organizations operate. Based in Suriname, we serve government, enterprise, and ambitious businesses with modern web applications, portals, and AI-powered tools.</p>
-                <p>Get to know the passionate team behind the solutions, the values that guide us, and the mission that fuels our growth.</p>
+                <h2
+                  className="title-heading animate-box animated animate__animated"
+                  data-animate="animate__fadeInRight"
+                >
+                  Who We Are & What Drives Us
+                </h2>
+                <p>
+                  At Devmart, we build digital products that transform how organizations operate. Based in Suriname, we
+                  serve government, enterprise, and ambitious businesses with modern web applications, portals, and
+                  AI-powered tools.
+                </p>
+                <p>
+                  Get to know the passionate team behind the solutions, the values that guide us, and the mission that
+                  fuels our growth.
+                </p>
                 <div className="d-flex flex-column flex-md-row gspace-1 gspace-md-5">
                   <div className="about-list">
                     <ul className="check-list">
-                      <li><Link to="/services/government-portals">Government Portals</Link></li>
-                      <li><Link to="/services/enterprise-systems">Enterprise Systems</Link></li>
-                      <li><Link to="/services/ai-automation">AI Automation</Link></li>
+                      <li>
+                        <Link to="/services/government-portals">Government Portals</Link>
+                      </li>
+                      <li>
+                        <Link to="/services/enterprise-systems">Enterprise Systems</Link>
+                      </li>
+                      <li>
+                        <Link to="/services/ai-automation">AI Automation</Link>
+                      </li>
                     </ul>
                   </div>
                   <div className="about-list">
                     <ul className="check-list">
-                      <li><Link to="/services/web-development">Web Development</Link></li>
-                      <li><Link to="/services/ux-ui-design">UX/UI Design</Link></li>
-                      <li><Link to="/services/support">Support & Maintenance</Link></li>
+                      <li>
+                        <Link to="/services/web-development">Web Development</Link>
+                      </li>
+                      <li>
+                        <Link to="/services/ux-ui-design">UX/UI Design</Link>
+                      </li>
+                      <li>
+                        <Link to="/services/support">Support & Maintenance</Link>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -89,8 +127,8 @@ const AboutPage = () => {
               <div className="col">
                 <div className="d-flex flex-column ps-xl-3 ps-0">
                   <p>
-                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver secure, 
-                    scalable digital solutions that drive efficiency and modernize their operations.
+                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver
+                    secure, scalable digital solutions that drive efficiency and modernize their operations.
                   </p>
                 </div>
               </div>
@@ -105,99 +143,163 @@ const AboutPage = () => {
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-7.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-7.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-6.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-6.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-8.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-8.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-2.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-2.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-1.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-1.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-3.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-3.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-5.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-5.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-4.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-4.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <a href="#">
                         <div className="partner-slide">
-                          <img src="/marko-digital-marketing-agency-html/image/client-7.png" alt="Client" className="partner-logo img-fluid" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/client-7.png"
+                            alt="Client"
+                            className="partner-logo img-fluid"
+                          />
                         </div>
                       </a>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-6.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-6.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-8.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-8.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-2.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-2.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-1.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-1.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-3.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-3.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-5.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-5.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="swiper-slide">
                       <div className="partner-slide">
-                        <img src="/marko-digital-marketing-agency-html/image/client-4.png" alt="Client" className="partner-logo img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/client-4.png"
+                          alt="Client"
+                          className="partner-logo img-fluid"
+                        />
                       </div>
                     </div>
                   </div>
@@ -214,57 +316,87 @@ const AboutPage = () => {
           <div className="d-flex flex-column flex-xl-row gspace-5">
             <div className="chooseus-card-container">
               <div className="d-flex flex-column gspace-2">
-                <div className="card card-chooseus animate-box animated fast animate__animated" data-animate="animate__fadeInLeft">
+                <div
+                  className="card card-chooseus animate-box animated fast animate__animated"
+                  data-animate="animate__fadeInLeft"
+                >
                   <div className="chooseus-icon-wrapper">
                     <div className="chooseus-spacer above"></div>
                     <div className="chooseus-icon-layout">
                       <div className="chooseus-icon">
-                        <img src="/marko-digital-marketing-agency-html/image/Icon-2.png" alt="Why Choose Us Icon" className="img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/Icon-2.png"
+                          alt="Why Choose Us Icon"
+                          className="img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
                     <h4 className="chooseus-title">Reliability & Trust</h4>
-                    <p>We build lasting partnerships with our clients, providing dependable solutions and continuous support for long-term success.</p>
+                    <p>
+                      We build lasting partnerships with our clients, providing dependable solutions and continuous
+                      support for long-term success.
+                    </p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
                 </div>
-                <div className="card card-chooseus animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                <div
+                  className="card card-chooseus animate-box animated animate__animated"
+                  data-animate="animate__fadeInLeft"
+                >
                   <div className="chooseus-icon-wrapper">
                     <div className="chooseus-spacer above"></div>
                     <div className="chooseus-icon-layout">
                       <div className="chooseus-icon">
-                        <img src="/marko-digital-marketing-agency-html/image/icon-1.png" alt="Why Choose Us Icon" className="img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/icon-1.png"
+                          alt="Why Choose Us Icon"
+                          className="img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
                     <h4 className="chooseus-title">Partnership Approach</h4>
-                    <p>We work closely with your team to ensure solutions align with your goals and organizational culture.</p>
+                    <p>
+                      We work closely with your team to ensure solutions align with your goals and organizational
+                      culture.
+                    </p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
                 </div>
-                <div className="card card-chooseus animate-box animated slow animate__animated" data-animate="animate__fadeInLeft">
+                <div
+                  className="card card-chooseus animate-box animated slow animate__animated"
+                  data-animate="animate__fadeInLeft"
+                >
                   <div className="chooseus-icon-wrapper">
                     <div className="chooseus-spacer above"></div>
                     <div className="chooseus-icon-layout">
                       <div className="chooseus-icon">
-                        <img src="/marko-digital-marketing-agency-html/image/Icon-3.png" alt="Why Choose Us Icon" className="img-fluid" />
+                        <img
+                          src="/marko-digital-marketing-agency-html/image/Icon-3.png"
+                          alt="Why Choose Us Icon"
+                          className="img-fluid"
+                        />
                       </div>
                     </div>
                     <div className="chooseus-spacer below"></div>
                   </div>
                   <div className="chooseus-content">
                     <h4 className="chooseus-title">Quality & Documentation</h4>
-                    <p>Government-grade quality standards with comprehensive documentation and compliance for all projects.</p>
+                    <p>
+                      Government-grade quality standards with comprehensive documentation and compliance for all
+                      projects.
+                    </p>
                     <div className="link-wrapper">
                       <a href="#">Read More</a>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
@@ -276,21 +408,40 @@ const AboutPage = () => {
             <div className="chooseus-content-container">
               <div className="d-flex flex-column gspace-5">
                 <div className="d-flex flex-column gspace-2">
-                  <div className="sub-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                  <div
+                    className="sub-heading animate-box animated animate__animated"
+                    data-animate="animate__fadeInDown"
+                  >
                     <i className="fa-regular fa-circle-dot"></i>
                     <span>Our Core Values</span>
                   </div>
-                  <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInDown">The Principles That Define Us</h2>
-                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">In the fast-paced digital world, choosing the right technology partner makes all the difference. At Devmart, we don't just write code—we build reliable systems that deliver measurable impact for your organization.</p>
+                  <h2
+                    className="title-heading animate-box animated animate__animated"
+                    data-animate="animate__fadeInDown"
+                  >
+                    The Principles That Define Us
+                  </h2>
+                  <p className="mb-0 animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                    In the fast-paced digital world, choosing the right technology partner makes all the difference. At
+                    Devmart, we don't just write code—we build reliable systems that deliver measurable impact for your
+                    organization.
+                  </p>
                 </div>
                 <div className="image-container">
-                  <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Why Choose Us Image" className="chooseus-img" />
+                  <img
+                    src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
+                    alt="Why Choose Us Image"
+                    className="chooseus-img"
+                  />
                   <div className="card-chooseus-cta-layout">
                     <div className="chooseus-cta-spacer"></div>
                     <div className="d-flex flex-column align-items-end">
-                      <div className="chooseus-cta-spacer"></div>    
+                      <div className="chooseus-cta-spacer"></div>
                       <div className="card-chooseus-cta-wrapper">
-                        <div className="card card-chooseus-cta animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div
+                          className="card card-chooseus-cta animate-box animated animate__animated"
+                          data-animate="animate__fadeInUp"
+                        >
                           <h5>Partner with Devmart and build your digital future.</h5>
                           <div className="link-wrapper">
                             <Link to="/contact">Let's Discuss Your Project</Link>
@@ -313,14 +464,17 @@ const AboutPage = () => {
           <div className="hero-container">
             <div className="guide-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
               <div className="guide-video-container">
-                <button className="request-loader" data-video="https://www.youtube.com/embed/VhBl3dHT5SY?autoplay=1"><i className="fa-solid fa-play"></i></button>
-                  <p>
-                    See How We Help Organizations Grow
-                  </p>
+                <button className="request-loader" data-video="https://www.youtube.com/embed/VhBl3dHT5SY?autoplay=1">
+                  <i className="fa-solid fa-play"></i>
+                </button>
+                <p>See How We Help Organizations Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
                 <h3 className="title-heading">Transform Your Organization with Devmart</h3>
-                <p>Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together.</p>
+                <p>
+                  Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered
+                  tools. Let's build something powerful together.
+                </p>
               </div>
             </div>
           </div>
@@ -330,7 +484,9 @@ const AboutPage = () => {
       {/* Section Modal Video */}
       <div className="section p-0">
         <div id="modal-overlay" className="modal-overlay">
-          <span className="modal-close"><i className="fa-solid fa-xmark"></i></span>
+          <span className="modal-close">
+            <i className="fa-solid fa-xmark"></i>
+          </span>
           <div className="video-modal">
             <iframe id="modal-video-frame" className="ifr-video" allowFullScreen></iframe>
           </div>
@@ -342,7 +498,10 @@ const AboutPage = () => {
         <div className="hero-container">
           <div className="team-wrapper">
             <div className="card team-layout">
-              <div className="d-flex flex-column align-items-center gspace-2 animate-box animate__animated" data-animate="animate__fadeInLeft">
+              <div
+                className="d-flex flex-column align-items-center gspace-2 animate-box animate__animated"
+                data-animate="animate__fadeInLeft"
+              >
                 <div className="sub-heading">
                   <i className="fa-regular fa-circle-dot"></i>
                   <span>Our Team</span>
@@ -353,7 +512,11 @@ const AboutPage = () => {
                 <div className="col">
                   <div className="d-flex flex-column">
                     <div className="image-team">
-                      <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg" alt="Team Image" className="img-fluid" />
+                      <img
+                        src="/marko-digital-marketing-agency-html/image/humility-in-the-face-of-praise-5M6A7Q9.jpg"
+                        alt="Team Image"
+                        className="img-fluid"
+                      />
                       <div className="social-team-wrapper">
                         <div className="social-team-spacer"></div>
                         <div className="d-flex flex-column align-items-end">
@@ -381,7 +544,11 @@ const AboutPage = () => {
                 <div className="col">
                   <div className="d-flex flex-column">
                     <div className="image-team">
-                      <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg" alt="Team Image" className="img-fluid" />
+                      <img
+                        src="/marko-digital-marketing-agency-html/image/asian-buinsesswoman-hoding-a-file-folder-and-a-cof-SU69HLN.jpg"
+                        alt="Team Image"
+                        className="img-fluid"
+                      />
                       <div className="social-team-wrapper">
                         <div className="social-team-spacer"></div>
                         <div className="d-flex flex-column align-items-end">
@@ -409,7 +576,11 @@ const AboutPage = () => {
                 <div className="col">
                   <div className="d-flex flex-column">
                     <div className="image-team">
-                      <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg" alt="Team Image" className="img-fluid" />
+                      <img
+                        src="/marko-digital-marketing-agency-html/image/young-african-american-businessman-holding-digital-FYREY7J.jpg"
+                        alt="Team Image"
+                        className="img-fluid"
+                      />
                       <div className="social-team-wrapper">
                         <div className="social-team-spacer"></div>
                         <div className="d-flex flex-column align-items-end">
@@ -448,7 +619,10 @@ const AboutPage = () => {
             <div className="digital-process-content">
               <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5">
                 <div className="col">
-                  <div className="d-flex flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                  <div
+                    className="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                    data-animate="animate__fadeInDown"
+                  >
                     <div className="sub-heading">
                       <i className="fa-regular fa-circle-dot"></i>
                       <span>How it Work</span>
@@ -457,9 +631,13 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="col">
-                  <div className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
+                  <div
+                    className="d-flex flex-column gspace-2 justify-content-end h-100 animate-box animated fast animate__animated"
+                    data-animate="animate__fadeInDown"
+                  >
                     <p>
-                      Our streamlined process ensures your digital transformation is seamless and effective. We guide you from initial concept through deployment and ongoing support.
+                      Our streamlined process ensures your digital transformation is seamless and effective. We guide
+                      you from initial concept through deployment and ongoing support.
                     </p>
                     <div className="link-wrapper">
                       <Link to="/contact">Get Started Now</Link>
@@ -472,73 +650,105 @@ const AboutPage = () => {
                 <div className="digital-process-steps">
                   <div className="row row-cols-xl-4 row-cols-md-2 row-cols-1">
                     <div className="col">
-                      <div className="digital-process-step animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div
+                        className="digital-process-step animate-box animated animate__animated"
+                        data-animate="animate__fadeInUp"
+                      >
                         <div className="d-flex justify-content-between">
                           <div>
-                            <img src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-N952ZWA.png" alt="Digital Proccess Icon" className="process-icon" />
+                            <img
+                              src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-N952ZWA.png"
+                              alt="Digital Proccess Icon"
+                              className="process-icon"
+                            />
                           </div>
                           <span>01</span>
                         </div>
                         <div className="d-flex flex-column gspace-2">
                           <h5>Discovery & Requirements</h5>
                           <p>
-                            We understand your needs, gather requirements, and define project scope with clear deliverables and timelines.
+                            We understand your needs, gather requirements, and define project scope with clear
+                            deliverables and timelines.
                           </p>
                         </div>
                       </div>
                     </div>
                     <div className="col">
-                      <div className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                      <div
+                        className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated"
+                        data-animate="animate__fadeInDown"
+                      >
                         <div className="step-spacer"></div>
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-11.png" alt="Digital Process Icon" className="process-icon" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Icon-11.png"
+                                alt="Digital Process Icon"
+                                className="process-icon"
+                              />
                             </div>
                             <span>02</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
                             <h5>Architecture & Design</h5>
                             <p>
-                              We design the technical architecture, user interface, and database structure for optimal performance and scalability.
+                              We design the technical architecture, user interface, and database structure for optimal
+                              performance and scalability.
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="col">
-                      <div className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                        <div className="step-spacer"></div>     
+                      <div
+                        className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated"
+                        data-animate="animate__fadeInUp"
+                      >
+                        <div className="step-spacer"></div>
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-10.png" alt="Digital Process Icon" className="process-icon" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Icon-10.png"
+                                alt="Digital Process Icon"
+                                className="process-icon"
+                              />
                             </div>
                             <span>03</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
                             <h5>Development & Testing</h5>
                             <p>
-                              We build your solution with clean code, rigorous testing, and quality assurance to ensure reliability and security.
+                              We build your solution with clean code, rigorous testing, and quality assurance to ensure
+                              reliability and security.
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="col">
-                      <div className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated" data-animate="animate__fadeInDown">
+                      <div
+                        className="d-flex flex-md-row flex-column gspace-2 animate-box animated animate__animated"
+                        data-animate="animate__fadeInDown"
+                      >
                         <div className="step-spacer"></div>
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-12.png" alt="Digital Process Icon" className="process-icon" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Icon-12.png"
+                                alt="Digital Process Icon"
+                                className="process-icon"
+                              />
                             </div>
                             <span>04</span>
                           </div>
                           <div className="d-flex flex-column gspace-2">
                             <h5>Launch & Support</h5>
                             <p>
-                              We deploy your application, provide training, and offer ongoing maintenance to ensure long-term success.
+                              We deploy your application, provide training, and offer ongoing maintenance to ensure
+                              long-term success.
                             </p>
                           </div>
                         </div>
@@ -559,15 +769,34 @@ const AboutPage = () => {
           <div className="d-flex flex-column gspace-5">
             <div className="d-flex flex-column flex-xl-row gspace-5">
               <div className="testimonial-reviewer-container">
-                <div className="testimonial-header-wrapper animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
+                <div
+                  className="testimonial-header-wrapper animate-box animated fast animate__animated"
+                  data-animate="animate__fadeInDown"
+                >
                   <div className="card card-testimonial-reviewer">
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-3">
                       <div className="testimonial-reviewer">
                         <div className="avatar-container">
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
                         </div>
                         <div className="detail">
                           <h6>2.7k Positive</h6>
@@ -577,7 +806,9 @@ const AboutPage = () => {
                       <div className="testimonial-rating-container">
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
                           <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="98">0</span>
+                            <span className="counter" data-target="98">
+                              0
+                            </span>
                             <span className="counter-detail">%</span>
                           </div>
                           <p>On-Time Delivery</p>
@@ -585,7 +816,9 @@ const AboutPage = () => {
                         <div className="underline-vertical"></div>
                         <div className="d-flex flex-column justify-content-center align-items-center gspace-1">
                           <div className="d-flex flex-row align-items-center">
-                            <span className="counter" data-target="75">0</span>
+                            <span className="counter" data-target="75">
+                              0
+                            </span>
                             <span className="counter-detail">%</span>
                           </div>
                           <p>Return Clients</p>
@@ -606,14 +839,20 @@ const AboutPage = () => {
                 </div>
               </div>
               <div className="testimonial-title-container">
-                <div className="testimonial-header-wrapper-title animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                <div
+                  className="testimonial-header-wrapper-title animate-box animated animate__animated"
+                  data-animate="animate__fadeInRight"
+                >
                   <div className="card-testimonial-header-title">
                     <div className="sub-heading">
                       <i className="fa-regular fa-circle-dot"></i>
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how organizations like yours achieved outstanding results with Devmart's expert digital solutions.</p>
+                    <p>
+                      Discover how organizations like yours achieved outstanding results with Devmart's expert digital
+                      solutions.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -634,7 +873,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Sarah Williams</span>
@@ -644,7 +887,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Devmart built our housing subsidy portal from the ground up. The system handles thousands of applications seamlessly, and our processing time was cut in half!"
+                          "Devmart built our housing subsidy portal from the ground up. The system handles thousands of
+                          applications seamlessly, and our processing time was cut in half!"
                         </p>
                       </div>
                     </div>
@@ -660,7 +904,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Michael Chen</span>
@@ -670,7 +918,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many developers, but Devmart stands out. Their technical expertise and reliability gave us confidence in delivering a mission-critical government system."
+                          "We've worked with many developers, but Devmart stands out. Their technical expertise and
+                          reliability gave us confidence in delivering a mission-critical government system."
                         </p>
                       </div>
                     </div>
@@ -686,7 +935,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Lisa Rodriguez</span>
@@ -696,7 +949,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "From concept to deployment, Devmart delivered our enterprise platform on time and on budget. The ongoing support has been exceptional!"
+                          "From concept to deployment, Devmart delivered our enterprise platform on time and on budget.
+                          The ongoing support has been exceptional!"
                         </p>
                       </div>
                     </div>
@@ -712,7 +966,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">David Thompson</span>
@@ -722,7 +980,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Highly professional and results-oriented. Devmart's expertise in building secure portals helped us modernize our operations and serve citizens better."
+                          "Highly professional and results-oriented. Devmart's expertise in building secure portals
+                          helped us modernize our operations and serve citizens better."
                         </p>
                       </div>
                     </div>
@@ -738,7 +997,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Emma Richard</span>
@@ -748,7 +1011,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Devmart completely transformed our digital infrastructure! Their technical expertise and modern solutions helped us streamline operations and serve our customers better."
+                          "Devmart completely transformed our digital infrastructure! Their technical expertise and
+                          modern solutions helped us streamline operations and serve our customers better."
                         </p>
                       </div>
                     </div>
@@ -764,7 +1028,11 @@ const AboutPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">David Mont</span>
@@ -774,7 +1042,8 @@ const AboutPage = () => {
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "We've worked with many development teams before, but Devmart stands out. Their systematic approach and technical excellence gave us confidence throughout the project."
+                          "We've worked with many development teams before, but Devmart stands out. Their systematic
+                          approach and technical excellence gave us confidence throughout the project."
                         </p>
                       </div>
                     </div>
