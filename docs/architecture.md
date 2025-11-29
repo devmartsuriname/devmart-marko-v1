@@ -81,6 +81,12 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
 
+**Admin Modal Z-Index Requirements:**
+- All admin modals must use `z-index: 200` or higher to render above admin layout elements
+- Admin sidebar uses `z-index: 100`, requiring modals to exceed this value
+- Dialog component defaults updated from `z-50` to `z-[200]` globally
+- Controlled Dialog pattern: `isOpen` prop from parent page, no internal state management
+
 ### Backend Architecture
 
 **Supabase Integration:**
