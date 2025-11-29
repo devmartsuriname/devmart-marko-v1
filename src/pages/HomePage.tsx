@@ -47,7 +47,7 @@ const HomePage = () => {
                   <div className="d-flex flex-md-row flex-column justify-content-center justify-content-xl-start align-self-center align-self-xl-start gspace-3">
                     <Link to="/about" className="btn btn-accent">
                       <div className="btn-title">
-                        <span>Book a Strategy Call</span>
+                        <span>Book a Call</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
