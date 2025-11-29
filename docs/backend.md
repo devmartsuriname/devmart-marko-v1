@@ -337,9 +337,70 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - No file upload capabilities
 
 **Next Steps:**
-- Phase 4 Part 2: Implement Services CRUD operations (create/edit/delete)
+- Phase 4B: Implement Services create functionality ✅ (see below)
+- Phase 4C: Implement Services edit/delete functionality
 - Wire other admin modules (blog, projects, pricing, etc.)
 - Eventually connect marketing site to dynamic database content
+
+### Phase 4B – Add Service Modal ✅
+
+**Date:** 2025-11-29  
+**Status:** Create functionality implemented  
+
+**Components Created:**
+- **AddServiceModal** (`src/components/admin/services/AddServiceModal.tsx`)
+  - Modal form with 10 fields matching services table schema
+  - Client-side validation for required fields (name, slug, description)
+  - Auto-generates slug from service name in kebab-case format
+  - User can override auto-generated slug (stops auto-update once manually edited)
+  - Loading state during submission ("Creating..." button text)
+  - Error display for validation and Supabase errors
+  - Success callback triggers table refresh
+
+**Form Fields:**
+- **name** (text, required) - Service name
+- **slug** (text, required, auto-generated) - URL-friendly identifier
+- **description** (textarea, required) - Full service description
+- **short_description** (textarea, optional) - Brief summary for cards
+- **icon** (text, optional) - Path to icon image
+- **status** (dropdown, required) - draft / published / archived
+- **featured** (checkbox) - Feature on homepage
+- **sort_order** (number) - Display order
+- **meta_title** (text, optional) - SEO meta title
+- **meta_description** (textarea, optional) - SEO meta description
+
+**Query Layer Updated:**
+- Added `createService(service: TablesInsert<"services">)` function
+- Uses `supabase.from("services").insert([service])`
+- Returns `{ data, error }` pattern for UI error handling
+
+**Admin Page Integration:**
+- "Add Service" button opens modal (`isAddModalOpen` state)
+- Modal success callback triggers `fetchServices()` to refresh table
+- Empty state message updated to reference "Add Service" button
+- No page reload required - table updates seamlessly
+
+**Validation Logic:**
+- Client-side: name, slug, description cannot be empty
+- Auto-slug generation: converts name to lowercase, removes special chars, converts spaces to hyphens
+- Manual override detection: once slug is edited manually, auto-generation stops
+
+**User Flow:**
+1. Click "Add Service" button
+2. Modal opens with empty form
+3. Enter service name (slug auto-generates)
+4. Fill required fields (description)
+5. Optionally edit slug, add optional fields
+6. Click "Create Service"
+7. Modal shows "Creating..." during submission
+8. On success: modal closes, table refreshes with new service
+9. On error: error message displays, form stays open for retry
+
+**Not Included:**
+- Edit functionality (deferred to Phase 4C)
+- Delete functionality (deferred to Phase 4C)
+- File upload for icon (text input only for now)
+- Image preview functionality
 
 ---
 
