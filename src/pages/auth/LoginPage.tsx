@@ -1,16 +1,29 @@
 import { useState, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import "@/styles/admin.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
-    // Placeholder: no real authentication yet
-    alert("Login functionality will be connected in the next phase.");
+    setError(null);
+    setLoading(true);
+
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    } else {
+      navigate("/admin");
+    }
   };
 
   return (
@@ -23,6 +36,18 @@ export default function LoginPage() {
           </p>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && (
+            <div style={{ 
+              padding: "12px", 
+              marginBottom: "16px", 
+              backgroundColor: "#fee", 
+              color: "#c33", 
+              borderRadius: "4px",
+              fontSize: "14px"
+            }}>
+              {error}
+            </div>
+          )}
           <div className="admin-form-group">
             <label className="admin-form-label" htmlFor="email">
               Email Address
@@ -35,6 +60,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
           <div className="admin-form-group">
@@ -49,10 +75,16 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
-          <button type="submit" className="admin-btn admin-btn-primary" style={{ width: "100%" }}>
-            Sign In
+          <button 
+            type="submit" 
+            className="admin-btn admin-btn-primary" 
+            style={{ width: "100%" }}
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
         <div className="auth-footer">

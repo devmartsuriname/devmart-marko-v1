@@ -22,6 +22,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 
 // Admin layout and pages
 import { AdminLayout } from "./components/admin/AdminLayout";
+import { RequireAuth } from "./components/admin/RequireAuth";
 import DashboardPage from "./pages/admin/DashboardPage";
 import ServicesAdminPage from "./pages/admin/ServicesAdminPage";
 import ProjectsAdminPage from "./pages/admin/ProjectsAdminPage";
@@ -59,18 +60,20 @@ const App = () => (
       <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />
 
-      {/* Admin routes */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="services" element={<ServicesAdminPage />} />
-        <Route path="projects" element={<ProjectsAdminPage />} />
-        <Route path="pricing" element={<PricingAdminPage />} />
-        <Route path="testimonials" element={<TestimonialsAdminPage />} />
-        <Route path="blog" element={<BlogAdminPage />} />
-        <Route path="team" element={<TeamAdminPage />} />
-        <Route path="faqs" element={<FaqAdminPage />} />
-        <Route path="contacts" element={<ContactsAdminPage />} />
-        <Route path="settings" element={<SettingsAdminPage />} />
+      {/* Admin routes - Protected */}
+      <Route path="/admin" element={<RequireAuth />}>
+        <Route element={<AdminLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="services" element={<ServicesAdminPage />} />
+          <Route path="projects" element={<ProjectsAdminPage />} />
+          <Route path="pricing" element={<PricingAdminPage />} />
+          <Route path="testimonials" element={<TestimonialsAdminPage />} />
+          <Route path="blog" element={<BlogAdminPage />} />
+          <Route path="team" element={<TeamAdminPage />} />
+          <Route path="faqs" element={<FaqAdminPage />} />
+          <Route path="contacts" element={<ContactsAdminPage />} />
+          <Route path="settings" element={<SettingsAdminPage />} />
+        </Route>
       </Route>
     </Routes>
   </BrowserRouter>

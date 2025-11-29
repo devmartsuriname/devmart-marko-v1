@@ -13,7 +13,14 @@
 **Status:** Database schema and RLS implemented (Backend only)  
 **Completed:** 2025-11-28  
 **Scope:** MVP tables (services, blog_posts, contact_submissions, site_settings, user_roles, admin_users)  
-**Not Included:** Frontend wiring, authentication flows, deferred tables
+**Not Included:** Frontend wiring, deferred tables
+
+## Phase 3: Authentication & Admin Route Protection - IMPLEMENTED ✅
+
+**Status:** Authentication flows active, admin routes protected  
+**Completed:** 2025-11-29  
+**Scope:** Login, logout, password reset, route protection with RequireAuth  
+**Not Included:** Data wiring to admin pages, role-based authorization, strict RLS
 
 ### Backend Architecture
 
@@ -39,13 +46,42 @@
 **Default Data Seeded:**
 - Site settings with Devmart branding and contact information
 
-### What's Next (Phase 3)
+### Authentication Architecture (Phase 3)
 
-Phase 3 will wire the admin UI to the backend:
-- Implement authentication flows (login, logout, protected routes)
+**AuthContext (`src/context/AuthContext.tsx`):**
+- Manages Supabase session and user state
+- Provides `signIn`, `signOut`, `user`, `session`, `isLoading`
+- Subscribes to `onAuthStateChange` for real-time session sync
+- Initializes session on mount with `getSession()`
+
+**useAuth Hook (`src/hooks/useAuth.ts`):**
+- Convenience hook for accessing AuthContext
+- Throws error if used outside AuthProvider
+
+**RequireAuth Component (`src/components/admin/RequireAuth.tsx`):**
+- Route protection wrapper for all `/admin/*` routes
+- Shows loading state while checking session
+- Redirects anonymous users to `/auth/login`
+- Renders child routes for authenticated users
+
+**Authentication Flows:**
+- Login: Email/password via `supabase.auth.signInWithPassword()`
+- Logout: Via `supabase.auth.signOut()` with redirect to login
+- Password Reset: Via `supabase.auth.resetPasswordForEmail()`
+- Session Persistence: Automatic via Supabase client localStorage
+
+**Authorization Policy (Dev Mode):**
+- Any signed-in user can access `/admin` area
+- No role-based checks enforced yet
+- Stricter policies deferred to Security Hardening phase
+
+### What's Next (Phase 4)
+
+Phase 4 will wire the admin UI to the backend:
 - Connect admin CRUD pages to Supabase tables
+- Implement role-based authorization (has_role() enforcement)
 - Add file upload functionality (Supabase Storage)
-- Begin tightening RLS policies
+- Begin tightening RLS policies for production
 
 ---
 
@@ -355,15 +391,17 @@ All 14 marketing pages are complete with 1:1 template parity:
 
 | Route | Component | Status | Phase | Notes |
 |-------|-----------|--------|-------|-------|
-| `/auth/login` | LoginPage | ✅ Implemented (UI Only) | Phase 2 | Admin login only |
-| `/auth/forgot-password` | ForgotPasswordPage | ✅ Implemented (UI Only) | Phase 2 | Password reset flow |
-| `/auth/register` | RegisterPage | ✅ Implemented (Not Linked) | N/A | Not exposed in v1 UI |
+| `/auth/login` | LoginPage | ✅ Functional | Phase 3 | Wired to Supabase signIn |
+| `/auth/forgot-password` | ForgotPasswordPage | ✅ Functional | Phase 3 | Wired to Supabase password reset |
+| `/auth/register` | RegisterPage | ✅ Functional (Not Linked) | Phase 3 | Wired to signUp but not exposed in UI |
 
-**v1 Auth Strategy:**
+**v1 Auth Strategy (Phase 3):**
 - Admin-only authentication (no public registration)
-- Email/password via Supabase Auth
-- Session persistence with localStorage
-- `/auth/register` route not exposed in UI (reserved for future internal use)
+- Email/password via `supabase.auth.signInWithPassword()`
+- Session persistence via Supabase client localStorage
+- `/auth/register` route functional but not exposed in UI (internal use only)
+- Sign out functionality via AdminHeader dropdown
+- Session automatically restored on page refresh
 
 ---
 
@@ -371,16 +409,22 @@ All 14 marketing pages are complete with 1:1 template parity:
 
 | Route | Component | Status | Phase | Description |
 |-------|-----------|--------|-------|-------------|
-| `/admin` | DashboardPage | ✅ Implemented (UI Only) | Phase 2 | Overview & stats |
-| `/admin/services` | ServicesAdminPage | ✅ Implemented (UI Only) | Phase 2 | Services CRUD |
-| `/admin/projects` | ProjectsAdminPage | ✅ Implemented (UI Only) | Phase 2 | Case Studies CRUD |
-| `/admin/pricing` | PricingAdminPage | ✅ Implemented (UI Only) | Phase 2 | Pricing Plans CRUD |
-| `/admin/testimonials` | TestimonialsAdminPage | ✅ Implemented (UI Only) | Phase 2 | Testimonials CRUD |
-| `/admin/blog` | BlogAdminPage | ✅ Implemented (UI Only) | Phase 2 | Blog Posts CRUD |
-| `/admin/team` | TeamAdminPage | ✅ Implemented (UI Only) | Phase 2 | Team Members CRUD |
-| `/admin/faqs` | FaqAdminPage | ✅ Implemented (UI Only) | Phase 2 | FAQ Items CRUD |
-| `/admin/contacts` | ContactsAdminPage | ✅ Implemented (UI Only) | Phase 2 | Contact Submissions Inbox |
-| `/admin/settings` | SettingsAdminPage | ✅ Implemented (UI Only) | Phase 2 | Site Settings |
+| `/admin` | DashboardPage | ✅ Protected (UI Only) | Phase 3 | Overview & stats |
+| `/admin/services` | ServicesAdminPage | ✅ Protected (UI Only) | Phase 3 | Services CRUD |
+| `/admin/projects` | ProjectsAdminPage | ✅ Protected (UI Only) | Phase 3 | Case Studies CRUD |
+| `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
+| `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
+| `/admin/blog` | BlogAdminPage | ✅ Protected (UI Only) | Phase 3 | Blog Posts CRUD |
+| `/admin/team` | TeamAdminPage | ✅ Protected (UI Only) | Phase 3 | Team Members CRUD |
+| `/admin/faqs` | FaqAdminPage | ✅ Protected (UI Only) | Phase 3 | FAQ Items CRUD |
+| `/admin/contacts` | ContactsAdminPage | ✅ Protected (UI Only) | Phase 3 | Contact Submissions Inbox |
+| `/admin/settings` | SettingsAdminPage | ✅ Protected (UI Only) | Phase 3 | Site Settings |
+
+**Route Protection (Phase 3):**
+- All `/admin/*` routes wrapped in `<RequireAuth>` component
+- Anonymous users redirected to `/auth/login`
+- Session persistence allows automatic login on page refresh
+- No role-based checks yet (any signed-in user can access)
 
 ---
 
