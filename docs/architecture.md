@@ -245,24 +245,263 @@ npm run build
 - ✅ Production build: `npm run build` completes without errors
 - ✅ MIME types: CSS served as `text/css`, JS as `application/javascript`
 
+---
+
+## Frontend vs Admin Separation
+
+### Marketing Frontend (Phase 1 - COMPLETE ✅)
+
+**Status:** Production-ready, locked for stability  
+**Purpose:** Public-facing marketing website for Devmart  
+**Route Namespace:** `/`, `/about`, `/services`, `/blog`, etc.  
+
+All 14 marketing pages are complete with 1:1 template parity:
+- HomePage, AboutPage, ServicesPage, SingleServicePage
+- CaseStudiesPage, TeamPage, PartnershipPage, PricingPage
+- FaqPage, TestimonialsPage, BlogPage, SinglePostPage
+- ContactPage, NotFoundPage
+
+**Technology:**
+- React 18 + TypeScript + Vite
+- Bootstrap 5 + Original template CSS
+- jQuery for template scripts
+- Swiper.js for sliders
+- Static content (no backend yet)
+
+---
+
+### Admin Backend (Phase 2+ - PLANNED)
+
+**Status:** Planning phase - not implemented  
+**Purpose:** Internal CMS for managing site content  
+**Route Namespaces:** `/auth/*`, `/admin/*`  
+
+**Architecture:** Option A - Simple Admin CMS (chosen for v1)
+- Single-tenant (Devmart only)
+- Admin-only authentication
+- React admin UI with protected routes
+- Lovable Cloud (Supabase) backend
+- CRUD for core content entities
+
+---
+
+## Route Structure with Phase Mapping
+
+### Public Routes (Marketing Site)
+
+| Route | Component | Status | Phase |
+|-------|-----------|--------|-------|
+| `/` | HomePage | ✅ Complete | Phase 1 |
+| `/about` | AboutPage | ✅ Complete | Phase 1 |
+| `/services` | ServicesPage | ✅ Complete | Phase 1 |
+| `/services/:slug` | SingleServicePage | ✅ Complete | Phase 1 |
+| `/blog` | BlogPage | ✅ Complete | Phase 1 |
+| `/blog/:slug` | SinglePostPage | ✅ Complete | Phase 1 |
+| `/case-studies` | CaseStudiesPage | ✅ Complete | Phase 1 |
+| `/team` | TeamPage | ✅ Complete | Phase 1 |
+| `/partnership` | PartnershipPage | ✅ Complete | Phase 1 |
+| `/pricing` | PricingPage | ✅ Complete | Phase 1 |
+| `/faq` | FaqPage | ✅ Complete | Phase 1 |
+| `/testimonials` | TestimonialsPage | ✅ Complete | Phase 1 |
+| `/contact` | ContactPage | ✅ Complete | Phase 1 |
+| `/*` | NotFoundPage | ✅ Complete | Phase 1 |
+
+---
+
+### Authentication Routes
+
+| Route | Component | Status | Phase | Notes |
+|-------|-----------|--------|-------|-------|
+| `/auth/login` | LoginPage | 📋 Planned | Phase 2 | Admin login only |
+| `/auth/forgot-password` | ForgotPasswordPage | 📋 Planned | Phase 2 | Password reset flow |
+| `/auth/register` | RegisterPage | ❌ Disabled | N/A | Not exposed in v1 UI |
+
+**v1 Auth Strategy:**
+- Admin-only authentication (no public registration)
+- Email/password via Supabase Auth
+- Session persistence with localStorage
+- `/auth/register` route not exposed in UI (reserved for future internal use)
+
+---
+
+### Admin Routes (v1)
+
+| Route | Component | Status | Phase | Description |
+|-------|-----------|--------|-------|-------------|
+| `/admin` | DashboardPage | 📋 Planned | Phase 2 | Overview & stats |
+| `/admin/services` | ServicesAdminPage | 📋 Planned | Phase 2 | Services CRUD |
+| `/admin/projects` | ProjectsAdminPage | 📋 Planned | Phase 2 | Case Studies CRUD |
+| `/admin/pricing` | PricingAdminPage | 📋 Planned | Phase 2 | Pricing Plans CRUD |
+| `/admin/testimonials` | TestimonialsAdminPage | 📋 Planned | Phase 2 | Testimonials CRUD |
+| `/admin/blog` | BlogAdminPage | 📋 Planned | Phase 2 | Blog Posts CRUD |
+| `/admin/team` | TeamAdminPage | 📋 Planned | Phase 2 | Team Members CRUD |
+| `/admin/faqs` | FaqAdminPage | 📋 Planned | Phase 2 | FAQ Items CRUD |
+| `/admin/contacts` | ContactsAdminPage | 📋 Planned | Phase 2 | Contact Submissions Inbox |
+| `/admin/settings` | SettingsAdminPage | 📋 Planned | Phase 2 | Site Settings |
+
+---
+
+### Admin Routes (Phase 2+)
+
+| Route | Component | Status | Phase | Notes |
+|-------|-----------|--------|-------|-------|
+| `/admin/partners` | PartnersAdminPage | 🔮 Future | Phase 2+ | Partner logos carousel |
+| `/admin/homepage` | HomepageAdminPage | 🔮 Future | Phase 2+ | Dynamic homepage blocks |
+| `/admin/newsletter` | NewsletterAdminPage | 🔮 Future | Phase 2+ | Subscriber management |
+
+---
+
+## Frontend Code Lock - Protected Files
+
+**Purpose:** Preserve stable Phase 1 marketing site while building backend  
+**Restore Point:** `devmart-marko-frontend-v1-stable` (Git tag / Lovable history)  
+**Enforcement:** Do NOT modify protected files without explicit "Frontend Update" approval  
+
+### Protected Marketing Frontend Files ❌
+
+**No modifications allowed without approval:**
+
+```
+src/pages/ (Marketing Pages)
+├── HomePage.tsx              ❌ PROTECTED
+├── AboutPage.tsx             ❌ PROTECTED
+├── ServicesPage.tsx          ❌ PROTECTED
+├── SingleServicePage.tsx     ❌ PROTECTED
+├── CaseStudiesPage.tsx       ❌ PROTECTED
+├── TeamPage.tsx              ❌ PROTECTED
+├── PartnershipPage.tsx       ❌ PROTECTED
+├── PricingPage.tsx           ❌ PROTECTED
+├── FaqPage.tsx               ❌ PROTECTED
+├── TestimonialsPage.tsx      ❌ PROTECTED
+├── BlogPage.tsx              ❌ PROTECTED
+├── SinglePostPage.tsx        ❌ PROTECTED
+├── ContactPage.tsx           ❌ PROTECTED (UI only - handler can change)
+└── NotFoundPage.tsx          ❌ PROTECTED
+
+src/components/layout/
+├── Header.tsx                ❌ PROTECTED
+├── Footer.tsx                ❌ PROTECTED
+
+src/layouts/
+└── MainLayout.tsx            ❌ PROTECTED
+
+public/marko-digital-marketing-agency-html/
+└── **/* (all template assets) ❌ PROTECTED
+```
+
+**Exception:** `ContactPage.tsx` UI structure is protected, but form submission handler can be modified to integrate with backend.
+
+---
+
+### Safe for Backend Work - New Directories ✅
+
+**These directories can be created and modified freely:**
+
+```
+src/pages/auth/               ✅ NEW - Safe to create
+├── LoginPage.tsx
+├── RegisterPage.tsx          (disabled in UI)
+└── ForgotPasswordPage.tsx
+
+src/pages/admin/              ✅ NEW - Safe to create
+├── DashboardPage.tsx
+├── ServicesAdminPage.tsx
+├── ProjectsAdminPage.tsx
+├── PricingAdminPage.tsx
+├── TestimonialsAdminPage.tsx
+├── BlogAdminPage.tsx
+├── TeamAdminPage.tsx
+├── FaqAdminPage.tsx
+├── ContactsAdminPage.tsx
+└── SettingsAdminPage.tsx
+
+src/components/admin/         ✅ NEW - Safe to create
+├── AdminLayout.tsx           (Main layout for admin area)
+├── AdminSidebar.tsx          (Left navigation)
+├── AdminHeader.tsx           (Top bar with user menu)
+├── AdminThemeToggle.tsx      (Dark/light mode)
+├── DataTable.tsx             (Reusable table component)
+├── FormField.tsx             (Form inputs)
+└── ...                       (Other admin-specific components)
+
+src/hooks/                    ✅ Safe for new hooks
+├── useSupabase.ts
+├── useAuth.ts
+└── ...
+
+src/lib/                      ✅ Safe for utilities
+├── supabase.ts
+├── api.ts
+└── ...
+
+src/styles/
+└── admin.css                 ✅ NEW - Admin-specific styles
+```
+
+---
+
+### Process Rule: Frontend Modifications
+
+> **CRITICAL RULE:**  
+> Do not modify any protected marketing frontend files unless there is an explicit "Frontend Update" phase or ticket approved by Devmart.
+>
+> All backend/admin work must only touch:
+> - `/auth/*` routes and components
+> - `/admin/*` routes and components
+> - Backend-related hooks, utilities, and services
+> - Supabase integration code
+> - Admin-specific styles
+>
+> If a frontend change is required (e.g., integrating dynamic data from backend), it must be:
+> 1. Clearly scoped as a "Frontend Integration" task
+> 2. Approved separately from backend work
+> 3. Tested thoroughly to preserve visual parity
+
+---
+
+### Restore Point Details
+
+**Git Tag:** `devmart-marko-frontend-v1-stable`  
+**Created:** 2025-11-27 (after Phase 1 completion)  
+**Message:** "Phase 1 frontend complete - all marketing pages converted and branded"
+
+**To restore if needed:**
+```bash
+git checkout devmart-marko-frontend-v1-stable
+```
+
+**Alternative:** Use Lovable's built-in version history to restore to timestamp before backend work began.
+
+---
+
 ### Next Phases (NOT IMPLEMENTED YET)
 
-**Phase 1B:** Content Swap
-- Replace Marko branding with Devmart
-- Update copy, images, contact info
-- Localize for Suriname market
+**Phase 2A:** Admin Shell (UI Only - In Progress)
+- Create auth pages (login, forgot-password)
+- Build admin layout with sidebar + header
+- Implement theme toggle (dark/light)
+- Add placeholder admin pages
+- Set up admin routing structure
+- **NO DATABASE OR SUPABASE YET**
 
-**Phase 2:** Backend Integration
-- Supabase/PostgreSQL database
-- User authentication
-- CMS for content management
-- Form submission handling
+**Phase 2B:** Backend Integration
+- Enable Lovable Cloud / Supabase
+- Create database tables and RLS policies
+- Implement Supabase client hooks
+- Wire admin UI to real data
+- Implement file upload to Storage
+
+**Phase 2C:** Frontend Data Integration
+- Replace static data with Supabase queries
+- Add loading states to marketing pages
+- Implement contact form submission
+- Test end-to-end flows
 
 **Phase 3:** Advanced Features
-- Blog with dynamic content
-- Case studies portfolio
-- Team member profiles
-- Client testimonials system
+- Partner logos management
+- Homepage content blocks editor
+- Newsletter subscriber management
+- Advanced analytics
 
 ### Phase 1A-2: CSS & Animation Fixes (COMPLETED ✅)
 
