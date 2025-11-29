@@ -408,6 +408,13 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Solution applied globally to `DialogOverlay` and `DialogContent` in `src/components/ui/dialog.tsx`
 - All admin modals now consistently render above sidebar, header, and other admin UI elements
 
+**Bugfix (2025-11-29) - onOpenChange Handler:**
+- Fixed critical bug where AddServiceModal was not appearing when "Add Service" button was clicked
+- Root cause: `onOpenChange={handleClose}` was calling close handler immediately when dialog tried to open
+- Solution: Changed to `onOpenChange={(isOpen) => { if (!isOpen) handleClose(); }}` to only trigger close when dialog is actually closing
+- Radix Dialog's `onOpenChange` callback receives a boolean parameter indicating open/closed state
+- Must check the parameter before calling close handlers to prevent premature dialog dismissal
+
 ---
 
 ## Database Schema (v1)
