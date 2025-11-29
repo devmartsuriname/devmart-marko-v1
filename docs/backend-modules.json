@@ -1,0 +1,795 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-11-28",
+  "description": "Backend CMS modules and data models for Devmart Marko v1",
+  "enums": {
+    "ContentStatus": {
+      "description": "Standard content status across publishable entities",
+      "values": ["draft", "published", "archived"]
+    },
+    "SubmissionStatus": {
+      "description": "Status for user-submitted forms (contact, newsletter, etc.)",
+      "values": ["new", "read", "responded", "archived"]
+    },
+    "BillingPeriod": {
+      "description": "Pricing plan billing frequency",
+      "values": ["month", "year", "one-time"]
+    },
+    "AdminRole": {
+      "description": "Admin user permission levels",
+      "values": ["admin", "editor"]
+    }
+  },
+  "modules": [
+    {
+      "name": "Services",
+      "phase": "v1",
+      "tableName": "services",
+      "description": "Service offerings displayed on Services page",
+      "adminRoute": "/admin/services",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "maxLength": 100,
+          "example": "Custom Web Application Development"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "pattern": "^[a-z0-9-]+$",
+          "example": "custom-web-apps"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "required": true,
+          "maxLength": 500,
+          "example": "We build scalable web applications tailored to your business needs..."
+        },
+        {
+          "name": "icon_url",
+          "type": "string",
+          "nullable": true,
+          "example": "/marko-digital-marketing-agency-html/image/Icon-2.png"
+        },
+        {
+          "name": "featured",
+          "type": "boolean",
+          "default": false,
+          "description": "Display on homepage"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0,
+          "description": "Display order (ascending)"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "ContentStatus",
+          "default": "published"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Projects / Case Studies",
+      "phase": "v1",
+      "tableName": "case_studies",
+      "description": "Portfolio projects and case studies",
+      "adminRoute": "/admin/projects",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "maxLength": 150,
+          "example": "Government Portal Modernization"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "pattern": "^[a-z0-9-]+$",
+          "example": "government-portal-2024"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "required": true,
+          "maxLength": 1000,
+          "example": "Comprehensive modernization of legacy government system..."
+        },
+        {
+          "name": "client_name",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 100,
+          "example": "Tech Solutions Inc."
+        },
+        {
+          "name": "tags",
+          "type": "array<string>",
+          "default": [],
+          "example": ["Government", "Portal", "Legacy Modernization"]
+        },
+        {
+          "name": "featured_image",
+          "type": "string",
+          "nullable": true,
+          "example": "/uploads/case-studies/project-hero.jpg"
+        },
+        {
+          "name": "results_summary",
+          "type": "text",
+          "nullable": true,
+          "maxLength": 500,
+          "example": "Reduced processing time by 60%, improved citizen satisfaction by 45%"
+        },
+        {
+          "name": "featured",
+          "type": "boolean",
+          "default": false,
+          "description": "Display on homepage"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "ContentStatus",
+          "default": "published"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Pricing Plans",
+      "phase": "v1",
+      "tableName": "pricing_plans",
+      "description": "Service packages and pricing tiers",
+      "adminRoute": "/admin/pricing",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "example": "Starter"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "example": "starter"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "maxLength": 200,
+          "example": "Perfect for small businesses getting started online"
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "required": true,
+          "precision": 10,
+          "scale": 2,
+          "example": 99.00
+        },
+        {
+          "name": "billing_period",
+          "type": "enum",
+          "enum": "BillingPeriod",
+          "default": "month"
+        },
+        {
+          "name": "features",
+          "type": "array<string>",
+          "default": [],
+          "example": ["5-page website", "Mobile responsive", "Basic SEO", "Contact form"]
+        },
+        {
+          "name": "target_segment",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 100,
+          "example": "Small businesses & startups"
+        },
+        {
+          "name": "highlighted",
+          "type": "boolean",
+          "default": false,
+          "description": "Show as recommended plan"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "ContentStatus",
+          "default": "published"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "phase": "v1",
+      "tableName": "testimonials",
+      "description": "Client reviews and testimonials",
+      "adminRoute": "/admin/testimonials",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "client_name",
+          "type": "string",
+          "required": true,
+          "maxLength": 100,
+          "example": "Sarah Johnson"
+        },
+        {
+          "name": "client_company",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 100,
+          "example": "Tech Innovations Ltd."
+        },
+        {
+          "name": "client_role",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 100,
+          "example": "CEO"
+        },
+        {
+          "name": "quote",
+          "type": "text",
+          "required": true,
+          "maxLength": 500,
+          "example": "Devmart delivered exceptional results. Their technical expertise and professionalism exceeded our expectations."
+        },
+        {
+          "name": "rating",
+          "type": "integer",
+          "nullable": true,
+          "min": 1,
+          "max": 5,
+          "example": 5
+        },
+        {
+          "name": "photo_url",
+          "type": "string",
+          "nullable": true,
+          "example": "/uploads/testimonials/client-photo.jpg"
+        },
+        {
+          "name": "company_logo_url",
+          "type": "string",
+          "nullable": true,
+          "example": "/uploads/testimonials/company-logo.png"
+        },
+        {
+          "name": "featured",
+          "type": "boolean",
+          "default": false,
+          "description": "Display on homepage"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "ContentStatus",
+          "default": "published"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Blog Posts",
+      "phase": "v1",
+      "tableName": "blog_posts",
+      "description": "Blog articles and content marketing",
+      "adminRoute": "/admin/blog",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "maxLength": 200,
+          "example": "10 Web Development Trends for 2025"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "pattern": "^[a-z0-9-]+$",
+          "example": "web-development-trends-2025"
+        },
+        {
+          "name": "excerpt",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 300,
+          "example": "Discover the latest trends shaping the future of web development..."
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "required": true,
+          "description": "Full article content (HTML or Markdown)"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 50,
+          "example": "Web Development"
+        },
+        {
+          "name": "tags",
+          "type": "array<string>",
+          "default": [],
+          "example": ["JavaScript", "React", "Web Design"]
+        },
+        {
+          "name": "featured_image",
+          "type": "string",
+          "nullable": true,
+          "example": "/uploads/blog/post-hero.jpg"
+        },
+        {
+          "name": "author_id",
+          "type": "uuid",
+          "foreignKey": "admin_users.id",
+          "nullable": true
+        },
+        {
+          "name": "read_time_minutes",
+          "type": "integer",
+          "default": 5,
+          "example": 8
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "ContentStatus",
+          "default": "draft"
+        },
+        {
+          "name": "published_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ],
+      "relationships": [
+        {
+          "type": "many-to-one",
+          "target": "admin_users",
+          "foreignKey": "author_id",
+          "description": "Blog post author"
+        }
+      ]
+    },
+    {
+      "name": "Team Members",
+      "phase": "v1",
+      "tableName": "team_members",
+      "description": "Company team member profiles",
+      "adminRoute": "/admin/team",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "maxLength": 100,
+          "example": "Alex Martinez"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": true,
+          "maxLength": 100,
+          "example": "Lead Developer"
+        },
+        {
+          "name": "bio",
+          "type": "text",
+          "nullable": true,
+          "maxLength": 500,
+          "example": "10+ years of experience building scalable web applications..."
+        },
+        {
+          "name": "photo_url",
+          "type": "string",
+          "nullable": true,
+          "example": "/uploads/team/alex-martinez.jpg"
+        },
+        {
+          "name": "social_links",
+          "type": "json",
+          "default": {},
+          "example": {
+            "linkedin": "https://linkedin.com/in/alexmartinez",
+            "github": "https://github.com/alexm",
+            "twitter": "https://twitter.com/alexmartinez"
+          }
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true,
+          "format": "email",
+          "example": "alex@devmart.sr"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": true,
+          "description": "Show on team page"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "FAQ Items",
+      "phase": "v1",
+      "tableName": "faq_items",
+      "description": "Frequently asked questions",
+      "adminRoute": "/admin/faqs",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "question",
+          "type": "string",
+          "required": true,
+          "maxLength": 300,
+          "example": "How long does it take to build a custom web application?"
+        },
+        {
+          "name": "answer",
+          "type": "text",
+          "required": true,
+          "maxLength": 1000,
+          "example": "Development timelines vary based on project complexity. A typical web application takes 8-12 weeks..."
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 50,
+          "example": "Development Process"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Contact Submissions",
+      "phase": "v1",
+      "tableName": "contact_submissions",
+      "description": "Contact form submissions inbox",
+      "adminRoute": "/admin/contacts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true
+        },
+        {
+          "name": "first_name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "example": "John"
+        },
+        {
+          "name": "last_name",
+          "type": "string",
+          "required": true,
+          "maxLength": 50,
+          "example": "Doe"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "format": "email",
+          "example": "john.doe@example.com"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200,
+          "example": "Project Inquiry - E-commerce Website"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "required": true,
+          "maxLength": 2000,
+          "example": "I'm interested in building an e-commerce platform for my business..."
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "SubmissionStatus",
+          "default": "new"
+        },
+        {
+          "name": "admin_notes",
+          "type": "text",
+          "nullable": true,
+          "maxLength": 1000,
+          "description": "Internal notes for tracking"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true,
+          "description": "Submission date"
+        },
+        {
+          "name": "responded_at",
+          "type": "timestamp",
+          "nullable": true,
+          "description": "When admin marked as responded"
+        }
+      ]
+    },
+    {
+      "name": "Site Settings",
+      "phase": "v1",
+      "tableName": "site_settings",
+      "description": "Global site configuration (contact info, branding, SEO)",
+      "adminRoute": "/admin/settings",
+      "fields": [
+        {
+          "name": "key",
+          "type": "string",
+          "primaryKey": true,
+          "maxLength": 50,
+          "example": "site_name"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "required": true,
+          "example": "Devmart Suriname"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": true,
+          "maxLength": 200,
+          "example": "Brand name displayed in header and footer"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ],
+      "predefinedSettings": [
+        { "key": "site_name", "value": "Devmart Suriname" },
+        { "key": "contact_email", "value": "info@devmart.sr" },
+        { "key": "contact_phone", "value": "+597 854-1211" },
+        { "key": "contact_address", "value": "Jagernath Lachmon straat nr. 152, Paramaribo, Suriname" },
+        { "key": "facebook_url", "value": "https://www.facebook.com/DevmartSuriname/" },
+        { "key": "copyright_text", "value": "© 2025 Devmart Suriname. All Rights Reserved." },
+        { "key": "seo_default_title", "value": "Devmart - Web Development & Digital Solutions" },
+        { "key": "seo_default_description", "value": "Professional web development and digital solutions in Suriname" }
+      ]
+    },
+    {
+      "name": "Admin Users",
+      "phase": "v1",
+      "tableName": "admin_users",
+      "description": "CMS admin user accounts (managed via Supabase Auth)",
+      "adminRoute": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "generated": true,
+          "description": "Linked to Supabase Auth user ID"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "format": "email",
+          "example": "admin@devmart.sr"
+        },
+        {
+          "name": "full_name",
+          "type": "string",
+          "required": true,
+          "maxLength": 100,
+          "example": "Admin User"
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "enum": "AdminRole",
+          "default": "admin"
+        },
+        {
+          "name": "last_login",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "generated": true
+        }
+      ]
+    },
+    {
+      "name": "Partner Logos",
+      "phase": "v2",
+      "tableName": "partner_logos",
+      "description": "Trusted by / partner logo carousel",
+      "adminRoute": "/admin/partners",
+      "note": "Deferred to Phase 2 - not critical for v1 launch"
+    },
+    {
+      "name": "Homepage Content Blocks",
+      "phase": "v2",
+      "tableName": "homepage_blocks",
+      "description": "Dynamic hero, stats, feature cards",
+      "adminRoute": "/admin/homepage",
+      "note": "Deferred to Phase 2 - homepage content can remain static for v1"
+    },
+    {
+      "name": "Newsletter Subscribers",
+      "phase": "v2",
+      "tableName": "newsletter_subscribers",
+      "description": "Email subscription list",
+      "adminRoute": "/admin/newsletter",
+      "note": "Deferred to Phase 2 - newsletter form can remain non-functional for v1"
+    }
+  ]
+}
