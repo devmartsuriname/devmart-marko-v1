@@ -72,8 +72,14 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - ✅ Admin services page wired to Supabase
 - ✅ Loading and error states implemented
 - ✅ 6 services seeded from frontend content
-- ❌ CRUD operations (deferred to Phase 4 Part 2)
+- ✅ Create functionality implemented (Phase 4B)
+- ❌ Edit/Delete operations (deferred to Phase 4C)
 - ❌ Marketing site database connection (future phase)
+
+**Phase 4B Components:**
+- `AddServiceModal` component with form validation and slug auto-generation
+- `createService()` function in query layer
+- Modal integration with ServicesAdminPage for seamless table refresh
 
 ### Backend Architecture
 
