@@ -778,22 +778,22 @@ const AboutPage = () => {
                       <div className="testimonial-reviewer">
                         <div className="avatar-container">
                           <img
-                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
                           />
                           <img
-                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
                           />
                           <img
-                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
                           />
                           <img
-                            src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg"
+                            src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
                           />
