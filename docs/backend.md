@@ -402,6 +402,12 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - File upload for icon (text input only for now)
 - Image preview functionality
 
+**Bugfix (2025-11-29):**
+- Fixed z-index issue where modal was rendering behind admin sidebar (z-100)
+- Updated Dialog component default z-index from `z-50` to `z-[200]` to ensure all modals appear above admin layout elements
+- Solution applied globally to `DialogOverlay` and `DialogContent` in `src/components/ui/dialog.tsx`
+- All admin modals now consistently render above sidebar, header, and other admin UI elements
+
 ---
 
 ## Database Schema (v1)
