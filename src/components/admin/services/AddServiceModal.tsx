@@ -20,7 +20,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
   console.log("[AddServiceModal] Render, open:", open);
   
   // DEBUG FLAG: Set to true to test raw overlay (bypasses Radix Dialog)
-  const USE_RAW_OVERLAY_TEST = true;
+  const USE_RAW_OVERLAY_TEST = false;
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
