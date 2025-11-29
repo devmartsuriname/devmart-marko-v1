@@ -355,7 +355,7 @@ const HomePage = () => {
                 </div>
                 <div className="image-container">
                   <img
-                    src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
+                    src="/marko-digital-marketing-agency-html/image/collaborative-process-of-multicultural-skilled-peo-5EHBQRG-1024x683.jpg"
                     alt="Why Choose Us Image"
                     className="chooseus-img"
                   />
