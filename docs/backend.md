@@ -290,6 +290,57 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 
 **Conclusion:** Phase 3 authentication layer is stable and ready for Phase 4 (Admin Data Wiring).
 
+### Phase 4 – Services Read-Only + Seed ✅
+
+**Date:** 2025-11-29  
+**Status:** Services admin page connected to Supabase with seeded data  
+
+**Implementation Details:**
+
+**Query Layer Created:**
+- Location: `src/integrations/supabase/queries/services.ts`
+- Function: `getAllServices()` - fetches all services ordered by sort_order
+- Pattern: Thin wrapper over Supabase client with no business logic
+- Returns: `{ data, error }` for error handling in UI layer
+
+**Admin Page Wiring:**
+- `/admin/services` now reads directly from Supabase `services` table
+- Loading state: "Loading services..." during data fetch
+- Error state: Red error message if fetch fails
+- Empty state: "No services found" message when table is empty
+- DataTable displays: Name, Slug, Status, Featured flag, Formatted date
+
+**Seeded Services (6 core Devmart offerings):**
+1. **Custom Web Applications** (featured, sort_order: 1)
+2. **Government Portals** (featured, sort_order: 2)
+3. **Enterprise Systems** (featured, sort_order: 3)
+4. **AI-Powered Tools** (featured, sort_order: 4)
+5. **UX/UI Design** (not featured, sort_order: 5)
+6. **Maintenance & Support** (not featured, sort_order: 6)
+
+**Seed Migration:**
+- File: `supabase/migrations/YYYYMMDDHHMMSS_seed_devmart_services.sql`
+- Uses `ON CONFLICT (slug) DO UPDATE` for idempotency
+- Safe to run multiple times without duplicating data
+- Extracted from existing ServicesPage.tsx content
+
+**Current State:**
+- Marketing pages (HomePage, ServicesPage) remain static with hardcoded content
+- Admin Services page uses live database data
+- CRUD operations (create/edit/delete) not yet implemented
+- Future phase will connect marketing site to database
+
+**Not Included in Phase 4:**
+- No CRUD forms or edit/delete functionality
+- No changes to marketing frontend pages
+- No RLS policy modifications
+- No file upload capabilities
+
+**Next Steps:**
+- Phase 4 Part 2: Implement Services CRUD operations (create/edit/delete)
+- Wire other admin modules (blog, projects, pricing, etc.)
+- Eventually connect marketing site to dynamic database content
+
 ---
 
 ## Database Schema (v1)
