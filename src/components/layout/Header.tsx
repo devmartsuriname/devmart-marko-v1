@@ -17,11 +17,11 @@ const Header = () => {
         if (lightMode) {
           $('body').addClass('lightmode');
           localStorage.setItem('lightmode', 'active');
-          siteLogos.attr('src', '/marko-digital-marketing-agency-html/image/marko-logo-dark.png');
+          siteLogos.attr('src', '/marko-digital-marketing-agency-html/image/devmart-logo.png');
         } else {
           $('body').removeClass('lightmode');
           localStorage.removeItem('lightmode');
-          siteLogos.attr('src', '/marko-digital-marketing-agency-html/image/marko-logo.png');
+          siteLogos.attr('src', '/marko-digital-marketing-agency-html/image/devmart-logo.png');
         }
       };
 
@@ -43,7 +43,7 @@ const Header = () => {
           <div className="navbar-container">
             <div className="logo-container">
               <Link className="navbar-brand" to="/">
-                <img src="/marko-digital-marketing-agency-html/image/marko-logo.png" className="site-logo img-fluid" alt="Devmart Logo" />
+                <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" className="site-logo img-fluid" alt="Devmart Logo" />
               </Link>
             </div>
             <button className="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
