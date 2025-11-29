@@ -6,6 +6,49 @@
 **Completed:** 2025-11-27  
 **Home Page:** All 13 sections implemented and verified
 
+---
+
+## Phase 2: Backend Integration (MVP) - IMPLEMENTED ✅
+
+**Status:** Database schema and RLS implemented (Backend only)  
+**Completed:** 2025-11-28  
+**Scope:** MVP tables (services, blog_posts, contact_submissions, site_settings, user_roles, admin_users)  
+**Not Included:** Frontend wiring, authentication flows, deferred tables
+
+### Backend Architecture
+
+**Supabase Integration:**
+- External Supabase project (configured for Hostinger VPS deployment)
+- Supabase client: `src/lib/supabase.ts`
+- Generated types: `src/integrations/supabase/types.ts`
+- Environment variables: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+
+**Database Schema (Phase 2 MVP):**
+- ✅ Enums: content_status, submission_status, app_role, billing_period
+- ✅ Security: user_roles table + has_role() SECURITY DEFINER function
+- ✅ Content: services, blog_posts, contact_submissions, site_settings
+- ✅ Admin: admin_users table (profile data linked to auth.users)
+- ⏸️ Deferred: case_studies, pricing_plans, testimonials, team_members, faq_items
+
+**Security Foundation:**
+- Roles stored in separate user_roles table (prevents privilege escalation)
+- has_role(_user_id, _role) function for secure role checking
+- RLS enabled on all tables with development-friendly policies
+- Strict admin-only policies deferred to Security Hardening phase
+
+**Default Data Seeded:**
+- Site settings with Devmart branding and contact information
+
+### What's Next (Phase 3)
+
+Phase 3 will wire the admin UI to the backend:
+- Implement authentication flows (login, logout, protected routes)
+- Connect admin CRUD pages to Supabase tables
+- Add file upload functionality (Supabase Storage)
+- Begin tightening RLS policies
+
+---
+
 ### Project Structure
 
 ```
