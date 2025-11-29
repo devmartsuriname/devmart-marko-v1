@@ -1087,8 +1087,8 @@ body.lightmode .keep-dark .btn-accent{
     display: flex;
     flex-direction: column;
     padding: 120px 20px 120px 20px;
-    border-radius: 0;
-    border: none;
+    border-radius: var(--global-border-radius);
+    border: 1px solid var(--accent-color-3);
     position: relative;
     overflow: hidden;
     z-index: 1;
