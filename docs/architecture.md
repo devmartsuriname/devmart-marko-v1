@@ -40,6 +40,41 @@
 - Backend RLS policies remain development-friendly
 - Stricter role-based authorization deferred to Security Hardening phase
 
+### Phase 4 – Services Read-Only + Seed ✅
+
+**Date:** 2025-11-29  
+**Status:** Query layer established, admin services page wired to Supabase  
+
+**Query Layer Architecture:**
+- **Location:** `src/integrations/supabase/queries/*`
+- **Pattern:** Thin wrappers over Supabase client
+- **No business logic:** Formatting and mapping done in UI components
+- **Error handling:** Returns `{ data, error }` for UI layer to handle
+
+**Services Module:**
+- File: `src/integrations/supabase/queries/services.ts`
+- Function: `getAllServices()` - fetches all services ordered by sort_order
+- Admin page: `/admin/services` uses live Supabase data
+- 6 core Devmart services seeded from existing frontend content
+
+**Current Data Flow:**
+```
+ServicesAdminPage → getAllServices() → Supabase services table → UI rendering
+```
+
+**Marketing vs Admin Data State:**
+- **Marketing pages:** Still static with hardcoded JSX content (ServicesPage, HomePage)
+- **Admin pages:** Connected to live Supabase database (Services module only)
+- **Future:** Marketing site will be connected to database in later phase
+
+**Phase 4 Scope:**
+- ✅ Query layer created
+- ✅ Admin services page wired to Supabase
+- ✅ Loading and error states implemented
+- ✅ 6 services seeded from frontend content
+- ❌ CRUD operations (deferred to Phase 4 Part 2)
+- ❌ Marketing site database connection (future phase)
+
 ### Backend Architecture
 
 **Supabase Integration:**
