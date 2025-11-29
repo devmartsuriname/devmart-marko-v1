@@ -8,9 +8,13 @@ const TestimonialsPage = () => {
         <div className="banner-layout-wrapper">
           <div className="banner-layout">
             <div className="d-flex flex-column text-center align-items-center gspace-2">
-              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Testimonials</h2>
+              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                Testimonials
+              </h2>
               <nav className="breadcrumb">
-                <Link to="/" className="gspace-2">Home</Link>
+                <Link to="/" className="gspace-2">
+                  Home
+                </Link>
                 <span className="separator-link">/</span>
                 <p className="current-page">Testimonials</p>
               </nav>
@@ -26,15 +30,34 @@ const TestimonialsPage = () => {
           <div className="d-flex flex-column gspace-5">
             <div className="d-flex flex-column flex-xl-row gspace-5">
               <div className="testimonial-reviewer-container">
-                <div className="testimonial-header-wrapper animate-box animated fast animate__animated" data-animate="animate__fadeInDown">
+                <div
+                  className="testimonial-header-wrapper animate-box animated fast animate__animated"
+                  data-animate="animate__fadeInDown"
+                >
                   <div className="card card-testimonial-reviewer">
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-3">
                       <div className="testimonial-reviewer">
                         <div className="avatar-container">
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
-                          <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Reviewer" className="avatar" />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
+                          <img
+                            src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
+                            alt="Testimonial Reviewer"
+                            className="avatar"
+                          />
                         </div>
                         <div className="detail">
                           <h6>2.7k Positive</h6>
@@ -73,14 +96,20 @@ const TestimonialsPage = () => {
                 </div>
               </div>
               <div className="testimonial-title-container">
-                <div className="testimonial-header-wrapper-title animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                <div
+                  className="testimonial-header-wrapper-title animate-box animated animate__animated"
+                  data-animate="animate__fadeInRight"
+                >
                   <div className="card-testimonial-header-title">
                     <div className="sub-heading">
                       <i className="fa-regular fa-circle-dot"></i>
                       <span>What Our Client Says</span>
                     </div>
                     <h2 className="title-heading">Hear from Our Satisfied Clients, Real Success Stories</h2>
-                    <p>Discover how organizations like yours achieved outstanding results with Devmart's expert development solutions.</p>
+                    <p>
+                      Discover how organizations like yours achieved outstanding results with Devmart's expert
+                      development solutions.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -101,7 +130,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Emma Richard</span>
@@ -110,7 +143,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Devmart built our custom portal from the ground up. Their technical expertise and attention to detail exceeded all expectations."</p>
+                        <p className="testimonial-description">
+                          "Devmart built our custom portal from the ground up. Their technical expertise and attention
+                          to detail exceeded all expectations."
+                        </p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -125,7 +161,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">David Mont</span>
@@ -134,7 +174,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"We've worked with many developers before, but Devmart stands out. Their systematic approach and technical expertise delivered exactly what we needed."</p>
+                        <p className="testimonial-description">
+                          "We've worked with many developers before, but Devmart stands out. Their systematic approach
+                          and technical expertise delivered exactly what we needed."
+                        </p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -149,7 +192,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Sophia Lewis</span>
@@ -158,7 +205,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"From planning to deployment, Devmart handled every aspect of our web application. Performance is excellent and the system runs flawlessly."</p>
+                        <p className="testimonial-description">
+                          "From planning to deployment, Devmart handled every aspect of our web application. Performance
+                          is excellent and the system runs flawlessly."
+                        </p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -173,7 +223,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-13.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">James Peterson</span>
@@ -182,7 +236,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us modernize our entire infrastructure."</p>
+                        <p className="testimonial-description">
+                          "Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us
+                          modernize our entire infrastructure."
+                        </p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -197,7 +254,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">Emma Richard</span>
@@ -206,7 +267,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"Devmart built our custom portal from the ground up. Their technical expertise and attention to detail exceeded all expectations."</p>
+                        <p className="testimonial-description">
+                          "Devmart built our custom portal from the ground up. Their technical expertise and attention
+                          to detail exceeded all expectations."
+                        </p>
                       </div>
                     </div>
                     <div className="swiper-slide">
@@ -221,7 +285,11 @@ const TestimonialsPage = () => {
                         <div className="d-flex flex-row align-items-center justify-content-between">
                           <div className="d-flex flex-row gspace-2">
                             <div className="testimonial-image">
-                              <img src="/marko-digital-marketing-agency-html/image/dummy-img-400x400.jpg" alt="Testimonial Person Image" className="img-fluid" />
+                              <img
+                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
+                                alt="Testimonial Person Image"
+                                className="img-fluid"
+                              />
                             </div>
                             <div className="d-flex flex-column">
                               <span className="profile-name">David Mont</span>
@@ -230,7 +298,10 @@ const TestimonialsPage = () => {
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">"We've worked with many developers before, but Devmart stands out. Their systematic approach and technical expertise delivered exactly what we needed."</p>
+                        <p className="testimonial-description">
+                          "We've worked with many developers before, but Devmart stands out. Their systematic approach
+                          and technical expertise delivered exactly what we needed."
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -254,7 +325,9 @@ const TestimonialsPage = () => {
               </div>
               <div className="d-flex flex-column gspace-2">
                 <h3 className="title-heading">Transform Your Organization with Devmart!</h3>
-                <p>Take your digital presence to the next level with reliable web solutions and innovative technology.</p>
+                <p>
+                  Take your digital presence to the next level with reliable web solutions and innovative technology.
+                </p>
               </div>
             </div>
           </div>
@@ -264,7 +337,9 @@ const TestimonialsPage = () => {
       {/* Section Modal Video */}
       <div className="section p-0">
         <div id="modal-overlay" className="modal-overlay">
-          <span className="modal-close"><i className="fa-solid fa-xmark"></i></span>
+          <span className="modal-close">
+            <i className="fa-solid fa-xmark"></i>
+          </span>
           <div className="video-modal">
             <iframe id="modal-video-frame" className="ifr-video" allowFullScreen></iframe>
           </div>
