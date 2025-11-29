@@ -91,7 +91,7 @@ const HomePage = () => {
             <div className="expertise-img-layout">
               <div className="image-container expertise-img">
                 <img
-                  src="/marko-digital-marketing-agency-html/image/working-job-career-casual-showing-SJZWF3N-1024x737.jpg"
+                  src="/marko-digital-marketing-agency-html/image/working-job-career-casual-showing.jpg"
                   alt="Expertise Image"
                   className="img-fluid animate-box animated animate__animated"
                   data-animate="animate__fadeInUp"
