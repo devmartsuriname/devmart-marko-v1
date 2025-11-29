@@ -15,9 +15,28 @@ import TestimonialsPage from "./pages/TestimonialsPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
+// Auth pages
+import LoginPage from "./pages/auth/LoginPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+
+// Admin layout and pages
+import { AdminLayout } from "./components/admin/AdminLayout";
+import DashboardPage from "./pages/admin/DashboardPage";
+import ServicesAdminPage from "./pages/admin/ServicesAdminPage";
+import ProjectsAdminPage from "./pages/admin/ProjectsAdminPage";
+import PricingAdminPage from "./pages/admin/PricingAdminPage";
+import TestimonialsAdminPage from "./pages/admin/TestimonialsAdminPage";
+import BlogAdminPage from "./pages/admin/BlogAdminPage";
+import TeamAdminPage from "./pages/admin/TeamAdminPage";
+import FaqAdminPage from "./pages/admin/FaqAdminPage";
+import ContactsAdminPage from "./pages/admin/ContactsAdminPage";
+import SettingsAdminPage from "./pages/admin/SettingsAdminPage";
+
 const App = () => (
   <BrowserRouter>
     <Routes>
+      {/* Public marketing routes */}
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
@@ -33,6 +52,25 @@ const App = () => (
         <Route path="testimonials" element={<TestimonialsPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      {/* Authentication routes */}
+      <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/auth/register" element={<RegisterPage />} />
+
+      {/* Admin routes */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="services" element={<ServicesAdminPage />} />
+        <Route path="projects" element={<ProjectsAdminPage />} />
+        <Route path="pricing" element={<PricingAdminPage />} />
+        <Route path="testimonials" element={<TestimonialsAdminPage />} />
+        <Route path="blog" element={<BlogAdminPage />} />
+        <Route path="team" element={<TeamAdminPage />} />
+        <Route path="faqs" element={<FaqAdminPage />} />
+        <Route path="contacts" element={<ContactsAdminPage />} />
+        <Route path="settings" element={<SettingsAdminPage />} />
       </Route>
     </Routes>
   </BrowserRouter>
