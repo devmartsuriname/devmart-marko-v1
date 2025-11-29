@@ -17,6 +17,8 @@ interface AddServiceModalProps {
 }
 
 export default function AddServiceModal({ open, onClose, onSuccess }: AddServiceModalProps) {
+  console.log("[AddServiceModal] Render, open:", open);
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
@@ -132,7 +134,9 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={open} onOpenChange={(isOpen) => {
+      if (!isOpen) handleClose();
+    }}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--admin-card-bg)] border-[var(--admin-border)]">
         <DialogHeader>
           <DialogTitle className="text-[var(--admin-text)]">Add New Service</DialogTitle>

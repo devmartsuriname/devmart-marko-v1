@@ -87,6 +87,13 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - Dialog component defaults updated from `z-50` to `z-[200]` globally
 - Controlled Dialog pattern: `isOpen` prop from parent page, no internal state management
 
+**Radix Dialog Controlled Mode Pattern:**
+- Always use controlled mode with `open={isOpen}` prop from parent component state
+- The `onOpenChange` callback receives a boolean parameter indicating the requested open/closed state
+- CRITICAL: Check the parameter before calling close handlers: `onOpenChange={(isOpen) => { if (!isOpen) handleClose(); }}`
+- Never call `onOpenChange={handleClose}` directly without checking the boolean parameter
+- This prevents the dialog from closing immediately when trying to open
+
 ### Backend Architecture
 
 **Supabase Integration:**
