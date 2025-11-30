@@ -267,17 +267,10 @@ All routes use React Router's client-side navigation:
    - Variables only (no `@tailwind` directives) to avoid global resets
    - Dialog and other shadcn components inherit scoped variables via `bg-background`, `text-foreground`, etc.
 
-**Dialog Component Styling (Pure Inline):**
-- `src/components/ui/dialog.tsx` uses 100% inline styles for all layout properties
-- Does NOT rely on Tailwind utility classes (which aren't generated without index.css @tailwind directives)
-- Uses `--admin-*` CSS variables from `admin.css` with hardcoded fallbacks
-- This approach ensures modals work correctly without any global CSS dependencies
-- Modal has `maxHeight: 85vh` with `overflowY: auto` for comfortable scrolling on smaller screens
-
 **Key Files:**
 - `src/styles/admin-theme-vars.css` - Scoped shadcn CSS variables (--background, --foreground, --primary, etc.)
 - `src/components/admin/AdminLayout.tsx` - Wraps admin shell with `.admin-root` class
-- `src/components/ui/dialog.tsx` - Pure inline styles, no Tailwind dependencies
+- `src/components/ui/dialog.tsx` - Uses shadcn utility classes that resolve via scoped vars
 - `src/index.css` - NOT imported globally (would break frontend)
 
 **Result:**

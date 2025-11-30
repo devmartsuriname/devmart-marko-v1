@@ -48,8 +48,6 @@ const DialogContent = React.forwardRef<
         display: 'grid',
         width: '100%',
         maxWidth: '32rem',
-        maxHeight: '85vh',
-        overflowY: 'auto',
         gap: '1rem',
         padding: '1.5rem',
         backgroundColor: 'var(--admin-bg-secondary, #1a1a2e)',
@@ -85,50 +83,23 @@ const DialogContent = React.forwardRef<
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div 
-    className={cn(className)} 
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.375rem',
-      textAlign: 'left',
-      ...style,
-    }}
-    {...props} 
-  />
+const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...props} />
 );
 DialogHeader.displayName = "DialogHeader";
 
-const DialogFooter = ({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div 
-    className={cn(className)} 
-    style={{
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      gap: '0.5rem',
-      ...style,
-    }}
-    {...props} 
-  />
+const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
 );
 DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, style, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn(className)}
-    style={{
-      fontSize: '1.125rem',
-      fontWeight: 600,
-      lineHeight: 1,
-      letterSpacing: '-0.025em',
-      ...style,
-    }}
+    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
     {...props}
   />
 ));
@@ -137,17 +108,8 @@ DialogTitle.displayName = DialogPrimitive.Title.displayName;
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, style, ...props }, ref) => (
-  <DialogPrimitive.Description 
-    ref={ref} 
-    className={cn(className)} 
-    style={{
-      fontSize: '0.875rem',
-      color: 'var(--admin-text-muted, rgba(255,255,255,0.6))',
-      ...style,
-    }}
-    {...props} 
-  />
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
