@@ -81,7 +81,12 @@ export default function ServicesAdminPage() {
         </div>
         <button 
           className="admin-btn admin-btn-primary"
-          onClick={() => setIsAddModalOpen(true)}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsAddModalOpen(true);
+          }}
+          type="button"
         >
           <Plus size={16} />
           Add Service
