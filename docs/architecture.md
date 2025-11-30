@@ -80,6 +80,7 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `AddServiceModal` component with form validation and slug auto-generation
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
+- **Bug Fix:** Modal `onOpenChange` handler now correctly checks boolean parameter to prevent immediate close on open
 
 ### Backend Architecture
 
