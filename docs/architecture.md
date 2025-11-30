@@ -81,6 +81,19 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
 - **Bug Fix:** Modal `onOpenChange` handler now correctly checks boolean parameter to prevent immediate close on open
+- **Z-Index Fix:** Dialog component z-index increased from 50 to 200 to appear above admin sidebar (z-index: 100)
+
+### Z-Index Hierarchy
+
+The admin layout maintains a strict z-index hierarchy to ensure proper layering of UI elements:
+
+- **Base content:** z-index: 1-10
+- **Admin sidebar:** z-index: 100 (defined in `src/styles/admin.css`)
+- **Admin header:** z-index: 90 (defined in `src/styles/admin.css`)
+- **Modals (Dialog/AlertDialog/Sheet):** z-index: 200 (defined in `src/components/ui/dialog.tsx`)
+- **Toasts/Notifications:** z-index: 300+ (if added in future)
+
+This hierarchy ensures modals and overlays always appear above all admin UI elements, including the sidebar.
 
 ### Backend Architecture
 
