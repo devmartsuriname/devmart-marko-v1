@@ -410,9 +410,9 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 
 **Bug Fix - Modal Transparency (2025-11-29):**
 - Fixed AddServiceModal appearing invisible/transparent by adding dedicated `--admin-modal-bg` CSS variable
-- Root cause: Modal was using `--admin-card-bg` (rgba 4% opacity) causing transparent background, and `tailwind-merge` was not correctly handling arbitrary CSS variable values in className
-- Solution: Created solid background variable `--admin-modal-bg` (#1a1a2e dark / #ffffff light) in `src/styles/admin.css`, and applied it via inline styles instead of className to guarantee proper rendering
-- Modal now displays with proper solid background in both dark and light themes without class merging conflicts
+- Root cause: Dialog component's base `bg-background` class was conflicting with custom background styles for admin modals
+- Solution: Modified `dialog.tsx` to conditionally exclude `bg-background` when a custom `style.backgroundColor` is provided, created solid background variable `--admin-modal-bg` (#1a1a2e dark / #ffffff light) in `src/styles/admin.css`, and applied it via inline styles in AddServiceModal
+- Modal now displays with proper solid background in both dark and light themes without class conflicts
 
 **Z-Index Fix (2025-11-29):**
 - Fixed Dialog component z-index conflict with admin sidebar
