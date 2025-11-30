@@ -199,6 +199,10 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - `/admin/settings` - Site Settings (protected route, backend ready, UI not wired)
 - **Deferred routes:** `/admin/projects`, `/admin/pricing`, `/admin/testimonials`, `/admin/team`, `/admin/faqs`
 
+**Admin UI Styling Note:**
+- Admin dialogs and popovers rely on shadcn-style CSS variables defined in `src/index.css` (e.g., `--background`, `--foreground`, `--border`).
+- Without these variables, Radix Dialog content may render invisible even though state flow is correct.
+
 ---
 
 ### Phase 2+ - Nice to Have

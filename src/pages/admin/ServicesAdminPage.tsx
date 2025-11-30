@@ -81,11 +81,9 @@ export default function ServicesAdminPage() {
         </div>
         <button 
           className="admin-btn admin-btn-primary"
-          onClick={() => {
-            console.log("[ServicesAdminPage] Opening modal, current state:", isAddModalOpen);
-            setIsAddModalOpen(true);
-          }}
+          onClick={() => setIsAddModalOpen(true)}
         >
+
           <Plus size={16} />
           Add Service
         </button>

@@ -17,10 +17,7 @@ interface AddServiceModalProps {
 }
 
 export default function AddServiceModal({ open, onClose, onSuccess }: AddServiceModalProps) {
-  console.log("[AddServiceModal] Render, open:", open);
-  
-  // DEBUG FLAG: Set to true to test raw overlay (bypasses Radix Dialog)
-  const USE_RAW_OVERLAY_TEST = false;
+
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -129,7 +126,6 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
   };
 
   const handleClose = () => {
-    console.log("[AddServiceModal] handleClose called, isSubmitting:", isSubmitting);
     if (!isSubmitting) {
       setError(null);
       setSlugManuallyEdited(false);
@@ -137,66 +133,23 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
     }
   };
 
-  // RAW OVERLAY TEST (bypasses Radix Dialog for state flow verification)
-  if (USE_RAW_OVERLAY_TEST) {
-    if (!open) return null;
-
-    return (
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.6)",
-          zIndex: 9999,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onClick={handleClose}
-      >
-        <div
-          style={{
-            background: "#111827",
-            padding: 24,
-            borderRadius: 12,
-            color: "#fff",
-            maxWidth: "600px",
-            width: "90%",
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <h2 style={{ marginBottom: 16 }}>Debug Modal Test</h2>
-          <p style={{ marginBottom: 16 }}>If you see this and it stays open, the state flow works!</p>
-          <p style={{ marginBottom: 16 }}>Current open state: {open.toString()}</p>
-          <button onClick={handleClose} style={{ padding: "8px 16px", background: "#4be89b", border: "none", borderRadius: 6, cursor: "pointer" }}>
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <Dialog 
       open={open} 
       onOpenChange={(isOpen) => {
-        console.log("[AddServiceModal] onOpenChange called with isOpen:", isOpen);
-        console.log("[AddServiceModal] Stack trace:", new Error().stack);
         if (!isOpen) handleClose();
       }}
     >
+
       <DialogContent 
         className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--admin-card-bg)] border-[var(--admin-border)]"
         onEscapeKeyDown={(e) => {
-          console.log("[AddServiceModal] Escape key pressed - preventing default");
           e.preventDefault();
         }}
         onPointerDownOutside={(e) => {
-          console.log("[AddServiceModal] Pointer down outside - preventing default");
           e.preventDefault();
         }}
         onInteractOutside={(e) => {
-          console.log("[AddServiceModal] Interact outside - preventing default");
           e.preventDefault();
         }}
       >
