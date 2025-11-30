@@ -106,7 +106,7 @@ Admin-specific CSS variables are defined in `src/styles/admin.css` for isolated 
 This separation prevents modals from appearing transparent, which was causing the AddServiceModal visibility issue in Phase 4B.
 
 **Styling Approach for Modals:**
-Modal components use **inline styles** (`style` prop) instead of Tailwind className utilities for background and border properties to avoid conflicts with `tailwind-merge` library when using arbitrary CSS variable values. This guarantees the CSS variables are applied correctly without being overridden by base component styles.
+Modal components use **inline styles** (`style` prop) for background and border properties to provide custom admin styling. The Dialog component in `dialog.tsx` has been modified to conditionally exclude the default `bg-background` class when a custom `style.backgroundColor` is provided, ensuring admin modals can override the default background without conflicts.
 
 ### Shadcn/UI CSS Variables Setup
 
