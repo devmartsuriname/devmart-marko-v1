@@ -133,7 +133,15 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
 
   return (
     <Dialog open={open} onOpenChange={(newOpen) => { if (!newOpen) handleClose(); }}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--admin-modal-bg)] border-[var(--admin-border)]">
+      <DialogContent 
+        className="max-w-2xl max-h-[90vh] overflow-y-auto"
+        style={{
+          backgroundColor: 'var(--admin-modal-bg)',
+          borderColor: 'var(--admin-border)',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
+      >
         <DialogHeader>
           <DialogTitle className="text-[var(--admin-text)]">Add New Service</DialogTitle>
           <DialogDescription className="text-[var(--admin-text-muted)]">
