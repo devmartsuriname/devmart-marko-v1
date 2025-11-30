@@ -408,6 +408,13 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Solution: Only call `handleClose()` when `newOpen === false` (user actively closing the dialog)
 - Modal now opens reliably when "Add Service" button is clicked
 
+**Z-Index Fix (2025-11-29):**
+- Fixed Dialog component z-index conflict with admin sidebar
+- Root cause: DialogOverlay and DialogContent used `z-50` (z-index: 50), but admin sidebar uses `z-index: 100`, causing modals to render behind sidebar
+- Solution: Updated `src/components/ui/dialog.tsx` to use `z-[200]` for both DialogOverlay and DialogContent
+- Z-index hierarchy now: Admin sidebar (100) < Dialog overlay/content (200)
+- Modal now appears above all admin UI elements including sidebar
+
 ---
 
 ## Database Schema (v1)
