@@ -3,12 +3,16 @@ import { Plus } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
 import { getAllServices, type Service } from "@/integrations/supabase/queries/services";
 import AddServiceModal from "@/components/admin/services/AddServiceModal";
+import EditServiceModal from "@/components/admin/services/EditServiceModal";
+import DeleteServiceDialog from "@/components/admin/services/DeleteServiceDialog";
 
 export default function ServicesAdminPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [deletingService, setDeletingService] = useState<Service | null>(null);
 
   const fetchServices = async () => {
     setIsLoading(true);
@@ -92,12 +96,38 @@ export default function ServicesAdminPage() {
           {error}
         </div>
       )}
-      <DataTable columns={columns} rows={rows} emptyMessage="No services found. Click 'Add Service' to create your first service." />
+      <DataTable 
+        columns={columns} 
+        rows={rows} 
+        emptyMessage="No services found. Click 'Add Service' to create your first service."
+        onEdit={(service) => setEditingService(service)}
+        onDelete={(service) => setDeletingService(service)}
+      />
       
       <AddServiceModal
         open={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onSuccess={() => {
+          fetchServices();
+        }}
+      />
+      
+      <EditServiceModal
+        service={editingService}
+        open={!!editingService}
+        onClose={() => setEditingService(null)}
+        onSuccess={() => {
+          setEditingService(null);
+          fetchServices();
+        }}
+      />
+
+      <DeleteServiceDialog
+        service={deletingService}
+        open={!!deletingService}
+        onClose={() => setDeletingService(null)}
+        onSuccess={() => {
+          setDeletingService(null);
           fetchServices();
         }}
       />

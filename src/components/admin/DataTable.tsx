@@ -8,9 +8,11 @@ interface DataTableProps {
   columns: Column[];
   rows: any[];
   emptyMessage?: string;
+  onEdit?: (row: any) => void;
+  onDelete?: (row: any) => void;
 }
 
-export const DataTable = ({ columns, rows, emptyMessage = "No data available" }: DataTableProps) => {
+export const DataTable = ({ columns, rows, emptyMessage = "No data available", onEdit, onDelete }: DataTableProps) => {
   if (rows.length === 0) {
     return (
       <div className="admin-card">
@@ -43,12 +45,24 @@ export const DataTable = ({ columns, rows, emptyMessage = "No data available" }:
                 ))}
                 <td>
                   <div style={{ display: "flex", gap: "8px" }}>
-                    <button className="admin-btn admin-btn-ghost" style={{ padding: "6px 12px" }}>
-                      Edit
-                    </button>
-                    <button className="admin-btn admin-btn-ghost" style={{ padding: "6px 12px" }}>
-                      Delete
-                    </button>
+                    {onEdit && (
+                      <button 
+                        className="admin-btn admin-btn-ghost" 
+                        style={{ padding: "6px 12px" }}
+                        onClick={() => onEdit(row)}
+                      >
+                        Edit
+                      </button>
+                    )}
+                    {onDelete && (
+                      <button 
+                        className="admin-btn admin-btn-ghost" 
+                        style={{ padding: "6px 12px" }}
+                        onClick={() => onDelete(row)}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>
