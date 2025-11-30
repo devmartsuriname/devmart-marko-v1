@@ -353,7 +353,14 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 ### Phase 4B – Add Service Modal ✅
 
 **Date:** 2025-11-29  
-**Status:** Create functionality implemented  
+**Status:** Create functionality implemented
+
+**Dialog UX Refinement (2025-11-30):**
+- Modal now has `maxHeight: 85vh` with `overflowY: auto` for smooth internal scrolling
+- All Dialog sub-components (Header, Footer, Title, Description) converted to pure inline styles
+- Tailwind utility classes removed from dialog.tsx as they were non-functional without `@tailwind` directives
+- AddServiceModal updated to use style props instead of Tailwind className for layout overrides
+- Modal feels lighter and more comfortable on smaller screens while maintaining full functionality
 
 **Components Created:**
 - **AddServiceModal** (`src/components/admin/services/AddServiceModal.tsx`)
