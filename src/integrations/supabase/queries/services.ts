@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables, TablesInsert } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 export type Service = Tables<"services">;
 
@@ -20,4 +20,24 @@ export async function createService(service: TablesInsert<"services">) {
     .single();
   
   return { data, error };
+}
+
+export async function updateService(id: string, service: TablesUpdate<"services">) {
+  const { data, error } = await supabase
+    .from("services")
+    .update(service)
+    .eq("id", id)
+    .select()
+    .single();
+  
+  return { data, error };
+}
+
+export async function deleteService(id: string) {
+  const { error } = await supabase
+    .from("services")
+    .delete()
+    .eq("id", id);
+  
+  return { error };
 }
