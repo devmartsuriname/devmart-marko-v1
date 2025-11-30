@@ -402,33 +402,6 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - File upload for icon (text input only for now)
 - Image preview functionality
 
-**Bug Fix (2025-11-29):**
-- Fixed AddServiceModal visibility issue: `onOpenChange` handler was unconditionally calling `handleClose()` even when the dialog was attempting to open
-- Root cause: Handler didn't check the boolean parameter (`newOpen`), causing immediate close on open
-- Solution: Only call `handleClose()` when `newOpen === false` (user actively closing the dialog)
-- Modal now opens reliably when "Add Service" button is clicked
-
-**Bug Fix - Modal Transparency (2025-11-29):**
-- Fixed AddServiceModal appearing invisible/transparent by adding dedicated `--admin-modal-bg` CSS variable
-- Root cause: Dialog component's base `bg-background` class was conflicting with custom background styles for admin modals
-- Solution: Modified `dialog.tsx` to conditionally exclude `bg-background` when a custom `style.backgroundColor` is provided, created solid background variable `--admin-modal-bg` (#1a1a2e dark / #ffffff light) in `src/styles/admin.css`, and applied it via inline styles in AddServiceModal
-- Modal now displays with proper solid background in both dark and light themes without class conflicts
-
-**Z-Index Fix (2025-11-29):**
-- Fixed Dialog component z-index conflict with admin sidebar
-- Root cause: DialogOverlay and DialogContent used `z-50` (z-index: 50), but admin sidebar uses `z-index: 100`, causing modals to render behind sidebar
-- Solution: Updated `src/components/ui/dialog.tsx` to use `z-[200]` for both DialogOverlay and DialogContent
-- Z-index hierarchy now: Admin sidebar (100) < Dialog overlay/content (200)
-- Modal now appears above all admin UI elements including sidebar
-
-**CSS Variables Fix (2025-11-29):**
-- Fixed invisible modal content caused by missing shadcn CSS variables
-- Root cause: Dialog component uses Tailwind classes (`bg-background`, `border`, etc.) that depend on undefined CSS variables, causing modal to render transparently
-- Solution: Added complete shadcn CSS variable definitions to `src/index.css` for both light and dark themes
-- Variables include: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, and radius
-- Primary/accent colors set to Devmart green (152 82% 55% ≈ #4be89b)
-- Modal now renders with proper background, text, and border colors in both admin dark mode and light mode
-
 ---
 
 ## Database Schema (v1)
