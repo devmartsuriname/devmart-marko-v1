@@ -6,6 +6,7 @@
   --admin-bg: #0b0c10;
   --admin-bg-secondary: #1a1a2e;
   --admin-card-bg: rgba(255, 255, 255, 0.04);
+  --admin-modal-bg: #1a1a2e;
   --admin-border: rgba(255, 255, 255, 0.1);
   --admin-text: #ffffff;
   --admin-text-muted: rgba(255, 255, 255, 0.6);
@@ -16,6 +17,7 @@
   --admin-bg: #f8f9fa;
   --admin-bg-secondary: #ffffff;
   --admin-card-bg: #ffffff;
+  --admin-modal-bg: #ffffff;
   --admin-border: rgba(0, 0, 0, 0.1);
   --admin-text: #1a1a2e;
   --admin-text-muted: rgba(0, 0, 0, 0.6);
