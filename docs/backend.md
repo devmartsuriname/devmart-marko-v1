@@ -415,6 +415,14 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Z-index hierarchy now: Admin sidebar (100) < Dialog overlay/content (200)
 - Modal now appears above all admin UI elements including sidebar
 
+**CSS Variables Fix (2025-11-29):**
+- Fixed invisible modal content caused by missing shadcn CSS variables
+- Root cause: Dialog component uses Tailwind classes (`bg-background`, `border`, etc.) that depend on undefined CSS variables, causing modal to render transparently
+- Solution: Added complete shadcn CSS variable definitions to `src/index.css` for both light and dark themes
+- Variables include: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, and radius
+- Primary/accent colors set to Devmart green (152 82% 55% ≈ #4be89b)
+- Modal now renders with proper background, text, and border colors in both admin dark mode and light mode
+
 ---
 
 ## Database Schema (v1)

@@ -95,6 +95,25 @@ The admin layout maintains a strict z-index hierarchy to ensure proper layering 
 
 This hierarchy ensures modals and overlays always appear above all admin UI elements, including the sidebar.
 
+### Shadcn/UI CSS Variables Setup
+
+The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. These variables enable:
+
+- **Theming:** Consistent colors across all shadcn components
+- **Dark mode support:** Automatic color switching via `.dark` or `body:not(.lightmode)` selectors
+- **Design system integration:** Primary/accent colors aligned with Devmart green (#4be89b)
+
+All shadcn components reference these CSS variables via Tailwind utility classes (e.g., `bg-background`, `text-foreground`, `border`). Without these variables, components render with invalid/transparent colors.
+
+**Key Variables:**
+- `--background` / `--foreground`: Base page colors
+- `--card` / `--card-foreground`: Card component colors
+- `--primary` / `--accent`: Brand colors (Devmart green: 152 82% 55%)
+- `--border` / `--input` / `--ring`: Form element colors
+- `--destructive`: Error/danger state colors
+
+This setup is required for all shadcn components to render correctly in both light and dark modes.
+
 ### Backend Architecture
 
 **Supabase Integration:**
