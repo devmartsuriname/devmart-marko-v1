@@ -408,6 +408,12 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Solution: Only call `handleClose()` when `newOpen === false` (user actively closing the dialog)
 - Modal now opens reliably when "Add Service" button is clicked
 
+**Bug Fix - Modal Transparency (2025-11-29):**
+- Fixed AddServiceModal appearing invisible/transparent by adding dedicated `--admin-modal-bg` CSS variable
+- Root cause: Modal was using `--admin-card-bg` (rgba 4% opacity) causing transparent background
+- Solution: Created solid background variable `--admin-modal-bg` (#1a1a2e dark / #ffffff light) in `src/styles/admin.css`
+- Modal now displays with proper solid background in both dark and light themes
+
 **Z-Index Fix (2025-11-29):**
 - Fixed Dialog component z-index conflict with admin sidebar
 - Root cause: DialogOverlay and DialogContent used `z-50` (z-index: 50), but admin sidebar uses `z-index: 100`, causing modals to render behind sidebar

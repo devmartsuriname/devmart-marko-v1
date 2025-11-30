@@ -95,6 +95,16 @@ The admin layout maintains a strict z-index hierarchy to ensure proper layering 
 
 This hierarchy ensures modals and overlays always appear above all admin UI elements, including the sidebar.
 
+### Admin CSS Variables Hierarchy
+
+Admin-specific CSS variables are defined in `src/styles/admin.css` for isolated admin styling:
+
+**Background Variables:**
+- `--admin-card-bg`: Semi-transparent background (rgba 4% opacity) for cards layered over solid backgrounds
+- `--admin-modal-bg`: **Solid background** (#1a1a2e dark / #ffffff light) specifically for floating modal dialogs that need full opacity
+
+This separation prevents modals from appearing transparent, which was causing the AddServiceModal visibility issue in Phase 4B.
+
 ### Shadcn/UI CSS Variables Setup
 
 The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. These variables enable:
