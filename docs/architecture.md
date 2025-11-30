@@ -97,14 +97,7 @@ This hierarchy ensures modals and overlays always appear above all admin UI elem
 
 ### Shadcn/UI CSS Variables Setup
 
-The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. 
-
-**Critical Setup Requirement:**
-- `src/index.css` must be imported in `src/main.tsx` for shadcn components to render properly
-- Without this import, Dialog components will be transparent/invisible due to undefined CSS variables
-- The import was added in Phase 4B to fix modal visibility issues
-
-These variables enable:
+The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. These variables enable:
 
 - **Theming:** Consistent colors across all shadcn components
 - **Dark mode support:** Automatic color switching via `.dark` or `body:not(.lightmode)` selectors
@@ -120,23 +113,6 @@ All shadcn components reference these CSS variables via Tailwind utility classes
 - `--destructive`: Error/danger state colors
 
 This setup is required for all shadcn components to render correctly in both light and dark modes.
-
-### Admin CSS Variables (`src/styles/admin.css`)
-
-The admin UI maintains a separate set of CSS variables for consistent theming:
-
-**Background Variables:**
-- `--admin-card-bg`: Semi-transparent background for cards (glassmorphism effect)
-  - Dark: `rgba(255, 255, 255, 0.04)` 
-  - Light: `#ffffff`
-- `--admin-modal-bg`: Solid background for modals (proper content visibility)
-  - Dark: `#1a1a2e`
-  - Light: `#ffffff`
-
-**Separation Rationale:**
-Cards use semi-transparent backgrounds to create depth and glassmorphism effects, allowing subtle visibility of content behind them. Modals require solid backgrounds to ensure content is fully readable and not transparent, which would show the underlying page through the modal overlay.
-
-This separation prevents modal content visibility issues while maintaining the admin UI's visual aesthetic for cards and other components.
 
 ### Backend Architecture
 
