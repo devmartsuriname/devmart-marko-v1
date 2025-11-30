@@ -28,10 +28,17 @@ export const AdminLayout = () => {
     const savedTheme = localStorage.getItem("devmart-admin-theme");
     if (savedTheme === "light") {
       document.body.classList.add("lightmode");
+    } else {
+      document.body.classList.remove("lightmode");
     }
+
+    // Scope shadcn admin theme vars to body so dialog portals pick them up
+    document.body.classList.add("admin-root");
 
     // Cleanup: restore marketing theme preference when leaving admin
     return () => {
+      document.body.classList.remove("admin-root");
+
       const marketingTheme = localStorage.getItem("devmart-marketing-theme");
       if (marketingTheme === "light") {
         document.body.classList.add("lightmode");
