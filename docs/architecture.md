@@ -97,7 +97,7 @@ This hierarchy ensures modals and overlays always appear above all admin UI elem
 
 ### Shadcn/UI CSS Variables Setup
 
-The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. These variables enable:
+The project uses shadcn/ui components (Dialog, Button, Input, etc.) which require CSS variables to be defined in `src/index.css`. **Critical:** `index.css` must be imported in `src/main.tsx` for these variables to load. These variables enable:
 
 - **Theming:** Consistent colors across all shadcn components
 - **Dark mode support:** Automatic color switching via `.dark` or `body:not(.lightmode)` selectors
