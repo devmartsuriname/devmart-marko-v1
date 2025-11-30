@@ -81,24 +81,6 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
 
-**Admin Modal Z-Index Requirements:**
-- All admin modals must use `z-index: 200` or higher to render above admin layout elements
-- Admin sidebar uses `z-index: 100`, requiring modals to exceed this value
-- Dialog component defaults updated from `z-50` to `z-[200]` globally
-- Controlled Dialog pattern: `isOpen` prop from parent page, no internal state management
-
-**Radix Dialog Controlled Mode Pattern:**
-- Always use controlled mode with `open={isOpen}` prop from parent component state
-- The `onOpenChange` callback receives a boolean parameter indicating the requested open/closed state
-- CRITICAL: Check the parameter before calling close handlers: `onOpenChange={(isOpen) => { if (!isOpen) handleClose(); }}`
-- Never call `onOpenChange={handleClose}` directly without checking the boolean parameter
-- This prevents the dialog from closing immediately when trying to open
-
-**Admin shadcn UI Variables:**
-- Admin Dialog, Dropdown, and Popover components rely on shadcn-style CSS variables defined in `src/index.css`.
-- Required variables include `--background`, `--foreground`, `--border`, `--input`, and `--ring`.
-- If these variables are missing, components may render fully transparent even though they are mounted.
-
 ### Backend Architecture
 
 **Supabase Integration:**

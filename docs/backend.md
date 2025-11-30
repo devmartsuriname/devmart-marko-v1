@@ -199,10 +199,6 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - `/admin/settings` - Site Settings (protected route, backend ready, UI not wired)
 - **Deferred routes:** `/admin/projects`, `/admin/pricing`, `/admin/testimonials`, `/admin/team`, `/admin/faqs`
 
-**Admin UI Styling Note:**
-- Admin dialogs and popovers rely on shadcn-style CSS variables defined in `src/index.css` (e.g., `--background`, `--foreground`, `--border`).
-- Without these variables, Radix Dialog content may render invisible even though state flow is correct.
-
 ---
 
 ### Phase 2+ - Nice to Have
@@ -405,19 +401,6 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Delete functionality (deferred to Phase 4C)
 - File upload for icon (text input only for now)
 - Image preview functionality
-
-**Bugfix (2025-11-29):**
-- Fixed z-index issue where modal was rendering behind admin sidebar (z-100)
-- Updated Dialog component default z-index from `z-50` to `z-[200]` to ensure all modals appear above admin layout elements
-- Solution applied globally to `DialogOverlay` and `DialogContent` in `src/components/ui/dialog.tsx`
-- All admin modals now consistently render above sidebar, header, and other admin UI elements
-
-**Bugfix (2025-11-29) - onOpenChange Handler:**
-- Fixed critical bug where AddServiceModal was not appearing when "Add Service" button was clicked
-- Root cause: `onOpenChange={handleClose}` was calling close handler immediately when dialog tried to open
-- Solution: Changed to `onOpenChange={(isOpen) => { if (!isOpen) handleClose(); }}` to only trigger close when dialog is actually closing
-- Radix Dialog's `onOpenChange` callback receives a boolean parameter indicating open/closed state
-- Must check the parameter before calling close handlers to prevent premature dialog dismissal
 
 ---
 

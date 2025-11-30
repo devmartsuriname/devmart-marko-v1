@@ -83,7 +83,6 @@ export default function ServicesAdminPage() {
           className="admin-btn admin-btn-primary"
           onClick={() => setIsAddModalOpen(true)}
         >
-
           <Plus size={16} />
           Add Service
         </button>
