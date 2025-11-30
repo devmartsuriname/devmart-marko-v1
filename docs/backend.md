@@ -1,11 +1,13 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 3 Authentication & Admin Route Protection - IMPLEMENTED ✅
+## Current Status: Phase 4B Services CRUD (Create) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
 **Phase 3 Authentication Implementation:** 2025-11-29  
-**Implementation Status:** Authentication flows active, admin routes protected - No data wiring yet
+**Phase 4A Services Read-Only:** 2025-11-29  
+**Phase 4B Services Create (+ Modal Fix):** 2025-11-29  
+**Implementation Status:** Services admin page fully functional with read + create operations
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
@@ -22,6 +24,12 @@
 ✅ **Sign Out:** Functional logout with redirect to login page  
 ✅ **Session Persistence:** Automatic session restore on page refresh  
 ⏸️ **Not Yet Implemented:** Role-based authorization (any signed-in user can access admin), strict RLS enforcement
+
+### Phase 4 Services Module (Implemented)
+✅ **Phase 4A:** Services read-only - query layer + admin page data display  
+✅ **Phase 4B:** Create service - AddServiceModal with form validation and insert logic  
+✅ **Modal CSS Fix:** Scoped shadcn variables to admin area via `.admin-root` wrapper  
+⏸️ **Phase 4C:** Edit/Delete operations (next priority)
 
 ---
 

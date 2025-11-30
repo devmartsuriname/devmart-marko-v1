@@ -81,6 +81,17 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
 
+**Phase 4B – Modal CSS Isolation Fix:**
+- **Issue:** AddServiceModal required shadcn CSS variables (--background, --foreground, etc.) but importing index.css globally would break frontend template styles
+- **Solution:** Created `src/styles/admin-theme-vars.css` with shadcn variables scoped to `.admin-root` class
+- **Implementation:** AdminLayout wraps all admin content with `.admin-root` div, Dialog component uses bg-background/text-foreground classes that resolve via scoped variables
+- **Result:** Modal works perfectly in admin area without affecting public frontend styling
+- **Files Modified:** 
+  - Created: `src/styles/admin-theme-vars.css` (scoped CSS variables only, no Tailwind directives)
+  - Updated: `AdminLayout.tsx` (added .admin-root wrapper and CSS import)
+  - Updated: `dialog.tsx` (z-index increased to 200 for sidebar stacking)
+  - Updated: `AddServiceModal.tsx` (removed inline bg hacks, uses shadcn variables)
+
 ### Backend Architecture
 
 **Supabase Integration:**
@@ -236,6 +247,37 @@ All routes use React Router's client-side navigation:
 - Dark mode: Available via theme switcher (functionality preserved)
 - Color variables: Using original CSS custom properties
 - Spacing: Bootstrap spacing utilities + custom classes
+
+### CSS Scope Separation (Admin vs Marketing)
+
+**Challenge:** Admin UI components (shadcn Dialog, forms) require CSS variables like `--background`, `--foreground`, etc., but the marketing site uses template CSS that would conflict with global Tailwind/shadcn imports.
+
+**Solution:** CSS isolation via scoped class wrapper
+
+**Implementation:**
+1. **Marketing Site (Global):**
+   - Uses template CSS from `public/marko-digital-marketing-agency-html/css/style.css`
+   - Bootstrap utilities and custom template classes
+   - No Tailwind preflight or resets
+   - Preserved original design system completely
+
+2. **Admin Area (Scoped):**
+   - All admin content wrapped in `.admin-root` div (in `AdminLayout.tsx`)
+   - Shadcn CSS variables defined in `src/styles/admin-theme-vars.css` scoped to `.admin-root`
+   - Variables only (no `@tailwind` directives) to avoid global resets
+   - Dialog and other shadcn components inherit scoped variables via `bg-background`, `text-foreground`, etc.
+
+**Key Files:**
+- `src/styles/admin-theme-vars.css` - Scoped shadcn CSS variables (--background, --foreground, --primary, etc.)
+- `src/components/admin/AdminLayout.tsx` - Wraps admin shell with `.admin-root` class
+- `src/components/ui/dialog.tsx` - Uses shadcn utility classes that resolve via scoped vars
+- `src/index.css` - NOT imported globally (would break frontend)
+
+**Result:**
+- Admin modals/dialogs work perfectly with proper theming
+- Public frontend completely unaffected by admin styling
+- Zero CSS conflicts between template and shadcn components
+- Clean separation of concerns
 
 **Typography:**
 - Font family: Plus Jakarta Sans (from template)

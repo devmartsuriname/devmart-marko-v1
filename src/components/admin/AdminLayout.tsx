@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
 import "@/styles/admin.css";
+import "@/styles/admin-theme-vars.css";
 
 const pageTitles: Record<string, string> = {
   "/admin": "Dashboard",
@@ -45,13 +46,15 @@ export const AdminLayout = () => {
   };
 
   return (
-    <div className="admin-layout">
-      <AdminSidebar isOpen={sidebarOpen} />
-      <div className={`admin-main-wrapper ${sidebarOpen ? "" : "sidebar-collapsed"}`}>
-        <AdminHeader title={pageTitle} onToggleSidebar={toggleSidebar} />
-        <main className="admin-content">
-          <Outlet />
-        </main>
+    <div className="admin-root">
+      <div className="admin-layout">
+        <AdminSidebar isOpen={sidebarOpen} />
+        <div className={`admin-main-wrapper ${sidebarOpen ? "" : "sidebar-collapsed"}`}>
+          <AdminHeader title={pageTitle} onToggleSidebar={toggleSidebar} />
+          <main className="admin-content">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </div>
   );
