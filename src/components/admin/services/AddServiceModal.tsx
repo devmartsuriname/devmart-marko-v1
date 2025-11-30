@@ -133,7 +133,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
 
   return (
     <Dialog open={open} onOpenChange={(newOpen) => { if (!newOpen) handleClose(); }}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent style={{ maxWidth: '42rem' }}>
         <DialogHeader>
           <DialogTitle>Add New Service</DialogTitle>
           <DialogDescription>
@@ -236,7 +236,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
             <div className="admin-form-group">
               <label htmlFor="status" className="admin-form-label">
                 Status <span style={{ color: "#f44336" }}>*</span>
