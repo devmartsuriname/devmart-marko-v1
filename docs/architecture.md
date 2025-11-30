@@ -94,6 +94,11 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - Never call `onOpenChange={handleClose}` directly without checking the boolean parameter
 - This prevents the dialog from closing immediately when trying to open
 
+**Admin shadcn UI Variables:**
+- Admin Dialog, Dropdown, and Popover components rely on shadcn-style CSS variables defined in `src/index.css`.
+- Required variables include `--background`, `--foreground`, `--border`, `--input`, and `--ring`.
+- If these variables are missing, components may render fully transparent even though they are mounted.
+
 ### Backend Architecture
 
 **Supabase Integration:**
