@@ -402,6 +402,12 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - File upload for icon (text input only for now)
 - Image preview functionality
 
+**Bug Fix (2025-11-29):**
+- Fixed AddServiceModal visibility issue: `onOpenChange` handler was unconditionally calling `handleClose()` even when the dialog was attempting to open
+- Root cause: Handler didn't check the boolean parameter (`newOpen`), causing immediate close on open
+- Solution: Only call `handleClose()` when `newOpen === false` (user actively closing the dialog)
+- Modal now opens reliably when "Add Service" button is clicked
+
 ---
 
 ## Database Schema (v1)

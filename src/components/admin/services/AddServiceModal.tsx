@@ -132,7 +132,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={open} onOpenChange={(newOpen) => { if (!newOpen) handleClose(); }}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[var(--admin-card-bg)] border-[var(--admin-border)]">
         <DialogHeader>
           <DialogTitle className="text-[var(--admin-text)]">Add New Service</DialogTitle>
