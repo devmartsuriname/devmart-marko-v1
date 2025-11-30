@@ -48,6 +48,7 @@ const DialogContent = React.forwardRef<
         display: 'grid',
         width: '100%',
         maxWidth: '32rem',
+        maxHeight: '90vh',
         gap: '1rem',
         padding: '1.5rem',
         backgroundColor: 'var(--admin-bg-secondary, #1a1a2e)',
@@ -55,6 +56,7 @@ const DialogContent = React.forwardRef<
         border: '1px solid var(--admin-border, rgba(255,255,255,0.1))',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         borderRadius: '0.5rem',
+        overflowY: 'auto',
       }}
       {...props}
     >
