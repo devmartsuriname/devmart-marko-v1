@@ -416,12 +416,21 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Modal now appears above all admin UI elements including sidebar
 
 **CSS Variables Fix (2025-11-29):**
-- Fixed invisible modal content caused by missing shadcn CSS variables
-- Root cause: Dialog component uses Tailwind classes (`bg-background`, `border`, etc.) that depend on undefined CSS variables, causing modal to render transparently
-- Solution: Added complete shadcn CSS variable definitions to `src/index.css` for both light and dark themes
-- Variables include: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, and radius
-- Primary/accent colors set to Devmart green (152 82% 55% ≈ #4be89b)
-- Modal now renders with proper background, text, and border colors in both admin dark mode and light mode
+- Fixed invisible modal content caused by missing shadcn CSS variables and CSS loading
+- Root causes:
+  1. Dialog component uses Tailwind classes (`bg-background`, `border`, etc.) that depend on CSS variables
+  2. `src/index.css` (containing shadcn variables) was not imported in `src/main.tsx`
+  3. Modal used semi-transparent `--admin-card-bg` instead of solid background variable
+- Solutions:
+  1. Added `import "./index.css"` to `src/main.tsx` to load shadcn CSS variables
+  2. Added `--admin-modal-bg` CSS variable to `src/styles/admin.css` for solid modal backgrounds:
+     - Dark mode: `#1a1a2e` (solid dark)
+     - Light mode: `#ffffff` (solid white)
+  3. Updated `AddServiceModal` to use `bg-[var(--admin-modal-bg)]` instead of `bg-[var(--admin-card-bg)]`
+  4. Ensured all shadcn CSS variables are defined in `src/index.css` (background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, radius)
+- Separation rationale: Cards use semi-transparent backgrounds for glassmorphism effect, while modals require solid backgrounds for proper content visibility
+- Primary/accent colors aligned with Devmart green (152 82% 55% ≈ #4be89b)
+- Modal now renders with proper solid background, readable text, and correct borders in both themes
 
 ---
 
