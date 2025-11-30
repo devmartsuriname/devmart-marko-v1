@@ -421,6 +421,7 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Solution: Added complete shadcn CSS variable definitions to `src/index.css` for both light and dark themes
 - Variables include: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, and radius
 - Primary/accent colors set to Devmart green (152 82% 55% ≈ #4be89b)
+- **Critical fix:** Added `import "./index.css";` to `src/main.tsx` to actually load the CSS variables (they were defined but not imported)
 - Modal now renders with proper background, text, and border colors in both admin dark mode and light mode
 
 ---
