@@ -18,11 +18,13 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
-    className={cn(
-      "fixed inset-0 z-[200] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className,
-    )}
-    style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+    className={cn(className)}
+    style={{
+      position: 'fixed',
+      inset: 0,
+      zIndex: 200,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    }}
     {...props}
   />
 ));
@@ -36,20 +38,44 @@ const DialogContent = React.forwardRef<
     <DialogOverlay />
     <DialogPrimitive.Content
       ref={ref}
-      className={cn(
-        "fixed left-[50%] top-[50%] z-[200] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-        className,
-      )}
+      className={cn("sm:rounded-lg", className)}
       style={{
+        position: 'fixed',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 200,
+        display: 'grid',
+        width: '100%',
+        maxWidth: '32rem',
+        gap: '1rem',
+        padding: '1.5rem',
         backgroundColor: 'var(--admin-bg-secondary, #1a1a2e)',
         color: 'var(--admin-text, #ffffff)',
-        borderColor: 'var(--admin-border, rgba(255,255,255,0.1))',
+        border: '1px solid var(--admin-border, rgba(255,255,255,0.1))',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        borderRadius: '0.5rem',
       }}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
-        <X className="h-4 w-4" />
+      <DialogPrimitive.Close 
+        style={{
+          position: 'absolute',
+          right: '1rem',
+          top: '1rem',
+          opacity: 0.7,
+          borderRadius: '0.125rem',
+          cursor: 'pointer',
+          background: 'transparent',
+          border: 'none',
+          color: 'inherit',
+          padding: '0.25rem',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+        onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
+      >
+        <X className="h-4 w-4" style={{ width: '1rem', height: '1rem' }} />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
