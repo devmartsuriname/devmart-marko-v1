@@ -108,12 +108,23 @@ export const EditBlogModal = ({ open, post, onClose, onSuccess }: EditBlogModalP
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
         style={{
+          position: 'fixed',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 200,
+          display: 'grid',
+          width: '100%',
           maxWidth: "700px",
           maxHeight: "90vh",
-          overflow: "auto",
+          gap: '1rem',
+          padding: '1.5rem',
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
+          borderRadius: '0.5rem',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           color: "var(--admin-text)",
+          overflowY: "auto",
         }}
       >
         <DialogHeader>
