@@ -232,6 +232,54 @@ export type Database = {
         }
         Relationships: []
       }
+      pricing_plans: {
+        Row: {
+          billing_period: Database["public"]["Enums"]["billing_period"]
+          created_at: string
+          description: string
+          features: string[] | null
+          highlighted: boolean
+          id: string
+          name: string
+          price: number
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["content_status"]
+          target_segment: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_period?: Database["public"]["Enums"]["billing_period"]
+          created_at?: string
+          description: string
+          features?: string[] | null
+          highlighted?: boolean
+          id?: string
+          name: string
+          price: number
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          target_segment?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_period?: Database["public"]["Enums"]["billing_period"]
+          created_at?: string
+          description?: string
+          features?: string[] | null
+          highlighted?: boolean
+          id?: string
+          name?: string
+          price?: number
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          target_segment?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string

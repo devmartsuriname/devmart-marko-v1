@@ -593,7 +593,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin` | DashboardPage | ✅ Protected (UI Only) | Phase 3 | Overview & stats |
 | `/admin/services` | ServicesAdminPage | ✅ Full CRUD | Phase 4C | Services CRUD (Create/Read/Update/Delete) |
 | `/admin/projects` | ProjectsAdminPage | ✅ Full CRUD | Phase 5E | Projects / Case Studies CRUD (Create/Read/Update/Delete) |
-| `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
+| `/admin/pricing` | PricingAdminPage | ✅ Full CRUD | Phase 5G | Pricing Plans CRUD (Create/Read/Update/Delete) |
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Full CRUD | Phase 5F | Testimonials CRUD (Create/Read/Update/Delete) |
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
 | `/admin/team` | TeamAdminPage | ✅ Full CRUD | Phase 5C | Team Members CRUD (Create/Read/Update/Delete) |
