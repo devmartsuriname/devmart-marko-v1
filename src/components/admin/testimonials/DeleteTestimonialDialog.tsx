@@ -51,7 +51,23 @@ export const DeleteTestimonialDialog = ({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
         style={{
+          position: "fixed",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 200,
+          display: "grid",
+          width: "100%",
           maxWidth: "500px",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          gap: "1rem",
+          padding: "1.5rem",
+          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
+          color: "var(--admin-text, #ffffff)",
+          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          borderRadius: "8px",
         }}
       >
         <DialogHeader>
