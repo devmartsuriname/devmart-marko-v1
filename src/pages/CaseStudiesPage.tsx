@@ -1,6 +1,50 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getPublishedCaseStudies, type CaseStudy } from "@/integrations/supabase/queries/caseStudies";
 
 const CaseStudiesPage = () => {
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCaseStudies = async () => {
+      setIsLoading(true);
+      setError(null);
+      
+      const { data, error: fetchError } = await getPublishedCaseStudies();
+      
+      if (fetchError) {
+        console.error("Error fetching case studies:", fetchError);
+        setError("Unable to load case studies at the moment.");
+      } else {
+        setCaseStudies(data || []);
+      }
+      
+      setIsLoading(false);
+    };
+    
+    fetchCaseStudies();
+  }, []);
+
+  const parseTags = (tags: string[] | null): string[] => {
+    if (!tags) return [];
+    return tags;
+  };
+
+  const cardVariants = ['local-business', 'saas-leads', 'ecommerce', 'startup-branding'];
+  const getCardVariant = (index: number) => cardVariants[index % cardVariants.length];
+
+  const isTagsFirst = (index: number) => {
+    const variant = index % 4;
+    return variant === 0 || variant === 3;
+  };
+
+  const isLargeTags = (index: number) => {
+    const variant = index % 4;
+    return variant === 0 || variant === 3;
+  };
+
   return (
     <>
       {/* Section Banner */}
@@ -59,158 +103,103 @@ const CaseStudiesPage = () => {
                 </div>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <div className="d-flex flex-column flex-xl-row gspace-2">
-                  <div
-                    className="card case-studies-content local-business animate-box animated fast animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
-                    <div className="case-studies-component large align-self-end justify-content-end align-items-end">
-                      <div className="cs-component">
-                        <a href="#">React</a>
+              {isLoading ? (
+                <>
+                  <div className="d-flex flex-column flex-xl-row gspace-2">
+                    {[0, 1].map((i) => (
+                      <div key={i} className={`card case-studies-content ${cardVariants[i]} animate-box animated animate__animated`}>
+                        <div className="d-flex flex-column gspace-2">
+                          <span className="case-studies-title"><h4>Loading...</h4></span>
+                          <p>Loading case study details...</p>
+                        </div>
                       </div>
-                      <div className="cs-component">
-                        <a href="#">Supabase</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Portal</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Government</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Authentication</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Database</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">API</a>
-                      </div>
-                    </div>
-                    <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title">
-                        <h4>Housing Subsidy Application Portal</h4>
-                      </a>
-                      <p>
-                        Streamlined government housing application process with 80% faster processing and improved
-                        citizen experience.
-                      </p>
-                    </div>
+                    ))}
                   </div>
-                  <div
-                    className="card case-studies-content saas-leads animate-box animated animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
+                  <div className="d-flex flex-column flex-xl-row gspace-2">
+                    {[2, 3].map((i) => (
+                      <div key={i} className={`card case-studies-content ${cardVariants[i]} animate-box animated animate__animated`}>
+                        <div className="d-flex flex-column gspace-2">
+                          <span className="case-studies-title"><h4>Loading...</h4></span>
+                          <p>Loading case study details...</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : error ? (
+                <div className="d-flex flex-column flex-xl-row gspace-2">
+                  <div className="card case-studies-content local-business animate-box animated animate__animated">
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title">
-                        <h4>Immigration Case Management System</h4>
-                      </a>
-                      <p>
-                        Automated case tracking with 60% reduction in processing time and improved transparency for
-                        applicants.
-                      </p>
-                    </div>
-                    <div className="case-studies-component small align-self-end justify-content-end align-items-end">
-                      <div className="cs-component">
-                        <a href="#">CMS</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">React</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">API</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Automation</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Security</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Dashboard</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Tracking</a>
-                      </div>
+                      <span className="case-studies-title"><h4>Unable to load case studies</h4></span>
+                      <p>{error}</p>
                     </div>
                   </div>
                 </div>
+              ) : caseStudies.length === 0 ? (
                 <div className="d-flex flex-column flex-xl-row gspace-2">
-                  <div
-                    className="card case-studies-content ecommerce animate-box animated fast animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
-                    <div className="case-studies-component small align-self-start justify-content-start align-items-start">
-                      <div className="cs-component">
-                        <a href="#">React</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Frontend</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">UX</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Responsive</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">SEO</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Performance</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Accessible</a>
-                      </div>
-                    </div>
+                  <div className="card case-studies-content local-business animate-box animated animate__animated">
                     <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title">
-                        <h4>High-Profile Government Website</h4>
-                      </a>
-                      <p>
-                        Modern, accessible website serving 100k+ monthly visitors with 95% uptime and improved
-                        information delivery.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className="card case-studies-content startup-branding animate-box animated animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
-                    <div className="d-flex flex-column gspace-2">
-                      <a href="#" className="case-studies-title">
-                        <h4>SME Digital Transformation Platform</h4>
-                      </a>
-                      <p>
-                        Complete business automation platform increasing productivity by 50% for local small businesses
-                        in Suriname.
-                      </p>
-                    </div>
-                    <div className="case-studies-component large align-self-start justify-content-start align-items-start">
-                      <div className="cs-component">
-                        <a href="#">Full-Stack</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Automation</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">AI</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Integration</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Analytics</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Cloud</a>
-                      </div>
-                      <div className="cs-component">
-                        <a href="#">Mobile</a>
-                      </div>
+                      <span className="case-studies-title"><h4>No case studies available</h4></span>
+                      <p>Please check back later for new projects.</p>
                     </div>
                   </div>
                 </div>
+              ) : (
+                <>
+                  {Array.from({ length: Math.ceil(caseStudies.length / 2) }).map((_, rowIndex) => (
+                    <div key={rowIndex} className="d-flex flex-column flex-xl-row gspace-2">
+                      {caseStudies.slice(rowIndex * 2, rowIndex * 2 + 2).map((cs, cardIndex) => {
+                        const globalIndex = rowIndex * 2 + cardIndex;
+                        const variant = getCardVariant(globalIndex);
+                        const tagsFirst = isTagsFirst(globalIndex);
+                        const largeTags = isLargeTags(globalIndex);
+                        
+                        return (
+                          <div
+                            key={cs.id}
+                            className={`card case-studies-content ${variant} animate-box animated ${globalIndex % 2 === 0 ? 'fast' : ''} animate__animated`}
+                            data-animate="animate__fadeInUp"
+                          >
+                            {tagsFirst ? (
+                              <>
+                                <div className={`case-studies-component ${largeTags ? 'large' : 'small'} align-self-end justify-content-end align-items-end`}>
+                                  {parseTags(cs.tags).map((tag) => (
+                                    <div key={tag} className="cs-component">
+                                      <a href="#">{tag}</a>
+                                    </div>
+                                  ))}
+                                </div>
+                                <div className="d-flex flex-column gspace-2">
+                                  <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
+                                    <h4>{cs.title}</h4>
+                                  </Link>
+                                  <p>{cs.description}</p>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="d-flex flex-column gspace-2">
+                                  <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
+                                    <h4>{cs.title}</h4>
+                                  </Link>
+                                  <p>{cs.description}</p>
+                                </div>
+                                <div className={`case-studies-component ${largeTags ? 'large' : 'small'} align-self-start justify-content-start align-items-start`}>
+                                  {parseTags(cs.tags).map((tag) => (
+                                    <div key={tag} className="cs-component">
+                                      <a href="#">{tag}</a>
+                                    </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </>
+              )}
               </div>
             </div>
             <div className="spacer"></div>

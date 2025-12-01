@@ -206,7 +206,7 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 | **Services** | ✅ Complete | ✅ All functions | ServicesPage, SingleServicePage | ✅ ServicesPage Dynamic | 🟢 Phase 6B Complete |
 | **Testimonials** | ✅ Complete | ✅ All functions | TestimonialsPage, Home, About | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
 | **Pricing Plans** | ✅ Complete | ✅ All functions | PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
-| **Case Studies** | ✅ Complete | ✅ 4/5 functions | CaseStudiesPage, HomePage | 🔴 Static JSX | ⭐ Medium |
+| **Case Studies** | ✅ Complete | ✅ All functions | CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
 | **Blog Posts** | ✅ Complete | ✅ 4/5 functions | BlogPage, SinglePostPage, Home | 🔴 Static JSX | ⭐ Medium |
 | **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | 🔴 Static JSX | 📋 Lower |
 | **FAQ Items** | ✅ Complete | ✅ All functions | FaqPage | 🔴 Static JSX | 📋 Lower |
