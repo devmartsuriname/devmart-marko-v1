@@ -596,7 +596,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
-| `/admin/team` | TeamAdminPage | ✅ Protected (UI Only) | Phase 3 | Team Members CRUD |
+| `/admin/team` | TeamAdminPage | ✅ Full CRUD | Phase 5C | Team Members CRUD (Create/Read/Update/Delete) |
 | `/admin/faqs` | FaqAdminPage | ✅ Protected (UI Only) | Phase 3 | FAQ Items CRUD |
 | `/admin/contacts` | ContactsAdminPage | ✅ Full CRUD | Phase 5B | Contact Submissions Inbox (CRUD) |
 | `/admin/settings` | SettingsAdminPage | ✅ Protected (UI Only) | Phase 3 | Site Settings |
@@ -698,6 +698,14 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddBlogModal.tsx      (Create blog post form modal)
 │   ├── EditBlogModal.tsx     (Edit blog post form modal)
 │   └── DeleteBlogDialog.tsx  (Delete confirmation)
+├── contacts/                 (Contacts module components)
+│   ├── AddContactModal.tsx   (Create contact submission form modal)
+│   ├── EditContactModal.tsx  (Edit contact submission form modal)
+│   └── DeleteContactDialog.tsx (Delete confirmation)
+├── team/                     (Team module components)
+│   ├── AddTeamMemberModal.tsx (Create team member form modal)
+│   ├── EditTeamMemberModal.tsx (Edit team member form modal)
+│   └── DeleteTeamMemberDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
@@ -708,6 +716,8 @@ src/hooks/                    ✅ Safe for new hooks
 src/integrations/supabase/queries/ ✅ Safe for query layer
 ├── services.ts               (Services CRUD functions)
 ├── blogPosts.ts              (Blog Posts CRUD functions)
+├── contactSubmissions.ts     (Contact Submissions CRUD functions)
+├── teamMembers.ts            (Team Members CRUD functions)
 └── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities
