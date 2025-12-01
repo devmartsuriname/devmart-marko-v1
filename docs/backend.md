@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5A Blog CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5B Contacts CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -9,7 +9,8 @@
 **Phase 4B Services Create (+ Modal Fix):** 2025-11-29  
 **Phase 4C Services Edit/Delete:** 2025-11-29  
 **Phase 5A Blog CRUD:** 2025-12-01  
-**Implementation Status:** Services and Blog admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5B Contacts CRUD:** 2025-12-01  
+**Implementation Status:** Services, Blog, and Contacts admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
@@ -33,11 +34,15 @@
 ✅ **Modal CSS Fix:** Scoped shadcn variables to admin area via `.admin-root` wrapper  
 ✅ **Phase 4C:** Edit/Delete operations - EditServiceModal + DeleteServiceDialog with full CRUD
 
-### Phase 5 Blog Module (Implemented)
-✅ **Phase 5A:** Blog CRUD - AddBlogModal, EditBlogModal, DeleteBlogDialog with full CRUD operations  
-✅ **Query Layer:** blogPosts.ts with getAllBlogPosts, getBlogPostById, createBlogPost, updateBlogPost, deleteBlogPost  
-✅ **Seed Data:** 3 existing frontend blog posts migrated to blog_posts table  
-✅ **Admin Page:** BlogAdminPage wired to Supabase with loading/error states
+### Phase 5 Blog & Contacts Modules (Implemented)
+✅ **Phase 5A - Blog CRUD:** AddBlogModal, EditBlogModal, DeleteBlogDialog with full CRUD operations  
+✅ **Blog Query Layer:** blogPosts.ts with getAllBlogPosts, getBlogPostById, createBlogPost, updateBlogPost, deleteBlogPost  
+✅ **Blog Seed Data:** 3 existing frontend blog posts migrated to blog_posts table  
+✅ **Blog Admin Page:** BlogAdminPage wired to Supabase with loading/error states  
+✅ **Phase 5B - Contacts CRUD:** AddContactModal, EditContactModal, DeleteContactDialog with full CRUD operations  
+✅ **Contacts Query Layer:** contactSubmissions.ts with getAllContactSubmissions, getContactSubmissionById, createContactSubmission, updateContactSubmission, deleteContactSubmission  
+✅ **Contacts Admin Page:** ContactsAdminPage wired to Supabase with inbox-style interface  
+✅ **Auto-timestamp:** Responded_at automatically set when status changes to "responded"
 
 ---
 

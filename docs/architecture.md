@@ -98,6 +98,43 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - **Functions:** `getAllBlogPosts()`, `getBlogPostById()`, `createBlogPost()`, `updateBlogPost()`, `deleteBlogPost()`
 - All functions return `{ data, error }` pattern
 
+### Phase 5B – Contacts CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Contact Submissions  
+
+**Query Layer:**
+- **File:** `src/integrations/supabase/queries/contactSubmissions.ts`
+- **Functions:** `getAllContactSubmissions()`, `getContactSubmissionById()`, `createContactSubmission()`, `updateContactSubmission()`, `deleteContactSubmission()`
+- All functions return `{ data, error }` pattern
+
+**Admin Page Components:**
+- `ContactsAdminPage` – Main admin page at `/admin/contacts`
+- `AddContactModal` – Manual contact entry form (9 fields: first_name, last_name, email, phone, company, subject, message, status, notes)
+- `EditContactModal` – Edit existing submissions with auto-timestamp for responded_at
+- `DeleteContactDialog` – Confirmation dialog for deletion
+
+**Data Flow:**
+```
+Public Contact Form → contact_submissions table
+                            ↓
+Admin opens /admin/contacts → getAllContactSubmissions() → DataTable display
+                            ↓
+Admin clicks Edit → EditContactModal → updateContactSubmission() → refresh
+Admin clicks Delete → DeleteContactDialog → deleteContactSubmission() → refresh
+Admin clicks Add → AddContactModal → createContactSubmission() → refresh
+```
+
+**Key Features:**
+- Inbox-style interface for managing customer inquiries
+- Status workflow: new → read → responded → archived
+- Auto-timestamp responded_at when status changes to "responded"
+- Internal notes field for admin use only
+- Full contact details display (name, email, phone, company)
+
+**Safe Directories Added:**
+- `src/components/admin/contacts/` – Contact modal components
+
 **Components:**
 - `AddBlogModal` - Create new blog posts with 10 fields (title, slug, category, excerpt, content, featured_image, status, published_at, meta_title, meta_description)
 - `EditBlogModal` - Edit existing blog posts with same form structure
