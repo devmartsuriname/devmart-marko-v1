@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5B Contacts CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5C Team CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -10,7 +10,8 @@
 **Phase 4C Services Edit/Delete:** 2025-11-29  
 **Phase 5A Blog CRUD:** 2025-12-01  
 **Phase 5B Contacts CRUD:** 2025-12-01  
-**Implementation Status:** Services, Blog, and Contacts admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5C Team CRUD:** 2025-12-01  
+**Implementation Status:** Services, Blog, Contacts, and Team admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
@@ -34,7 +35,7 @@
 ✅ **Modal CSS Fix:** Scoped shadcn variables to admin area via `.admin-root` wrapper  
 ✅ **Phase 4C:** Edit/Delete operations - EditServiceModal + DeleteServiceDialog with full CRUD
 
-### Phase 5 Blog & Contacts Modules (Implemented)
+### Phase 5 Blog, Contacts, and Team Modules (Implemented)
 ✅ **Phase 5A - Blog CRUD:** AddBlogModal, EditBlogModal, DeleteBlogDialog with full CRUD operations  
 ✅ **Blog Query Layer:** blogPosts.ts with getAllBlogPosts, getBlogPostById, createBlogPost, updateBlogPost, deleteBlogPost  
 ✅ **Blog Seed Data:** 3 existing frontend blog posts migrated to blog_posts table  
@@ -42,7 +43,11 @@
 ✅ **Phase 5B - Contacts CRUD:** AddContactModal, EditContactModal, DeleteContactDialog with full CRUD operations  
 ✅ **Contacts Query Layer:** contactSubmissions.ts with getAllContactSubmissions, getContactSubmissionById, createContactSubmission, updateContactSubmission, deleteContactSubmission  
 ✅ **Contacts Admin Page:** ContactsAdminPage wired to Supabase with inbox-style interface  
-✅ **Auto-timestamp:** Responded_at automatically set when status changes to "responded"
+✅ **Auto-timestamp:** Responded_at automatically set when status changes to "responded"  
+✅ **Phase 5C - Team CRUD:** AddTeamMemberModal, EditTeamMemberModal, DeleteTeamMemberDialog with full CRUD operations  
+✅ **Team Query Layer:** teamMembers.ts with getAllTeamMembers, getTeamMemberById, createTeamMember, updateTeamMember, deleteTeamMember  
+✅ **Team Seed Data:** 6 existing frontend team members migrated to team_members table  
+✅ **Team Admin Page:** TeamAdminPage wired to Supabase with status badges and featured flag
 
 ---
 
@@ -575,6 +580,186 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 **Pattern Replication:**
 - Blog module successfully follows Services CRUD pattern
 - Confirms architecture scalability for remaining modules (Contacts, Projects, Team, FAQs, etc.)
+
+---
+
+### Phase 5B – Contacts CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Contact Submissions  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/contactSubmissions.ts`
+- **Functions:**
+  - `getAllContactSubmissions()` - Fetches all contact submissions ordered by created_at DESC
+  - `getContactSubmissionById(id: string)` - Fetches single submission by ID using `.maybeSingle()`
+  - `createContactSubmission(submission: TablesInsert<"contact_submissions">)` - Creates new submission
+  - `updateContactSubmission(id: string, submission: TablesUpdate<"contact_submissions">)` - Updates existing submission
+  - `deleteContactSubmission(id: string)` - Deletes contact submission
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `ContactSubmission = Tables<"contact_submissions">`
+
+**Components Created:**
+
+**AddContactModal** (`src/components/admin/contacts/AddContactModal.tsx`)
+- Full contact submission creation form with 9 fields
+- Required fields: first_name, last_name, email, subject, message
+- Optional fields: phone, company, notes
+- Status dropdown: new (default) / read / responded / archived
+- Client-side validation: required fields + email format check
+- Success callback triggers table refresh
+
+**EditContactModal** (`src/components/admin/contacts/EditContactModal.tsx`)
+- Same form structure as AddContactModal
+- Pre-fills form with existing submission data via useEffect when modal opens
+- Additional field: responded_at (optional date)
+- Auto-sets responded_at when status changes to "responded" (optional implementation)
+- Title: "Edit Contact Submission", Button: "Save Changes"
+- Validation mirrors AddContactModal rules
+
+**DeleteContactDialog** (`src/components/admin/contacts/DeleteContactDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to delete the message from {first_name} {last_name}? This action cannot be undone."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display inside dialog for failed deletions
+
+**ContactsAdminPage Updates** (`src/pages/admin/ContactsAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `submissions`, `isLoading`, `error`, `isAddModalOpen`, `editingSubmission`, `deletingSubmission`
+- `fetchSubmissions()` function called on mount and after CRUD operations
+- Loading state: "Loading contact submissions..."
+- Error state: Red error banner with message
+- DataTable columns: From (first_name + last_name) | Subject | Status (badge) | Created At (formatted date)
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddContactModal, EditContactModal, DeleteContactDialog
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| first_name | text | ✅ | Contact's first name |
+| last_name | text | ✅ | Contact's last name |
+| email | email | ✅ | Contact's email (validated format) |
+| phone | text | ❌ | Contact's phone number |
+| company | text | ❌ | Contact's company name |
+| subject | text | ✅ | Message subject |
+| message | textarea | ✅ | Full message content |
+| status | select | ✅ | new/read/responded/archived |
+| notes | textarea | ❌ | Admin internal notes |
+| responded_at | date | ❌ | When admin responded (Edit only) |
+
+**User Flows:**
+1. **Create:** Add Contact button → Modal opens → Fill form → Create Contact → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → Submission removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/contacts/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services/Blog CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `contact_submissions` (not `contacts`)
+
+**Public Contact Form Integration:**
+- Public ContactPage.tsx form can write to `contact_submissions` table via RLS policy
+- RLS allows public INSERT, authenticated SELECT/UPDATE/DELETE
+- Admin can manage all submissions through ContactsAdminPage
+
+---
+
+### Phase 5C – Team Members CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Team Members  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/teamMembers.ts`
+- **Functions:**
+  - `getAllTeamMembers()` - Fetches all team members ordered by sort_order ASC, then full_name ASC
+  - `getTeamMemberById(id: string)` - Fetches single team member by ID using `.maybeSingle()`
+  - `createTeamMember(member: TablesInsert<"team_members">)` - Creates new team member
+  - `updateTeamMember(id: string, member: TablesUpdate<"team_members">)` - Updates existing member
+  - `deleteTeamMember(id: string)` - Deletes team member
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `TeamMember = Tables<"team_members">`
+
+**Components Created:**
+
+**AddTeamMemberModal** (`src/components/admin/team/AddTeamMemberModal.tsx`)
+- Full team member creation form with 12 fields
+- Required fields: full_name, role, status
+- Optional fields: title, short_bio, photo_url, email, linkedin_url, facebook_url, instagram_url, sort_order, is_featured
+- Status dropdown: active (default) / inactive
+- Client-side validation: required fields + email format check (if provided)
+- Checkbox for "Featured Team Member" flag
+- Sort order number input (default: 0)
+- Success callback triggers table refresh
+
+**EditTeamMemberModal** (`src/components/admin/team/EditTeamMemberModal.tsx`)
+- Same form structure as AddTeamMemberModal
+- Pre-fills form with existing member data via useEffect when modal opens
+- Title: "Edit Team Member", Button: "Save Changes"
+- Validation mirrors AddTeamMemberModal rules
+- Success callback triggers table refresh
+
+**DeleteTeamMemberDialog** (`src/components/admin/team/DeleteTeamMemberDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to remove {full_name} from the team list? This will remove them from the public Team section."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display inside dialog for failed deletions
+
+**TeamAdminPage Updates** (`src/pages/admin/TeamAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `teamMembers`, `isLoading`, `error`, `isAddModalOpen`, `editingMember`, `deletingMember`
+- `fetchTeamMembers()` function called on mount and after CRUD operations
+- Loading state: "Loading team members..."
+- Error state: Red error banner with message
+- DataTable columns: Name (full_name) | Role | Status (badge active/inactive) | Featured (Yes/No) | Sort Order
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddTeamMemberModal, EditTeamMemberModal, DeleteTeamMemberDialog
+
+**Seed Data Migration:**
+- 6 existing frontend team members migrated to `team_members` table
+- Members: Jordan Lee (Lead Developer), Chloe Tan (Project Manager), Daniel Cruz (Technical Architect), Olivia Bennett (UX/UI Designer), Daniel White (DevOps Engineer), Chloe Ramirez (Frontend Developer)
+- All seeded with status: active, sort_order: 1-6
+- ON CONFLICT DO NOTHING pattern for idempotent migrations
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| full_name | text | ✅ | Team member's full name |
+| role | text | ✅ | e.g., Lead Developer, Project Manager |
+| title | text | ❌ | e.g., Senior Engineer |
+| short_bio | textarea | ❌ | Brief description |
+| photo_url | text | ❌ | URL to photo |
+| email | email | ❌ | Team member's email |
+| linkedin_url | text | ❌ | LinkedIn profile URL |
+| facebook_url | text | ❌ | Facebook profile URL |
+| instagram_url | text | ❌ | Instagram profile URL |
+| is_featured | checkbox | ❌ | Featured on homepage (default: false) |
+| sort_order | number | ✅ | Display order (default: 0) |
+| status | select | ✅ | active/inactive |
+
+**User Flows:**
+1. **Create:** Add Team Member button → Modal opens → Fill form → Create Team Member → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → Member removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/team/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services/Blog/Contacts CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `team_members` (not `team`)
+
+**Public Team Page Integration:**
+- Public TeamPage.tsx can read from `team_members` table via RLS policy
+- RLS allows public SELECT for active members
+- Admin can manage all team members through TeamAdminPage
+- Featured flag can be used to highlight key members on homepage
 
 ---
 
