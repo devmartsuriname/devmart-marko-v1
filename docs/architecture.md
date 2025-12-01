@@ -599,7 +599,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/team` | TeamAdminPage | ✅ Full CRUD | Phase 5C | Team Members CRUD (Create/Read/Update/Delete) |
 | `/admin/faqs` | FaqAdminPage | ✅ Full CRUD | Phase 5D | FAQ Items CRUD (Create/Read/Update/Delete) |
 | `/admin/contacts` | ContactsAdminPage | ✅ Full CRUD | Phase 5B | Contact Submissions Inbox (CRUD) |
-| `/admin/settings` | SettingsAdminPage | ✅ Protected (UI Only) | Phase 3 | Site Settings |
+| `/admin/settings` | SettingsAdminPage | ✅ Full CRUD | Phase 5H | Site Settings (Inline Form Editing) |
 
 **Route Protection (Phase 3):**
 - All `/admin/*` routes wrapped in `<RequireAuth>` component
@@ -718,6 +718,10 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddTestimonialModal.tsx (Create testimonial form modal)
 │   ├── EditTestimonialModal.tsx (Edit testimonial form modal)
 │   └── DeleteTestimonialDialog.tsx (Delete confirmation)
+├── pricing/                  (Pricing Plans module components)
+│   ├── AddPricingPlanModal.tsx (Create pricing plan form modal)
+│   ├── EditPricingPlanModal.tsx (Edit pricing plan form modal)
+│   └── DeletePricingPlanDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
@@ -733,6 +737,8 @@ src/integrations/supabase/queries/ ✅ Safe for query layer
 ├── faqItems.ts               (FAQ Items CRUD functions)
 ├── caseStudies.ts            (Case Studies CRUD functions)
 ├── testimonials.ts           (Testimonials CRUD functions)
+├── pricingPlans.ts           (Pricing Plans CRUD functions)
+├── siteSettings.ts           (Site Settings CRUD functions - key-value store)
 └── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities
