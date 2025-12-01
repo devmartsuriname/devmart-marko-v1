@@ -57,3 +57,14 @@ export const deletePricingPlan = async (id: string) => {
 
   return { error };
 };
+
+export const getPublishedPricingPlans = async () => {
+  const { data, error } = await supabase
+    .from("pricing_plans")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("name", { ascending: true });
+
+  return { data, error };
+};
