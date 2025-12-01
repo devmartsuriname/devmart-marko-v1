@@ -1,13 +1,14 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 4B Services CRUD (Create) - IMPLEMENTED ✅
+## Current Status: Phase 4C Services CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
 **Phase 3 Authentication Implementation:** 2025-11-29  
 **Phase 4A Services Read-Only:** 2025-11-29  
 **Phase 4B Services Create (+ Modal Fix):** 2025-11-29  
-**Implementation Status:** Services admin page fully functional with read + create operations
+**Phase 4C Services Edit/Delete:** 2025-11-29  
+**Implementation Status:** Services admin page fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
@@ -29,7 +30,7 @@
 ✅ **Phase 4A:** Services read-only - query layer + admin page data display  
 ✅ **Phase 4B:** Create service - AddServiceModal with form validation and insert logic  
 ✅ **Modal CSS Fix:** Scoped shadcn variables to admin area via `.admin-root` wrapper  
-⏸️ **Phase 4C:** Edit/Delete operations (next priority)
+✅ **Phase 4C:** Edit/Delete operations - EditServiceModal + DeleteServiceDialog with full CRUD
 
 ---
 
@@ -338,16 +339,15 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - CRUD operations (create/edit/delete) not yet implemented
 - Future phase will connect marketing site to database
 
-**Not Included in Phase 4:**
-- No CRUD forms or edit/delete functionality
+**Not Included in Phase 4A:**
+- No CRUD forms or edit/delete functionality (implemented in Phase 4B/4C)
 - No changes to marketing frontend pages
 - No RLS policy modifications
 - No file upload capabilities
 
-**Next Steps:**
-- Phase 4B: Implement Services create functionality ✅ (see below)
-- Phase 4C: Implement Services edit/delete functionality
-- Wire other admin modules (blog, projects, pricing, etc.)
+**Next Steps (Post-Phase 4C):**
+- Wire other admin modules to Supabase (blog, contacts, settings, etc.)
+- Implement file upload for service icons
 - Eventually connect marketing site to dynamic database content
 
 ### Phase 4B – Add Service Modal ✅
@@ -405,10 +405,72 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 9. On error: error message displays, form stays open for retry
 
 **Not Included:**
-- Edit functionality (deferred to Phase 4C)
-- Delete functionality (deferred to Phase 4C)
 - File upload for icon (text input only for now)
 - Image preview functionality
+- Rich text editor for description
+
+### Phase 4C – Edit & Delete Service ✅
+
+**Date:** 2025-11-29  
+**Status:** Full CRUD operations implemented  
+
+**Query Layer Updated:**
+- Added `updateService(id: string, service: TablesUpdate<"services">)` function
+- Added `deleteService(id: string)` function
+- Both follow `{ data, error }` pattern for UI error handling
+- Type imports: `TablesUpdate` from Supabase types
+
+**New Components Created:**
+
+**EditServiceModal** (`src/components/admin/services/EditServiceModal.tsx`)
+- Reuses same form structure as AddServiceModal
+- Pre-populates form with existing service data via useEffect
+- Calls `updateService()` instead of `createService()`
+- Slug field editable but NOT auto-generated in edit mode (respects existing slug)
+- Title: "Edit Service", Button: "Save Changes"
+- Error handling keeps form open for retry
+- Success callback triggers table refresh via `fetchServices()`
+
+**DeleteServiceDialog** (`src/components/admin/services/DeleteServiceDialog.tsx`)
+- Uses existing Dialog component (not AlertDialog) with inline styles
+- Shows confirmation: "Are you sure you want to delete [Service Name]? This action cannot be undone."
+- "Cancel" button closes dialog without action
+- "Delete" button styled with danger/red theme via inline styles
+- Loading state while deletion request is in flight
+- Guards against null service state
+- Error display inside dialog for failed deletions
+
+**DataTable Updates** (`src/components/admin/DataTable.tsx`)
+- Added optional `onEdit?: (row: any) => void` prop
+- Added optional `onDelete?: (row: any) => void` prop
+- Edit/Delete buttons in Actions column now trigger parent callbacks
+- Buttons remain functional even if callbacks are undefined
+
+**ServicesAdminPage Integration:**
+- Added `editingService: Service | null` state for tracking which service is being edited
+- Added `deletingService: Service | null` state for tracking which service is being deleted
+- `handleEdit(service)` sets service to edit and opens EditServiceModal
+- `handleDelete(service)` sets service to delete and opens DeleteServiceDialog
+- Both modals call `fetchServices()` on success to refresh table with latest data
+- Table displays live data with all CRUD operations functional
+
+**User Flows:**
+1. **Edit Flow:** 
+   - Click Edit → Modal opens with pre-filled form → Modify fields → Save Changes → Modal closes, table refreshes with updated data
+2. **Delete Flow:** 
+   - Click Delete → Confirmation dialog shows → Confirm deletion → Row removed from database and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes
+- ✅ Uses existing Dialog with inline styles (no Tailwind dependency)
+- ✅ Query layer follows established thin-wrapper patterns
+- ✅ Validation mirrors AddServiceModal rules for consistency
+- ✅ All work isolated to admin-safe directories
+
+**Pattern Established:**
+- Services is now the first fully-functional admin CRUD module
+- This pattern can be replicated for other modules (Blog, Contacts, Projects, etc.)
+- Modal component strategy proven: Dialog + inline styles + scoped CSS variables
 
 ---
 
