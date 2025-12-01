@@ -30,12 +30,10 @@ export async function getContactSubmissionById(id: string) {
  * Create new contact submission
  */
 export async function createContactSubmission(submission: TablesInsert<"contact_submissions">) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("contact_submissions")
-    .insert([submission])
-    .select()
-    .single();
-  return { data, error };
+    .insert([submission]);
+  return { data: null, error };
 }
 
 /**
