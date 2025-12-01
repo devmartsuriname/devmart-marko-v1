@@ -52,3 +52,14 @@ export async function deleteCaseStudy(id: string) {
   
   return { error };
 }
+
+export async function getPublishedCaseStudies() {
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("title", { ascending: true });
+  
+  return { data, error };
+}

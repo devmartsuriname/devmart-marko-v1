@@ -400,6 +400,69 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 
 ---
 
+### Phase 6G: Case Studies Page Dynamic Wiring (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Added `getPublishedCaseStudies()` to query layer
+- Wired CaseStudiesPage to Supabase with dynamic case studies display
+- Preserved complex 2x2 grid layout with alternating card styling variants
+- Implemented loading, error, and empty states maintaining layout structure
+- Maintained 1:1 visual parity with original template
+
+**Query Layer Enhancements:**
+- Added `getPublishedCaseStudies()` to `src/integrations/supabase/queries/caseStudies.ts`
+  - Filters: `status = 'published'`
+  - Order: `sort_order ASC, title ASC`
+  - Returns: `CaseStudy[]`
+
+**CaseStudiesPage Implementation:**
+- State management: `caseStudies`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getPublishedCaseStudies()` on mount
+- Helper functions:
+  - `parseTags()` - converts tag array to string array
+  - `getCardVariant()` - cycles through 4 card variants (local-business, saas-leads, ecommerce, startup-branding)
+  - `isTagsFirst()` - determines if tags render before content (variants 0, 3)
+  - `isLargeTags()` - determines if tags use large styling (variants 0, 3)
+- Dynamic rendering:
+  - 2-column rows (2 cards per row)
+  - Card variants cycle for visual variety
+  - Tags positioned top/bottom based on variant
+  - Tag size (large/small) based on variant
+  - Animation classes preserved (`fast` on even indices)
+
+**Card Variant Pattern:**
+- Index 0: `local-business` - tags top-right (large)
+- Index 1: `saas-leads` - tags bottom-left (small)
+- Index 2: `ecommerce` - tags top-left (small)
+- Index 3: `startup-branding` - tags bottom-right (large)
+- Pattern repeats for additional case studies
+
+**Layout Preservation:**
+- 2x2 grid structure unchanged (2 cards per row on desktop)
+- Responsive stacking on mobile preserved
+- All animation classes maintained (`animate__fadeInUp`, `fast`)
+- Banner, Guide, Modal Video, Testimonials sections remain untouched
+
+**Files Modified:**
+- `src/integrations/supabase/queries/caseStudies.ts` (added function)
+- `src/pages/CaseStudiesPage.tsx` (state + data fetching + dynamic mapping with variant cycling)
+
+**Verified:**
+- 4 published case studies in database
+- RLS policy "Public can view published case studies" confirmed active
+- Card variants cycle correctly for visual variety
+- Tag positioning and sizing correct for each variant
+- 2-column row layout preserved
+
+**Not Included in This Phase:**
+- ❌ HomePage case studies section (still static, separate phase)
+- ❌ Single case study detail pages (future phase)
+
+---
+
 ### Phase 6D: Contact Form Integration (COMPLETED ✅)
 
 **Date:** 2025-12-02  
