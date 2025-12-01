@@ -62,3 +62,29 @@ export async function deleteBlogPost(id: string) {
     .eq("id", id);
   return { error };
 }
+
+/**
+ * Get published blog posts for public display
+ */
+export async function getPublishedBlogPosts() {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("status", "published")
+    .order("published_at", { ascending: false, nullsFirst: false })
+    .order("title", { ascending: true });
+  return { data, error };
+}
+
+/**
+ * Get single published blog post by slug
+ */
+export async function getBlogPostBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  return { data, error };
+}

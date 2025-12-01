@@ -1,6 +1,41 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
 
 const BlogPage = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      setError(null);
+      
+      const { data, error: fetchError } = await getPublishedBlogPosts();
+      
+      if (fetchError) {
+        console.error("Error fetching blog posts:", fetchError);
+        setError("Unable to load blog posts at the moment.");
+      } else {
+        setPosts(data || []);
+      }
+      
+      setIsLoading(false);
+    };
+    
+    fetchPosts();
+  }, []);
+
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "No date";
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  };
+
   return (
     <>
       {/* Section Banner */}
@@ -45,50 +80,84 @@ const BlogPage = () => {
               </div>
             </div>
             <div className="row row-cols-md-2 row-cols-1 grid-spacer-3">
-              <div className="col">
-                <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp" onClick={() => window.location.href='/blog/instagram-facebook-ads'}>
-                  <div className="blog-image">
-                    <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Blog Image" />
-                  </div>
-                  <div className="card-body">
-                    <div className="d-flex flex-row gspace-2">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data">April 14, 2025</span>
-                      </div>
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">AI & Government</span>
+              {isLoading && (
+                <>
+                  <div className="col">
+                    <div className="card card-blog">
+                      <div className="blog-image" style={{ height: '250px', backgroundColor: '#f0f0f0' }}></div>
+                      <div className="card-body">
+                        <div className="d-flex flex-row gspace-2">
+                          <div style={{ height: '20px', width: '100px', backgroundColor: '#f0f0f0' }}></div>
+                        </div>
+                        <div style={{ height: '24px', width: '80%', backgroundColor: '#f0f0f0', margin: '10px 0' }}></div>
+                        <div style={{ height: '60px', backgroundColor: '#f0f0f0' }}></div>
                       </div>
                     </div>
-                    <Link to="/blog/instagram-facebook-ads" className="blog-link">How AI is Transforming Government Services</Link>
-                    <p>Explore how artificial intelligence is revolutionizing public sector operations and improving citizen services across Suriname.</p>
-                    <Link to="/blog/instagram-facebook-ads" className="read-more">Read More</Link>
                   </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp" onClick={() => window.location.href='/blog/growth-strategies'}>
-                  <div className="blog-image">
-                    <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Blog Image" />
-                  </div>
-                  <div className="card-body">
-                    <div className="d-flex flex-row gspace-2">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data">April 14, 2025</span>
-                      </div>
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">Enterprise Tech</span>
+                  <div className="col">
+                    <div className="card card-blog">
+                      <div className="blog-image" style={{ height: '250px', backgroundColor: '#f0f0f0' }}></div>
+                      <div className="card-body">
+                        <div className="d-flex flex-row gspace-2">
+                          <div style={{ height: '20px', width: '100px', backgroundColor: '#f0f0f0' }}></div>
+                        </div>
+                        <div style={{ height: '24px', width: '80%', backgroundColor: '#f0f0f0', margin: '10px 0' }}></div>
+                        <div style={{ height: '60px', backgroundColor: '#f0f0f0' }}></div>
                       </div>
                     </div>
-                    <Link to="/blog/growth-strategies" className="blog-link">Building Secure Portals for Enterprise</Link>
-                    <p>Learn best practices for developing secure, scalable enterprise portals that meet government and corporate requirements.</p>
-                    <Link to="/blog/growth-strategies" className="read-more">Read More</Link>
+                  </div>
+                </>
+              )}
+              
+              {error && (
+                <div className="col">
+                  <div className="card card-blog">
+                    <div className="card-body">
+                      <p className="accent-color">{error}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+              
+              {!isLoading && !error && posts.length === 0 && (
+                <div className="col">
+                  <div className="card card-blog">
+                    <div className="card-body">
+                      <p>No blog posts available at the moment.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {!isLoading && !error && posts.map((post) => (
+                <div className="col" key={post.id}>
+                  <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp" onClick={() => window.location.href=`/blog/${post.slug}`}>
+                    <div className="blog-image">
+                      <img 
+                        src={post.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
+                        alt={post.title} 
+                      />
+                    </div>
+                    <div className="card-body">
+                      <div className="d-flex flex-row gspace-2">
+                        <div className="d-flex flex-row gspace-1 align-items-center">
+                          <i className="fa-solid fa-calendar accent-color"></i>
+                          <span className="meta-data">{formatDate(post.published_at)}</span>
+                        </div>
+                        {post.category && (
+                          <div className="d-flex flex-row gspace-1 align-items-center">
+                            <i className="fa-solid fa-folder accent-color"></i>
+                            <span className="meta-data">{post.category}</span>
+                          </div>
+                        )}
+                      </div>
+                      <Link to={`/blog/${post.slug}`} className="blog-link">{post.title}</Link>
+                      <p>{post.excerpt || post.content?.substring(0, 150) + '...'}</p>
+                      <Link to={`/blog/${post.slug}`} className="read-more">Read More</Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
