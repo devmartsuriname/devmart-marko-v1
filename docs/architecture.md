@@ -445,32 +445,94 @@ const [error, setError] = useState<string | null>(null);
      ```
    - This forces PostgREST to refresh its schema cache immediately
 
-#### **Phase 6D: Testimonials** ⭐
-- **Priority:** Medium (social proof)
-- **Effort:** 2-3 hours
-- **Files:** `TestimonialsPage.tsx`, `HomePage.tsx` (section), `AboutPage.tsx` (section)
+#### **Phase 6D: Contact Form Submission** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:** 
+  - `src/pages/ContactPage.tsx` - Form validation and submission handling
+  - `src/integrations/supabase/queries/contactSubmissions.ts` - INSERT-only pattern
+  - `src/integrations/supabase/client.ts` - Hardcoded credentials
+- **Migrations Added:**
+  - `20251201192643_*` - RLS policy fix (anon → authenticated roles)
+  - `20251201194301_*` - PostgREST schema reload
 
-#### **Phase 6E: Pricing Plans** ⭐
+**Technical Notes:**
+
+1. **Supabase Client Configuration:**
+   - URL and anon key are hardcoded (Lovable doesn't support VITE_* env vars)
+   - Located in `src/integrations/supabase/client.ts`
+   - Anon key is PUBLIC and safe to include in client-side code
+   - Security is enforced via RLS policies, not key secrecy
+
+2. **Public Form INSERT Pattern:**
+   - `createContactSubmission()` uses INSERT-only (no `.select()`)
+   - Anonymous users have INSERT but NOT SELECT permission
+   - Return `{ data: null, error }` for public form submissions
+   - Admin functions can use `.select()` since authenticated users have SELECT permission
+
+3. **PostgREST Schema Reload:**
+   - If RLS policies are modified and changes don't take effect, create a migration with:
+     ```sql
+     NOTIFY pgrst, 'reload schema';
+     ```
+   - This forces PostgREST to refresh its schema cache immediately
+
+#### **Phase 6E: Testimonials Page Dynamic Wiring** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:**
+  - `src/integrations/supabase/queries/testimonials.ts` - Added `getPublishedTestimonials()`
+  - `src/pages/TestimonialsPage.tsx` - Dynamic data fetching and rendering
+
+**Technical Notes:**
+
+1. **Query Function:**
+   - `getPublishedTestimonials()` filters `status = 'published'`
+   - Orders by `sort_order` ASC, then `author_name` ASC
+   - Returns array (no `.single()`)
+
+2. **Dynamic Rendering:**
+   - Replaced 6 hardcoded Swiper slides with conditional rendering
+   - Loading state: 3 placeholder cards with reduced opacity
+   - Error state: Single card with error message
+   - Empty state: Single card with "No testimonials available"
+   - Data state: `.map()` over testimonials array
+
+3. **Field Mapping:**
+   - `author_name` → profile name
+   - `author_title` + `company_name` → profile info
+   - `quote` → testimonial description
+   - `avatar_url` → image (with fallback)
+   - `rating` → number of stars (defaults to 5)
+
+4. **Visual Parity:**
+   - Same Swiper structure, card hierarchy, CSS classes
+   - Loading/error states use existing card structure
+   - No layout shifts when data loads
+
+5. **Scope:**
+   - Only `/testimonials` page wired in this phase
+   - HomePage and AboutPage testimonials remain static (future phase)
+
+#### **Phase 6F: Pricing Plans** ⭐
 - **Priority:** Medium (revenue page)
 - **Effort:** 1-2 hours
 - **Files:** `PricingPage.tsx`, `HomePage.tsx` (section)
 
-#### **Phase 6F: Case Studies** ⭐
+#### **Phase 6G: Case Studies** ⭐
 - **Priority:** Medium (portfolio)
 - **Effort:** 2-3 hours
 - **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`, `HomePage.tsx` (section)
 
-#### **Phase 6G: Blog Posts** ⭐
+#### **Phase 6H: Blog Posts** ⭐
 - **Priority:** Medium (content marketing)
 - **Effort:** 3-4 hours
 - **Files:** `queries/blogPosts.ts`, `BlogPage.tsx`, `SinglePostPage.tsx`, `HomePage.tsx` (section)
 
-#### **Phase 6H: Team Members** 📋
+#### **Phase 6I: Team Members** 📋
 - **Priority:** Lower (informational)
 - **Effort:** 1-2 hours
 - **Files:** `TeamPage.tsx`, `AboutPage.tsx` (section)
 
-#### **Phase 6I: FAQ Items** 📋
+#### **Phase 6J: FAQ Items** 📋
 - **Priority:** Lower (support content)
 - **Effort:** 1-2 hours
 - **Files:** `FaqPage.tsx`

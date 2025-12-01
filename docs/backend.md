@@ -460,6 +460,90 @@ export async function getCaseStudyBySlug(slug: string) {
 
 ---
 
+## Phase 6E: Testimonials Page Dynamic Wiring ✅ COMPLETE
+
+**Status:** Completed 2025-12-02
+
+**Objective:** Wire the dedicated `/testimonials` page to Supabase, replacing hardcoded testimonial cards with dynamic data while maintaining 1:1 visual parity.
+
+### Query Layer Enhancement
+
+**File:** `src/integrations/supabase/queries/testimonials.ts`
+
+Added new public query function:
+
+```typescript
+export async function getPublishedTestimonials() {
+  const { data, error } = await supabase
+    .from("testimonials")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("author_name", { ascending: true });
+
+  return { data, error };
+}
+```
+
+**Key Features:**
+- Filters for `status = 'published'` only (respects RLS policy)
+- Orders by `sort_order` first, then `author_name` for consistent display
+- Returns array of testimonials (no `.single()`)
+
+### Frontend Integration
+
+**File:** `src/pages/TestimonialsPage.tsx`
+
+**Changes:**
+1. Added state management:
+   - `testimonials` - array of published testimonials
+   - `isLoading` - fetch status indicator
+   - `error` - error message string
+
+2. Added `useEffect` hook to fetch data on mount using `getPublishedTestimonials()`
+
+3. Replaced 6 hardcoded Swiper slides with dynamic conditional rendering:
+   - **Loading state:** 3 placeholder cards with reduced opacity elements
+   - **Error state:** Single card with error message
+   - **Empty state:** Single card with "No testimonials available" message
+   - **Data state:** `.map()` over testimonials array to generate slides
+
+4. Dynamic field mapping:
+   - `author_name` → profile name
+   - `author_title` + `company_name` → profile info line
+   - `quote` → testimonial description
+   - `avatar_url` → testimonial image (with fallback to default image)
+   - `rating` → number of stars displayed (defaults to 5 if null)
+
+### Visual Parity Guarantee
+
+- ✅ Same Swiper slider structure preserved
+- ✅ Same card HTML hierarchy (`card card-testimonial`)
+- ✅ Same CSS classes (stars, profile-name, profile-info, testimonial-description)
+- ✅ Same icon classes (fa-star, fa-quote-right)
+- ✅ Loading/error states use existing card structure with inline opacity adjustments only
+- ✅ No layout shifts when data loads
+
+### RLS Verification
+
+**Policy:** "Public can view published testimonials"
+- Anonymous users can SELECT from `testimonials` where `status = 'published'`
+- Authenticated users (admin) can view all testimonials regardless of status
+- Network requests show filter: `status=eq.published`
+
+### NOT Changed in This Phase
+
+- ❌ HomePage testimonials section (remains static)
+- ❌ AboutPage testimonials section (remains static)
+- ❌ Any CSS classes or layout structure
+- ❌ Banner section, guide section, or modal video section
+
+### Next Steps
+
+HomePage and AboutPage testimonial sections will be wired to Supabase in a future phase once the dedicated Testimonials page is verified stable in production.
+
+---
+
 #### **Phase 6G: Blog Posts Dynamic Wiring** (Medium Priority)
 **Impact:** Content marketing, SEO  
 **Effort:** Medium (3-4 hours)
