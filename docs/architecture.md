@@ -177,7 +177,7 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 - ✅ Security: user_roles table + has_role() SECURITY DEFINER function
 - ✅ Content: services, blog_posts, contact_submissions, site_settings
 - ✅ Admin: admin_users table (profile data linked to auth.users)
-- ⏸️ Deferred: case_studies, pricing_plans, testimonials
+- ⏸️ Deferred: pricing_plans, testimonials
 
 **Security Foundation:**
 - Roles stored in separate user_roles table (prevents privilege escalation)
@@ -592,7 +592,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 |-------|-----------|--------|-------|-------------|
 | `/admin` | DashboardPage | ✅ Protected (UI Only) | Phase 3 | Overview & stats |
 | `/admin/services` | ServicesAdminPage | ✅ Full CRUD | Phase 4C | Services CRUD (Create/Read/Update/Delete) |
-| `/admin/projects` | ProjectsAdminPage | ✅ Protected (UI Only) | Phase 3 | Case Studies CRUD |
+| `/admin/projects` | ProjectsAdminPage | ✅ Full CRUD | Phase 5E | Projects / Case Studies CRUD (Create/Read/Update/Delete) |
 | `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
@@ -710,6 +710,10 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddFaqItemModal.tsx   (Create FAQ form modal)
 │   ├── EditFaqItemModal.tsx  (Edit FAQ form modal)
 │   └── DeleteFaqItemDialog.tsx (Delete confirmation)
+├── projects/                 (Projects/Case Studies module components)
+│   ├── AddCaseStudyModal.tsx (Create case study form modal)
+│   ├── EditCaseStudyModal.tsx (Edit case study form modal)
+│   └── DeleteCaseStudyDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
@@ -723,6 +727,7 @@ src/integrations/supabase/queries/ ✅ Safe for query layer
 ├── contactSubmissions.ts     (Contact Submissions CRUD functions)
 ├── teamMembers.ts            (Team Members CRUD functions)
 ├── faqItems.ts               (FAQ Items CRUD functions)
+├── caseStudies.ts            (Case Studies CRUD functions)
 └── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities
