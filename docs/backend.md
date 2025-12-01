@@ -336,6 +336,52 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 
 **Files Modified:**
 - `src/pages/ContactPage.tsx`
+- `src/integrations/supabase/queries/contactSubmissions.ts`
+- `src/integrations/supabase/client.ts`
+
+---
+
+### RLS Fix for Public Contact Form Submissions
+
+**Problem:** Contact form submissions from anonymous users failed with "violates row-level security policy" error.
+
+**Root Cause Analysis:**
+1. **Supabase Client Misconfiguration:** The client in `src/integrations/supabase/client.ts` was using `import.meta.env.VITE_*` variables, but Lovable does not support VITE_* environment variables. This resulted in `undefined` values being passed to `createClient()`.
+
+2. **INSERT + SELECT Pattern Conflict:** The `createContactSubmission()` function was chaining `.select().single()` after `.insert()`. While anonymous users have INSERT permission via RLS, they do NOT have SELECT permission. The combined operation fails because Supabase executes INSERT then SELECT as one operation.
+
+**Solutions Applied:**
+
+1. **Hardcoded Supabase Client** (`src/integrations/supabase/client.ts`):
+   ```typescript
+   // Hardcoded values - anon key is public and safe to include in client-side code
+   const SUPABASE_URL = "https://ndaohonpvwvoadffwgst.supabase.co";
+   const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIs...";
+   ```
+   - The anon key is a PUBLIC key designed for client-side code
+   - Security is enforced via RLS policies, not key secrecy
+
+2. **INSERT-only Pattern** (`src/integrations/supabase/queries/contactSubmissions.ts`):
+   ```typescript
+   export async function createContactSubmission(submission) {
+     const { error } = await supabase
+       .from("contact_submissions")
+       .insert([submission]);
+     // No .select() - anon users cannot SELECT
+     return { data: null, error };
+   }
+   ```
+
+3. **PostgREST Schema Reload Migration**:
+   - Created migration with `NOTIFY pgrst, 'reload schema';`
+   - Forces PostgREST to pick up updated RLS policies immediately
+   - Required when RLS policies are modified and changes don't take effect
+
+**Key Learnings:**
+
+1. **Lovable does not support VITE_* environment variables** - always hardcode Supabase URL and anon key
+2. **Public form submissions should use INSERT-only pattern** - don't chain `.select()` if anonymous users lack SELECT permission
+3. **RLS policy changes may require PostgREST reload** - use `NOTIFY pgrst, 'reload schema'` migration
 
 ---
 

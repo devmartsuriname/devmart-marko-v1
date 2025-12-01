@@ -416,9 +416,34 @@ const [error, setError] = useState<string | null>(null);
 
 #### **Phase 6D: Contact Form Submission** ✅ COMPLETE
 - **Status:** Completed 2025-12-02
-- **Files:** `ContactPage.tsx`, `queries/contactSubmissions.ts`
-- **Behavior:** Public form → Supabase INSERT → Success/error alerts
-- **Admin:** Submissions managed via `/admin/contacts`
+- **Files Modified:** 
+  - `src/pages/ContactPage.tsx` - Form validation and submission handling
+  - `src/integrations/supabase/queries/contactSubmissions.ts` - INSERT-only pattern
+  - `src/integrations/supabase/client.ts` - Hardcoded credentials
+- **Migrations Added:**
+  - `20251201192643_*` - RLS policy fix (anon → authenticated roles)
+  - `20251201194301_*` - PostgREST schema reload
+
+**Technical Notes:**
+
+1. **Supabase Client Configuration:**
+   - URL and anon key are hardcoded (Lovable doesn't support VITE_* env vars)
+   - Located in `src/integrations/supabase/client.ts`
+   - Anon key is PUBLIC and safe to include in client-side code
+   - Security is enforced via RLS policies, not key secrecy
+
+2. **Public Form INSERT Pattern:**
+   - `createContactSubmission()` uses INSERT-only (no `.select()`)
+   - Anonymous users have INSERT but NOT SELECT permission
+   - Return `{ data: null, error }` for public form submissions
+   - Admin functions can use `.select()` since authenticated users have SELECT permission
+
+3. **PostgREST Schema Reload:**
+   - If RLS policies are modified and changes don't take effect, create a migration with:
+     ```sql
+     NOTIFY pgrst, 'reload schema';
+     ```
+   - This forces PostgREST to refresh its schema cache immediately
 
 #### **Phase 6D: Testimonials** ⭐
 - **Priority:** Medium (social proof)
@@ -461,6 +486,57 @@ const [error, setError] = useState<string | null>(null);
 - **Files:** All public pages + new `useSEO()` hook
 
 **Total Estimated Effort:** 26-38 hours (3-5 weeks part-time)
+
+---
+
+## Supabase Integration Patterns
+
+### Client Configuration
+
+**File:** `src/integrations/supabase/client.ts`
+
+```typescript
+// IMPORTANT: Lovable does not support VITE_* environment variables
+// Hardcode the URL and anon key directly
+const SUPABASE_URL = "https://ndaohonpvwvoadffwgst.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIs...";
+```
+
+**Security Note:** The anon key is a PUBLIC key designed for client-side code. All security is enforced via Row Level Security (RLS) policies at the database level.
+
+### Public Form Submission Pattern
+
+For forms submitted by anonymous (unauthenticated) users:
+
+```typescript
+// ❌ WRONG - Will fail if anon lacks SELECT permission
+export async function createSubmission(data) {
+  const { data: result, error } = await supabase
+    .from("table")
+    .insert([data])
+    .select()      // ← Requires SELECT permission
+    .single();
+  return { data: result, error };
+}
+
+// ✅ CORRECT - INSERT-only for public forms
+export async function createSubmission(data) {
+  const { error } = await supabase
+    .from("table")
+    .insert([data]);
+  return { data: null, error };  // No data returned
+}
+```
+
+### RLS Policy Refresh
+
+If RLS policies are modified and changes don't take effect:
+
+1. Create a new migration file
+2. Add: `NOTIFY pgrst, 'reload schema';`
+3. Run the migration
+
+This forces PostgREST to refresh its schema cache and pick up the updated policies.
 
 ---
 
