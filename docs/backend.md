@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5G Pricing Plans CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5H Settings CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -15,7 +15,8 @@
 **Phase 5E Projects / Case Studies CRUD:** 2025-12-01  
 **Phase 5F Testimonials CRUD:** 2025-12-02  
 **Phase 5G Pricing Plans CRUD:** 2025-12-02  
-**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, Testimonials, and Pricing Plans admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5H Settings CRUD:** 2025-12-02  
+**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, Testimonials, Pricing Plans, and Site Settings admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users, pricing_plans  
@@ -66,7 +67,11 @@
 ✅ **Phase 5G - Pricing Plans CRUD:** AddPricingPlanModal, EditPricingPlanModal, DeletePricingPlanDialog with full CRUD operations  
 ✅ **Pricing Plans Query Layer:** pricingPlans.ts with getAllPricingPlans, getPricingPlanById, createPricingPlan, updatePricingPlan, deletePricingPlan  
 ✅ **Pricing Plans Seed Data:** 3 pricing tiers from PricingPage.tsx (Starter Website $99/mo, Business Platform $299/mo, Government/Enterprise $399/mo highlighted)  
-✅ **Pricing Plans Admin Page:** PricingAdminPage wired to Supabase with price/billing display, target segment, highlighted flag, and sort order
+✅ **Pricing Plans Admin Page:** PricingAdminPage wired to Supabase with price/billing display, target segment, highlighted flag, and sort order  
+✅ **Phase 5H - Settings CRUD:** Inline form editing with section-based save buttons (NO modals for normal editing)  
+✅ **Settings Query Layer:** siteSettings.ts with getAllSiteSettings, getSiteSettingByKey, updateSiteSetting, updateSiteSettings (batch)  
+✅ **Settings Seed Data:** 13 key-value settings including brand info, contact details, social links, SEO defaults  
+✅ **Settings Admin Page:** SettingsAdminPage wired to Supabase with 4 sections (Brand, Contact, Social, SEO), independent saves, toast notifications
 
 ---
 
@@ -241,7 +246,7 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - `/admin/services` - Services CRUD (protected route, backend ready, UI not wired)
 - `/admin/blog` - Blog Posts CRUD (protected route, backend ready, UI not wired)
 - `/admin/contacts` - Contact Submissions Inbox (protected route, backend ready, UI not wired)
-- `/admin/settings` - Site Settings (protected route, backend ready, UI not wired)
+- `/admin/settings` - ✅ Site Settings CRUD (protected route, fully wired with inline editing)
 - **Deferred routes:** `/admin/projects`, `/admin/pricing`, `/admin/testimonials`, `/admin/team`, `/admin/faqs`
 
 ---
@@ -1202,6 +1207,116 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Features array enables dynamic bullet-point rendering on public pricing cards
 - Billing period display enables monthly/yearly/one-time pricing presentation
 - Target segment can guide plan selection on public page
+
+---
+
+### Phase 5H – Settings CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full inline form editing implemented for Site Settings with section-based saves
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/siteSettings.ts`
+- **Functions:**
+  - `getAllSiteSettings()` - Fetches all settings, returns as key-value map `Record<string, string>`
+  - `getSiteSettingByKey(key: string)` - Fetches single setting by key using `.maybeSingle()`
+  - `updateSiteSetting(key: string, value: string)` - Updates single setting
+  - `updateSiteSettings(settings: Record<string, string>)` - Batch updates multiple settings via `Promise.all()`
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type exports: `SiteSetting = Tables<"site_settings">`, `SiteSettingsMap = Record<string, string>`
+
+**UX Pattern: Inline Editing (NO Modals)**
+- **Critical Design Decision:** Settings uses inline forms within card sections, NOT modal-based editing
+- Each section has its own "Save" button for independent saves
+- No modal components created for Settings (modals only for destructive confirmations)
+- Toast notifications for success/error feedback using `sonner` library
+- Section-based loading states for save buttons
+
+**SettingsAdminPage Updates** (`src/pages/admin/SettingsAdminPage.tsx`)
+- State management: Single `settings` object (`Record<string, string>`), section loading states
+- `fetchSettings()` function called on mount, converts array to key-value map
+- Loading state: "Loading settings..." centered message
+- Error state: Error banner with retry button
+- 4 card sections with inline forms:
+  1. **Brand Information** - site_name, tagline, copyright_text
+  2. **Contact Information** - contact_email, contact_phone, contact_address
+  3. **Social Media Links** - facebook_url, linkedin_url, instagram_url, twitter_url, github_url
+  4. **SEO Defaults** - seo_default_title, seo_default_description (textarea)
+- Each section has dedicated save handler and loading state
+- Controlled inputs bound to `settings[key]` state
+- Client-side validation: HTML5 attributes (required, type="email", type="url", maxLength)
+
+**Settings Data Model (Key-Value Architecture):**
+- Table: `site_settings` (existing, extended in Phase 5H)
+- Structure: `key TEXT PRIMARY KEY`, `value TEXT`, `description TEXT`, `updated_at TIMESTAMPTZ`
+- 13 total settings (8 existing + 5 new in Phase 5H):
+
+**Existing Settings (Phase 2):**
+1. `site_name` - "Devmart Suriname"
+2. `copyright_text` - "© 2025 Devmart Suriname..."
+3. `contact_email` - "info@devmart.sr"
+4. `contact_phone` - "+597 854-1211"
+5. `contact_address` - "Jagernath Lachmon straat nr. 152..."
+6. `facebook_url` - "https://www.facebook.com/DevmartSuriname/"
+7. `seo_default_title` - "Devmart Suriname - Web Development..."
+8. `seo_default_description` - "Professional web development..."
+
+**New Settings (Phase 5H):**
+9. `tagline` - "Building Digital Solutions for Suriname"
+10. `linkedin_url` - (empty, to be configured)
+11. `instagram_url` - (empty, to be configured)
+12. `twitter_url` - (empty, to be configured)
+13. `github_url` - (empty, to be configured)
+
+**Form Fields by Section:**
+| Section | Field | Type | Required | Max Length | Validation |
+|---------|-------|------|----------|------------|------------|
+| Brand | site_name | text | ✅ | 100 | Plain text |
+| Brand | tagline | text | ❌ | 200 | Plain text |
+| Brand | copyright_text | text | ❌ | 200 | Plain text |
+| Contact | contact_email | email | ✅ | 255 | Email format |
+| Contact | contact_phone | text | ❌ | 50 | Phone format |
+| Contact | contact_address | text | ❌ | 500 | Plain text |
+| Social | facebook_url | url | ❌ | 500 | URL format |
+| Social | linkedin_url | url | ❌ | 500 | URL format |
+| Social | instagram_url | url | ❌ | 500 | URL format |
+| Social | twitter_url | url | ❌ | 500 | URL format |
+| Social | github_url | url | ❌ | 500 | URL format |
+| SEO | seo_default_title | text | ❌ | 60 | 50-60 chars recommended |
+| SEO | seo_default_description | textarea | ❌ | 160 | 150-160 chars recommended |
+
+**User Flows:**
+1. **Load:** Page loads → Fetch all settings → Convert to map → Populate form inputs
+2. **Edit Brand:** Modify site_name/tagline → Click "Save Brand Information" → Updates 3 keys → Toast success
+3. **Edit Contact:** Update email/phone/address → Click "Save Contact Information" → Updates 3 keys → Toast success
+4. **Edit Social:** Add/update social URLs → Click "Save Social Links" → Updates 5 keys → Toast success
+5. **Edit SEO:** Update meta title/description → Click "Save SEO Settings" → Updates 2 keys → Toast success
+
+**Database Details:**
+- Table: `site_settings` (existing, no schema changes required)
+- Columns: key (TEXT PK), value (TEXT NOT NULL), description (TEXT), updated_at (TIMESTAMPTZ)
+- RLS Policies:
+  - Public SELECT (for marketing site to read settings)
+  - Authenticated INSERT/UPDATE/DELETE (for admin edits)
+- Trigger: `update_site_settings_updated_at` using shared `update_updated_at_column()` function
+- Migration: Added 5 new keys via idempotent `ON CONFLICT (key) DO NOTHING` insert
+
+**Public Site Integration (Future):**
+- Footer.tsx can read contact info, social links, copyright text
+- Header.tsx can read site_name for branding
+- ContactPage.tsx can read contact details dynamically
+- SEO meta tags can use seo_default_title and seo_default_description
+- Implementation via `useSettings()` hook or context provider (not yet built)
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/integrations/supabase/queries/`
+- ✅ NO modals for normal editing - inline forms only (modals forbidden per Phase 5H requirements)
+- ✅ Section-based save pattern for independent updates
+- ✅ Uses admin.css styling exclusively
+- ✅ Query layer follows thin-wrapper pattern
+- ✅ Toast notifications via existing `sonner` library
+- ✅ Controlled inputs with proper state management
+- ✅ Batch update via `Promise.all()` for efficiency
 
 ---
 
