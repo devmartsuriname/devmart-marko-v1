@@ -75,6 +75,540 @@
 
 ---
 
+## Phase 6: Frontend Integration Status
+
+**Status:** Backend 100% Complete | Frontend 0% Wired  
+**Analysis Date:** 2025-12-02  
+**Critical Finding:** All public-facing pages still render hardcoded static JSX content
+
+### Module Integration Status
+
+| Module | Backend CRUD | Query Layer | Frontend Page | Supabase Wiring | Status |
+|--------|-------------|-------------|---------------|-----------------|---------|
+| Services | ✅ Complete | ✅ services.ts | ✅ ServicesPage, SingleServicePage | ❌ Static JSX | 🔴 Not Wired |
+| Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
+| Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
+| FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ❌ Static JSX | 🔴 Not Wired |
+| Contact Form | ✅ Complete | ✅ contactSubmissions.ts | ✅ ContactPage | ❌ No submission logic | 🔴 Not Wired |
+| Site Settings | ✅ Complete | ✅ siteSettings.ts | ✅ Footer, Header, All Pages | ❌ Hardcoded values | 🔴 Not Wired |
+
+### Missing Query Functions Identified
+
+The following query functions are required for detail pages but not yet implemented:
+
+1. **Services:**
+   - ❌ `getServiceBySlug(slug: string)` - Required for `/services/:slug` route
+
+2. **Case Studies:**
+   - ❌ `getCaseStudyBySlug(slug: string)` - Required for `/case-studies/:slug` route (if implemented)
+
+3. **Blog Posts:**
+   - ❌ `getBlogPostBySlug(slug: string)` - Required for `/blog/:slug` route
+
+### Database Seed Data Verification
+
+All modules have published content ready for public display:
+
+- ✅ **Services:** 6 services (4 featured, all published)
+- ✅ **Testimonials:** 4 testimonials (2 featured, all published)
+- ✅ **Pricing Plans:** 3 plans (1 highlighted, all published)
+- ✅ **Case Studies:** 4 projects (2 featured, all published)
+- ✅ **Blog Posts:** 3 posts (all published with published_at dates)
+- ✅ **Team Members:** 6 members (3 featured, all active)
+- ✅ **FAQ Items:** 6 items (3 featured, all active)
+- ✅ **Site Settings:** 13 keys (brand, contact, social, SEO)
+
+### Frontend Integration Plan (Recommended Priority Order)
+
+#### **Phase 6A: Site Settings Context Provider** (High Priority)
+**Impact:** Foundation for all dynamic content  
+**Effort:** Low (1-2 hours)  
+**Benefits:** Centralized settings access, global data consistency
+
+**Implementation:**
+1. Create `src/context/SettingsContext.tsx`:
+   - Export `SettingsProvider` component
+   - Export `useSettings()` hook
+   - Fetch settings on mount via `getAllSiteSettings()`
+   - Provide settings map to all children
+   - Include loading/error states
+
+2. Wrap app in `SettingsProvider` (in `main.tsx`)
+3. No changes to components yet (wiring comes in Phase 6C)
+
+**Files to Create:**
+- `src/context/SettingsContext.tsx`
+
+**Files to Modify:**
+- `src/main.tsx` (add SettingsProvider wrapper)
+
+---
+
+#### **Phase 6B: Services Page Dynamic Wiring** (High Priority)
+**Impact:** Primary business offering page  
+**Effort:** Medium (3-4 hours)  
+**SEO Benefit:** Dynamic meta tags, fresh content
+
+**Implementation:**
+1. Add missing query function:
+   ```typescript
+   // src/integrations/supabase/queries/services.ts
+   export async function getServiceBySlug(slug: string) {
+     const { data, error } = await supabase
+       .from("services")
+       .select("*")
+       .eq("slug", slug)
+       .eq("status", "published")
+       .maybeSingle();
+     return { data, error };
+   }
+   ```
+
+2. Wire `ServicesPage.tsx`:
+   - Import `getAllServices` from query layer
+   - Add state: `services`, `isLoading`, `error`
+   - Fetch on mount with `useEffect`
+   - Filter: `status === "published"`
+   - Map over `services` array instead of hardcoded JSX
+   - Add loading skeleton (6 placeholder cards)
+   - Add error fallback (retry button)
+   - Preserve all CSS classes and layout structure
+
+3. Wire `SingleServicePage.tsx`:
+   - Import `getServiceBySlug`
+   - Extract `slug` from `useParams()`
+   - Fetch service data on mount
+   - Show 404 if service not found
+   - Render dynamic content in same template structure
+
+**Data Transform Example:**
+```typescript
+// Current: hardcoded
+<h3 className="service-title">Custom Web Applications</h3>
+
+// After: dynamic
+<h3 className="service-title">{service.name}</h3>
+```
+
+**Files to Modify:**
+- `src/integrations/supabase/queries/services.ts` (add getServiceBySlug)
+- `src/pages/ServicesPage.tsx` (wire to getAllServices)
+- `src/pages/SingleServicePage.tsx` (wire to getServiceBySlug)
+
+**Performance Considerations:**
+- No caching needed yet (services change infrequently)
+- Loading state shows immediately (UX first)
+- Error boundary recommended for production
+
+---
+
+#### **Phase 6C: Footer & Header Dynamic Content** (High Priority)
+**Impact:** Global components, site-wide consistency  
+**Effort:** Low (1-2 hours)  
+**Benefits:** Single source of truth for contact info
+
+**Implementation:**
+1. Update `Footer.tsx`:
+   - Import `useSettings()` hook
+   - Replace hardcoded email with `settings.contact_email`
+   - Replace hardcoded phone with `settings.contact_phone`
+   - Replace hardcoded address with `settings.contact_address`
+   - Replace social URLs with `settings.facebook_url`, etc.
+   - Replace copyright with `settings.copyright_text`
+
+2. Update `Header.tsx`:
+   - Import `useSettings()` hook
+   - Replace site name with `settings.site_name` (if displayed)
+   - Logo alt text can use `settings.site_name`
+
+**Example Transform:**
+```typescript
+// Before
+<a href="mailto:info@devmart.sr">info@devmart.sr</a>
+
+// After
+const { settings } = useSettings();
+<a href={`mailto:${settings.contact_email}`}>
+  {settings.contact_email}
+</a>
+```
+
+**Files to Modify:**
+- `src/components/layout/Footer.tsx`
+- `src/components/layout/Header.tsx`
+
+---
+
+#### **Phase 6D: Testimonials Dynamic Wiring** (Medium Priority)
+**Impact:** Social proof sections  
+**Effort:** Medium (2-3 hours)
+
+**Pages to Wire:**
+- `TestimonialsPage.tsx` (main testimonials page)
+- `HomePage.tsx` (testimonial slider section)
+- `AboutPage.tsx` (testimonial slider section)
+
+**Implementation:**
+```typescript
+import { getAllTestimonials } from "@/integrations/supabase/queries/testimonials";
+
+// Filter published and sort by sort_order
+const published = testimonials.filter(t => t.status === "published");
+const sorted = published.sort((a, b) => a.sort_order - b.sort_order);
+```
+
+**Files to Modify:**
+- `src/pages/TestimonialsPage.tsx`
+- `src/pages/HomePage.tsx` (testimonial section only)
+- `src/pages/AboutPage.tsx` (testimonial section only)
+
+---
+
+#### **Phase 6E: Pricing Plans Dynamic Wiring** (Medium Priority)
+**Impact:** Revenue-critical page  
+**Effort:** Low (1-2 hours)
+
+**Pages to Wire:**
+- `PricingPage.tsx` (main pricing page)
+- `HomePage.tsx` (pricing section)
+
+**Implementation Notes:**
+- Filter: `status === "published"`
+- Sort by: `sort_order`
+- Highlight: use `highlighted` boolean for special styling
+- Format price: `$${plan.price}/${plan.billing_period}`
+
+**Files to Modify:**
+- `src/pages/PricingPage.tsx`
+- `src/pages/HomePage.tsx` (pricing section only)
+
+---
+
+#### **Phase 6F: Case Studies Dynamic Wiring** (Medium Priority)
+**Impact:** Portfolio showcase  
+**Effort:** Medium (2-3 hours)
+
+**Missing Query Function:**
+```typescript
+// src/integrations/supabase/queries/caseStudies.ts
+export async function getCaseStudyBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  return { data, error };
+}
+```
+
+**Pages to Wire:**
+- `CaseStudiesPage.tsx` (portfolio grid)
+- `HomePage.tsx` (case studies section)
+- (Future: `SingleCaseStudyPage.tsx` if detail page implemented)
+
+**Files to Modify:**
+- `src/integrations/supabase/queries/caseStudies.ts` (add getBySlug)
+- `src/pages/CaseStudiesPage.tsx`
+- `src/pages/HomePage.tsx` (case studies section only)
+
+---
+
+#### **Phase 6G: Blog Posts Dynamic Wiring** (Medium Priority)
+**Impact:** Content marketing, SEO  
+**Effort:** Medium (3-4 hours)
+
+**Missing Query Function:**
+```typescript
+// src/integrations/supabase/queries/blogPosts.ts
+export async function getBlogPostBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  return { data, error };
+}
+```
+
+**Pages to Wire:**
+- `BlogPage.tsx` (blog listing with pagination)
+- `SinglePostPage.tsx` (individual blog post)
+- `HomePage.tsx` (latest blog posts section)
+
+**Additional Features:**
+- Category filter (if implemented)
+- Tags display
+- Published date formatting
+- Author display (if author_id wired to admin_users)
+
+**Files to Modify:**
+- `src/integrations/supabase/queries/blogPosts.ts` (add getBySlug)
+- `src/pages/BlogPage.tsx`
+- `src/pages/SinglePostPage.tsx`
+- `src/pages/HomePage.tsx` (blog section only)
+
+---
+
+#### **Phase 6H: Team Members Dynamic Wiring** (Lower Priority)
+**Impact:** About section  
+**Effort:** Low (1-2 hours)
+
+**Pages to Wire:**
+- `TeamPage.tsx` (main team page)
+- `AboutPage.tsx` (team section)
+
+**Implementation:**
+- Filter: `status === "active"`
+- Sort by: `sort_order`
+- Featured: optionally filter `is_featured === true` for HomePage
+
+**Files to Modify:**
+- `src/pages/TeamPage.tsx`
+- `src/pages/AboutPage.tsx` (team section only)
+
+---
+
+#### **Phase 6I: FAQ Items Dynamic Wiring** (Lower Priority)
+**Impact:** Support content  
+**Effort:** Low (1-2 hours)
+
+**Pages to Wire:**
+- `FaqPage.tsx`
+
+**Implementation:**
+- Filter: `status === "active"`
+- Group by: `category` (if categories used)
+- Sort by: `sort_order`
+- Featured: optionally show `is_featured === true` items first
+
+**Files to Modify:**
+- `src/pages/FaqPage.tsx`
+
+---
+
+#### **Phase 6J: Contact Form Submission** (High Priority)
+**Impact:** Lead capture functionality  
+**Effort:** Low (1-2 hours)
+
+**Current State:**
+- Contact form exists in `ContactPage.tsx`
+- Form fields: first_name, last_name, email, phone, company, subject, message
+- No submit logic - form doesn't save to database
+
+**Implementation:**
+1. Import `createContactSubmission` from query layer
+2. Add form state management (React Hook Form or useState)
+3. Add `onSubmit` handler:
+   - Call `createContactSubmission()` with form data
+   - Set default status: "new"
+   - Show success toast on submission
+   - Clear form fields
+   - Handle errors gracefully
+4. Add client-side validation:
+   - Required fields: first_name, last_name, email, subject, message
+   - Email format validation
+   - Phone format validation (optional field)
+
+**Files to Modify:**
+- `src/pages/ContactPage.tsx`
+
+**UX Flow:**
+```
+User fills form → Submit → Loading state → Success message + Clear form
+                                        ↓
+                                  (or Error message)
+```
+
+---
+
+#### **Phase 6K: HomePage Sections Integration** (Lower Priority)
+**Impact:** Landing page dynamism  
+**Effort:** High (6-8 hours - combines all modules)
+
+**Sections to Wire:**
+1. Hero stats (if dynamic)
+2. Services section (from getAllServices)
+3. Case Studies section (from getAllCaseStudies)
+4. Testimonials slider (from getAllTestimonials)
+5. Pricing section (from getAllPricingPlans)
+6. Blog section (latest 3 posts from getAllBlogPosts)
+
+**Implementation Strategy:**
+- Wire one section at a time
+- Each section maintains independent loading state
+- Skeleton loaders for each section
+- Graceful degradation if data fetch fails
+
+**Files to Modify:**
+- `src/pages/HomePage.tsx` (multiple sections)
+
+---
+
+#### **Phase 6L: SEO Meta Tags Dynamic** (Lower Priority)
+**Impact:** Search engine optimization  
+**Effort:** Medium (3-4 hours)
+
+**Implementation:**
+1. Create `useSEO()` hook or component
+2. Read from `site_settings` for defaults:
+   - `seo_default_title`
+   - `seo_default_description`
+3. Override with page-specific meta tags:
+   - Services: `meta_title`, `meta_description`
+   - Blog: `meta_title`, `meta_description`
+4. Use React Helmet or similar for dynamic `<head>` updates
+
+**Benefits:**
+- Dynamic page titles
+- Dynamic meta descriptions
+- Improved SEO for dynamic content
+
+**Files to Create:**
+- `src/hooks/useSEO.ts` (optional)
+
+**Files to Modify:**
+- All public pages for SEO tag injection
+
+---
+
+### Summary of Files to Modify (Phase 6 Complete)
+
+**New Files to Create:**
+- `src/context/SettingsContext.tsx`
+- `src/hooks/useSEO.ts` (optional)
+
+**Query Layer Additions:**
+- `src/integrations/supabase/queries/services.ts` (+1 function)
+- `src/integrations/supabase/queries/caseStudies.ts` (+1 function)
+- `src/integrations/supabase/queries/blogPosts.ts` (+1 function)
+
+**Pages to Modify (13 files):**
+- `src/pages/HomePage.tsx` (multiple sections)
+- `src/pages/AboutPage.tsx` (team, testimonials)
+- `src/pages/ServicesPage.tsx`
+- `src/pages/SingleServicePage.tsx`
+- `src/pages/PricingPage.tsx`
+- `src/pages/TestimonialsPage.tsx`
+- `src/pages/CaseStudiesPage.tsx`
+- `src/pages/BlogPage.tsx`
+- `src/pages/SinglePostPage.tsx`
+- `src/pages/TeamPage.tsx`
+- `src/pages/FaqPage.tsx`
+- `src/pages/ContactPage.tsx`
+- `src/components/layout/Footer.tsx`
+- `src/components/layout/Header.tsx`
+
+**Entry Point:**
+- `src/main.tsx` (add SettingsProvider)
+
+---
+
+### Performance & Caching Considerations
+
+1. **Initial Load:**
+   - Settings loaded once globally via SettingsContext
+   - Page-specific data loaded on route navigation
+   - No caching layer needed yet (content changes infrequently)
+
+2. **Loading States:**
+   - Skeleton loaders for content cards
+   - Spinner for detail pages
+   - Graceful fallback if fetch fails
+
+3. **Error Handling:**
+   - Display error messages with retry button
+   - Log errors for debugging
+   - Fallback to empty state (not broken layout)
+
+4. **Future Optimization:**
+   - React Query for caching (optional Phase 7)
+   - Pagination for blog/case studies (optional)
+   - Image lazy loading (already implemented via template)
+
+---
+
+### SEO Impact Assessment
+
+| Module | Current SEO | After Wiring | Improvement |
+|--------|-------------|--------------|-------------|
+| Services | Static HTML | Dynamic meta tags | ⭐⭐⭐ High |
+| Blog | Static HTML | Dynamic titles/descriptions | ⭐⭐⭐ High |
+| Case Studies | Static HTML | Dynamic project info | ⭐⭐ Medium |
+| Testimonials | Static HTML | Social proof freshness | ⭐ Low |
+| Pricing | Static HTML | Price/feature updates | ⭐ Low |
+| FAQ | Static HTML | Fresh Q&A content | ⭐⭐ Medium |
+| Contact | No submission | Lead capture active | ⭐⭐⭐ High |
+| Site Settings | Hardcoded | Consistent branding | ⭐⭐ Medium |
+
+**Highest SEO Impact:**
+1. Contact Form (enables lead generation)
+2. Blog Posts (fresh content, dynamic meta)
+3. Services (core business offering)
+4. Site Settings (consistent contact info)
+
+---
+
+### Recommended Implementation Order
+
+**Week 1: Foundation & High-Impact**
+1. Phase 6A: Settings Context (1-2 hours) ✅ Foundation
+2. Phase 6J: Contact Form (1-2 hours) ⭐ Lead capture
+3. Phase 6B: Services Pages (3-4 hours) ⭐ Business critical
+4. Phase 6C: Footer/Header (1-2 hours) ⭐ Global consistency
+
+**Week 2: Content & Social Proof**
+5. Phase 6D: Testimonials (2-3 hours)
+6. Phase 6E: Pricing Plans (1-2 hours)
+7. Phase 6F: Case Studies (2-3 hours)
+
+**Week 3: Content Marketing**
+8. Phase 6G: Blog Posts (3-4 hours)
+9. Phase 6H: Team Members (1-2 hours)
+10. Phase 6I: FAQ Items (1-2 hours)
+
+**Week 4: Landing Page & SEO**
+11. Phase 6K: HomePage Sections (6-8 hours)
+12. Phase 6L: SEO Meta Tags (3-4 hours) (optional)
+
+**Total Estimated Effort:** 26-38 hours (3-5 weeks at part-time pace)
+
+---
+
+### Critical Success Factors
+
+1. **Maintain Visual Parity:**
+   - DO NOT change CSS classes or layout structure
+   - Only swap hardcoded JSX content with dynamic data
+   - Preserve all animations and template functionality
+
+2. **Loading States:**
+   - Always show skeleton loaders (not empty white space)
+   - Use template-consistent spinner components
+   - Fast perceived performance > actual speed
+
+3. **Error Handling:**
+   - Graceful fallback to empty state or retry button
+   - Never break layout with error messages
+   - Log errors for admin debugging
+
+4. **Data Filtering:**
+   - Always filter `status === "published"` on public pages
+   - Respect `sort_order` for display order
+   - Handle empty arrays gracefully
+
+5. **Testing:**
+   - Test with empty database (no content)
+   - Test with full database (all modules populated)
+   - Test loading states (slow network simulation)
+   - Test error states (invalid slugs, network failures)
+
+---
+
 ## Decision: Backend CMS Architecture for v1
 
 ### ✅ **CHOSEN: Option A – Simple Admin CMS (v1 Official)**
