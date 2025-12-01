@@ -73,13 +73,20 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - ✅ Loading and error states implemented
 - ✅ 6 services seeded from frontend content
 - ✅ Create functionality implemented (Phase 4B)
-- ❌ Edit/Delete operations (deferred to Phase 4C)
+- ✅ Edit/Delete operations (Phase 4C complete)
 - ❌ Marketing site database connection (future phase)
 
 **Phase 4B Components:**
 - `AddServiceModal` component with form validation and slug auto-generation
 - `createService()` function in query layer
 - Modal integration with ServicesAdminPage for seamless table refresh
+
+**Phase 4C Components:**
+- `EditServiceModal` component for updating existing services
+- `DeleteServiceDialog` component for delete confirmation
+- `updateService()` and `deleteService()` functions in query layer
+- `DataTable` component updated with `onEdit` and `onDelete` prop wiring
+- Full CRUD pattern established for future admin modules
 
 **Phase 4B – Modal CSS Isolation Fix:**
 - **Issue:** AddServiceModal required shadcn CSS variables (--background, --foreground, etc.) but importing index.css globally would break frontend template styles
@@ -278,6 +285,14 @@ All routes use React Router's client-side navigation:
 - Public frontend completely unaffected by admin styling
 - Zero CSS conflicts between template and shadcn components
 - Clean separation of concerns
+
+**Modal Component Strategy:**
+- All admin modals use the existing `Dialog` component from shadcn
+- Dialog uses **inline styles** for critical properties (position, z-index, background)
+- CSS variables like `--admin-bg-secondary` and scoped shadcn variables are used for theming
+- `AlertDialog` component NOT used due to Tailwind class dependencies that would require global imports
+- This approach ensures modals work without global Tailwind imports and maintains CSS isolation
+- Pattern established in Phase 4C with EditServiceModal and DeleteServiceDialog
 
 **Typography:**
 - Font family: Plus Jakarta Sans (from template)
@@ -511,7 +526,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | Route | Component | Status | Phase | Description |
 |-------|-----------|--------|-------|-------------|
 | `/admin` | DashboardPage | ✅ Protected (UI Only) | Phase 3 | Overview & stats |
-| `/admin/services` | ServicesAdminPage | ✅ Protected (UI Only) | Phase 3 | Services CRUD |
+| `/admin/services` | ServicesAdminPage | ✅ Full CRUD | Phase 4C | Services CRUD (Create/Read/Update/Delete) |
 | `/admin/projects` | ProjectsAdminPage | ✅ Protected (UI Only) | Phase 3 | Case Studies CRUD |
 | `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
@@ -608,8 +623,12 @@ src/components/admin/         ✅ NEW - Safe to create
 ├── AdminSidebar.tsx          (Left navigation)
 ├── AdminHeader.tsx           (Top bar with user menu)
 ├── AdminThemeToggle.tsx      (Dark/light mode)
-├── DataTable.tsx             (Reusable table component)
-├── FormField.tsx             (Form inputs)
+├── DataTable.tsx             (Reusable table component with onEdit/onDelete)
+├── RequireAuth.tsx           (Route protection)
+├── services/                 (Services module components)
+│   ├── AddServiceModal.tsx   (Create form modal)
+│   ├── EditServiceModal.tsx  (Edit form modal)
+│   └── DeleteServiceDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
