@@ -77,15 +77,16 @@
 
 ## Phase 6: Frontend Integration Status
 
-**Status:** Backend 100% Complete | Frontend 0% Wired  
+**Status:** Backend 100% Complete | Frontend: Phase 6A+6B Complete  
 **Analysis Date:** 2025-12-02  
-**Critical Finding:** All public-facing pages still render hardcoded static JSX content
+**Latest Update:** Phase 6B - ServicesPage wired to Supabase  
+**Critical Finding:** Most public-facing pages still render hardcoded static JSX content
 
 ### Module Integration Status
 
 | Module | Backend CRUD | Query Layer | Frontend Page | Supabase Wiring | Status |
 |--------|-------------|-------------|---------------|-----------------|---------|
-| Services | ✅ Complete | ✅ services.ts | ✅ ServicesPage, SingleServicePage | ❌ Static JSX | 🔴 Not Wired |
+| Services | ✅ Complete | ✅ services.ts | ✅ ServicesPage, SingleServicePage | ✅ ServicesPage Dynamic | 🟢 Phase 6B Complete |
 | Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
 | Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
 | Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
@@ -173,61 +174,88 @@ All modules have published content ready for public display:
 
 ---
 
-#### **Phase 6B: Services Page Dynamic Wiring** (High Priority)
-**Impact:** Primary business offering page  
-**Effort:** Medium (3-4 hours)  
-**SEO Benefit:** Dynamic meta tags, fresh content
+### Phase 6A: Settings Context Provider (COMPLETED ✅)
 
-**Implementation:**
-1. Add missing query function:
-   ```typescript
-   // src/integrations/supabase/queries/services.ts
-   export async function getServiceBySlug(slug: string) {
-     const { data, error } = await supabase
-       .from("services")
-       .select("*")
-       .eq("slug", slug)
-       .eq("status", "published")
-       .maybeSingle();
-     return { data, error };
-   }
-   ```
+**Date:** 2025-12-02  
+**Status:** Implemented and ready for consumption
 
-2. Wire `ServicesPage.tsx`:
-   - Import `getAllServices` from query layer
-   - Add state: `services`, `isLoading`, `error`
-   - Fetch on mount with `useEffect`
-   - Filter: `status === "published"`
-   - Map over `services` array instead of hardcoded JSX
-   - Add loading skeleton (6 placeholder cards)
-   - Add error fallback (retry button)
-   - Preserve all CSS classes and layout structure
+**Implementation Details:**
+- Created `src/context/SettingsContext.tsx` with:
+  - Type-safe `KnownSettingKey` type covering all 13 database keys
+  - `SettingsProvider` component with loading/error state management
+  - `useSettings()` hook with `getSetting(key, fallback)` helper
+  - `refresh()` function for manual re-fetch
+  - Comprehensive usage examples in comments for future phases
+- Wired `SettingsProvider` in `src/main.tsx`:
+  - Nested inside `AuthProvider` (outer)
+  - Wraps `App` component (inner)
+  - Settings fetch on initial app mount
+- Context value structure:
+  ```typescript
+  {
+    settings: SettingsMap,
+    isLoading: boolean,
+    error: string | null,
+    refresh: () => Promise<void>,
+    getSetting: (key, fallback?) => string
+  }
+  ```
+- No component refactors performed (as planned)
+- Ready for consumption in Footer, Header, ContactPage in Phase 6C
 
-3. Wire `SingleServicePage.tsx`:
-   - Import `getServiceBySlug`
-   - Extract `slug` from `useParams()`
-   - Fetch service data on mount
-   - Show 404 if service not found
-   - Render dynamic content in same template structure
+---
 
-**Data Transform Example:**
-```typescript
-// Current: hardcoded
-<h3 className="service-title">Custom Web Applications</h3>
+### Phase 6B: Services Page Dynamic Wiring (COMPLETED ✅)
 
-// After: dynamic
-<h3 className="service-title">{service.name}</h3>
+**Date:** 2025-12-02  
+**Status:** ServicesPage fully wired to Supabase  
+**Impact:** Primary business offering page now dynamic
+
+**Query Layer Enhancements:**
+- Added `getPublishedServices()` to `src/integrations/supabase/queries/services.ts`
+  - Filters: `status = 'published'`
+  - Order: `sort_order ASC, name ASC`
+  - Returns: `Service[]`
+- Added `getServiceBySlug(slug: string)`
+  - Selects single service by slug
+  - Uses `.maybeSingle()` for null handling
+  - Returns: `Service | null`
+
+**ServicesPage Implementation:**
+- State management: `services`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getPublishedServices()` on mount
+- Dynamic rendering: Maps over `services` array instead of hardcoded JSX
+- Loading state: 6 skeleton cards with matching layout
+- Error state: Subtle message with retry option
+- Empty state: "No services available" message
+- Animation preservation: `getAnimationSpeed()` helper maintains alternating slow/normal/fast pattern
+- Links: All cards now link to `/services/{slug}` using database slugs
+
+**Files Modified:**
+- `src/integrations/supabase/queries/services.ts` (added 2 functions)
+- `src/pages/ServicesPage.tsx` (state + data fetching + dynamic mapping)
+
+**Data Flow:**
+```
+ServicesPage → useEffect → getPublishedServices() → Supabase
+                                ↓
+                        6 published services
+                                ↓
+                    services.map() → cards rendered
 ```
 
-**Files to Modify:**
-- `src/integrations/supabase/queries/services.ts` (add getServiceBySlug)
-- `src/pages/ServicesPage.tsx` (wire to getAllServices)
-- `src/pages/SingleServicePage.tsx` (wire to getServiceBySlug)
+**Verified:**
+- ✅ Page loads without console errors
+- ✅ 6 service cards render with correct data from database
+- ✅ Cards link to `/services/{slug}`
+- ✅ Animation classes (slow, normal, fast) cycle correctly
+- ✅ Loading skeleton displays during fetch
+- ✅ Banner, Guide, and Pricing sections unchanged
+- ✅ Grid layout identical to original (3-col desktop, 2-col tablet, 1-col mobile)
 
-**Performance Considerations:**
-- No caching needed yet (services change infrequently)
-- Loading state shows immediately (UX first)
-- Error boundary recommended for production
+**Not Included in This Phase:**
+- ❌ SingleServicePage wiring (deferred to future phase)
+- ❌ HomePage services section (still static, separate phase)
 
 ---
 
