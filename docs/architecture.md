@@ -135,6 +135,293 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 **Safe Directories Added:**
 - `src/components/admin/contacts/` – Contact modal components
 
+### Phase 5C – Team Members CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Team Members  
+
+### Phase 5D – FAQ Items CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for FAQ Items  
+
+### Phase 5E – Projects / Case Studies CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Case Studies  
+
+### Phase 5F – Testimonials CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full CRUD operations implemented for Testimonials  
+
+### Phase 5G – Pricing Plans CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full CRUD operations implemented for Pricing Plans  
+
+### Phase 5H – Settings CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full CRUD operations implemented for Site Settings (inline form editing)  
+
+**Query Layer:**
+- **File:** `src/integrations/supabase/queries/siteSettings.ts`
+- **Functions:** `getAllSiteSettings()`, `getSiteSettingByKey()`, `updateSiteSetting()`, `updateSiteSettings()` (batch)
+
+**Admin Page:**
+- Inline form editing with 4 sections: Brand, Contact, Social, SEO
+- Section-based save buttons (no modals for normal editing)
+- 13 key-value settings managed
+- Toast notifications for success/error states
+
+---
+
+## Phase 6: Frontend Integration Status
+
+**Analysis Date:** 2025-12-02  
+**Status:** Backend 100% Complete | Frontend 0% Wired  
+**Critical Finding:** All 9 core modules have complete backend CRUD but ZERO public-facing pages are wired to Supabase
+
+### Current State Assessment
+
+**Backend Status:** ✅ Fully Operational
+- All 9 admin modules implement complete CRUD operations
+- All query layer files exist and functional
+- Authentication and route protection working
+- Database seeded with published content for all modules
+- RLS policies active (development-friendly mode)
+
+**Frontend Status:** 🔴 Static Content Only
+- All public pages render hardcoded JSX arrays
+- No Supabase imports in any public page component
+- No data fetching logic implemented
+- No loading states or error handling
+- Contact form has no submission functionality
+
+### Module-by-Module Integration Status
+
+| Module | Admin CRUD | Query Functions | Public Pages | Current State | Priority |
+|--------|-----------|-----------------|--------------|---------------|----------|
+| **Services** | ✅ Complete | ✅ 4/5 functions | ServicesPage, SingleServicePage | 🔴 Static JSX | 🔥 High |
+| **Testimonials** | ✅ Complete | ✅ All functions | TestimonialsPage, Home, About | 🔴 Static JSX | ⭐ Medium |
+| **Pricing Plans** | ✅ Complete | ✅ All functions | PricingPage, HomePage | 🔴 Static JSX | ⭐ Medium |
+| **Case Studies** | ✅ Complete | ✅ 4/5 functions | CaseStudiesPage, HomePage | 🔴 Static JSX | ⭐ Medium |
+| **Blog Posts** | ✅ Complete | ✅ 4/5 functions | BlogPage, SinglePostPage, Home | 🔴 Static JSX | ⭐ Medium |
+| **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | 🔴 Static JSX | 📋 Lower |
+| **FAQ Items** | ✅ Complete | ✅ All functions | FaqPage | 🔴 Static JSX | 📋 Lower |
+| **Contact Form** | ✅ Complete | ✅ All functions | ContactPage | 🔴 No submission | 🔥 High |
+| **Site Settings** | ✅ Complete | ✅ All functions | Footer, Header, All Pages | 🔴 Hardcoded | 🔥 High |
+
+### Missing Query Functions
+
+Three detail-page query functions are missing:
+
+1. **`getServiceBySlug(slug: string)`**
+   - Required for: `/services/:slug` route (SingleServicePage)
+   - Query: `SELECT * FROM services WHERE slug = ? AND status = 'published'`
+
+2. **`getCaseStudyBySlug(slug: string)`**
+   - Required for: Future `/case-studies/:slug` route (if implemented)
+   - Query: `SELECT * FROM case_studies WHERE slug = ? AND status = 'published'`
+
+3. **`getBlogPostBySlug(slug: string)`**
+   - Required for: `/blog/:slug` route (SinglePostPage)
+   - Query: `SELECT * FROM blog_posts WHERE slug = ? AND status = 'published'`
+
+### Database Content Verification
+
+All modules have published content ready for display:
+
+| Table | Total Rows | Published/Active | Featured | Ready for Public |
+|-------|------------|------------------|----------|------------------|
+| services | 6 | 6 (100%) | 4 featured | ✅ Yes |
+| testimonials | 4 | 4 (100%) | 2 featured | ✅ Yes |
+| pricing_plans | 3 | 3 (100%) | 1 highlighted | ✅ Yes |
+| case_studies | 4 | 4 (100%) | 2 featured | ✅ Yes |
+| blog_posts | 3 | 3 (100%) | n/a | ✅ Yes |
+| team_members | 6 | 6 (100%) | 3 featured | ✅ Yes |
+| faq_items | 6 | 6 (100%) | 3 featured | ✅ Yes |
+| site_settings | 13 | 13 (100%) | n/a | ✅ Yes |
+
+---
+
+### Frontend Integration Roadmap
+
+**Recommended Implementation Order:**
+
+#### **Phase 6A: Settings Context Provider** 🔥
+- **Priority:** Foundation (must be first)
+- **Effort:** 1-2 hours
+- **Files:** `src/context/SettingsContext.tsx` (new), `src/main.tsx`
+- **Impact:** Enables global access to dynamic settings
+
+#### **Phase 6B: Services Pages** 🔥
+- **Priority:** High (business critical)
+- **Effort:** 3-4 hours
+- **Files:** `queries/services.ts`, `ServicesPage.tsx`, `SingleServicePage.tsx`
+- **Impact:** Primary business offering page goes dynamic
+
+#### **Phase 6C: Footer & Header** 🔥
+- **Priority:** High (global components)
+- **Effort:** 1-2 hours
+- **Files:** `Footer.tsx`, `Header.tsx`
+- **Impact:** Site-wide contact info consistency
+
+#### **Phase 6J: Contact Form Submission** 🔥
+- **Priority:** High (lead capture)
+- **Effort:** 1-2 hours
+- **Files:** `ContactPage.tsx`
+- **Impact:** Form goes from broken to functional
+
+#### **Phase 6D: Testimonials** ⭐
+- **Priority:** Medium (social proof)
+- **Effort:** 2-3 hours
+- **Files:** `TestimonialsPage.tsx`, `HomePage.tsx` (section), `AboutPage.tsx` (section)
+
+#### **Phase 6E: Pricing Plans** ⭐
+- **Priority:** Medium (revenue page)
+- **Effort:** 1-2 hours
+- **Files:** `PricingPage.tsx`, `HomePage.tsx` (section)
+
+#### **Phase 6F: Case Studies** ⭐
+- **Priority:** Medium (portfolio)
+- **Effort:** 2-3 hours
+- **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`, `HomePage.tsx` (section)
+
+#### **Phase 6G: Blog Posts** ⭐
+- **Priority:** Medium (content marketing)
+- **Effort:** 3-4 hours
+- **Files:** `queries/blogPosts.ts`, `BlogPage.tsx`, `SinglePostPage.tsx`, `HomePage.tsx` (section)
+
+#### **Phase 6H: Team Members** 📋
+- **Priority:** Lower (informational)
+- **Effort:** 1-2 hours
+- **Files:** `TeamPage.tsx`, `AboutPage.tsx` (section)
+
+#### **Phase 6I: FAQ Items** 📋
+- **Priority:** Lower (support content)
+- **Effort:** 1-2 hours
+- **Files:** `FaqPage.tsx`
+
+#### **Phase 6K: HomePage Sections** 📋
+- **Priority:** Lower (combines all)
+- **Effort:** 6-8 hours (after all modules wired)
+- **Files:** `HomePage.tsx` (multiple sections)
+
+#### **Phase 6L: SEO Meta Tags** 📋
+- **Priority:** Optional (enhancement)
+- **Effort:** 3-4 hours
+- **Files:** All public pages + new `useSEO()` hook
+
+**Total Estimated Effort:** 26-38 hours (3-5 weeks part-time)
+
+---
+
+### Files Requiring Modification (Complete List)
+
+**New Files to Create:**
+- `src/context/SettingsContext.tsx` - Global settings provider
+
+**Query Layer Additions (3 files):**
+- `src/integrations/supabase/queries/services.ts` - Add `getServiceBySlug()`
+- `src/integrations/supabase/queries/caseStudies.ts` - Add `getCaseStudyBySlug()`
+- `src/integrations/supabase/queries/blogPosts.ts` - Add `getBlogPostBySlug()`
+
+**Public Pages to Wire (13 files):**
+- `src/pages/HomePage.tsx` - Multiple sections (services, testimonials, pricing, case studies, blog)
+- `src/pages/AboutPage.tsx` - Team and testimonial sections
+- `src/pages/ServicesPage.tsx` - Services grid
+- `src/pages/SingleServicePage.tsx` - Individual service detail
+- `src/pages/PricingPage.tsx` - Pricing grid
+- `src/pages/TestimonialsPage.tsx` - Testimonials grid
+- `src/pages/CaseStudiesPage.tsx` - Portfolio grid
+- `src/pages/BlogPage.tsx` - Blog listing
+- `src/pages/SinglePostPage.tsx` - Individual blog post
+- `src/pages/TeamPage.tsx` - Team grid
+- `src/pages/FaqPage.tsx` - FAQ accordion
+- `src/pages/ContactPage.tsx` - Contact form submission
+- `src/components/layout/Footer.tsx` - Dynamic contact info
+- `src/components/layout/Header.tsx` - Dynamic site name
+
+**Entry Point:**
+- `src/main.tsx` - Add SettingsProvider wrapper
+
+---
+
+### Critical Implementation Guidelines
+
+1. **Preserve Visual Parity:**
+   - ✅ DO: Replace hardcoded JSX with dynamic data mapping
+   - ❌ DON'T: Change CSS classes, spacing, or layout structure
+   - ✅ DO: Keep all template animations and interactions intact
+
+2. **Loading States:**
+   - ✅ Always implement skeleton loaders (not blank white space)
+   - ✅ Use template-consistent loading indicators
+   - ✅ Show loading state immediately on mount
+
+3. **Error Handling:**
+   - ✅ Display user-friendly error messages
+   - ✅ Provide retry buttons for failed fetches
+   - ✅ Never break page layout with errors
+   - ✅ Log errors to console for debugging
+
+4. **Data Filtering:**
+   - ✅ Always filter `status === "published"` on public pages
+   - ✅ Respect `sort_order` for display order
+   - ✅ Handle empty arrays gracefully (show "No items found")
+
+5. **Performance:**
+   - ✅ Fetch data on component mount via useEffect
+   - ✅ No caching layer needed yet (content changes infrequently)
+   - ✅ Settings loaded once globally via SettingsContext
+   - ❌ No pagination needed initially (small datasets)
+
+---
+
+### SEO Benefits After Wiring
+
+| Module | Current | After Wiring | SEO Impact |
+|--------|---------|--------------|------------|
+| Services | Static meta | Dynamic meta_title/description | ⭐⭐⭐ High |
+| Blog Posts | Static meta | Dynamic meta_title/description | ⭐⭐⭐ High |
+| Contact Form | Broken | Functional lead capture | ⭐⭐⭐ High |
+| Site Settings | Hardcoded | Consistent contact info | ⭐⭐ Medium |
+| Case Studies | Static | Dynamic project titles | ⭐⭐ Medium |
+| FAQ | Static | Fresh Q&A content | ⭐⭐ Medium |
+| Testimonials | Static | Social proof updates | ⭐ Low |
+| Pricing | Static | Price updates | ⭐ Low |
+
+**Highest Impact Modules (Wire First):**
+1. Contact Form - Enables actual lead generation
+2. Services - Core business content with dynamic SEO
+3. Blog Posts - Fresh content marketing with dynamic SEO
+4. Site Settings - Consistent branding and contact info across site
+
+---
+
+### Next Steps (Awaiting User Approval)
+
+**Recommended Starting Point:**
+1. **Phase 6A: Create SettingsContext** - Establishes foundation for all dynamic content
+2. **Phase 6J: Wire Contact Form** - Activates lead capture (highest business impact)
+3. **Phase 6B: Wire Services Pages** - Makes primary business page dynamic
+4. **Phase 6C: Wire Footer/Header** - Ensures global consistency
+
+**Alternative Starting Points:**
+- Start with Footer/Header if global consistency is urgent
+- Start with Contact Form if lead generation is critical
+- Start with Services if business page is top priority
+
+**User Decision Points:**
+- Which module to wire first? (Settings Context is foundation for all)
+- Should we add pagination to blog/case studies? (Not needed initially)
+- Should we implement React Query for caching? (Defer to Phase 7)
+- Should we wire all modules or prioritize high-impact pages first?
+
+---
+
 **Components:**
 - `AddBlogModal` - Create new blog posts with 10 fields (title, slug, category, excerpt, content, featured_image, status, published_at, meta_title, meta_description)
 - `EditBlogModal` - Edit existing blog posts with same form structure
