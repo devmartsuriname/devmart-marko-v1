@@ -103,6 +103,54 @@ export type Database = {
           },
         ]
       }
+      case_studies: {
+        Row: {
+          client_name: string | null
+          created_at: string
+          description: string
+          featured: boolean
+          featured_image: string | null
+          id: string
+          results_summary: string | null
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["content_status"]
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          client_name?: string | null
+          created_at?: string
+          description: string
+          featured?: boolean
+          featured_image?: string | null
+          id?: string
+          results_summary?: string | null
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          client_name?: string | null
+          created_at?: string
+          description?: string
+          featured?: boolean
+          featured_image?: string | null
+          id?: string
+          results_summary?: string | null
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           company: string | null

@@ -1,16 +1,60 @@
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
+import { getAllCaseStudies } from "@/integrations/supabase/queries/caseStudies";
+import type { CaseStudy } from "@/integrations/supabase/queries/caseStudies";
+import { AddCaseStudyModal } from "@/components/admin/projects/AddCaseStudyModal";
+import { EditCaseStudyModal } from "@/components/admin/projects/EditCaseStudyModal";
+import { DeleteCaseStudyDialog } from "@/components/admin/projects/DeleteCaseStudyDialog";
 
 export default function ProjectsAdminPage() {
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingCaseStudy, setEditingCaseStudy] = useState<CaseStudy | null>(null);
+  const [deletingCaseStudy, setDeletingCaseStudy] = useState<CaseStudy | null>(null);
+
+  const fetchCaseStudies = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    const { data, error: fetchError } = await getAllCaseStudies();
+
+    if (fetchError) {
+      setError(fetchError.message);
+    } else {
+      setCaseStudies(data || []);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCaseStudies();
+  }, []);
+
   const columns = [
     { key: "title", label: "Title" },
-    { key: "client", label: "Client" },
-    { key: "tags", label: "Tags" },
+    {
+      key: "client_name",
+      label: "Client",
+      render: (value: string | null) => value || "—",
+    },
+    {
+      key: "tags",
+      label: "Tags",
+      render: (value: string[]) => value.join(", ") || "—",
+    },
     {
       key: "status",
       label: "Status",
       render: (value: string) => (
-        <span className={`admin-badge admin-badge-${value === "published" ? "success" : "warning"}`}>
+        <span
+          className={`admin-badge admin-badge-${
+            value === "published" ? "success" : value === "draft" ? "default" : "outline"
+          }`}
+        >
           {value}
         </span>
       ),
@@ -20,35 +64,34 @@ export default function ProjectsAdminPage() {
       label: "Featured",
       render: (value: boolean) => (value ? "Yes" : "No"),
     },
-    { key: "updated_at", label: "Updated At" },
+    { key: "sort_order", label: "Sort Order" },
   ];
 
-  const rows = [
-    {
-      title: "Government Ministry Portal",
-      client: "Public Sector",
-      tags: "Web Development, Portal",
-      status: "published",
-      featured: true,
-      updated_at: "2025-01-15",
-    },
-    {
-      title: "Enterprise Resource Planning System",
-      client: "Corporate Client",
-      tags: "ERP, Integration",
-      status: "published",
-      featured: true,
-      updated_at: "2025-01-12",
-    },
-    {
-      title: "E-Commerce Platform",
-      client: "Retail Business",
-      tags: "E-Commerce, Web App",
-      status: "published",
-      featured: false,
-      updated_at: "2025-01-10",
-    },
-  ];
+  if (isLoading) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <p>Loading case studies...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: "2rem" }}>
+        <div
+          style={{
+            backgroundColor: "rgba(220, 38, 38, 0.1)",
+            border: "1px solid #dc2626",
+            borderRadius: "8px",
+            padding: "1rem",
+            color: "#dc2626",
+          }}
+        >
+          <strong>Error loading case studies:</strong> {error}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -59,12 +102,38 @@ export default function ProjectsAdminPage() {
             Manage portfolio projects and case studies. Backed by the 'case_studies' table.
           </p>
         </div>
-        <button className="admin-btn admin-btn-primary">
+        <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
           <Plus size={16} />
-          Add Project
+          Add Case Study
         </button>
       </div>
-      <DataTable columns={columns} rows={rows} />
+      <DataTable
+        columns={columns}
+        rows={caseStudies}
+        emptyMessage="No case studies found. Create your first case study to get started."
+        onEdit={(row) => setEditingCaseStudy(row as CaseStudy)}
+        onDelete={(row) => setDeletingCaseStudy(row as CaseStudy)}
+      />
+
+      <AddCaseStudyModal
+        open={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={fetchCaseStudies}
+      />
+
+      <EditCaseStudyModal
+        open={!!editingCaseStudy}
+        caseStudy={editingCaseStudy}
+        onClose={() => setEditingCaseStudy(null)}
+        onSuccess={fetchCaseStudies}
+      />
+
+      <DeleteCaseStudyDialog
+        open={!!deletingCaseStudy}
+        caseStudy={deletingCaseStudy}
+        onClose={() => setDeletingCaseStudy(null)}
+        onSuccess={fetchCaseStudies}
+      />
     </div>
   );
 }

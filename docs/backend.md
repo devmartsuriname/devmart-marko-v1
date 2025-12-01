@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5D FAQ Items CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5E Projects / Case Studies CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -12,14 +12,15 @@
 **Phase 5B Contacts CRUD:** 2025-12-01  
 **Phase 5C Team CRUD:** 2025-12-01  
 **Phase 5D FAQ Items CRUD:** 2025-12-01  
-**Implementation Status:** Services, Blog, Contacts, Team, and FAQ admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5E Projects / Case Studies CRUD:** 2025-12-01  
+**Implementation Status:** Services, Blog, Contacts, Team, FAQ, and Projects admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
 ✅ **Security Foundation:** Secure role management with SECURITY DEFINER function  
 ✅ **RLS Policies:** Development-friendly policies (to be tightened in Security Hardening phase)  
 ✅ **Site Settings:** Default Devmart configuration seeded  
-⏸️ **Deferred to Later:** case_studies, pricing_plans, testimonials
+⏸️ **Deferred to Later:** pricing_plans, testimonials
 
 ### Phase 3 Authentication & Route Protection (Implemented)
 ✅ **AuthContext:** Session and user state management via Supabase Auth  
@@ -52,7 +53,11 @@
 ✅ **Phase 5D - FAQ Items CRUD:** AddFaqItemModal, EditFaqItemModal, DeleteFaqItemDialog with full CRUD operations  
 ✅ **FAQ Query Layer:** faqItems.ts with getAllFaqItems, getFaqItemById, createFaqItem, updateFaqItem, deleteFaqItem  
 ✅ **FAQ Seed Data:** 6 existing frontend FAQ items migrated to faq_items table  
-✅ **FAQ Admin Page:** FaqAdminPage wired to Supabase with category filter and featured flag
+✅ **FAQ Admin Page:** FaqAdminPage wired to Supabase with category filter and featured flag  
+✅ **Phase 5E - Projects / Case Studies CRUD:** AddCaseStudyModal, EditCaseStudyModal, DeleteCaseStudyDialog with full CRUD operations  
+✅ **Case Studies Query Layer:** caseStudies.ts with getAllCaseStudies, getCaseStudyById, createCaseStudy, updateCaseStudy, deleteCaseStudy  
+✅ **Case Studies Seed Data:** 4 existing frontend case studies migrated to case_studies table  
+✅ **Case Studies Admin Page:** ProjectsAdminPage wired to Supabase with tags, client info, and results summary
 
 ---
 
@@ -855,6 +860,108 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - RLS allows public SELECT for active FAQs only
 - Admin can manage all FAQ items through FaqAdminPage
 - Featured flag can be used to highlight key FAQs on homepage or FAQ page
+
+---
+
+### Phase 5E – Projects / Case Studies CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Projects / Case Studies  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/caseStudies.ts`
+- **Functions:**
+  - `getAllCaseStudies()` - Fetches all case studies ordered by sort_order ASC, then title ASC
+  - `getCaseStudyById(id: string)` - Fetches single case study by ID using `.maybeSingle()`
+  - `createCaseStudy(caseStudy: TablesInsert<"case_studies">)` - Creates new case study
+  - `updateCaseStudy(id: string, caseStudy: TablesUpdate<"case_studies">)` - Updates existing case study
+  - `deleteCaseStudy(id: string)` - Deletes case study
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `CaseStudy = Tables<"case_studies">`
+
+**Components Created:**
+
+**AddCaseStudyModal** (`src/components/admin/projects/AddCaseStudyModal.tsx`)
+- Full case study creation form with 10 fields
+- Required fields: title, slug, description
+- Optional fields: client_name, tags, featured_image, results_summary, featured, sort_order, status
+- Slug auto-generation from title (kebab-case), user-overridable
+- Tags input: comma-separated string converted to TEXT[] array on submit
+- Status dropdown: draft/published/archived (default: published)
+- Featured checkbox for flagship projects
+- Sort order number input (default: 0)
+- Client-side validation: title, description required (non-empty after trim)
+- Success callback triggers table refresh
+
+**EditCaseStudyModal** (`src/components/admin/projects/EditCaseStudyModal.tsx`)
+- Same form structure as AddCaseStudyModal
+- Pre-fills form with existing case study data via useEffect when modal opens
+- Tags array converted to comma-separated string for display
+- Title: "Edit Case Study", Button: "Save Changes"
+- Validation mirrors AddCaseStudyModal rules
+- Success callback triggers table refresh
+
+**DeleteCaseStudyDialog** (`src/components/admin/projects/DeleteCaseStudyDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to delete the case study '{title}'? This action cannot be undone."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display via toast for failed deletions
+
+**ProjectsAdminPage Updates** (`src/pages/admin/ProjectsAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `caseStudies`, `isLoading`, `error`, `isAddModalOpen`, `editingCaseStudy`, `deletingCaseStudy`
+- `fetchCaseStudies()` function called on mount and after CRUD operations
+- Loading state: "Loading case studies..."
+- Error state: Red error banner with message
+- DataTable columns: Title | Client (or "—") | Tags (joined with ", ") | Status (badge published/draft/archived) | Featured (Yes/No) | Sort Order
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddCaseStudyModal, EditCaseStudyModal, DeleteCaseStudyDialog
+
+**Seed Data Migration:**
+- 4 existing frontend case studies migrated to `case_studies` table
+- Projects:
+  1. Housing Subsidy Application Portal (Ministry of Social Affairs) - Tags: Gov-Tech, Portal, React, Supabase
+  2. Immigration Case Management System (Immigration Department) - Tags: Enterprise, Case Management, Government
+  3. Enterprise Resource Planning System (Corporate Client) - Tags: ERP, Integration, Enterprise
+  4. Healthcare Management Portal (National Health Service) - Tags: Healthcare, Portal, Web App
+- All seeded with status: published, sort_order: 1-4
+- Top 2 marked as featured (Housing & Immigration projects)
+- Each includes full description, client_name, tags array, featured_image path, and results_summary
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| title | text | ✅ | Project/case study title (max 150 chars) |
+| slug | text | ✅ | URL-friendly identifier (auto-generated, editable) |
+| description | textarea | ✅ | Full project description (4 rows) |
+| client_name | text | ❌ | Client or organization name |
+| tags | text | ❌ | Comma-separated tags (converted to TEXT[]) |
+| featured_image | text | ❌ | Image URL/path |
+| results_summary | textarea | ❌ | Impact/results summary (2 rows) |
+| featured | checkbox | ❌ | Featured project flag (default: false) |
+| sort_order | number | ✅ | Display order (default: 0) |
+| status | select | ✅ | draft/published/archived (default: published) |
+
+**User Flows:**
+1. **Create:** Add Case Study button → Modal opens → Fill form → Create Case Study → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → Case study removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/projects/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services/Blog/Contacts/Team/FAQ CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `case_studies` (not `projects`)
+
+**Public Case Studies Page Integration:**
+- Public CaseStudiesPage.tsx can read from `case_studies` table via RLS policy
+- RLS allows public SELECT for published case studies only
+- Admin can manage all case studies through ProjectsAdminPage
+- Featured flag can be used to highlight flagship projects on homepage
+- Tags array enables filtering and categorization on public page
 
 ---
 
