@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5F Testimonials CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5G Pricing Plans CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -14,14 +14,14 @@
 **Phase 5D FAQ Items CRUD:** 2025-12-01  
 **Phase 5E Projects / Case Studies CRUD:** 2025-12-01  
 **Phase 5F Testimonials CRUD:** 2025-12-02  
-**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, and Testimonials admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5G Pricing Plans CRUD:** 2025-12-02  
+**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, Testimonials, and Pricing Plans admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
-✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
+✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users, pricing_plans  
 ✅ **Security Foundation:** Secure role management with SECURITY DEFINER function  
 ✅ **RLS Policies:** Development-friendly policies (to be tightened in Security Hardening phase)  
-✅ **Site Settings:** Default Devmart configuration seeded  
-⏸️ **Deferred to Later:** pricing_plans
+✅ **Site Settings:** Default Devmart configuration seeded
 
 ### Phase 3 Authentication & Route Protection (Implemented)
 ✅ **AuthContext:** Session and user state management via Supabase Auth  
@@ -62,7 +62,11 @@
 ✅ **Phase 5F - Testimonials CRUD:** AddTestimonialModal, EditTestimonialModal, DeleteTestimonialDialog with full CRUD operations  
 ✅ **Testimonials Query Layer:** testimonials.ts with getAllTestimonials, getTestimonialById, createTestimonial, updateTestimonial, deleteTestimonial  
 ✅ **Testimonials Seed Data:** 4 existing frontend testimonials migrated to testimonials table  
-✅ **Testimonials Admin Page:** TestimonialsAdminPage wired to Supabase with rating system, featured flag, and author information
+✅ **Testimonials Admin Page:** TestimonialsAdminPage wired to Supabase with rating system, featured flag, and author information  
+✅ **Phase 5G - Pricing Plans CRUD:** AddPricingPlanModal, EditPricingPlanModal, DeletePricingPlanDialog with full CRUD operations  
+✅ **Pricing Plans Query Layer:** pricingPlans.ts with getAllPricingPlans, getPricingPlanById, createPricingPlan, updatePricingPlan, deletePricingPlan  
+✅ **Pricing Plans Seed Data:** 3 pricing tiers from PricingPage.tsx (Starter Website $99/mo, Business Platform $299/mo, Government/Enterprise $399/mo highlighted)  
+✅ **Pricing Plans Admin Page:** PricingAdminPage wired to Supabase with price/billing display, target segment, highlighted flag, and sort order
 
 ---
 
@@ -1066,6 +1070,138 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Admin can manage all testimonials through TestimonialsAdminPage
 - Featured flag can be used to highlight key testimonials on homepage
 - Rating field enables star display on public testimonial cards
+
+---
+
+### Phase 5G – Pricing Plans CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full CRUD operations implemented for Pricing Plans  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/pricingPlans.ts`
+- **Functions:**
+  - `getAllPricingPlans()` - Fetches all pricing plans ordered by sort_order ASC, then name ASC
+  - `getPricingPlanById(id: string)` - Fetches single pricing plan by ID using `.maybeSingle()`
+  - `createPricingPlan(payload: Omit<PricingPlan, "id" | "created_at" | "updated_at">)` - Creates new pricing plan
+  - `updatePricingPlan(id: string, payload: Partial<Omit<PricingPlan, "id" | "created_at" | "updated_at">>)` - Updates existing pricing plan
+  - `deletePricingPlan(id: string)` - Deletes pricing plan
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `PricingPlan = Tables<"pricing_plans">`
+
+**Components Created:**
+
+**AddPricingPlanModal** (`src/components/admin/pricing/AddPricingPlanModal.tsx`)
+- Full pricing plan creation form with 10 fields
+- Required fields: name, slug, description, price
+- Optional fields: billing_period (default: month), features (comma-separated), target_segment, highlighted, sort_order, status
+- Slug auto-generation from name (kebab-case), user-overridable with manual edit flag
+- Features input: comma-separated string converted to TEXT[] array on submit
+- Price validation: Must be non-negative decimal number (converted from string to number for database)
+- Billing period dropdown: month/year/one-time (default: month)
+- Status dropdown: draft/published/archived (default: published)
+- Highlighted checkbox for recommended plans (default: false)
+- Sort order number input (default: 0)
+- Client-side validation: name, slug, description, price required; price >= 0
+- Success callback triggers table refresh
+- Modal guardrail: Uses standard inline DialogContent styling (centered, zIndex 200, scrollable, maxWidth 700px)
+
+**EditPricingPlanModal** (`src/components/admin/pricing/EditPricingPlanModal.tsx`)
+- Same form structure as AddPricingPlanModal
+- Pre-fills form with existing pricing plan data via useEffect when modal opens
+- Converts features TEXT[] → comma-separated string for editing; converts back to array on submit
+- Converts database price (number) → string for form input; converts back to number on submit
+- Title: "Edit Pricing Plan", Button: "Save Changes"
+- Validation mirrors AddPricingPlanModal rules
+- Success callback triggers table refresh
+- Modal guardrail: Uses standard inline DialogContent styling (maxWidth 700px)
+
+**DeletePricingPlanDialog** (`src/components/admin/pricing/DeletePricingPlanDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to delete the pricing plan '{name}'? This action cannot be undone."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display inside dialog for failed deletions
+- Modal guardrail: Uses standard inline DialogContent styling (smaller 500px width for delete confirm)
+
+**PricingAdminPage Updates** (`src/pages/admin/PricingAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `pricingPlans`, `isLoading`, `error`, `isAddModalOpen`, `editingPricingPlan`, `deletingPricingPlan`
+- `fetchPricingPlans()` function called on mount and after CRUD operations
+- Loading state: "Loading pricing plans..."
+- Error state: Red error banner with message
+- DataTable columns:
+  - Name | Price (formatted as "$99 / month" or "$499 one-time")
+  - Billing (Month/Year/One-time capitalized)
+  - Target Segment (or "—" if null)
+  - Status (badge: green=published, gray=draft, outline=archived)
+  - Highlighted (Yes/No)
+  - Sort Order (number)
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddPricingPlanModal, EditPricingPlanModal, DeletePricingPlanDialog
+
+**Seed Data Migration:**
+- 3 pricing tiers migrated from PricingPage.tsx to `pricing_plans` table
+- Plans:
+  1. **Starter Website** - $99/month, Sort: 1, Not highlighted
+     - Features: Custom website design, Up to 5 pages, Mobile responsive, Basic SEO optimization, Contact form integration, 1 month support
+     - Target: Small businesses and startups
+  2. **Business Platform** - $299/month, Sort: 2, Not highlighted
+     - Features: Everything in Starter, Up to 15 pages, Advanced SEO optimization, Blog integration, Analytics dashboard, E-commerce ready, 3 months support, Priority support
+     - Target: Growing businesses
+  3. **Government/Enterprise** - $399/month, Sort: 3, **Highlighted ✅**
+     - Features: Everything in Business, Unlimited pages, Custom features, Government compliance, Advanced security, Multi-language support, Dedicated account manager, 12 months support, 24/7 priority support
+     - Target: Government agencies and enterprises
+- All seeded with status: published
+- Idempotent migration using `ON CONFLICT (slug) DO UPDATE` pattern
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| name | text | ✅ | Pricing plan name |
+| slug | text | ✅ | URL-safe slug (auto-generated, user-overridable) |
+| description | textarea | ✅ | Short marketing description (3 rows) |
+| price | number | ✅ | Price as decimal (non-negative, displayed with $ formatting) |
+| billing_period | select | ✅ | month/year/one-time (default: month) |
+| features | textarea | ❌ | Comma-separated features list (4 rows, converted to TEXT[]) |
+| target_segment | text | ❌ | Target audience description |
+| highlighted | checkbox | ❌ | Recommended plan flag (default: false) |
+| sort_order | number | ✅ | Display order (default: 0) |
+| status | select | ✅ | draft/published/archived (default: published) |
+
+**User Flows:**
+1. **Create:** Add Pricing Plan button → Modal opens → Fill form (slug auto-generates) → Create Plan → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled (features converted to comma-separated string) → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog with plan name → Confirm → Plan removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/pricing/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with **strict modal guardrail** inline styles enforced (centered, zIndex 200, scrollable, visible in dark/light themes)
+- ✅ Follows established Services/Blog/Contacts/Team/FAQ/Projects/Testimonials CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `pricing_plans`
+- ✅ Existing `billing_period` and `content_status` enums reused (no new enums)
+- ✅ Type safety: price converted from string → number for database, features converted string → TEXT[]
+
+**Database Details:**
+- Table: `pricing_plans`
+- Columns: id (UUID PK), name, slug (unique), description, price (DECIMAL→number), billing_period (enum), features (TEXT[]), target_segment, highlighted (boolean), sort_order (integer), status (enum), created_at, updated_at
+- RLS Policies:
+  - Public SELECT where status = 'published'
+  - Authenticated SELECT all rows
+  - Authenticated INSERT/UPDATE/DELETE (development-friendly, to be tightened in Security Hardening)
+- Indexes: `idx_pricing_plans_status`, `idx_pricing_plans_sort_order`
+- Trigger: `update_pricing_plans_updated_at` using shared `update_updated_at_column()` function
+
+**Public Pricing Page Integration:**
+- Public PricingPage.tsx can read from `pricing_plans` table via RLS policy
+- RLS allows public SELECT for published pricing plans only
+- Admin can manage all pricing plans through PricingAdminPage
+- Highlighted flag can be used to emphasize recommended/popular plans with special styling
+- Features array enables dynamic bullet-point rendering on public pricing cards
+- Billing period display enables monthly/yearly/one-time pricing presentation
+- Target segment can guide plan selection on public page
 
 ---
 
