@@ -203,9 +203,9 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 
 | Module | Admin CRUD | Query Functions | Public Pages | Current State | Priority |
 |--------|-----------|-----------------|--------------|---------------|----------|
-| **Services** | ✅ Complete | ✅ 4/5 functions | ServicesPage, SingleServicePage | 🔴 Static JSX | 🔥 High |
-| **Testimonials** | ✅ Complete | ✅ All functions | TestimonialsPage, Home, About | 🔴 Static JSX | ⭐ Medium |
-| **Pricing Plans** | ✅ Complete | ✅ All functions | PricingPage, HomePage | 🔴 Static JSX | ⭐ Medium |
+| **Services** | ✅ Complete | ✅ All functions | ServicesPage, SingleServicePage | ✅ ServicesPage Dynamic | 🟢 Phase 6B Complete |
+| **Testimonials** | ✅ Complete | ✅ All functions | TestimonialsPage, Home, About | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
+| **Pricing Plans** | ✅ Complete | ✅ All functions | PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
 | **Case Studies** | ✅ Complete | ✅ 4/5 functions | CaseStudiesPage, HomePage | 🔴 Static JSX | ⭐ Medium |
 | **Blog Posts** | ✅ Complete | ✅ 4/5 functions | BlogPage, SinglePostPage, Home | 🔴 Static JSX | ⭐ Medium |
 | **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | 🔴 Static JSX | 📋 Lower |
@@ -454,6 +454,23 @@ const [error, setError] = useState<string | null>(null);
 - **Migrations Added:**
   - `20251201192643_*` - RLS policy fix (anon → authenticated roles)
   - `20251201194301_*` - PostgREST schema reload
+
+#### **Phase 6E: Testimonials Page** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:**
+  - `src/integrations/supabase/queries/testimonials.ts` - Added `getPublishedTestimonials()`
+  - `src/pages/TestimonialsPage.tsx` - State, data fetching, dynamic Swiper content
+- **Impact:** Testimonials page now pulls from database with loading/error states
+- **Note:** HomePage and AboutPage testimonials still static
+
+#### **Phase 6F: Pricing Page** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:**
+  - `src/integrations/supabase/queries/pricingPlans.ts` - Added `getPublishedPricingPlans()`
+  - `src/pages/PricingPage.tsx` - State, 3-column layout with dynamic pricing cards
+- **Layout:** Column 1 (promo + firstPlan), Column 2 (highlightedPlan), Column 3 (promo + lastPlan)
+- **Impact:** Pricing page now dynamic with highlighted plan in center
+- **Note:** HomePage pricing section still static
 
 **Technical Notes:**
 

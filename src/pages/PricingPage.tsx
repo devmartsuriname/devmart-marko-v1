@@ -1,6 +1,52 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
 
 const PricingPage = () => {
+  const [plans, setPlans] = useState<PricingPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      const { data, error: fetchError } = await getPublishedPricingPlans();
+
+      if (fetchError) {
+        console.error("Error fetching pricing plans:", fetchError);
+        setError("Unable to load pricing plans at the moment. Please try again later.");
+      } else {
+        setPlans(data || []);
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchPlans();
+  }, []);
+
+  // Helper functions
+  const formatBillingPeriod = (period: string) => {
+    switch(period) {
+      case 'month': return '/Month';
+      case 'year': return '/Year';
+      case 'one-time': return '/Project';
+      default: return `/${period}`;
+    }
+  };
+
+  const parseFeatures = (features: string[] | null): string[] => {
+    if (!features) return [];
+    return features;
+  };
+
+  // Separate plans by highlighted status
+  const highlightedPlan = plans.find(p => p.highlighted);
+  const nonHighlightedPlans = plans.filter(p => !p.highlighted);
+  const firstPlan = nonHighlightedPlans[0];
+  const lastPlan = nonHighlightedPlans[1];
   return (
     <>
       {/* Section Banner */}
@@ -44,11 +90,71 @@ const PricingPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                  <h4>Starter Website</h4>
-                  <p>Perfect for small businesses & startups</p>
-                    <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>$99</h3>
+                  {isLoading ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>Loading...</h4>
+                      <p>Loading pricing details...</p>
+                      <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                        <h3>—</h3>
+                        <p>/Month</p>
+                      </div>
+                      <Link to="/contact" className="btn btn-accent">
+                        <div className="btn-title">
+                          <span>View Details</span>
+                        </div>
+                        <div className="icon-circle">
+                          <i className="fa-solid fa-arrow-right"></i>
+                        </div>
+                      </Link>
+                      <ul className="check-list">
+                        <li><Link to="/contact">Loading features...</Link></li>
+                        <li><Link to="/contact">Loading features...</Link></li>
+                        <li><Link to="/contact">Loading features...</Link></li>
+                      </ul>
+                    </div>
+                  ) : error ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>We're experiencing issues</h4>
+                      <p>{error}</p>
+                    </div>
+                  ) : !firstPlan ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>No Plans Available</h4>
+                      <p>Please check back later.</p>
+                    </div>
+                  ) : (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>{firstPlan.name}</h4>
+                      <p>{firstPlan.description || firstPlan.target_segment}</p>
+                      <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                        <h3>${firstPlan.price}</h3>
+                        <p>{formatBillingPeriod(firstPlan.billing_period)}</p>
+                      </div>
+                      <Link to="/contact" className="btn btn-accent">
+                        <div className="btn-title">
+                          <span>View Details</span>
+                        </div>
+                        <div className="icon-circle">
+                          <i className="fa-solid fa-arrow-right"></i>
+                        </div>
+                      </Link>
+                      <ul className="check-list">
+                        {parseFeatures(firstPlan.features).map((feature, index) => (
+                          <li key={index}><Link to="/contact">{feature}</Link></li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col">
+                {isLoading ? (
+                  <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                    <div className="spacer"></div>
+                    <h4>Loading...</h4>
+                    <p>Loading premium plan...</p>
+                    <div className="d-flex flex-row gspace-1 align-items-center">
+                      <h3>—</h3>
                       <p>/Month</p>
                     </div>
                     <Link to="/contact" className="btn btn-accent">
@@ -59,54 +165,70 @@ const PricingPage = () => {
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
                     </Link>
+                    <div className="core-benefits">
+                      <div className="benefit">
+                        <i className="fa-solid fa-brain"></i>
+                        <a href="#">Loading benefits...</a>
+                      </div>
+                      <div className="benefit">
+                        <i className="fa-brands fa-accessible-icon"></i>
+                        <a href="#">Loading benefits...</a>
+                      </div>
+                      <div className="benefit">
+                        <i className="fa-solid fa-bug"></i>
+                        <a href="#">Loading benefits...</a>
+                      </div>
+                    </div>
                     <ul className="check-list">
-                      <li><Link to="/contact">Modern Tech Stack (React + Supabase)</Link></li>
-                      <li><Link to="/contact">Responsive Design</Link></li>
-                      <li><Link to="/contact">Basic Maintenance & Support</Link></li>
+                      <li><a href="#">Loading features...</a></li>
+                      <li><a href="#">Loading features...</a></li>
+                      <li><a href="#">Loading features...</a></li>
                     </ul>
                   </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
-                  <div className="spacer"></div>
-                  <h4>Government/Enterprise</h4>
-                  <p>Large-scale systems for maximum impact</p>
-                  <div className="d-flex flex-row gspace-1 align-items-center">
-                    <h3>$399</h3>
-                    <p>/Month</p>
+                ) : error ? (
+                  <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                    <div className="spacer"></div>
+                    <h4>We're experiencing issues</h4>
+                    <p>{error}</p>
                   </div>
-                  <Link to="/contact" className="btn btn-accent">
-                    <div className="btn-title">
-                      <span>View Details</span>
-                    </div>
-                    <div className="icon-circle">
-                      <i className="fa-solid fa-arrow-right"></i>
-                    </div>
-                  </Link>
-                  <div className="core-benefits">
-                    <div className="benefit">
-                      <i className="fa-solid fa-brain"></i>
-                      <a href="#">Dedicated Account Manager</a>
-                    </div>
-                    <div className="benefit">
-                      <i className="fa-brands fa-accessible-icon"></i>
-                      <a href="#">Priority Support 24/7</a>
-                    </div>
-                    <div className="benefit">
-                      <i className="fa-solid fa-bug"></i>
-                      <a href="#">Customized Growth Strength</a>
-                    </div>
+                ) : !highlightedPlan ? (
+                  <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                    <div className="spacer"></div>
+                    <h4>No Premium Plan Available</h4>
+                    <p>Please check back later.</p>
                   </div>
-                  <ul className="check-list">
-                    <li><a href="#">Complete Full-Stack Development</a></li>
-                    <li><a href="#">Advanced Security Features</a></li>
-                    <li><a href="#">Dedicated Project Manager</a></li>
-                    <li><a href="#">AI Integration & Automation</a></li>
-                    <li><a href="#">Priority Support 24/7</a></li>
-                    <li><a href="#">Weekly Progress Reports</a></li>
-                  </ul>
-                </div>
+                ) : (
+                  <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                    <div className="spacer"></div>
+                    <h4>{highlightedPlan.name}</h4>
+                    <p>{highlightedPlan.description || highlightedPlan.target_segment}</p>
+                    <div className="d-flex flex-row gspace-1 align-items-center">
+                      <h3>${highlightedPlan.price}</h3>
+                      <p>{formatBillingPeriod(highlightedPlan.billing_period)}</p>
+                    </div>
+                    <Link to="/contact" className="btn btn-accent">
+                      <div className="btn-title">
+                        <span>View Details</span>
+                      </div>
+                      <div className="icon-circle">
+                        <i className="fa-solid fa-arrow-right"></i>
+                      </div>
+                    </Link>
+                    <div className="core-benefits">
+                      {parseFeatures(highlightedPlan.features).slice(0, 3).map((feature, index) => (
+                        <div className="benefit" key={index}>
+                          <i className={index === 0 ? "fa-solid fa-brain" : index === 1 ? "fa-brands fa-accessible-icon" : "fa-solid fa-bug"}></i>
+                          <a href="#">{feature}</a>
+                        </div>
+                      ))}
+                    </div>
+                    <ul className="check-list">
+                      {parseFeatures(highlightedPlan.features).map((feature, index) => (
+                        <li key={index}><a href="#">{feature}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
               <div className="col">
                 <div className="pricing-container">
@@ -130,27 +252,61 @@ const PricingPage = () => {
                     </div>
                     <div className="spacer"></div>
                   </div>
-                  <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                  <h4>Business Platform</h4>
-                  <p>Best for growing organizations</p>
-                    <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>$299</h3>
-                      <p>/Month</p>
+                  {isLoading ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>Loading...</h4>
+                      <p>Loading pricing details...</p>
+                      <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                        <h3>—</h3>
+                        <p>/Month</p>
+                      </div>
+                      <Link to="/contact" className="btn btn-accent">
+                        <div className="btn-title">
+                          <span>View Details</span>
+                        </div>
+                        <div className="icon-circle">
+                          <i className="fa-solid fa-arrow-right"></i>
+                        </div>
+                      </Link>
+                      <ul className="check-list">
+                        <li><Link to="/contact">Loading features...</Link></li>
+                        <li><Link to="/contact">Loading features...</Link></li>
+                        <li><Link to="/contact">Loading features...</Link></li>
+                      </ul>
                     </div>
-                    <Link to="/contact" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
+                  ) : error ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>We're experiencing issues</h4>
+                      <p>{error}</p>
+                    </div>
+                  ) : !lastPlan ? (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>No Plans Available</h4>
+                      <p>Please check back later.</p>
+                    </div>
+                  ) : (
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>{lastPlan.name}</h4>
+                      <p>{lastPlan.description || lastPlan.target_segment}</p>
+                      <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                        <h3>${lastPlan.price}</h3>
+                        <p>{formatBillingPeriod(lastPlan.billing_period)}</p>
                       </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                    <ul className="check-list">
-                      <li><Link to="/contact">Full-Stack Web Development</Link></li>
-                      <li><Link to="/contact">Database & API Integration</Link></li>
-                      <li><Link to="/contact">Monthly Performance Report</Link></li>
-                    </ul>
-                  </div>
+                      <Link to="/contact" className="btn btn-accent">
+                        <div className="btn-title">
+                          <span>View Details</span>
+                        </div>
+                        <div className="icon-circle">
+                          <i className="fa-solid fa-arrow-right"></i>
+                        </div>
+                      </Link>
+                      <ul className="check-list">
+                        {parseFeatures(lastPlan.features).map((feature, index) => (
+                          <li key={index}><Link to="/contact">{feature}</Link></li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -89,8 +89,8 @@
 | Services | ✅ Complete | ✅ services.ts | ✅ ServicesPage, SingleServicePage | ✅ ServicesPage Dynamic | 🟢 Phase 6B Complete |
 | Site Settings | ✅ Complete | ✅ siteSettings.ts | ✅ Footer, Header | ✅ Dynamic via SettingsContext | 🟢 Phase 6C Complete |
 | Contact Form | ✅ Complete | ✅ contactSubmissions.ts | ✅ ContactPage | ✅ Form → Supabase INSERT | 🟢 Phase 6D Complete |
-| Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
-| Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
+| Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
 | Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
 | Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
 | Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
@@ -299,6 +299,104 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 **Files Modified:**
 - `src/components/layout/Footer.tsx`
 - `src/components/layout/Header.tsx`
+
+---
+
+### Phase 6D: Contact Form Integration (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Wired public Contact form to Supabase using existing `contact_submissions` table
+- Added client-side validation for all form fields
+- Integrated success/error messaging using template alert elements
+- Zero layout or styling changes to maintain visual consistency
+
+**Files Modified:**
+- `src/pages/ContactPage.tsx`
+- `src/integrations/supabase/queries/contactSubmissions.ts`
+- `src/integrations/supabase/client.ts`
+
+---
+
+### Phase 6E: Testimonials Page Dynamic Wiring (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Added `getPublishedTestimonials()` to query layer
+- Wired TestimonialsPage to Supabase with state management
+- Replaced hardcoded testimonial cards with dynamic Swiper slider content
+- Implemented loading, error, and empty states within existing card structure
+- Maintained 1:1 visual parity with original template
+
+**Query Layer Enhancements:**
+- Added `getPublishedTestimonials()` to `src/integrations/supabase/queries/testimonials.ts`
+  - Filters: `status = 'published'`
+  - Order: `sort_order ASC, author_name ASC`
+  - Returns: `Testimonial[]`
+
+**TestimonialsPage Implementation:**
+- State management: `testimonials`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getPublishedTestimonials()` on mount
+- Dynamic rendering: Maps over testimonials array for Swiper slides
+- Star rating helper: `renderStars()` for dynamic rating display
+- All original Swiper configuration preserved
+
+**Files Modified:**
+- `src/integrations/supabase/queries/testimonials.ts` (added function)
+- `src/pages/TestimonialsPage.tsx` (state + data fetching + dynamic mapping)
+
+**Not Included in This Phase:**
+- ❌ HomePage testimonials section (still static)
+- ❌ AboutPage testimonials section (still static)
+
+---
+
+### Phase 6F: Pricing Page Dynamic Wiring (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Added `getPublishedPricingPlans()` to query layer
+- Wired PricingPage 3-column layout to Supabase with dynamic pricing cards
+- Preserved complex layout with promotional cards and highlighted center plan
+- Implemented loading, error, and empty states for all 3 pricing card positions
+- Maintained 1:1 visual parity with original template
+
+**Query Layer Enhancements:**
+- Added `getPublishedPricingPlans()` to `src/integrations/supabase/queries/pricingPlans.ts`
+  - Filters: `status = 'published'`
+  - Order: `sort_order ASC, name ASC`
+  - Returns: `PricingPlan[]`
+
+**PricingPage Implementation:**
+- State management: `plans`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getPublishedPricingPlans()` on mount
+- Plan separation logic: `highlightedPlan`, `firstPlan`, `lastPlan` for 3-column layout
+- Helper functions: `formatBillingPeriod()`, `parseFeatures()`
+- Dynamic rendering: 
+  - Column 1: Static promotional card + `firstPlan` (non-highlighted)
+  - Column 2: `highlightedPlan` with `pricing-highlight` class + special styling
+  - Column 3: Static promotional card + `lastPlan` (non-highlighted)
+- Core benefits section: Dynamically renders first 3 features with icons for highlighted plan
+
+**Layout Preservation:**
+- 3-column grid structure unchanged
+- Promotional cards remain static (not from database)
+- `pricing-highlight` class applied only to highlighted plan
+- All animation classes preserved (`slow`, `animate__fadeInUp`, etc.)
+- Features rendered as bullet lists with proper links
+
+**Files Modified:**
+- `src/integrations/supabase/queries/pricingPlans.ts` (added function)
+- `src/pages/PricingPage.tsx` (state + data fetching + 3-column dynamic mapping)
+
+**Not Included in This Phase:**
+- ❌ HomePage pricing section (still static, separate phase)
 
 ---
 
