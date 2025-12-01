@@ -175,9 +175,9 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 **Database Schema (Phase 2 MVP):**
 - ✅ Enums: content_status, submission_status, app_role, billing_period
 - ✅ Security: user_roles table + has_role() SECURITY DEFINER function
-- ✅ Content: services, blog_posts, contact_submissions, site_settings
+- ✅ Content: services, blog_posts, contact_submissions, site_settings, team_members, faq_items, case_studies, testimonials
 - ✅ Admin: admin_users table (profile data linked to auth.users)
-- ⏸️ Deferred: pricing_plans, testimonials
+- ⏸️ Deferred: pricing_plans
 
 **Security Foundation:**
 - Roles stored in separate user_roles table (prevents privilege escalation)
@@ -594,7 +594,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/services` | ServicesAdminPage | ✅ Full CRUD | Phase 4C | Services CRUD (Create/Read/Update/Delete) |
 | `/admin/projects` | ProjectsAdminPage | ✅ Full CRUD | Phase 5E | Projects / Case Studies CRUD (Create/Read/Update/Delete) |
 | `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
-| `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
+| `/admin/testimonials` | TestimonialsAdminPage | ✅ Full CRUD | Phase 5F | Testimonials CRUD (Create/Read/Update/Delete) |
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
 | `/admin/team` | TeamAdminPage | ✅ Full CRUD | Phase 5C | Team Members CRUD (Create/Read/Update/Delete) |
 | `/admin/faqs` | FaqAdminPage | ✅ Full CRUD | Phase 5D | FAQ Items CRUD (Create/Read/Update/Delete) |
@@ -714,6 +714,10 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddCaseStudyModal.tsx (Create case study form modal)
 │   ├── EditCaseStudyModal.tsx (Edit case study form modal)
 │   └── DeleteCaseStudyDialog.tsx (Delete confirmation)
+├── testimonials/             (Testimonials module components)
+│   ├── AddTestimonialModal.tsx (Create testimonial form modal)
+│   ├── EditTestimonialModal.tsx (Edit testimonial form modal)
+│   └── DeleteTestimonialDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
@@ -728,6 +732,7 @@ src/integrations/supabase/queries/ ✅ Safe for query layer
 ├── teamMembers.ts            (Team Members CRUD functions)
 ├── faqItems.ts               (FAQ Items CRUD functions)
 ├── caseStudies.ts            (Case Studies CRUD functions)
+├── testimonials.ts           (Testimonials CRUD functions)
 └── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities
