@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSettings } from "@/context/SettingsContext";
 
 const Header = () => {
   const location = useLocation();
+  const { getSetting } = useSettings();
 
   useEffect(() => {
     // Initialize theme switch
@@ -43,7 +45,7 @@ const Header = () => {
           <div className="navbar-container">
             <div className="logo-container">
               <Link className="navbar-brand" to="/">
-                <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" className="site-logo img-fluid" alt="Devmart Logo" />
+                <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" className="site-logo img-fluid" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} />
               </Link>
             </div>
             <button className="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -104,7 +106,7 @@ const Header = () => {
                 <div className="icon-circle">
                   <i className="fa-solid fa-phone-volume"></i>
                 </div>
-                <h6>+597 854-1211</h6>
+                <h6>{getSetting("contact_phone", "+597 854-1211")}</h6>
               </div>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useSettings } from "@/context/SettingsContext";
 
 const Footer = () => {
+  const { getSetting } = useSettings();
   return (
     <footer>
       <div className="section-footer">
@@ -12,9 +14,9 @@ const Footer = () => {
                   <div className="col col-xl-4">
                     <div className="footer-logo-container">
                       <div className="logo-container-footer">
-                        <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" alt="Devmart Logo" className="site-logo img-fluid" />
+                        <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} className="site-logo img-fluid" />
                       </div>
-                      <h4>Delivering Reliable Web Solutions with Innovation & Precision</h4>
+                      <h4>{getSetting("tagline", "Delivering Reliable Web Solutions with Innovation & Precision")}</h4>
                       <p>
                         Devmart specializes in building custom web applications, government portals, enterprise systems, and AI-powered tools. Based in Suriname, we deliver excellence across the Caribbean and beyond.
                       </p>
@@ -50,15 +52,15 @@ const Footer = () => {
                     <div className="footer-contact-container">
                       <h5>Contact Info</h5>
                       <ul className="contact-list">
-                        <li>info@devmart.sr</li>
-                        <li>+597 854-1211</li>
-                        <li>Jagernath Lachmon straat nr. 152, Paramaribo, Suriname</li>
+                        <li>{getSetting("contact_email", "info@devmart.sr")}</li>
+                        <li>{getSetting("contact_phone", "+597 854-1211")}</li>
+                        <li>{getSetting("contact_address", "Jagernath Lachmon straat nr. 152, Paramaribo, Suriname")}</li>
                       </ul>
                       <div className="d-flex flex-column gspace-1">
                         <h5>Social Media</h5>
                         <div className="social-container">
                           <div className="social-item-wrapper">
-                            <a href="https://www.facebook.com/DevmartSuriname/" className="social-item" target="_blank" rel="noopener noreferrer">
+                            <a href={getSetting("facebook_url", "https://www.facebook.com/DevmartSuriname/")} className="social-item" target="_blank" rel="noopener noreferrer">
                               <i className="fa-brands fa-facebook"></i>
                             </a>
                           </div>
@@ -68,12 +70,12 @@ const Footer = () => {
                             </a>
                           </div>
                           <div className="social-item-wrapper">
-                            <a href="https://instagram.com" className="social-item">
+                            <a href={getSetting("instagram_url", "https://instagram.com")} className="social-item">
                               <i className="fa-brands fa-instagram"></i>
                             </a>
                           </div>
                           <div className="social-item-wrapper">
-                            <a href="https://linkedin.com" className="social-item">
+                            <a href={getSetting("linkedin_url", "https://linkedin.com")} className="social-item">
                               <i className="fa-brands fa-linkedin"></i>
                             </a>
                           </div>
@@ -85,7 +87,7 @@ const Footer = () => {
                 <div className="footer-content-spacer"></div>
               </div>
               <div className="copyright-container">
-                <span className="copyright">© 2025 Devmart Suriname. All Rights Reserved.</span>
+                <span className="copyright">{getSetting("copyright_text", "© 2025 Devmart Suriname. All Rights Reserved.")}</span>
                 <div className="d-flex flex-row gspace-2">
                   <a href="#" className="legal-link">Terms of Service</a>
                   <a href="#" className="legal-link">Privacy Policy</a>
