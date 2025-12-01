@@ -355,6 +355,51 @@ export type Database = {
         }
         Relationships: []
       }
+      testimonials: {
+        Row: {
+          author_name: string
+          author_title: string | null
+          avatar_url: string | null
+          company_name: string | null
+          created_at: string
+          featured: boolean
+          id: string
+          quote: string
+          rating: number | null
+          sort_order: number
+          status: Database["public"]["Enums"]["content_status"]
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          author_title?: string | null
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          quote: string
+          rating?: number | null
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          author_title?: string | null
+          avatar_url?: string | null
+          company_name?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          quote?: string
+          rating?: number | null
+          sort_order?: number
+          status?: Database["public"]["Enums"]["content_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5E Projects / Case Studies CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5F Testimonials CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -13,14 +13,15 @@
 **Phase 5C Team CRUD:** 2025-12-01  
 **Phase 5D FAQ Items CRUD:** 2025-12-01  
 **Phase 5E Projects / Case Studies CRUD:** 2025-12-01  
-**Implementation Status:** Services, Blog, Contacts, Team, FAQ, and Projects admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5F Testimonials CRUD:** 2025-12-02  
+**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, and Testimonials admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
 ✅ **Security Foundation:** Secure role management with SECURITY DEFINER function  
 ✅ **RLS Policies:** Development-friendly policies (to be tightened in Security Hardening phase)  
 ✅ **Site Settings:** Default Devmart configuration seeded  
-⏸️ **Deferred to Later:** pricing_plans, testimonials
+⏸️ **Deferred to Later:** pricing_plans
 
 ### Phase 3 Authentication & Route Protection (Implemented)
 ✅ **AuthContext:** Session and user state management via Supabase Auth  
@@ -57,7 +58,11 @@
 ✅ **Phase 5E - Projects / Case Studies CRUD:** AddCaseStudyModal, EditCaseStudyModal, DeleteCaseStudyDialog with full CRUD operations  
 ✅ **Case Studies Query Layer:** caseStudies.ts with getAllCaseStudies, getCaseStudyById, createCaseStudy, updateCaseStudy, deleteCaseStudy  
 ✅ **Case Studies Seed Data:** 4 existing frontend case studies migrated to case_studies table  
-✅ **Case Studies Admin Page:** ProjectsAdminPage wired to Supabase with tags, client info, and results summary
+✅ **Case Studies Admin Page:** ProjectsAdminPage wired to Supabase with tags, client info, and results summary  
+✅ **Phase 5F - Testimonials CRUD:** AddTestimonialModal, EditTestimonialModal, DeleteTestimonialDialog with full CRUD operations  
+✅ **Testimonials Query Layer:** testimonials.ts with getAllTestimonials, getTestimonialById, createTestimonial, updateTestimonial, deleteTestimonial  
+✅ **Testimonials Seed Data:** 4 existing frontend testimonials migrated to testimonials table  
+✅ **Testimonials Admin Page:** TestimonialsAdminPage wired to Supabase with rating system, featured flag, and author information
 
 ---
 
@@ -962,6 +967,105 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Admin can manage all case studies through ProjectsAdminPage
 - Featured flag can be used to highlight flagship projects on homepage
 - Tags array enables filtering and categorization on public page
+
+---
+
+### Phase 5F – Testimonials CRUD (Complete) ✅
+
+**Date:** 2025-12-02  
+**Status:** Full CRUD operations implemented for Testimonials  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/testimonials.ts`
+- **Functions:**
+  - `getAllTestimonials()` - Fetches all testimonials ordered by sort_order ASC, then author_name ASC
+  - `getTestimonialById(id: string)` - Fetches single testimonial by ID using `.maybeSingle()`
+  - `createTestimonial(payload: TablesInsert<"testimonials">)` - Creates new testimonial
+  - `updateTestimonial(id: string, payload: TablesUpdate<"testimonials">)` - Updates existing testimonial
+  - `deleteTestimonial(id: string)` - Deletes testimonial
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `Testimonial = Tables<"testimonials">`
+
+**Components Created:**
+
+**AddTestimonialModal** (`src/components/admin/testimonials/AddTestimonialModal.tsx`)
+- Full testimonial creation form with 9 fields
+- Required fields: author_name, quote
+- Optional fields: author_title, company_name, rating (1-5), avatar_url, featured, sort_order, status
+- Rating validation: Must be between 1-5 if provided
+- Status dropdown: draft/published/archived (default: published)
+- Featured checkbox for highlighting key testimonials
+- Sort order number input (default: 0)
+- Client-side validation: author_name and quote required (non-empty after trim)
+- Success callback triggers table refresh
+
+**EditTestimonialModal** (`src/components/admin/testimonials/EditTestimonialModal.tsx`)
+- Same form structure as AddTestimonialModal
+- Pre-fills form with existing testimonial data via useEffect when modal opens
+- Title: "Edit Testimonial", Button: "Save Changes"
+- Validation mirrors AddTestimonialModal rules
+- Success callback triggers table refresh
+
+**DeleteTestimonialDialog** (`src/components/admin/testimonials/DeleteTestimonialDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to delete the testimonial from '{author_name}'? This action cannot be undone."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display inside dialog for failed deletions
+
+**TestimonialsAdminPage Updates** (`src/pages/admin/TestimonialsAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `testimonials`, `isLoading`, `error`, `isAddModalOpen`, `editingTestimonial`, `deletingTestimonial`
+- `fetchTestimonials()` function called on mount and after CRUD operations
+- Loading state: "Loading testimonials..."
+- Error state: Red error banner with message
+- DataTable columns: Author | Title (or "—") | Company (or "—") | Rating (X/5 or "—") | Status (badge published/draft/archived) | Featured (Yes/No) | Sort Order
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddTestimonialModal, EditTestimonialModal, DeleteTestimonialDialog
+
+**Seed Data Migration:**
+- 4 existing frontend testimonials migrated to `testimonials` table
+- Testimonials:
+  1. Emma Richard, CEO, Nexatech - Rating: 5/5, Featured
+  2. David Mont, Marketing Director - Rating: 5/5, Featured
+  3. Sophia Lewis, Founder - Rating: 5/5
+  4. James Peterson, COO, BrightWave - Rating: 5/5
+- All seeded with status: published, sort_order: 1-4
+- Top 2 marked as featured (Emma Richard & David Mont)
+- Each includes full quote, author_name, author_title, company_name, rating, and avatar_url path
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| author_name | text | ✅ | Client/testimonial author name |
+| author_title | text | ❌ | e.g., CEO, Director, Founder |
+| company_name | text | ❌ | Company or organization name |
+| quote | textarea | ✅ | Testimonial text (5 rows) |
+| rating | number | ❌ | 1-5 star rating (validated) |
+| avatar_url | text | ❌ | Photo/avatar URL |
+| featured | checkbox | ❌ | Featured testimonial flag (default: false) |
+| sort_order | number | ✅ | Display order (default: 0) |
+| status | select | ✅ | draft/published/archived (default: published) |
+
+**User Flows:**
+1. **Create:** Add Testimonial button → Modal opens → Fill form → Create Testimonial → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → Testimonial removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/testimonials/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services/Blog/Contacts/Team/FAQ/Projects CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `testimonials`
+
+**Public Testimonials Page Integration:**
+- Public TestimonialsPage.tsx can read from `testimonials` table via RLS policy
+- RLS allows public SELECT for published testimonials only
+- Admin can manage all testimonials through TestimonialsAdminPage
+- Featured flag can be used to highlight key testimonials on homepage
+- Rating field enables star display on public testimonial cards
 
 ---
 
