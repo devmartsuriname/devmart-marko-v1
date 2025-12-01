@@ -598,7 +598,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
 | `/admin/team` | TeamAdminPage | ✅ Protected (UI Only) | Phase 3 | Team Members CRUD |
 | `/admin/faqs` | FaqAdminPage | ✅ Protected (UI Only) | Phase 3 | FAQ Items CRUD |
-| `/admin/contacts` | ContactsAdminPage | ✅ Protected (UI Only) | Phase 3 | Contact Submissions Inbox |
+| `/admin/contacts` | ContactsAdminPage | ✅ Full CRUD | Phase 5B | Contact Submissions Inbox (CRUD) |
 | `/admin/settings` | SettingsAdminPage | ✅ Protected (UI Only) | Phase 3 | Site Settings |
 
 **Route Protection (Phase 3):**
