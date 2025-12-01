@@ -1,6 +1,37 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
 
 const ServicesPage = () => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchServices() {
+      setIsLoading(true);
+      setError(null);
+      
+      const { data, error: fetchError } = await getPublishedServices();
+      
+      if (fetchError) {
+        console.error("Error fetching services:", fetchError);
+        setError("Unable to load services. Please try again later.");
+      } else {
+        setServices(data || []);
+      }
+      
+      setIsLoading(false);
+    }
+    
+    fetchServices();
+  }, []);
+
+  const getAnimationSpeed = (index: number): string => {
+    const speeds = ["slow", "", "fast"];
+    return speeds[index % 3];
+  };
+
   return (
     <>
       {/* Section Banner */}
@@ -33,156 +64,71 @@ const ServicesPage = () => {
             </div>
             <div className="card-service-wrapper">
               <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-2">
-                <div className="col">
-                  <div className="card card-service animate-box animated slow animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/Icon-7.png" alt="Service Icon" className="img-fluid" />
+                {isLoading ? (
+                  // Loading skeleton - 6 placeholder cards matching the grid
+                  Array.from({ length: 6 }).map((_, index) => (
+                    <div className="col" key={`skeleton-${index}`}>
+                      <div className={`card card-service animate-box animated ${getAnimationSpeed(index)} animate__animated`} data-animate="animate__fadeInLeft">
+                        <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                          <div>
+                            <div className="service-icon-wrapper">
+                              <div className="service-icon" style={{ opacity: 0.5 }}>
+                                <div style={{ width: 48, height: 48, background: 'rgba(255,255,255,0.1)', borderRadius: 8 }} />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="service-title">
+                            <h4 style={{ opacity: 0.5 }}>Loading...</h4>
                           </div>
                         </div>
+                        <p style={{ opacity: 0.5 }}>Loading service information...</p>
+                        <span className="btn btn-accent" style={{ pointerEvents: 'none', opacity: 0.5 }}>
+                          <div className="btn-title"><span>View Details</span></div>
+                          <div className="icon-circle"><i className="fa-solid fa-arrow-right"></i></div>
+                        </span>
                       </div>
-                      <div className="service-title">
-                      <h4>Custom Web Applications</h4>
                     </div>
+                  ))
+                ) : error ? (
+                  // Error state - subtle message within grid area
+                  <div className="col-12 text-center py-4">
+                    <p className="text-muted">{error}</p>
                   </div>
-                  <p>Build powerful, scalable web applications tailored to your business needs with modern tech stacks.</p>
-                    <Link to="/services/social-media" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
+                ) : services.length === 0 ? (
+                  // Empty state
+                  <div className="col-12 text-center py-4">
+                    <p className="text-muted">No services available at the moment.</p>
                   </div>
-                </div>
-                <div className="col">
-                  <div className="card card-service animate-box animated animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-F4LJ4W8.png" alt="Service Icon" className="img-fluid" />
+                ) : (
+                  // Dynamic services from database
+                  services.map((service, index) => (
+                    <div className="col" key={service.id}>
+                      <div className={`card card-service animate-box animated ${getAnimationSpeed(index)} animate__animated`} data-animate="animate__fadeInLeft">
+                        <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                          <div>
+                            <div className="service-icon-wrapper">
+                              <div className="service-icon">
+                                <img 
+                                  src={service.icon || "/marko-digital-marketing-agency-html/image/Icon-7.png"} 
+                                  alt={`${service.name} Icon`} 
+                                  className="img-fluid" 
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="service-title">
+                            <h4>{service.name}</h4>
                           </div>
                         </div>
+                        <p>{service.short_description || service.description}</p>
+                        <Link to={`/services/${service.slug}`} className="btn btn-accent">
+                          <div className="btn-title"><span>View Details</span></div>
+                          <div className="icon-circle"><i className="fa-solid fa-arrow-right"></i></div>
+                        </Link>
                       </div>
-                      <div className="service-title">
-                      <h4>Government Portals</h4>
                     </div>
-                  </div>
-                  <p>Secure, accessible government portals designed for efficient public service delivery and digital transformation.</p>
-                    <Link to="/services/content" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card card-service animate-box animated fast animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/Icon-8.png" alt="Service Icon" className="img-fluid" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                      <h4>Enterprise Systems</h4>
-                    </div>
-                  </div>
-                  <p>Robust enterprise solutions that streamline operations, improve efficiency, and scale with your organization.</p>
-                    <Link to="/services/ppc" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card card-service animate-box animated slow animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/Icon-5.png" alt="Service Icon" className="img-fluid" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                      <h4>AI-Powered Tools</h4>
-                    </div>
-                  </div>
-                  <p>Intelligent automation and AI solutions that transform how your organization processes data and serves users.</p>
-                    <Link to="/services/email" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card card-service animate-box animated animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/Icon-6.png" alt="Service Icon" className="img-fluid" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                      <h4>UX/UI Design</h4>
-                    </div>
-                  </div>
-                  <p>Beautiful, intuitive interfaces that prioritize user experience and drive engagement across all devices.</p>
-                    <Link to="/services/branding" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card card-service animate-box animated fast animate__animated" data-animate="animate__fadeInLeft">
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img src="/marko-digital-marketing-agency-html/image/Icon-4.png" alt="Service Icon" className="img-fluid" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                      <h4>Maintenance & Support</h4>
-                    </div>
-                  </div>
-                  <p>Reliable ongoing maintenance and technical support to keep your digital systems running smoothly 24/7.</p>
-                    <Link to="/services/web-development" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
+                  ))
+                )}
               </div>
             </div>
             <div className="service-link-footer">

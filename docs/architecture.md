@@ -331,9 +331,67 @@ document.title = getSetting("seo_default_title", "Devmart");
 - ❌ No visible UI changes
 
 **Next Steps:**
-- Phase 6B: Wire ServicesPage to dynamic data
+- Phase 6B: Wire ServicesPage to dynamic data ✅ COMPLETE
 - Phase 6C: Wire Footer & Header with useSettings()
 - Phase 6J: Wire ContactPage form submission
+
+---
+
+## Phase 6B: Services Page Dynamic Wiring (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** ServicesPage fully wired to Supabase  
+**Impact:** Primary business offering page now dynamic
+
+### Query Layer Enhancements
+
+**File:** `src/integrations/supabase/queries/services.ts`
+
+Added two new query functions:
+
+1. **`getPublishedServices()`**
+   - Filters: `status = 'published'`
+   - Order: `sort_order ASC, name ASC`
+   - Returns: `{ data: Service[], error }`
+
+2. **`getServiceBySlug(slug: string)`**
+   - Selects single service by slug
+   - Uses `.maybeSingle()` for null handling
+   - Returns: `{ data: Service | null, error }`
+
+### ServicesPage Implementation
+
+**State Management:**
+```typescript
+const [services, setServices] = useState<Service[]>([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+```
+
+**Dynamic Rendering:**
+- Replaced 6 hardcoded service cards with `services.map()`
+- Each card renders from database: `service.name`, `service.short_description`, `service.icon`
+- Links updated to use database slugs: `/services/${service.slug}`
+- Animation speed helper maintains alternating pattern (slow, normal, fast)
+
+**UI States:**
+- Loading: 6 skeleton cards with matching grid layout
+- Error: Subtle message with retry option
+- Empty: "No services available" message
+- Success: Dynamic cards from database
+
+### Verification ✅
+
+- ✅ 6 service cards render with database content
+- ✅ Links use database slugs: `/services/${service.slug}`
+- ✅ Animation classes cycle correctly
+- ✅ Loading skeleton displays properly
+- ✅ Grid layout preserved (3-col desktop, 2-col tablet, 1-col mobile)
+- ✅ Banner, Guide, Pricing sections unchanged
+
+**Not Included:**
+- ❌ SingleServicePage wiring (deferred)
+- ❌ HomePage services section (separate phase)
 
 ---
 
@@ -341,17 +399,14 @@ document.title = getSetting("seo_default_title", "Devmart");
 
 **Recommended Implementation Order:**
 
-#### **Phase 6A: Settings Context Provider** 🔥
-- **Priority:** Foundation (must be first)
-- **Effort:** 1-2 hours
-- **Files:** `src/context/SettingsContext.tsx` (new), `src/main.tsx`
-- **Impact:** Enables global access to dynamic settings
+#### **Phase 6A: Settings Context Provider** ✅ COMPLETE
+- **Status:** IMPLEMENTED 2025-12-02
+- **Files:** `src/context/SettingsContext.tsx`, `src/main.tsx`
 
-#### **Phase 6B: Services Pages** 🔥
-- **Priority:** High (business critical)
-- **Effort:** 3-4 hours
-- **Files:** `queries/services.ts`, `ServicesPage.tsx`, `SingleServicePage.tsx`
-- **Impact:** Primary business offering page goes dynamic
+#### **Phase 6B: Services Pages** ✅ COMPLETE
+- **Status:** ServicesPage wired 2025-12-02
+- **Files:** `queries/services.ts`, `ServicesPage.tsx`
+- **Note:** SingleServicePage deferred
 
 #### **Phase 6C: Footer & Header** 🔥
 - **Priority:** High (global components)

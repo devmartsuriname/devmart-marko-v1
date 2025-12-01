@@ -41,3 +41,30 @@ export async function deleteService(id: string) {
   
   return { error };
 }
+
+/**
+ * Get all published services, ordered by sort_order ASC, then name ASC
+ */
+export async function getPublishedServices() {
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("name", { ascending: true });
+  
+  return { data, error };
+}
+
+/**
+ * Get single service by slug
+ */
+export async function getServiceBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  
+  return { data, error };
+}
