@@ -177,7 +177,7 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 - ✅ Security: user_roles table + has_role() SECURITY DEFINER function
 - ✅ Content: services, blog_posts, contact_submissions, site_settings
 - ✅ Admin: admin_users table (profile data linked to auth.users)
-- ⏸️ Deferred: case_studies, pricing_plans, testimonials, team_members, faq_items
+- ⏸️ Deferred: case_studies, pricing_plans, testimonials
 
 **Security Foundation:**
 - Roles stored in separate user_roles table (prevents privilege escalation)
@@ -597,7 +597,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
 | `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
 | `/admin/team` | TeamAdminPage | ✅ Full CRUD | Phase 5C | Team Members CRUD (Create/Read/Update/Delete) |
-| `/admin/faqs` | FaqAdminPage | ✅ Protected (UI Only) | Phase 3 | FAQ Items CRUD |
+| `/admin/faqs` | FaqAdminPage | ✅ Full CRUD | Phase 5D | FAQ Items CRUD (Create/Read/Update/Delete) |
 | `/admin/contacts` | ContactsAdminPage | ✅ Full CRUD | Phase 5B | Contact Submissions Inbox (CRUD) |
 | `/admin/settings` | SettingsAdminPage | ✅ Protected (UI Only) | Phase 3 | Site Settings |
 
@@ -706,6 +706,10 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddTeamMemberModal.tsx (Create team member form modal)
 │   ├── EditTeamMemberModal.tsx (Edit team member form modal)
 │   └── DeleteTeamMemberDialog.tsx (Delete confirmation)
+├── faqs/                     (FAQ module components)
+│   ├── AddFaqItemModal.tsx   (Create FAQ form modal)
+│   ├── EditFaqItemModal.tsx  (Edit FAQ form modal)
+│   └── DeleteFaqItemDialog.tsx (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
@@ -718,6 +722,7 @@ src/integrations/supabase/queries/ ✅ Safe for query layer
 ├── blogPosts.ts              (Blog Posts CRUD functions)
 ├── contactSubmissions.ts     (Contact Submissions CRUD functions)
 ├── teamMembers.ts            (Team Members CRUD functions)
+├── faqItems.ts               (FAQ Items CRUD functions)
 └── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities

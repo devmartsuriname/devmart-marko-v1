@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5C Team CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5D FAQ Items CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -11,14 +11,15 @@
 **Phase 5A Blog CRUD:** 2025-12-01  
 **Phase 5B Contacts CRUD:** 2025-12-01  
 **Phase 5C Team CRUD:** 2025-12-01  
-**Implementation Status:** Services, Blog, Contacts, and Team admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5D FAQ Items CRUD:** 2025-12-01  
+**Implementation Status:** Services, Blog, Contacts, Team, and FAQ admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
 ✅ **Security Foundation:** Secure role management with SECURITY DEFINER function  
 ✅ **RLS Policies:** Development-friendly policies (to be tightened in Security Hardening phase)  
 ✅ **Site Settings:** Default Devmart configuration seeded  
-⏸️ **Deferred to Later:** case_studies, pricing_plans, testimonials, team_members, faq_items
+⏸️ **Deferred to Later:** case_studies, pricing_plans, testimonials
 
 ### Phase 3 Authentication & Route Protection (Implemented)
 ✅ **AuthContext:** Session and user state management via Supabase Auth  
@@ -47,7 +48,11 @@
 ✅ **Phase 5C - Team CRUD:** AddTeamMemberModal, EditTeamMemberModal, DeleteTeamMemberDialog with full CRUD operations  
 ✅ **Team Query Layer:** teamMembers.ts with getAllTeamMembers, getTeamMemberById, createTeamMember, updateTeamMember, deleteTeamMember  
 ✅ **Team Seed Data:** 6 existing frontend team members migrated to team_members table  
-✅ **Team Admin Page:** TeamAdminPage wired to Supabase with status badges and featured flag
+✅ **Team Admin Page:** TeamAdminPage wired to Supabase with status badges and featured flag  
+✅ **Phase 5D - FAQ Items CRUD:** AddFaqItemModal, EditFaqItemModal, DeleteFaqItemDialog with full CRUD operations  
+✅ **FAQ Query Layer:** faqItems.ts with getAllFaqItems, getFaqItemById, createFaqItem, updateFaqItem, deleteFaqItem  
+✅ **FAQ Seed Data:** 6 existing frontend FAQ items migrated to faq_items table  
+✅ **FAQ Admin Page:** FaqAdminPage wired to Supabase with category filter and featured flag
 
 ---
 
@@ -760,6 +765,96 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - RLS allows public SELECT for active members
 - Admin can manage all team members through TeamAdminPage
 - Featured flag can be used to highlight key members on homepage
+
+---
+
+### Phase 5D – FAQ Items CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for FAQ Items  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/faqItems.ts`
+- **Functions:**
+  - `getAllFaqItems()` - Fetches all FAQ items ordered by sort_order ASC, then question ASC
+  - `getFaqItemById(id: string)` - Fetches single FAQ item by ID using `.maybeSingle()`
+  - `createFaqItem(faq: TablesInsert<"faq_items">)` - Creates new FAQ item
+  - `updateFaqItem(id: string, faq: TablesUpdate<"faq_items">)` - Updates existing FAQ
+  - `deleteFaqItem(id: string)` - Deletes FAQ item
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `FaqItem = Tables<"faq_items">`
+
+**Components Created:**
+
+**AddFaqItemModal** (`src/components/admin/faqs/AddFaqItemModal.tsx`)
+- Full FAQ creation form with 6 fields
+- Required fields: question, answer
+- Optional fields: category, sort_order, status, is_featured
+- Status dropdown: active (default) / inactive
+- Client-side validation: question and answer required (non-empty after trim)
+- Checkbox for "Featured FAQ" flag
+- Sort order number input (default: 0)
+- Success callback triggers table refresh
+
+**EditFaqItemModal** (`src/components/admin/faqs/EditFaqItemModal.tsx`)
+- Same form structure as AddFaqItemModal
+- Pre-fills form with existing FAQ data via useEffect when modal opens
+- Title: "Edit FAQ Item", Button: "Save Changes"
+- Validation mirrors AddFaqItemModal rules
+- Success callback triggers table refresh
+
+**DeleteFaqItemDialog** (`src/components/admin/faqs/DeleteFaqItemDialog.tsx`)
+- Uses Dialog component with inline styles (maxWidth: 500px)
+- Confirmation: "Are you sure you want to delete the FAQ '{question}'? This will remove it from the public FAQ page."
+- Cancel and Delete (red/danger) buttons
+- Loading state during deletion
+- Error display inside dialog for failed deletions
+
+**FaqAdminPage Updates** (`src/pages/admin/FaqAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `faqItems`, `isLoading`, `error`, `isAddModalOpen`, `editingFaq`, `deletingFaq`
+- `fetchFaqItems()` function called on mount and after CRUD operations
+- Loading state: "Loading..."
+- Error state: Red error banner with message
+- DataTable columns: Question | Category (or "—") | Status (badge active/inactive) | Sort Order
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddFaqItemModal, EditFaqItemModal, DeleteFaqItemDialog
+
+**Seed Data Migration:**
+- 6 existing frontend FAQ items migrated to `faq_items` table
+- Questions cover Services, Process, Support, and General categories
+- All seeded with status: active, sort_order: 1-6
+- Top 3 marked as featured (is_featured: true)
+- Questions: "What services does Devmart offer?", "How long does a typical project take?", "Do you offer ongoing support after project completion?", "What technologies do you use?", "Can you work with government and enterprise clients?", "How do you handle project communication?"
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| question | text | ✅ | The FAQ question |
+| answer | textarea | ✅ | The answer (6 rows) |
+| category | text | ❌ | e.g., Services, Process, General, Support |
+| sort_order | number | ✅ | Display order (default: 0) |
+| status | select | ✅ | active/inactive (default: active) |
+| is_featured | checkbox | ❌ | Featured FAQ (default: false) |
+
+**User Flows:**
+1. **Create:** Add FAQ Item button → Modal opens → Fill form → Create FAQ → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → FAQ removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/faqs/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services/Blog/Contacts/Team CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `faq_items` (not `faqs`)
+
+**Public FAQ Page Integration:**
+- Public FaqPage.tsx can read from `faq_items` table via RLS policy
+- RLS allows public SELECT for active FAQs only
+- Admin can manage all FAQ items through FaqAdminPage
+- Featured flag can be used to highlight key FAQs on homepage or FAQ page
 
 ---
 

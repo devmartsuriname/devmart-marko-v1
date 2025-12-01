@@ -1,15 +1,60 @@
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
+import { getAllFaqItems } from "@/integrations/supabase/queries/faqItems";
+import type { FaqItem } from "@/integrations/supabase/queries/faqItems";
+import { AddFaqItemModal } from "@/components/admin/faqs/AddFaqItemModal";
+import { EditFaqItemModal } from "@/components/admin/faqs/EditFaqItemModal";
+import { DeleteFaqItemDialog } from "@/components/admin/faqs/DeleteFaqItemDialog";
 
 export default function FaqAdminPage() {
+  const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingFaq, setEditingFaq] = useState<FaqItem | null>(null);
+  const [deletingFaq, setDeletingFaq] = useState<FaqItem | null>(null);
+
+  const fetchFaqItems = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    const { data, error: fetchError } = await getAllFaqItems();
+
+    if (fetchError) {
+      setError(fetchError.message);
+      setIsLoading(false);
+      return;
+    }
+
+    setFaqItems(data || []);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchFaqItems();
+  }, []);
+
+  const handleEdit = (row: FaqItem) => {
+    setEditingFaq(row);
+  };
+
+  const handleDelete = (row: FaqItem) => {
+    setDeletingFaq(row);
+  };
+
   const columns = [
     { key: "question", label: "Question" },
-    { key: "category", label: "Category" },
+    { 
+      key: "category", 
+      label: "Category",
+      render: (value: string | null) => value || "—"
+    },
     {
       key: "status",
       label: "Status",
       render: (value: string) => (
-        <span className={`admin-badge admin-badge-${value === "published" ? "success" : "warning"}`}>
+        <span className={`admin-badge admin-badge-${value === "active" ? "success" : "secondary"}`}>
           {value}
         </span>
       ),
@@ -17,26 +62,18 @@ export default function FaqAdminPage() {
     { key: "sort_order", label: "Sort Order" },
   ];
 
-  const rows = [
-    {
-      question: "What services does Devmart offer?",
-      category: "Services",
-      status: "published",
-      sort_order: 1,
-    },
-    {
-      question: "How long does a typical project take?",
-      category: "Process",
-      status: "published",
-      sort_order: 2,
-    },
-    {
-      question: "Do you offer ongoing support?",
-      category: "Support",
-      status: "published",
-      sort_order: 3,
-    },
-  ];
+  if (isLoading) {
+    return (
+      <div>
+        <div className="admin-card-header">
+          <div>
+            <h2 className="admin-card-title">FAQ Items</h2>
+            <p className="admin-card-description">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -47,12 +84,56 @@ export default function FaqAdminPage() {
             Manage frequently asked questions. Backed by the 'faq_items' table.
           </p>
         </div>
-        <button className="admin-btn admin-btn-primary">
+        <button 
+          className="admin-btn admin-btn-primary"
+          onClick={() => setIsAddModalOpen(true)}
+        >
           <Plus size={16} />
-          Add FAQ
+          Add FAQ Item
         </button>
       </div>
-      <DataTable columns={columns} rows={rows} />
+
+      {error && (
+        <div 
+          style={{
+            padding: '1rem',
+            marginBottom: '1rem',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: '4px',
+            color: '#ef4444',
+          }}
+        >
+          Error loading FAQ items: {error}
+        </div>
+      )}
+
+      <DataTable 
+        columns={columns} 
+        rows={faqItems}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      <AddFaqItemModal
+        open={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={fetchFaqItems}
+      />
+
+      <EditFaqItemModal
+        open={!!editingFaq}
+        faq={editingFaq}
+        onClose={() => setEditingFaq(null)}
+        onSuccess={fetchFaqItems}
+      />
+
+      <DeleteFaqItemDialog
+        open={!!deletingFaq}
+        faq={deletingFaq}
+        onClose={() => setDeletingFaq(null)}
+        onSuccess={fetchFaqItems}
+      />
     </div>
   );
 }
