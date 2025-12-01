@@ -88,6 +88,34 @@ ServicesAdminPage → getAllServices() → Supabase services table → UI render
 - `DataTable` component updated with `onEdit` and `onDelete` prop wiring
 - Full CRUD pattern established for future admin modules
 
+### Phase 5A – Blog CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Blog Posts  
+
+**Query Layer:**
+- **File:** `src/integrations/supabase/queries/blogPosts.ts`
+- **Functions:** `getAllBlogPosts()`, `getBlogPostById()`, `createBlogPost()`, `updateBlogPost()`, `deleteBlogPost()`
+- All functions return `{ data, error }` pattern
+
+**Components:**
+- `AddBlogModal` - Create new blog posts with 10 fields (title, slug, category, excerpt, content, featured_image, status, published_at, meta_title, meta_description)
+- `EditBlogModal` - Edit existing blog posts with same form structure
+- `DeleteBlogDialog` - Confirmation dialog for blog post deletion
+- `BlogAdminPage` - Wired to Supabase with loading/error states and table display
+
+**Features:**
+- Slug auto-generation from title (user-overridable)
+- Status dropdown: draft/published/archived
+- Date picker for published_at
+- Content textarea with monospace font
+- Validation: title, slug, category, content required
+- 3 blog posts seeded from frontend content
+
+**Pattern Replication:**
+- Successfully follows Services CRUD architecture
+- Confirms scalability for remaining admin modules
+
 **Phase 4B – Modal CSS Isolation Fix:**
 - **Issue:** AddServiceModal required shadcn CSS variables (--background, --foreground, etc.) but importing index.css globally would break frontend template styles
 - **Solution:** Created `src/styles/admin-theme-vars.css` with shadcn variables scoped to `.admin-root` class
@@ -530,7 +558,7 @@ All 14 marketing pages are complete with 1:1 template parity:
 | `/admin/projects` | ProjectsAdminPage | ✅ Protected (UI Only) | Phase 3 | Case Studies CRUD |
 | `/admin/pricing` | PricingAdminPage | ✅ Protected (UI Only) | Phase 3 | Pricing Plans CRUD |
 | `/admin/testimonials` | TestimonialsAdminPage | ✅ Protected (UI Only) | Phase 3 | Testimonials CRUD |
-| `/admin/blog` | BlogAdminPage | ✅ Protected (UI Only) | Phase 3 | Blog Posts CRUD |
+| `/admin/blog` | BlogAdminPage | ✅ Full CRUD | Phase 5A | Blog Posts CRUD (Create/Read/Update/Delete) |
 | `/admin/team` | TeamAdminPage | ✅ Protected (UI Only) | Phase 3 | Team Members CRUD |
 | `/admin/faqs` | FaqAdminPage | ✅ Protected (UI Only) | Phase 3 | FAQ Items CRUD |
 | `/admin/contacts` | ContactsAdminPage | ✅ Protected (UI Only) | Phase 3 | Contact Submissions Inbox |
@@ -629,12 +657,21 @@ src/components/admin/         ✅ NEW - Safe to create
 │   ├── AddServiceModal.tsx   (Create form modal)
 │   ├── EditServiceModal.tsx  (Edit form modal)
 │   └── DeleteServiceDialog.tsx (Delete confirmation)
+├── blogs/                    (Blog module components)
+│   ├── AddBlogModal.tsx      (Create blog post form modal)
+│   ├── EditBlogModal.tsx     (Edit blog post form modal)
+│   └── DeleteBlogDialog.tsx  (Delete confirmation)
 └── ...                       (Other admin-specific components)
 
 src/hooks/                    ✅ Safe for new hooks
 ├── useSupabase.ts
 ├── useAuth.ts
 └── ...
+
+src/integrations/supabase/queries/ ✅ Safe for query layer
+├── services.ts               (Services CRUD functions)
+├── blogPosts.ts              (Blog Posts CRUD functions)
+└── ...                       (Other module queries)
 
 src/lib/                      ✅ Safe for utilities
 ├── supabase.ts

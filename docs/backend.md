@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 4C Services CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 5A Blog CRUD (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -8,7 +8,8 @@
 **Phase 4A Services Read-Only:** 2025-11-29  
 **Phase 4B Services Create (+ Modal Fix):** 2025-11-29  
 **Phase 4C Services Edit/Delete:** 2025-11-29  
-**Implementation Status:** Services admin page fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 5A Blog CRUD:** 2025-12-01  
+**Implementation Status:** Services and Blog admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users  
@@ -31,6 +32,12 @@
 ✅ **Phase 4B:** Create service - AddServiceModal with form validation and insert logic  
 ✅ **Modal CSS Fix:** Scoped shadcn variables to admin area via `.admin-root` wrapper  
 ✅ **Phase 4C:** Edit/Delete operations - EditServiceModal + DeleteServiceDialog with full CRUD
+
+### Phase 5 Blog Module (Implemented)
+✅ **Phase 5A:** Blog CRUD - AddBlogModal, EditBlogModal, DeleteBlogDialog with full CRUD operations  
+✅ **Query Layer:** blogPosts.ts with getAllBlogPosts, getBlogPostById, createBlogPost, updateBlogPost, deleteBlogPost  
+✅ **Seed Data:** 3 existing frontend blog posts migrated to blog_posts table  
+✅ **Admin Page:** BlogAdminPage wired to Supabase with loading/error states
 
 ---
 
@@ -471,6 +478,98 @@ Enterprise-grade multi-tenant platform managing multiple client websites from si
 - Services is now the first fully-functional admin CRUD module
 - This pattern can be replicated for other modules (Blog, Contacts, Projects, etc.)
 - Modal component strategy proven: Dialog + inline styles + scoped CSS variables
+
+### Phase 5A – Blog CRUD (Complete) ✅
+
+**Date:** 2025-12-01  
+**Status:** Full CRUD operations implemented for Blog Posts  
+
+**Query Layer Created:**
+- **File:** `src/integrations/supabase/queries/blogPosts.ts`
+- **Functions:**
+  - `getAllBlogPosts()` - Fetches all blog posts ordered by published_at DESC, then created_at DESC
+  - `getBlogPostById(id: string)` - Fetches single post by ID using `.maybeSingle()`
+  - `createBlogPost(post: TablesInsert<"blog_posts">)` - Creates new blog post
+  - `updateBlogPost(id: string, post: TablesUpdate<"blog_posts">)` - Updates existing post
+  - `deleteBlogPost(id: string)` - Deletes blog post
+- All functions follow `{ data, error }` pattern for UI error handling
+- Type export: `BlogPost = Tables<"blog_posts">`
+
+**Components Created:**
+
+**AddBlogModal** (`src/components/admin/blogs/AddBlogModal.tsx`)
+- Full blog post creation form with 10 fields
+- Auto-generates slug from title (user-overridable, stops auto-generating once manually edited)
+- Client-side validation: title, slug, category, content are required
+- Status dropdown: draft (default) / published / archived
+- Optional fields: excerpt, featured_image, published_at, meta_title, meta_description
+- Content textarea with monospace font for markdown/HTML entry
+- Empty strings converted to null for optional fields before insert
+- Success callback triggers table refresh
+
+**EditBlogModal** (`src/components/admin/blogs/EditBlogModal.tsx`)
+- Same form structure as AddBlogModal
+- Pre-fills form with existing post data via useEffect when modal opens
+- Slug editable but NOT auto-generated (respects existing slug)
+- Title: "Edit Blog Post", Button: "Save Changes"
+- Validation mirrors AddBlogModal rules
+- Success callback triggers table refresh
+
+**DeleteBlogDialog** (`src/components/admin/blogs/DeleteBlogDialog.tsx`)
+- Uses Dialog component (not AlertDialog) with inline styles
+- Confirmation: "Are you sure you want to delete [Blog Title]? This action cannot be undone."
+- Cancel (secondary) and Delete (red/danger inline style) buttons
+- Loading state during deletion
+- Guards against null post state
+- Error display inside dialog for failed deletions
+
+**BlogAdminPage Updates** (`src/pages/admin/BlogAdminPage.tsx`)
+- Replaced static dummy data with live Supabase queries
+- State management: `posts`, `isLoading`, `error`, `isAddModalOpen`, `editingPost`, `deletingPost`
+- `fetchPosts()` function called on mount and after CRUD operations
+- Loading state: "Loading blog posts..."
+- Error state: Red error banner with message
+- DataTable columns: Title | Category | Status (badge) | Published At (formatted date)
+- Wire `onEdit` and `onDelete` callbacks to DataTable
+- Renders AddBlogModal, EditBlogModal, DeleteBlogDialog
+
+**Seed Data Migration:**
+- 3 existing frontend blog posts migrated to `blog_posts` table
+- Posts: "How AI is Transforming Government Services", "Building Secure Portals for Enterprise", "Building Scalable Web Applications"
+- ON CONFLICT(slug) DO UPDATE pattern for idempotent migrations
+- Featured images point to existing template dummy images
+- Published dates: 2025-04-14 (2 posts), 2025-01-15 (1 post)
+
+**Form Fields:**
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| title | text | ✅ | Blog post title |
+| slug | text | ✅ | Auto-generated from title, editable |
+| category | text | ✅ | Post category/tag |
+| excerpt | textarea | ❌ | Short summary |
+| content | textarea | ✅ | Full blog content (monospace font) |
+| featured_image | text | ❌ | URL to image |
+| status | select | ✅ | draft/published/archived |
+| published_at | date | ❌ | Publication date |
+| meta_title | text | ❌ | SEO title |
+| meta_description | textarea | ❌ | SEO description |
+
+**User Flows:**
+1. **Create:** Add Post button → Modal opens → Fill form → Create Blog Post → Table refreshes
+2. **Edit:** Edit button → Modal opens pre-filled → Modify → Save Changes → Table refreshes
+3. **Delete:** Delete button → Confirmation dialog → Confirm → Post removed and table refreshes
+
+**Safety Guardrails:**
+- ✅ No marketing frontend changes - all work in `src/pages/admin/`, `src/components/admin/blogs/`, `src/integrations/supabase/queries/`
+- ✅ Uses existing Dialog component with inline styles (no Tailwind dependency)
+- ✅ Follows established Services CRUD pattern exactly
+- ✅ Uses admin.css styling exclusively (no new CSS files)
+- ✅ Query layer follows thin-wrapper pattern with no business logic
+- ✅ Correct table name: `blog_posts` (not `blogs`)
+
+**Pattern Replication:**
+- Blog module successfully follows Services CRUD pattern
+- Confirms architecture scalability for remaining modules (Contacts, Projects, Team, FAQs, etc.)
 
 ---
 
