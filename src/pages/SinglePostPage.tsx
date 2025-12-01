@@ -1,6 +1,99 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getBlogPostBySlug, getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
 
 const SinglePostPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (!slug) {
+        setError("Post not found");
+        setIsLoading(false);
+        return;
+      }
+      
+      setIsLoading(true);
+      setError(null);
+      
+      const { data: postData, error: postError } = await getBlogPostBySlug(slug);
+      
+      if (postError) {
+        console.error("Error fetching post:", postError);
+        setError("Unable to load blog post.");
+      } else if (!postData) {
+        setError("Post not found");
+      } else {
+        setPost(postData);
+      }
+      
+      const { data: recentData } = await getPublishedBlogPosts();
+      if (recentData) {
+        setRecentPosts(recentData.filter(p => p.slug !== slug).slice(0, 2));
+      }
+      
+      setIsLoading(false);
+    };
+    
+    fetchPost();
+  }, [slug]);
+
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "No date";
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="section">
+        <div className="hero-container">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !post) {
+    return (
+      <>
+        <div className="section-banner">
+          <div className="banner-layout-wrapper">
+            <div className="banner-layout">
+              <div className="d-flex flex-column text-center align-items-center gspace-2">
+                <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Post Not Found</h2>
+                <nav className="breadcrumb">
+                  <Link to="/" className="gspace-2">Home</Link>
+                  <span className="separator-link">/</span>
+                  <Link to="/blog" className="gspace-2">Blog</Link>
+                  <span className="separator-link">/</span>
+                  <p className="current-page">Not Found</p>
+                </nav>
+              </div>
+              <div className="spacer"></div>
+            </div>
+          </div>
+        </div>
+        <div className="section">
+          <div className="hero-container">
+            <p className="accent-color">{error || "The blog post you're looking for could not be found."}</p>
+            <Link to="/blog" className="link-wrapper">
+              <span>Back to Blog</span>
+              <i className="fa-solid fa-circle-arrow-left"></i>
+            </Link>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       {/* Section Banner */}
@@ -8,11 +101,13 @@ const SinglePostPage = () => {
         <div className="banner-layout-wrapper">
           <div className="banner-layout">
             <div className="d-flex flex-column text-center align-items-center gspace-2">
-              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">Growth Strategies for Digital Businesses</h2>
+              <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">{post.title}</h2>
               <nav className="breadcrumb">
                 <Link to="/" className="gspace-2">Home</Link>
                 <span className="separator-link">/</span>
-                <p className="current-page">Single Post</p>
+                <Link to="/blog" className="gspace-2">Blog</Link>
+                <span className="separator-link">/</span>
+                <p className="current-page">{post.title}</p>
               </nav>
             </div>
             <div className="spacer"></div>
@@ -28,30 +123,28 @@ const SinglePostPage = () => {
               <div className="d-flex flex-column flex-md-row flex-xl-column gspace-5">
                 <div className="card recent-post">
                   <h4>Recent Blog</h4>
-                  <div className="d-flex flex-row w-100 gspace-1">
-                    <div className="image-container">
-                      <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Recent Post" className="img-fluid" />
-                    </div>
-                    <div className="d-grid">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data-post">April 14, 2025</span>
+                  {recentPosts.length > 0 ? (
+                    recentPosts.map((recentPost) => (
+                      <div className="d-flex flex-row w-100 gspace-1" key={recentPost.id}>
+                        <div className="image-container">
+                          <img 
+                            src={recentPost.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
+                            alt={recentPost.title} 
+                            className="img-fluid" 
+                          />
+                        </div>
+                        <div className="d-grid">
+                          <div className="d-flex flex-row gspace-1 align-items-center">
+                            <i className="fa-solid fa-calendar accent-color"></i>
+                            <span className="meta-data-post">{formatDate(recentPost.published_at)}</span>
+                          </div>
+                          <Link to={`/blog/${recentPost.slug}`} className="blog-link-post">{recentPost.title}</Link>
+                        </div>
                       </div>
-                      <Link to="/single-post" className="blog-link-post">How AI is Transforming Government Services</Link>
-                    </div>
-                  </div>
-                  <div className="d-flex flex-row w-100 gspace-1">
-                    <div className="image-container">
-                      <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Recent Post" className="img-fluid" />
-                    </div>
-                    <div className="d-grid">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data-post">April 14, 2025</span>
-                      </div>
-                      <Link to="/single-post" className="blog-link-post">Building Secure Portals for Enterprise</Link>
-                    </div>
-                  </div>
+                    ))
+                  ) : (
+                    <p>No recent posts available.</p>
+                  )}
                 </div>
                 <div className="cta-service-banner">
                   <div className="spacer"></div>
@@ -67,20 +160,26 @@ const SinglePostPage = () => {
             <div className="col col-xl-8 order-1 order-xl-2">
               <div className="d-flex flex-column gspace-2">
                 <div className="post-image">
-                  <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Recent Post" className="img-fluid" />
+                  <img 
+                    src={post.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
+                    alt={post.title} 
+                    className="img-fluid" 
+                  />
                 </div>
-                <h3>How to Grow Your Digital Business</h3>
+                <h3>{post.title}</h3>
                 <div className="underline-muted-full"></div>
                 <div className="d-flex flex-row align-items-center justify-content-between">
                   <div className="d-flex flex-row align-items-center gspace-2">
                     <div className="d-flex flex-row gspace-1 align-items-center">
                       <i className="fa-solid fa-calendar accent-color"></i>
-                      <span className="meta-data-post">March 27, 2025</span>
+                      <span className="meta-data-post">{formatDate(post.published_at)}</span>
                     </div>
-                    <div className="d-flex flex-row gspace-1 align-items-center">
-                      <i className="fa-solid fa-folder accent-color"></i>
-                      <span className="meta-data-post">SEO</span>
-                    </div>
+                    {post.category && (
+                      <div className="d-flex flex-row gspace-1 align-items-center">
+                        <i className="fa-solid fa-folder accent-color"></i>
+                        <span className="meta-data-post">{post.category}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="d-flex flex-row gspace-1 align-items-center">
                     <i className="fa-solid fa-user accent-color"></i>
@@ -88,24 +187,10 @@ const SinglePostPage = () => {
                   </div>
                 </div>
                 <div>
-                  <p>In today's fast-paced digital landscape, building robust web applications requires more than just coding skills. To achieve sustainable growth, organizations must implement well-architected solutions that prioritize user experience, security, and scalability. In this post, we'll explore actionable strategies to help your digital platform succeed.</p>
-                  <p>Modern web applications are the foundation of digital transformation. Whether you're building a government portal, enterprise system, or custom business application, success requires thoughtful architecture, secure implementation, and ongoing optimization. The key is selecting the right technology stack—like React for dynamic interfaces and Supabase for scalable backend infrastructure—while maintaining focus on user needs and long-term maintainability.</p>
+                  {post.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
                 </div>
-                <div className="quote-container">
-                  <div>
-                    <div className="icon-wrapper">
-                      <div className="icon-box">
-                        <i className="fa-solid fa-quote-right"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="quote">The best software is invisible—it simply works, solving real problems without getting in the way. Great development teams focus not on technology for its own sake, but on building tools that genuinely improve how organizations operate and serve their users.</p>
-                  <div>
-                    <h5>Sarah Johnson</h5>
-                    <p className="quote-description">CTO, Tech Solutions</p>
-                  </div>
-                </div>
-                <p>As digital platforms continue to evolve, the organizations that thrive will be those that invest in quality development practices from day one. By prioritizing clean architecture, comprehensive testing, and user-centered design, you create systems that not only meet today's needs but can adapt and scale for tomorrow's challenges. At Devmart, we're committed to helping organizations across Suriname achieve this level of digital excellence.</p>
               </div>
             </div>
           </div>

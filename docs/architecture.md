@@ -534,15 +534,20 @@ const [error, setError] = useState<string | null>(null);
 - **Effort:** 1-2 hours
 - **Files:** `PricingPage.tsx`, `HomePage.tsx` (section)
 
-#### **Phase 6G: Case Studies** ⭐
-- **Priority:** Medium (portfolio)
-- **Effort:** 2-3 hours
-- **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`, `HomePage.tsx` (section)
+#### **Phase 6G: Case Studies Dynamic Wiring** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:**
+  - `src/integrations/supabase/queries/caseStudies.ts` - Added `getPublishedCaseStudies()`
+  - `src/pages/CaseStudiesPage.tsx` - Dynamic data fetching with card variant cycling
 
-#### **Phase 6H: Blog Posts** ⭐
-- **Priority:** Medium (content marketing)
-- **Effort:** 3-4 hours
-- **Files:** `queries/blogPosts.ts`, `BlogPage.tsx`, `SinglePostPage.tsx`, `HomePage.tsx` (section)
+#### **Phase 6H: Blog Pages Dynamic Wiring** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files Modified:**
+  - `src/integrations/supabase/queries/blogPosts.ts` - Added `getPublishedBlogPosts()` and `getBlogPostBySlug()`
+  - `src/pages/BlogPage.tsx` - Dynamic blog list with 2-column grid
+  - `src/pages/SinglePostPage.tsx` - Dynamic blog post detail with recent posts sidebar
+- **Impact:** Blog listing and detail pages now pull from database
+- **Note:** HomePage blog section still static (future phase)
 
 #### **Phase 6I: Team Members** 📋
 - **Priority:** Lower (informational)

@@ -92,7 +92,7 @@
 | Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
 | Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
 | Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
-| Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
 | Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
 | FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ❌ Static JSX | 🔴 Not Wired |
 
@@ -460,6 +460,91 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 **Not Included in This Phase:**
 - ❌ HomePage case studies section (still static, separate phase)
 - ❌ Single case study detail pages (future phase)
+
+---
+
+### Phase 6H: Blog Pages Dynamic Wiring (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Added `getPublishedBlogPosts()` and `getBlogPostBySlug()` to query layer
+- Wired BlogPage to Supabase with dynamic blog list display
+- Wired SinglePostPage to Supabase with dynamic post content and recent posts sidebar
+- Preserved all original layout structure, CSS classes, and animations
+- Implemented loading, error, and empty states
+
+**Query Layer Enhancements:**
+- Added `getPublishedBlogPosts()` to `src/integrations/supabase/queries/blogPosts.ts`
+  - Filters: `status = 'published'`
+  - Order: `published_at DESC, title ASC`
+  - Returns: `BlogPost[]`
+- Added `getBlogPostBySlug()` to `src/integrations/supabase/queries/blogPosts.ts`
+  - Filters: `slug = :slug` AND `status = 'published'`
+  - Uses: `.maybeSingle()` for graceful not-found handling
+  - Returns: `BlogPost | null`
+
+**BlogPage Implementation:**
+- State management: `posts`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getPublishedBlogPosts()` on mount
+- Date formatting helper: `formatDate()` for published dates
+- Dynamic rendering:
+  - Loading state: 2 placeholder cards with skeleton styling
+  - Error state: Single card with error message
+  - Empty state: "No blog posts available"
+  - Data state: `posts.map()` with 2-column grid layout preserved
+- Card content mapping:
+  - `post.featured_image` → blog image (with fallback)
+  - `formatDate(post.published_at)` → publication date
+  - `post.category` → category badge
+  - `post.title` → blog title and link
+  - `post.excerpt` → description (or first 150 chars of content)
+  - `/blog/${post.slug}` → detail page link
+
+**SinglePostPage Implementation:**
+- URL parameter reading: `useParams()` to extract slug
+- State management: `post`, `recentPosts`, `isLoading`, `error`
+- Data fetching: 
+  - Main post via `getBlogPostBySlug(slug)`
+  - Recent posts via `getPublishedBlogPosts()` filtered by slug, limited to 2
+- Dynamic content rendering:
+  - Banner title and breadcrumb use `post.title`
+  - Featured image from `post.featured_image` (with fallback)
+  - Date, category, and author info displayed
+  - Content rendered as paragraphs (split by `\n\n`), NOT using `dangerouslySetInnerHTML`
+- Sidebar recent posts:
+  - Shows 2 most recent posts excluding current post
+  - Thumbnail, date, title, and link for each
+  - Empty state if no recent posts available
+- Error handling:
+  - Not found: Shows graceful "Post not found" page
+  - Error: Shows error message with link back to blog listing
+
+**Layout Preservation:**
+- BlogPage: 2-column grid (row-cols-md-2) unchanged
+- SinglePostPage: 2-column layout with sidebar preserved
+- All animation classes maintained (`animate__fadeInUp`)
+- Banner, Guide, Modal Video, Testimonials sections remain untouched
+
+**Files Modified:**
+- `src/integrations/supabase/queries/blogPosts.ts` (added 2 functions)
+- `src/pages/BlogPage.tsx` (state + data fetching + dynamic card rendering)
+- `src/pages/SinglePostPage.tsx` (state + slug reading + dynamic post rendering + sidebar)
+
+**Verified:**
+- 3 published blog posts in database
+- RLS policy "Authenticated users can view all blog posts" confirmed active
+- Blog list displays all published posts dynamically
+- Single post page loads by slug with full content
+- Recent posts sidebar populated dynamically
+- Loading and error states display correctly
+- Draft posts do not appear on public pages
+
+**Not Included in This Phase:**
+- ❌ HomePage blog section (still static, separate phase)
+- ❌ Blog comments functionality (future feature)
+- ❌ Blog categories page (future feature)
 
 ---
 
