@@ -55,3 +55,14 @@ export async function deleteTestimonial(id: string) {
 
   return { error };
 }
+
+export async function getPublishedTestimonials() {
+  const { data, error } = await supabase
+    .from("testimonials")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true })
+    .order("author_name", { ascending: true });
+
+  return { data, error };
+}
