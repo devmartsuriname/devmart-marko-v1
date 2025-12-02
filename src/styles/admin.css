@@ -29,6 +29,8 @@
   --admin-warning-bg: hsla(38, 92%, 50%, 0.1);
   --admin-error: hsl(0, 72%, 51%);
   --admin-error-bg: hsla(0, 72%, 51%, 0.1);
+  --admin-danger: var(--admin-error);
+  --admin-danger-bg: var(--admin-error-bg);
   --admin-info: hsl(199, 89%, 48%);
   --admin-info-bg: hsla(199, 89%, 48%, 0.1);
 
@@ -67,6 +69,8 @@
   --admin-warning-bg: hsla(38, 92%, 50%, 0.08);
   --admin-error: hsl(0, 84%, 60%);
   --admin-error-bg: hsla(0, 72%, 51%, 0.08);
+  --admin-danger: var(--admin-error);
+  --admin-danger-bg: var(--admin-error-bg);
   --admin-info: hsl(199, 89%, 48%);
   --admin-info-bg: hsla(199, 89%, 48%, 0.08);
 
