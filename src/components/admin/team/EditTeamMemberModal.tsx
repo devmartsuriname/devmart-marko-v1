@@ -137,10 +137,10 @@ export default function EditTeamMemberModal({
           overflowY: "auto",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-lg)",
           borderRadius: "8px",
         }}
       >
@@ -152,23 +152,14 @@ export default function EditTeamMemberModal({
 
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
           {error && (
-            <div
-              style={{
-                padding: "0.75rem",
-                backgroundColor: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                borderRadius: "4px",
-                color: "#f87171",
-                fontSize: "0.875rem",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>
-              Full Name <span style={{ color: "#f87171" }}>*</span>
+            <label className="admin-label">
+              Full Name <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -176,21 +167,13 @@ export default function EditTeamMemberModal({
               value={formData.full_name || ""}
               onChange={handleInputChange}
               required
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>
-              Role <span style={{ color: "#f87171" }}>*</span>
+            <label className="admin-label">
+              Role <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -199,198 +182,118 @@ export default function EditTeamMemberModal({
               onChange={handleInputChange}
               required
               placeholder="e.g., Lead Developer, Project Manager"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Title</label>
+            <label className="admin-label">Title</label>
             <input
               type="text"
               name="title"
               value={formData.title || ""}
               onChange={handleInputChange}
               placeholder="e.g., Senior Engineer"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Short Bio</label>
+            <label className="admin-label">Short Bio</label>
             <textarea
               name="short_bio"
               value={formData.short_bio || ""}
               onChange={handleInputChange}
               rows={3}
               placeholder="Brief description of the team member"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-                resize: "vertical",
-              }}
+              className="admin-input"
+              style={{ resize: "vertical" }}
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Photo URL</label>
+            <label className="admin-label">Photo URL</label>
             <input
               type="text"
               name="photo_url"
               value={formData.photo_url || ""}
               onChange={handleInputChange}
               placeholder="https://example.com/photo.jpg"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Email</label>
+            <label className="admin-label">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email || ""}
               onChange={handleInputChange}
               placeholder="member@devmart.sr"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>LinkedIn URL</label>
+            <label className="admin-label">LinkedIn URL</label>
             <input
               type="text"
               name="linkedin_url"
               value={formData.linkedin_url || ""}
               onChange={handleInputChange}
               placeholder="https://linkedin.com/in/username"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Facebook URL</label>
+            <label className="admin-label">Facebook URL</label>
             <input
               type="text"
               name="facebook_url"
               value={formData.facebook_url || ""}
               onChange={handleInputChange}
               placeholder="https://facebook.com/username"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gap: "0.5rem" }}>
-            <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Instagram URL</label>
+            <label className="admin-label">Instagram URL</label>
             <input
               type="text"
               name="instagram_url"
               value={formData.instagram_url || ""}
               onChange={handleInputChange}
               placeholder="https://instagram.com/username"
-              style={{
-                width: "100%",
-                padding: "0.5rem",
-                backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-              }}
+              className="admin-input"
             />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div style={{ display: "grid", gap: "0.5rem" }}>
-              <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>Sort Order</label>
+              <label className="admin-label">Sort Order</label>
               <input
                 type="number"
                 name="sort_order"
                 value={formData.sort_order || 0}
                 onChange={handleNumberChange}
                 min="0"
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                  border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                  borderRadius: "4px",
-                  color: "var(--admin-text, #ffffff)",
-                  fontSize: "0.875rem",
-                }}
+                className="admin-input"
               />
             </div>
 
             <div style={{ display: "grid", gap: "0.5rem" }}>
-              <label style={{ fontSize: "0.875rem", fontWeight: 500 }}>
-                Status <span style={{ color: "#f87171" }}>*</span>
+              <label className="admin-label">
+                Status <span style={{ color: "var(--admin-error)" }}>*</span>
               </label>
               <select
                 name="status"
                 value={formData.status || "active"}
                 onChange={handleInputChange}
                 required
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  backgroundColor: "var(--admin-bg-primary, #0f0f1e)",
-                  border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-                  borderRadius: "4px",
-                  color: "var(--admin-text, #ffffff)",
-                  fontSize: "0.875rem",
-                }}
+                className="admin-input"
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -409,51 +312,26 @@ export default function EditTeamMemberModal({
             />
             <label
               htmlFor="is_featured"
-              style={{ fontSize: "0.875rem", fontWeight: 500, cursor: "pointer" }}
+              className="admin-label"
+              style={{ marginBottom: 0, cursor: "pointer" }}
             >
               Featured Team Member
             </label>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "0.75rem",
-              marginTop: "0.5rem",
-            }}
-          >
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
             <button
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "transparent",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.2))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-                cursor: isSubmitting ? "not-allowed" : "pointer",
-                opacity: isSubmitting ? 0.5 : 1,
-              }}
+              className="admin-btn admin-btn-ghost"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "var(--admin-accent, #4be89b)",
-                border: "none",
-                borderRadius: "4px",
-                color: "#000",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                cursor: isSubmitting ? "not-allowed" : "pointer",
-                opacity: isSubmitting ? 0.7 : 1,
-              }}
+              className="admin-btn admin-btn-primary"
             >
               {isSubmitting ? "Saving..." : "Save Changes"}
             </button>

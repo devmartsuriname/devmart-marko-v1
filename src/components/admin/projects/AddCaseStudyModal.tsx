@@ -116,11 +116,11 @@ export const AddCaseStudyModal = ({ open, onClose, onSuccess }: AddCaseStudyModa
           overflowY: "auto",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
           borderRadius: "8px",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
+          boxShadow: "var(--admin-shadow-lg)",
         }}
       >
         <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "0.5rem" }}>
@@ -129,7 +129,7 @@ export const AddCaseStudyModal = ({ open, onClose, onSuccess }: AddCaseStudyModa
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
           <div>
             <label className="admin-label">
-              Title <span style={{ color: "#ff4444" }}>*</span>
+              Title <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -142,7 +142,7 @@ export const AddCaseStudyModal = ({ open, onClose, onSuccess }: AddCaseStudyModa
 
           <div>
             <label className="admin-label">
-              Slug <span style={{ color: "#ff4444" }}>*</span>
+              Slug <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -156,7 +156,7 @@ export const AddCaseStudyModal = ({ open, onClose, onSuccess }: AddCaseStudyModa
 
           <div>
             <label className="admin-label">
-              Description <span style={{ color: "#ff4444" }}>*</span>
+              Description <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <textarea
               className="admin-input"

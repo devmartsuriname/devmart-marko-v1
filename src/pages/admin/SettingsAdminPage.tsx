@@ -131,7 +131,7 @@ export default function SettingsAdminPage() {
   if (isLoading) {
     return (
       <div style={{ padding: "40px", textAlign: "center" }}>
-        <p style={{ color: "var(--admin-text-secondary)" }}>Loading settings...</p>
+        <p style={{ color: "var(--admin-text-muted)" }}>Loading settings...</p>
       </div>
     );
   }
@@ -385,7 +385,7 @@ export default function SettingsAdminPage() {
               maxLength={60}
               placeholder="Devmart Suriname - Web Development & Digital Solutions"
             />
-            <small style={{ color: "var(--admin-text-secondary)", fontSize: "12px" }}>
+            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
               Recommended: 50-60 characters
             </small>
           </div>
@@ -403,7 +403,7 @@ export default function SettingsAdminPage() {
               placeholder="Professional web development and digital solutions in Suriname"
               style={{ resize: "vertical" }}
             />
-            <small style={{ color: "var(--admin-text-secondary)", fontSize: "12px" }}>
+            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
               Recommended: 150-160 characters
             </small>
           </div>
