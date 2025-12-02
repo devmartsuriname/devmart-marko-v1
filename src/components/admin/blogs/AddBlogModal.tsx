@@ -131,7 +131,7 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
           borderRadius: '0.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--admin-shadow-lg)',
           color: "var(--admin-text)",
           overflowY: "auto",
         }}
@@ -142,23 +142,14 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
 
         <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
           {error && (
-            <div
-              style={{
-                padding: "12px",
-                marginBottom: "20px",
-                backgroundColor: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                borderRadius: "6px",
-                color: "#ef4444",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
 
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">
-              Title <span style={{ color: "#ef4444" }}>*</span>
+              Title <span className="admin-required">*</span>
             </label>
             <input
               type="text"
@@ -172,7 +163,7 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
 
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">
-              Slug <span style={{ color: "#ef4444" }}>*</span>
+              Slug <span className="admin-required">*</span>
             </label>
             <input
               type="text"
@@ -182,14 +173,14 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
               disabled={isSubmitting}
               required
             />
-            <small style={{ color: "var(--admin-text-secondary)", fontSize: "12px" }}>
+            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
               URL-friendly identifier (auto-generated from title)
             </small>
           </div>
 
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">
-              Category <span style={{ color: "#ef4444" }}>*</span>
+              Category <span className="admin-required">*</span>
             </label>
             <input
               type="text"
@@ -204,29 +195,28 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">Excerpt</label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               value={formData.excerpt || ""}
               onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
               disabled={isSubmitting}
               rows={3}
-              style={{ resize: "vertical" }}
             />
-            <small style={{ color: "var(--admin-text-secondary)", fontSize: "12px" }}>
+            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
               Short summary for listings
             </small>
           </div>
 
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">
-              Content <span style={{ color: "#ef4444" }}>*</span>
+              Content <span className="admin-required">*</span>
             </label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               value={formData.content || ""}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               disabled={isSubmitting}
               rows={10}
-              style={{ resize: "vertical", fontFamily: "monospace", fontSize: "13px" }}
+              style={{ fontFamily: "monospace", fontSize: "13px" }}
               required
             />
           </div>
@@ -245,10 +235,10 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
 
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">
-              Status <span style={{ color: "#ef4444" }}>*</span>
+              Status <span className="admin-required">*</span>
             </label>
             <select
-              className="admin-input"
+              className="admin-select"
               value={formData.status || "draft"}
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value as "draft" | "published" | "archived" })
@@ -286,12 +276,11 @@ export const AddBlogModal = ({ open, onClose, onSuccess }: AddBlogModalProps) =>
           <div style={{ marginBottom: "20px" }}>
             <label className="admin-label">Meta Description (SEO)</label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               value={formData.meta_description || ""}
               onChange={(e) => setFormData({ ...formData, meta_description: e.target.value })}
               disabled={isSubmitting}
               rows={3}
-              style={{ resize: "vertical" }}
             />
           </div>
 

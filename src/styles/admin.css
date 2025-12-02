@@ -1,28 +1,85 @@
 /* Admin-specific styles for Devmart Admin UI */
+/* Phase 1: Complete Color & Token Standardization */
 
 :root {
-  --admin-accent: #4be89b;
-  --admin-accent-hover: #3dd684;
-  --admin-bg: #0b0c10;
-  --admin-bg-secondary: #1a1a2e;
-  --admin-card-bg: rgba(255, 255, 255, 0.04);
-  --admin-border: rgba(255, 255, 255, 0.1);
-  --admin-text: #ffffff;
-  --admin-text-muted: rgba(255, 255, 255, 0.6);
-  --admin-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  /* Backgrounds & Surfaces */
+  --admin-bg: hsl(222, 84%, 4.9%);
+  --admin-bg-secondary: hsl(217, 32%, 17.5%);
+  --admin-bg-tertiary: hsl(217, 32%, 22%);
+  --admin-card-bg: hsla(0, 0%, 100%, 0.04);
+
+  /* Text Colors */
+  --admin-text: hsl(210, 40%, 98%);
+  --admin-text-muted: hsl(215, 20%, 65%);
+  --admin-text-secondary: hsl(215, 20%, 75%);
+
+  /* Borders */
+  --admin-border: hsl(217, 32%, 17.5%);
+  --admin-border-strong: hsl(217, 32%, 25%);
+
+  /* Accent (Devmart Green) */
+  --admin-accent: hsl(152, 82%, 55%);
+  --admin-accent-hover: hsl(152, 82%, 60%);
+  --admin-accent-muted: hsla(152, 82%, 55%, 0.1);
+
+  /* Status Colors */
+  --admin-success: hsl(142, 76%, 36%);
+  --admin-success-bg: hsla(142, 76%, 36%, 0.1);
+  --admin-warning: hsl(38, 92%, 50%);
+  --admin-warning-bg: hsla(38, 92%, 50%, 0.1);
+  --admin-error: hsl(0, 72%, 51%);
+  --admin-error-bg: hsla(0, 72%, 51%, 0.1);
+  --admin-info: hsl(199, 89%, 48%);
+  --admin-info-bg: hsla(199, 89%, 48%, 0.1);
+
+  /* Shadows */
+  --admin-shadow: 0 4px 20px hsla(0, 0%, 0%, 0.4);
+  --admin-shadow-sm: 0 1px 2px 0 hsla(0, 0%, 0%, 0.05);
+  --admin-shadow-md: 0 4px 6px -1px hsla(0, 0%, 0%, 0.1);
+  --admin-shadow-lg: 0 10px 15px -3px hsla(0, 0%, 0%, 0.1);
 }
 
 .lightmode {
-  --admin-bg: #f8f9fa;
-  --admin-bg-secondary: #ffffff;
-  --admin-card-bg: #ffffff;
-  --admin-border: rgba(0, 0, 0, 0.1);
-  --admin-text: #1a1a2e;
-  --admin-text-muted: rgba(0, 0, 0, 0.6);
-  --admin-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* Backgrounds & Surfaces */
+  --admin-bg: hsl(0, 0%, 98%);
+  --admin-bg-secondary: hsl(0, 0%, 100%);
+  --admin-bg-tertiary: hsl(0, 0%, 96%);
+  --admin-card-bg: hsl(0, 0%, 100%);
+
+  /* Text Colors */
+  --admin-text: hsl(222, 47%, 11%);
+  --admin-text-muted: hsl(215, 16%, 47%);
+  --admin-text-secondary: hsl(215, 16%, 37%);
+
+  /* Borders */
+  --admin-border: hsl(214, 32%, 91%);
+  --admin-border-strong: hsl(214, 32%, 80%);
+
+  /* Accent (Devmart Green) - stays same */
+  --admin-accent: hsl(152, 82%, 55%);
+  --admin-accent-hover: hsl(152, 82%, 50%);
+  --admin-accent-muted: hsla(152, 82%, 55%, 0.08);
+
+  /* Status Colors - adjusted for light mode */
+  --admin-success: hsl(142, 71%, 35%);
+  --admin-success-bg: hsla(142, 76%, 36%, 0.08);
+  --admin-warning: hsl(32, 95%, 44%);
+  --admin-warning-bg: hsla(38, 92%, 50%, 0.08);
+  --admin-error: hsl(0, 84%, 60%);
+  --admin-error-bg: hsla(0, 72%, 51%, 0.08);
+  --admin-info: hsl(199, 89%, 48%);
+  --admin-info-bg: hsla(199, 89%, 48%, 0.08);
+
+  /* Shadows - softer for light mode */
+  --admin-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.08);
+  --admin-shadow-sm: 0 1px 2px 0 hsla(0, 0%, 0%, 0.03);
+  --admin-shadow-md: 0 2px 4px 0 hsla(0, 0%, 0%, 0.06);
+  --admin-shadow-lg: 0 4px 8px 0 hsla(0, 0%, 0%, 0.08);
 }
 
-/* Admin Layout */
+/* ========================================
+   Admin Layout
+   ======================================== */
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -148,7 +205,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1a1a2e;
+  color: var(--admin-bg-secondary);
   font-weight: 600;
   font-size: 14px;
 }
@@ -159,7 +216,9 @@
   overflow-y: auto;
 }
 
-/* Admin Cards */
+/* ========================================
+   Admin Cards
+   ======================================== */
 .admin-card {
   background-color: var(--admin-card-bg);
   border: 1px solid var(--admin-border);
@@ -188,7 +247,9 @@
   margin-bottom: 24px;
 }
 
-/* Admin Buttons */
+/* ========================================
+   Admin Buttons
+   ======================================== */
 .admin-btn {
   padding: 10px 20px;
   border-radius: 8px;
@@ -205,7 +266,7 @@
 
 .admin-btn-primary {
   background-color: var(--admin-accent);
-  color: #1a1a2e;
+  color: var(--admin-bg-secondary);
 }
 
 .admin-btn-primary:hover {
@@ -220,7 +281,7 @@
 }
 
 .admin-btn-secondary:hover {
-  background-color: var(--admin-border);
+  background-color: var(--admin-bg-tertiary);
 }
 
 .admin-btn-ghost {
@@ -233,7 +294,19 @@
   background-color: var(--admin-card-bg);
 }
 
-/* Admin Table */
+.admin-btn-destructive {
+  background-color: var(--admin-error);
+  color: hsl(0, 0%, 100%);
+  border: 1px solid var(--admin-error);
+}
+
+.admin-btn-destructive:hover {
+  opacity: 0.9;
+}
+
+/* ========================================
+   Admin Table
+   ======================================== */
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -274,12 +347,15 @@
   color: var(--admin-text-muted);
 }
 
-/* Admin Forms */
+/* ========================================
+   Admin Forms
+   ======================================== */
 .admin-form-group {
   margin-bottom: 20px;
 }
 
-.admin-form-label {
+.admin-form-label,
+.admin-label {
   display: block;
   font-weight: 500;
   font-size: 14px;
@@ -287,7 +363,8 @@
   margin-bottom: 8px;
 }
 
-.admin-form-input {
+.admin-form-input,
+.admin-input {
   width: 100%;
   padding: 10px 16px;
   border: 1px solid var(--admin-border);
@@ -298,17 +375,147 @@
   transition: all 0.2s ease;
 }
 
-.admin-form-input:focus {
+.admin-form-input:focus,
+.admin-input:focus {
   outline: none;
   border-color: var(--admin-accent);
-  box-shadow: 0 0 0 3px rgba(75, 232, 155, 0.1);
+  box-shadow: 0 0 0 3px var(--admin-accent-muted);
 }
 
-.admin-form-input::placeholder {
+.admin-form-input::placeholder,
+.admin-input::placeholder {
   color: var(--admin-text-muted);
 }
 
-/* Auth Pages */
+.admin-form-input:disabled,
+.admin-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-textarea {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--admin-text);
+  background-color: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.2s ease;
+}
+
+.admin-textarea:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px var(--admin-accent-muted);
+}
+
+.admin-select {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--admin-text);
+  background-color: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-select:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px var(--admin-accent-muted);
+}
+
+/* Required field indicator */
+.admin-required {
+  color: var(--admin-error);
+}
+
+/* ========================================
+   Admin Alerts
+   ======================================== */
+.admin-alert {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.admin-alert-success {
+  background-color: var(--admin-success-bg);
+  color: var(--admin-success);
+  border-left: 3px solid var(--admin-success);
+}
+
+.admin-alert-error {
+  background-color: var(--admin-error-bg);
+  color: var(--admin-error);
+  border-left: 3px solid var(--admin-error);
+}
+
+.admin-alert-warning {
+  background-color: var(--admin-warning-bg);
+  color: var(--admin-warning);
+  border-left: 3px solid var(--admin-warning);
+}
+
+.admin-alert-info {
+  background-color: var(--admin-info-bg);
+  color: var(--admin-info);
+  border-left: 3px solid var(--admin-info);
+}
+
+/* ========================================
+   Admin Badges
+   ======================================== */
+.admin-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-badge-success {
+  background-color: var(--admin-success-bg);
+  color: var(--admin-success);
+  border: 1px solid var(--admin-success);
+}
+
+.admin-badge-warning {
+  background-color: var(--admin-warning-bg);
+  color: var(--admin-warning);
+  border: 1px solid var(--admin-warning);
+}
+
+.admin-badge-error,
+.admin-badge-danger {
+  background-color: var(--admin-error-bg);
+  color: var(--admin-error);
+  border: 1px solid var(--admin-error);
+}
+
+.admin-badge-info {
+  background-color: var(--admin-info-bg);
+  color: var(--admin-info);
+  border: 1px solid var(--admin-info);
+}
+
+.admin-badge-default {
+  background-color: var(--admin-bg-tertiary);
+  color: var(--admin-text-muted);
+  border: 1px solid var(--admin-border);
+}
+
+/* ========================================
+   Auth Pages
+   ======================================== */
 .auth-container {
   min-height: 100vh;
   display: flex;
@@ -366,7 +573,9 @@
   font-size: 14px;
 }
 
-/* Dashboard Stats */
+/* ========================================
+   Dashboard Stats
+   ======================================== */
 .dashboard-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -395,38 +604,55 @@
   font-weight: 500;
 }
 
-/* Badges */
-.admin-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
+/* ========================================
+   Modal Styles (admin-scoped)
+   ======================================== */
+.admin-modal-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  display: grid;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--admin-bg-secondary);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-lg);
+  border-radius: 8px;
+}
+
+.admin-modal-content-sm {
+  max-width: 500px;
+}
+
+.admin-modal-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-modal-title {
+  font-size: 1.125rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--admin-text);
+  margin: 0;
 }
 
-.admin-badge-success {
-  background-color: rgba(75, 232, 155, 0.1);
-  color: var(--admin-accent);
+.admin-modal-description {
+  font-size: 0.875rem;
+  color: var(--admin-text-muted);
+  margin: 0;
 }
 
-.admin-badge-warning {
-  background-color: rgba(255, 193, 7, 0.1);
-  color: #ffc107;
-}
-
-.admin-badge-danger {
-  background-color: rgba(244, 67, 54, 0.1);
-  color: #f44336;
-}
-
-.admin-badge-info {
-  background-color: rgba(33, 150, 243, 0.1);
-  color: #2196f3;
-}
-
-/* Responsive */
+/* ========================================
+   Responsive
+   ======================================== */
 @media (max-width: 1024px) {
   .admin-sidebar {
     transform: translateX(-260px);

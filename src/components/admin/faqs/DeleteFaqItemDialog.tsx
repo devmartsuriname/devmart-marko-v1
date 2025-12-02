@@ -50,10 +50,10 @@ export const DeleteFaqItemDialog = ({ open, faq, onClose, onSuccess }: DeleteFaq
           maxWidth: '500px',
           gap: '1rem',
           padding: '1.5rem',
-          backgroundColor: 'var(--admin-bg-secondary, #1a1a2e)',
-          color: 'var(--admin-text, #ffffff)',
-          border: '1px solid var(--admin-border, rgba(255,255,255,0.1))',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+          backgroundColor: 'var(--admin-bg-secondary)',
+          color: 'var(--admin-text)',
+          border: '1px solid var(--admin-border)',
+          boxShadow: 'var(--admin-shadow-lg)',
           borderRadius: '8px',
         }}
       >
@@ -65,7 +65,7 @@ export const DeleteFaqItemDialog = ({ open, faq, onClose, onSuccess }: DeleteFaq
             style={{
               background: 'transparent',
               border: 'none',
-              color: 'var(--admin-text, #ffffff)',
+              color: 'var(--admin-text)',
               cursor: isDeleting ? 'not-allowed' : 'pointer',
               padding: '0.25rem',
               opacity: isDeleting ? 0.5 : 1,
@@ -77,16 +77,7 @@ export const DeleteFaqItemDialog = ({ open, faq, onClose, onSuccess }: DeleteFaq
 
         <div style={{ display: 'grid', gap: '1rem' }}>
           {error && (
-            <div
-              style={{
-                padding: '0.75rem',
-                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
-                borderRadius: '4px',
-                color: '#ef4444',
-                fontSize: '0.875rem',
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
@@ -95,7 +86,7 @@ export const DeleteFaqItemDialog = ({ open, faq, onClose, onSuccess }: DeleteFaq
             Are you sure you want to delete the FAQ <strong>"{faq.question}"</strong>?
           </p>
 
-          <p style={{ margin: 0, fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)' }}>
+          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--admin-text-muted)' }}>
             This will remove it from the public FAQ page. This action cannot be undone.
           </p>
 
@@ -113,13 +104,8 @@ export const DeleteFaqItemDialog = ({ open, faq, onClose, onSuccess }: DeleteFaq
               type="button"
               onClick={handleDelete}
               disabled={isDeleting}
-              className="admin-btn"
-              style={{
-                flex: 1,
-                backgroundColor: '#ef4444',
-                color: '#ffffff',
-                border: 'none',
-              }}
+              className="admin-btn admin-btn-destructive"
+              style={{ flex: 1 }}
             >
               {isDeleting ? "Deleting..." : "Delete FAQ"}
             </button>

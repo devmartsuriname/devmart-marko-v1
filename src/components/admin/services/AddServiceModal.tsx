@@ -133,31 +133,44 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
 
   return (
     <Dialog open={open} onOpenChange={(newOpen) => { if (!newOpen) handleClose(); }}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent
+        style={{
+          position: 'fixed',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 200,
+          display: 'grid',
+          width: '100%',
+          maxWidth: "700px",
+          maxHeight: "90vh",
+          gap: '1rem',
+          padding: '1.5rem',
+          backgroundColor: "var(--admin-bg-secondary)",
+          border: "1px solid var(--admin-border)",
+          borderRadius: '0.5rem',
+          boxShadow: 'var(--admin-shadow-lg)',
+          color: "var(--admin-text)",
+          overflowY: "auto",
+        }}
+      >
         <DialogHeader>
-          <DialogTitle>Add New Service</DialogTitle>
-          <DialogDescription>
+          <DialogTitle style={{ color: "var(--admin-text)" }}>Add New Service</DialogTitle>
+          <DialogDescription style={{ color: "var(--admin-text-muted)" }}>
             Create a new service offering for your site.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div
-              className="p-3 rounded-lg text-sm"
-              style={{
-                backgroundColor: "rgba(244, 67, 54, 0.1)",
-                color: "#f44336",
-                border: "1px solid rgba(244, 67, 54, 0.2)",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
 
           <div className="admin-form-group">
             <label htmlFor="name" className="admin-form-label">
-              Service Name <span style={{ color: "#f44336" }}>*</span>
+              Service Name <span className="admin-required">*</span>
             </label>
             <input
               type="text"
@@ -173,7 +186,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
 
           <div className="admin-form-group">
             <label htmlFor="slug" className="admin-form-label">
-              Slug <span style={{ color: "#f44336" }}>*</span>
+              Slug <span className="admin-required">*</span>
             </label>
             <input
               type="text"
@@ -185,14 +198,14 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
               placeholder="custom-web-applications"
               required
             />
-            <small className="text-[var(--admin-text-muted)] text-xs mt-1 block">
+            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px", marginTop: "4px", display: "block" }}>
               Auto-generated from name. Edit to override.
             </small>
           </div>
 
           <div className="admin-form-group">
             <label htmlFor="description" className="admin-form-label">
-              Description <span style={{ color: "#f44336" }}>*</span>
+              Description <span className="admin-required">*</span>
             </label>
             <textarea
               id="description"
@@ -239,7 +252,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="admin-form-group">
               <label htmlFor="status" className="admin-form-label">
-                Status <span style={{ color: "#f44336" }}>*</span>
+                Status <span className="admin-required">*</span>
               </label>
               <select
                 id="status"
@@ -281,7 +294,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
                   onChange={handleInputChange}
                   className="w-4 h-4 rounded border-[var(--admin-border)] bg-[var(--admin-bg)] checked:bg-[var(--admin-accent)]"
                 />
-                <label htmlFor="featured" className="ml-2 text-sm text-[var(--admin-text-muted)]">
+                <label htmlFor="featured" style={{ marginLeft: "8px", fontSize: "14px", color: "var(--admin-text-muted)" }}>
                   Feature on homepage
                 </label>
               </div>

@@ -47,31 +47,42 @@ export default function DeleteServiceDialog({ service, open, onClose, onSuccess 
 
   return (
     <Dialog open={open} onOpenChange={(newOpen) => { if (!newOpen) handleClose(); }}>
-      <DialogContent className="max-w-md">
+      <DialogContent
+        style={{
+          position: 'fixed',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 200,
+          display: 'grid',
+          width: '100%',
+          maxWidth: "500px",
+          gap: '1rem',
+          padding: '1.5rem',
+          backgroundColor: "var(--admin-bg-secondary)",
+          border: "1px solid var(--admin-border)",
+          borderRadius: '0.5rem',
+          boxShadow: 'var(--admin-shadow-lg)',
+          color: "var(--admin-text)",
+        }}
+      >
         <DialogHeader>
-          <DialogTitle>Delete Service</DialogTitle>
-          <DialogDescription>
+          <DialogTitle style={{ color: "var(--admin-text)" }}>Delete Service</DialogTitle>
+          <DialogDescription style={{ color: "var(--admin-text-muted)" }}>
             This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           {error && (
-            <div
-              className="p-3 rounded-lg text-sm"
-              style={{
-                backgroundColor: "rgba(244, 67, 54, 0.1)",
-                color: "#f44336",
-                border: "1px solid rgba(244, 67, 54, 0.2)",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
 
-          <p className="text-[var(--admin-text-muted)] text-sm">
+          <p style={{ color: "var(--admin-text-muted)", fontSize: "14px" }}>
             Are you sure you want to delete{" "}
-            <span className="font-semibold text-[var(--admin-text)]">
+            <span style={{ fontWeight: 600, color: "var(--admin-text)" }}>
               {service?.name}
             </span>
             ?
@@ -90,12 +101,7 @@ export default function DeleteServiceDialog({ service, open, onClose, onSuccess 
               type="button"
               onClick={handleDelete}
               disabled={isDeleting}
-              className="admin-btn"
-              style={{
-                backgroundColor: "#f44336",
-                color: "#ffffff",
-                border: "1px solid #f44336",
-              }}
+              className="admin-btn admin-btn-destructive"
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>

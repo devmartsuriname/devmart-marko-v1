@@ -80,7 +80,7 @@ export default function BlogAdminPage() {
             </p>
           </div>
         </div>
-        <div style={{ padding: "40px", textAlign: "center", color: "var(--admin-text-secondary)" }}>
+        <div style={{ padding: "40px", textAlign: "center", color: "var(--admin-text-muted)" }}>
           Loading blog posts...
         </div>
       </div>
@@ -98,16 +98,7 @@ export default function BlogAdminPage() {
             </p>
           </div>
         </div>
-        <div
-          style={{
-            padding: "20px",
-            margin: "20px 0",
-            backgroundColor: "rgba(239, 68, 68, 0.1)",
-            border: "1px solid rgba(239, 68, 68, 0.3)",
-            borderRadius: "6px",
-            color: "#ef4444",
-          }}
-        >
+        <div className="admin-alert admin-alert-error">
           Error loading blog posts: {error}
         </div>
       </div>
