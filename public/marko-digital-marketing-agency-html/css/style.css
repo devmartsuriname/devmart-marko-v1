@@ -1137,7 +1137,7 @@ body.lightmode .keep-dark .btn-accent {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);  /* 80% uniform darkness */
+  background: rgba(0, 0, 0, 0.8); /* 90% uniform darkness */
   z-index: 2;
   pointer-events: none;
   border-radius: var(--global-border-radius);
