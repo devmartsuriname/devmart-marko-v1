@@ -174,7 +174,6 @@ const SingleCaseStudyPage = () => {
 
             {/* Main Content - Order 1 on mobile, Order 2 on desktop */}
             <div className="col col-xl-8 order-1 order-xl-2">
-              <div className="d-flex flex-column gspace-2">
                 <article className="animate-box">
                 {/* Featured Image */}
                 {caseStudy.featured_image && (
@@ -258,7 +257,6 @@ const SingleCaseStudyPage = () => {
                   </div>
                 </div>
               </article>
-              </div>
             </div>
           </div>
         </div>
