@@ -6,14 +6,7 @@ export const RequireAuth = () => {
 
   if (isLoading) {
     return (
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        fontSize: "18px",
-        color: "#666"
-      }}>
+      <div className="admin-loading-state" style={{ minHeight: "100vh" }}>
         Checking session...
       </div>
     );
