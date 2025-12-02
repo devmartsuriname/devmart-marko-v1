@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { getPublishedCaseStudies, type CaseStudy } from "@/integrations/supabase/queries/caseStudies";
 import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
 import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
+import { getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
+import { getPublishedTestimonials, type Testimonial } from "@/integrations/supabase/queries/testimonials";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/utils/seo";
 
@@ -10,6 +12,8 @@ const HomePage = () => {
   const [homeCaseStudies, setHomeCaseStudies] = useState<CaseStudy[]>([]);
   const [homeBlogPosts, setHomeBlogPosts] = useState<BlogPost[]>([]);
   const [homePricingPlans, setHomePricingPlans] = useState<PricingPlan[]>([]);
+  const [homeServices, setHomeServices] = useState<Service[]>([]);
+  const [homeTestimonials, setHomeTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,15 +24,21 @@ const HomePage = () => {
           { data: caseStudiesData },
           { data: blogData },
           { data: pricingData },
+          { data: servicesData },
+          { data: testimonialsData },
         ] = await Promise.all([
           getPublishedCaseStudies(),
           getPublishedBlogPosts(),
           getPublishedPricingPlans(),
+          getPublishedServices(),
+          getPublishedTestimonials(),
         ]);
         
         setHomeCaseStudies((caseStudiesData || []).slice(0, 4));
         setHomeBlogPosts((blogData || []).slice(0, 3));
         setHomePricingPlans((pricingData || []).slice(0, 3));
+        setHomeServices((servicesData || []).slice(0, 6));
+        setHomeTestimonials(testimonialsData || []);
       } catch (error) {
         console.error("Error fetching home data:", error);
       } finally {
@@ -507,211 +517,70 @@ const HomePage = () => {
               </h2>
             </div>
             <div className="card-service-wrapper">
-              <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-2">
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated slow animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/Icon-7.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
-                          </div>
+              {isLoading ? (
+                <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-2">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="col">
+                      <div className="card card-service animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                        <div className="d-flex flex-column gspace-2">
+                          <h4>Loading services...</h4>
                         </div>
                       </div>
-                      <div className="service-title">
-                        <h4>Custom Web Applications</h4>
+                    </div>
+                  ))}
+                </div>
+              ) : homeServices.length === 0 ? (
+                <div className="row row-cols-1">
+                  <div className="col">
+                    <div className="card card-service animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>No services available</h4>
+                        <p>Check back soon for our service offerings.</p>
                       </div>
                     </div>
-                    <p>
-                      Modern web apps built with React and Supabase for scalability, real-time features, and seamless
-                      user experiences.
-                    </p>
-                    <Link to="/services/web-applications" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
                   </div>
                 </div>
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-F4LJ4W8.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
+              ) : (
+                <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-2">
+                  {homeServices.map((service, idx) => {
+                    const animationClass = idx % 3 === 0 ? 'slow' : idx % 3 === 2 ? 'fast' : '';
+                    return (
+                      <div key={service.id} className="col">
+                        <div
+                          className={`card card-service animate-box animated ${animationClass} animate__animated`}
+                          data-animate="animate__fadeInLeft"
+                        >
+                          <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                            <div>
+                              <div className="service-icon-wrapper">
+                                <div className="service-icon">
+                                  <img
+                                    src={service.icon || "/marko-digital-marketing-agency-html/image/Icon-7.png"}
+                                    alt={`${service.name} Icon`}
+                                    className="img-fluid"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="service-title">
+                              <h4>{service.name}</h4>
+                            </div>
                           </div>
+                          <p>{service.short_description || service.description}</p>
+                          <Link to={`/services/${service.slug}`} className="btn btn-accent">
+                            <div className="btn-title">
+                              <span>View Details</span>
+                            </div>
+                            <div className="icon-circle">
+                              <i className="fa-solid fa-arrow-right"></i>
+                            </div>
+                          </Link>
                         </div>
                       </div>
-                      <div className="service-title">
-                        <h4>Government Portals</h4>
-                      </div>
-                    </div>
-                    <p>
-                      Secure, compliant government systems for citizen services, case management, and public
-                      administration.
-                    </p>
-                    <Link to="/services/government-portals" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
+                    );
+                  })}
                 </div>
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated fast animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/Icon-8.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                        <h4>Enterprise Systems</h4>
-                      </div>
-                    </div>
-                    <p>
-                      Internal tools, dashboards, and business platforms tailored for large organizations and complex
-                      workflows.
-                    </p>
-                    <Link to="/services/enterprise-systems" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated slow animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/Icon-5.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                        <h4>AI-Powered Tools</h4>
-                      </div>
-                    </div>
-                    <p>
-                      Intelligent automation, document processing, and AI-assisted features to streamline operations.
-                    </p>
-                    <Link to="/services/ai-tools" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/Icon-6.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                        <h4>UX/UI Design</h4>
-                      </div>
-                    </div>
-                    <p>User-centered design for intuitive interfaces that delight users and drive engagement.</p>
-                    <Link to="/services/ux-ui-design" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="col">
-                  <div
-                    className="card card-service animate-box animated fast animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
-                      <div>
-                        <div className="service-icon-wrapper">
-                          <div className="service-icon">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/Icon-4.png"
-                              alt="Service Icon"
-                              className="img-fluid"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="service-title">
-                        <h4>Maintenance & Support</h4>
-                      </div>
-                    </div>
-                    <p>Ongoing updates, monitoring, and technical support to keep your systems running smoothly.</p>
-                    <Link to="/services/maintenance-support" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -950,254 +819,65 @@ const HomePage = () => {
               <div className="overflow-hidden">
                 <div className="swiper swiperTestimonial">
                   <div className="swiper-wrapper">
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">Sarah Williams</span>
-                              <p className="profile-info">IT Director, Regional Authority</p>
+                    {isLoading ? (
+                      <>
+                        <div className="swiper-slide">
+                          <div className="card card-testimonial">
+                            <div className="d-flex flex-column gspace-2">
+                              <h4>Loading testimonials...</h4>
                             </div>
                           </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">
-                          "Devmart built our housing subsidy portal from the ground up. The system handles thousands of
-                          applications seamlessly, and our processing time was cut in half!"
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">Michael Chen</span>
-                              <p className="profile-info">Project Manager, Ministry</p>
+                        <div className="swiper-slide">
+                          <div className="card card-testimonial">
+                            <div className="d-flex flex-column gspace-2">
+                              <h4>Loading...</h4>
                             </div>
                           </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">
-                          "We've worked with many developers, but Devmart stands out. Their technical expertise and
-                          reliability gave us confidence in delivering a mission-critical government system."
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">Lisa Rodriguez</span>
-                              <p className="profile-info">CEO, Regional Enterprise</p>
-                            </div>
+                      </>
+                    ) : homeTestimonials.length === 0 ? (
+                      <div className="swiper-slide">
+                        <div className="card card-testimonial">
+                          <div className="d-flex flex-column gspace-2">
+                            <h4>No testimonials available</h4>
+                            <p>Check back soon for client success stories.</p>
                           </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">
-                          "From concept to deployment, Devmart delivered our enterprise platform on time and on budget.
-                          The ongoing support has been exceptional!"
-                        </p>
                       </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-13.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
+                    ) : (
+                      homeTestimonials.map((testimonial) => (
+                        <div key={testimonial.id} className="swiper-slide">
+                          <div className="card card-testimonial">
+                            <div className="stars">
+                              {[...Array(testimonial.rating || 5)].map((_, i) => (
+                                <i key={i} className="fa-solid fa-star"></i>
+                              ))}
                             </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">David Thompson</span>
-                              <p className="profile-info">Director, Public Services</p>
+                            <div className="d-flex flex-row align-items-center justify-content-between">
+                              <div className="d-flex flex-row gspace-2">
+                                <div className="testimonial-image">
+                                  <img
+                                    src={testimonial.avatar_url || "/marko-digital-marketing-agency-html/image/Photo-8.jpg"}
+                                    alt={`${testimonial.author_name} Photo`}
+                                    className="img-fluid"
+                                  />
+                                </div>
+                                <div className="d-flex flex-column">
+                                  <span className="profile-name">{testimonial.author_name}</span>
+                                  <p className="profile-info">
+                                    {testimonial.author_title}
+                                    {testimonial.company_name && `, ${testimonial.company_name}`}
+                                  </p>
+                                </div>
+                              </div>
+                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                             </div>
+                            <p className="testimonial-description">{testimonial.quote}</p>
                           </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
-                        <p className="testimonial-description">
-                          "Highly professional and results-oriented. Devmart's expertise in building secure portals
-                          helped us modernize our operations and serve citizens better."
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">Emma Richard</span>
-                              <p className="profile-info">CEO Nexatech</p>
-                            </div>
-                          </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                        </div>
-                        <p className="testimonial-description">
-                          "Devmart completely transformed our digital infrastructure! Their technical expertise and
-                          modern solutions helped us streamline operations and serve our customers better."
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">David Mont</span>
-                              <p className="profile-info">Marketing Director</p>
-                            </div>
-                          </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                        </div>
-                        <p className="testimonial-description">
-                          "We've worked with many development teams before, but Devmart stands out. Their systematic
-                          approach and technical excellence gave us confidence throughout the project."
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-13.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">Sophia Lewis</span>
-                              <p className="profile-info">Founder</p>
-                            </div>
-                          </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                        </div>
-                        <p className="testimonial-description">
-                          "From design to deployment, Devmart delivered excellence at every stage. Our platform exceeded
-                          expectations, and user adoption has been phenomenal!"
-                        </p>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="card card-testimonial">
-                        <div className="stars">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                        <div className="d-flex flex-row align-items-center justify-content-between">
-                          <div className="d-flex flex-row gspace-2">
-                            <div className="testimonial-image">
-                              <img
-                                src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
-                                alt="Testimonial Person Image"
-                                className="img-fluid"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <span className="profile-name">James Peterson</span>
-                              <p className="profile-info">COO, BrightWave</p>
-                            </div>
-                          </div>
-                          <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                        </div>
-                        <p className="testimonial-description">
-                          "Highly professional and results-oriented. Devmart's expertise in building scalable systems
-                          helped us establish a robust digital foundation for growth."
-                        </p>
-                      </div>
-                    </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>

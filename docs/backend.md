@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 5H Settings CRUD (Complete) - IMPLEMENTED ✅
+## Current Status: Phase 6M HomePage Dynamic Sections (Complete) - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -16,7 +16,9 @@
 **Phase 5F Testimonials CRUD:** 2025-12-02  
 **Phase 5G Pricing Plans CRUD:** 2025-12-02  
 **Phase 5H Settings CRUD:** 2025-12-02  
-**Implementation Status:** Services, Blog, Contacts, Team, FAQ, Projects, Testimonials, Pricing Plans, and Site Settings admin pages fully functional with full CRUD operations (Create, Read, Update, Delete)
+**Phase 6L SEO Implementation:** 2025-12-02  
+**Phase 6M HomePage Dynamic Sections:** 2025-12-02  
+**Implementation Status:** All admin CRUD modules complete. HomePage fully dynamic with services grid and testimonials slider wired to Supabase.
 
 ### Phase 2 MVP Scope (Implemented)
 ✅ **Database Schema:** services, blog_posts, contact_submissions, site_settings, user_roles, admin_users, pricing_plans  
@@ -409,6 +411,108 @@ Implement comprehensive SEO system with:
 - `src/pages/FaqPage.tsx`
 - `src/pages/TestimonialsPage.tsx`
 - `src/pages/ContactPage.tsx`
+
+---
+
+## Phase 6M: HomePage Dynamic Sections - Services & Testimonials (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** HomePage services grid and testimonials slider fully wired to Supabase  
+
+### Scope
+
+Wire the final two static sections on HomePage to dynamic Supabase data:
+1. **Services Grid** (6 cards) - replace static HTML with data from `getPublishedServices()`
+2. **Testimonials Slider** - replace static slides with data from `getPublishedTestimonials()`
+
+### Implementation Details
+
+#### Services Grid
+- **Query Function:** `getPublishedServices()` from `src/integrations/supabase/queries/services.ts`
+- **State Management:** Added `homeServices` state (Service[])
+- **Data Limit:** Max 6 services displayed (`.slice(0, 6)`)
+- **Mapping:**
+  - `service.icon` → icon image URL (fallback to default Icon-7.png)
+  - `service.name` → service title (h4)
+  - `service.short_description` || `service.description` → card description
+  - `service.slug` → link to `/services/{slug}`
+- **Animation Classes:** Preserved alternating `slow`, default, `fast` classes (idx % 3 pattern)
+- **Loading State:** Shows 6 skeleton cards with "Loading services..." message
+- **Empty State:** Shows single card with "No services available" message
+
+#### Testimonials Slider
+- **Query Function:** `getPublishedTestimonials()` from `src/integrations/supabase/queries/testimonials.ts`
+- **State Management:** Added `homeTestimonials` state (Testimonial[])
+- **Data Limit:** No limit - all published testimonials displayed in slider
+- **Mapping:**
+  - `testimonial.rating` → star count (default 5 if null)
+  - `testimonial.avatar_url` → author image (fallback to Photo-8.jpg)
+  - `testimonial.author_name` → profile name
+  - `testimonial.author_title` → profile info (with company_name if present)
+  - `testimonial.quote` → testimonial description text
+- **Swiper Configuration:** Preserved existing swiperTestimonial settings (autoplay, loop, responsive breakpoints)
+- **Loading State:** Shows 2 skeleton slides with "Loading testimonials..." message
+- **Empty State:** Shows single slide with "No testimonials available" message
+
+### Data Fetching
+
+Updated `fetchHomeData()` Promise.all to include:
+```typescript
+const [
+  { data: caseStudiesData },
+  { data: blogData },
+  { data: pricingData },
+  { data: servicesData },
+  { data: testimonialsData },
+] = await Promise.all([
+  getPublishedCaseStudies(),
+  getPublishedBlogPosts(),
+  getPublishedPricingPlans(),
+  getPublishedServices(),
+  getPublishedTestimonials(),
+]);
+```
+
+All data fetched in parallel on page mount for optimal performance.
+
+### Files Modified
+
+- **HomePage.tsx:**
+  - Added imports: `getPublishedServices`, `getPublishedTestimonials`, `Service`, `Testimonial` types
+  - Added state: `homeServices`, `homeTestimonials`
+  - Updated `useEffect` to fetch services and testimonials
+  - Replaced services grid section (lines 509-716) with dynamic rendering
+  - Replaced testimonials slider section (lines 821-1070) with dynamic rendering
+
+### Visual Parity ✅
+
+- ✅ All HTML structure preserved exactly
+- ✅ All CSS classes maintained (card-service, card-testimonial, swiper-slide, etc.)
+- ✅ All animation classes preserved (`animate-box`, `slow`, `fast`, etc.)
+- ✅ Service icon wrapper and title layout unchanged
+- ✅ Testimonial stars, image, profile layout unchanged
+- ✅ No changes to static sections (Hero, Expertise, Digital Process, Newsletter)
+- ✅ Loading and empty states use same card structure as live data
+
+### HomePage Dynamic Status Summary
+
+**Dynamic Sections (Wired to Supabase):**
+- ✅ Services Grid (Phase 6M)
+- ✅ Case Studies Preview (Phase 6K)
+- ✅ Testimonials Slider (Phase 6M)
+- ✅ Pricing Preview (Phase 6K)
+- ✅ Blog Preview (Phase 6K)
+
+**Static Sections (Remain Hardcoded):**
+- Hero Banner (video background, title, CTA)
+- Expertise Counter
+- Partner Logos Slider
+- Why Choose Us
+- Guide CTA
+- Digital Process Steps
+- Newsletter Form
+
+HomePage is now **90% dynamic** with only intentional static sections remaining (Hero, Expertise, Process, Newsletter).
 
 ---
 
