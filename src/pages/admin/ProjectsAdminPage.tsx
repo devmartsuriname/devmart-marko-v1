@@ -69,16 +69,16 @@ export default function ProjectsAdminPage() {
 
   if (isLoading) {
     return (
-      <div style={{ padding: "2rem", textAlign: "center", color: "var(--admin-text-muted)" }}>
-        <p>Loading case studies...</p>
+      <div className="admin-loading-state">
+        Loading case studies...
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ padding: "2rem" }}>
-        <div className="admin-alert admin-alert-error">
+      <div>
+        <div className="admin-alert admin-alert-error admin-alert-mb">
           <strong>Error loading case studies:</strong> {error}
         </div>
       </div>

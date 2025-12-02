@@ -113,7 +113,7 @@ export default function TestimonialsAdminPage() {
       </div>
 
       {error && (
-        <div className="admin-alert admin-alert-error" style={{ marginBottom: "20px" }}>
+        <div className="admin-alert admin-alert-error admin-alert-mb">
           Failed to load testimonials: {error}
         </div>
       )}

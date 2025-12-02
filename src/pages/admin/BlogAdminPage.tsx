@@ -80,7 +80,7 @@ export default function BlogAdminPage() {
             </p>
           </div>
         </div>
-        <div style={{ padding: "40px", textAlign: "center", color: "var(--admin-text-muted)" }}>
+        <div className="admin-loading-state">
           Loading blog posts...
         </div>
       </div>

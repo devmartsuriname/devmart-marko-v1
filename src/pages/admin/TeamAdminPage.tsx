@@ -67,7 +67,7 @@ export default function TeamAdminPage() {
             </p>
           </div>
         </div>
-        <div style={{ padding: "2rem", textAlign: "center", color: "var(--admin-text-muted)" }}>
+        <div className="admin-loading-state">
           Loading team members...
         </div>
       </div>
