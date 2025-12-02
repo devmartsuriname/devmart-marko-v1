@@ -1,6 +1,100 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getServiceBySlug, getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
 
 const SingleServicePage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const [service, setService] = useState<Service | null>(null);
+  const [relatedServices, setRelatedServices] = useState<Service[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchService = async () => {
+      if (!slug) {
+        setError("Service not found");
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+      setError(null);
+
+      const { data: serviceData, error: serviceError } = await getServiceBySlug(slug);
+
+      if (serviceError || !serviceData) {
+        setError("Service not found");
+      } else {
+        setService(serviceData);
+      }
+
+      // Fetch other services for sidebar
+      const { data: allServices } = await getPublishedServices();
+      if (allServices) {
+        setRelatedServices(allServices.filter(s => s.slug !== slug).slice(0, 6));
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchService();
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="section">
+        <div className="hero-container">
+          <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: "50vh" }}>
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <p className="mt-3">Loading service details...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !service) {
+    return (
+      <>
+        <div className="section-banner">
+          <div className="banner-layout-wrapper">
+            <div className="banner-layout">
+              <div className="d-flex flex-column text-center align-items-center gspace-2">
+                <h2 className="title-heading">Service Not Found</h2>
+                <nav className="breadcrumb">
+                  <Link to="/" className="gspace-2">
+                    Home
+                  </Link>
+                  <span className="separator-link">/</span>
+                  <Link to="/services" className="gspace-2">
+                    Services
+                  </Link>
+                  <span className="separator-link">/</span>
+                  <p className="current-page">Not Found</p>
+                </nav>
+              </div>
+              <div className="spacer"></div>
+            </div>
+          </div>
+        </div>
+        <div className="section">
+          <div className="hero-container">
+            <div className="d-flex flex-column align-items-center justify-content-center text-center gspace-3" style={{ minHeight: "40vh" }}>
+              <i className="fa-solid fa-circle-exclamation fa-4x accent-color"></i>
+              <h3>Service Not Found</h3>
+              <p>The service you're looking for doesn't exist or has been removed.</p>
+              <Link to="/services" className="btn btn-primary">
+                View All Services
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       {/* Section Banner */}
@@ -9,14 +103,18 @@ const SingleServicePage = () => {
           <div className="banner-layout">
             <div className="d-flex flex-column text-center align-items-center gspace-2">
               <h2 className="title-heading animate-box animated animate__animated" data-animate="animate__fadeInRight">
-                Custom Web Applications
+                {service.name}
               </h2>
               <nav className="breadcrumb">
                 <Link to="/" className="gspace-2">
                   Home
                 </Link>
                 <span className="separator-link">/</span>
-                <p className="current-page">Services Details</p>
+                <Link to="/services" className="gspace-2">
+                  Services
+                </Link>
+                <span className="separator-link">/</span>
+                <p className="current-page">{service.name}</p>
               </nav>
             </div>
             <div className="spacer"></div>
@@ -50,12 +148,13 @@ const SingleServicePage = () => {
                         className="title-heading animate-box animated animate__animated"
                         data-animate="animate__fadeInRight"
                       >
-                        Build Powerful Applications with Modern Web Development
+                        {service.short_description || service.name}
                       </h3>
-                      <p>
-                        Create custom, scalable web applications using modern tech stacks like React and Supabase.
-                        Deliver exceptional user experiences and transform how your organization operates.
-                      </p>
+                      {service.short_description && (
+                        <p>
+                          {service.short_description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -67,12 +166,9 @@ const SingleServicePage = () => {
               <div className="col col-xl-8">
                 <div className="d-flex flex-column gspace-2">
                   <h4>Overview</h4>
-                  <p>
-                    At Devmart, we help organizations grow through custom-tailored web applications that solve real
-                    business problems. From concept to deployment, we build scalable solutions using React, Supabase,
-                    and modern development practices. Whether you're launching a new digital service or modernizing an
-                    existing system, our experts turn your vision into reality.
-                  </p>
+                  <div style={{ whiteSpace: 'pre-wrap' }}>
+                    {service.description}
+                  </div>
                   <div className="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
                     <div className="col">
                       <div className="image-container">
@@ -166,28 +262,19 @@ const SingleServicePage = () => {
               <div className="col col-xl-4">
                 <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-5">
                   <div className="card service-recent">
-                    <h4>Recent Services</h4>
+                    <h4>Our Services</h4>
                     <div className="underline-accent-short"></div>
-                    <ul className="single-service-list">
-                      <li>
-                        <Link to="/services/social-media">Custom Web Applications</Link>
-                      </li>
-                      <li>
-                        <Link to="/services/content">Government Portals</Link>
-                      </li>
-                      <li>
-                        <Link to="/services/ppc">Enterprise Systems</Link>
-                      </li>
-                      <li>
-                        <Link to="/services/email">AI-Powered Tools</Link>
-                      </li>
-                      <li>
-                        <Link to="/services/branding">UX/UI Design</Link>
-                      </li>
-                      <li>
-                        <Link to="/services/web-development">Maintenance & Support</Link>
-                      </li>
-                    </ul>
+                    {relatedServices.length > 0 ? (
+                      <ul className="single-service-list">
+                        {relatedServices.map((s) => (
+                          <li key={s.id}>
+                            <Link to={`/services/${s.slug}`}>{s.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No other services available at the moment.</p>
+                    )}
                   </div>
                   <div className="cta-service-banner">
                     <div className="spacer"></div>
