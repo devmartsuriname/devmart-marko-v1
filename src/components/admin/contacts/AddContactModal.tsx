@@ -85,7 +85,7 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
           borderRadius: '0.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--admin-shadow-lg)',
           color: "var(--admin-text)",
           overflowY: "auto",
         }}
@@ -96,9 +96,9 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div>
-              <label className="admin-label">
-                First Name <span style={{ color: "var(--admin-destructive)" }}>*</span>
-              </label>
+          <label className="admin-label">
+            First Name <span style={{ color: "var(--admin-error)" }}>*</span>
+          </label>
               <input
                 type="text"
                 name="first_name"
@@ -109,9 +109,9 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
               />
             </div>
             <div>
-              <label className="admin-label">
-                Last Name <span style={{ color: "var(--admin-destructive)" }}>*</span>
-              </label>
+          <label className="admin-label">
+            Last Name <span style={{ color: "var(--admin-error)" }}>*</span>
+          </label>
               <input
                 type="text"
                 name="last_name"
@@ -124,9 +124,9 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
           </div>
 
           <div>
-            <label className="admin-label">
-              Email <span style={{ color: "var(--admin-destructive)" }}>*</span>
-            </label>
+          <label className="admin-label">
+            Email <span style={{ color: "var(--admin-error)" }}>*</span>
+          </label>
             <input
               type="email"
               name="email"
@@ -161,9 +161,9 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
           </div>
 
           <div>
-            <label className="admin-label">
-              Subject <span style={{ color: "var(--admin-destructive)" }}>*</span>
-            </label>
+          <label className="admin-label">
+            Subject <span style={{ color: "var(--admin-error)" }}>*</span>
+          </label>
             <input
               type="text"
               name="subject"
@@ -175,9 +175,9 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
           </div>
 
           <div>
-            <label className="admin-label">
-              Message <span style={{ color: "var(--admin-destructive)" }}>*</span>
-            </label>
+          <label className="admin-label">
+            Message <span style={{ color: "var(--admin-error)" }}>*</span>
+          </label>
             <textarea
               name="message"
               value={formData.message}

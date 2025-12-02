@@ -94,7 +94,7 @@ export default function ContactsAdminPage() {
         <div className="admin-card-header">
           <div>
             <h2 className="admin-card-title">Contact Submissions</h2>
-            <p className="admin-card-description" style={{ color: "var(--admin-destructive)" }}>
+            <p className="admin-card-description" style={{ color: "var(--admin-error)" }}>
               {error}
             </p>
           </div>

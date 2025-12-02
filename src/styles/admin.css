@@ -513,6 +513,25 @@
   border: 1px solid var(--admin-border);
 }
 
+.admin-badge-outline {
+  background-color: transparent;
+  color: var(--admin-text-muted);
+  border: 1px solid var(--admin-border-strong);
+}
+
+.admin-badge-secondary {
+  background-color: var(--admin-bg-tertiary);
+  color: var(--admin-text-secondary);
+  border: 1px solid var(--admin-border);
+}
+
+/* Alias for danger (same as error) */
+.admin-badge-danger {
+  background-color: var(--admin-error-bg);
+  color: var(--admin-error);
+  border: 1px solid var(--admin-error);
+}
+
 /* ========================================
    Auth Pages
    ======================================== */

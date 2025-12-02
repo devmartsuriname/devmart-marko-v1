@@ -101,10 +101,10 @@ export const AddTestimonialModal = ({ open, onClose, onSuccess }: AddTestimonial
           overflowY: "auto",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-lg)",
           borderRadius: "8px",
         }}
       >
@@ -121,7 +121,7 @@ export const AddTestimonialModal = ({ open, onClose, onSuccess }: AddTestimonial
 
           <div style={{ marginBottom: "16px" }}>
             <label className="admin-label">
-              Author Name <span style={{ color: "var(--admin-danger)" }}>*</span>
+              Author Name <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -155,7 +155,7 @@ export const AddTestimonialModal = ({ open, onClose, onSuccess }: AddTestimonial
 
           <div style={{ marginBottom: "16px" }}>
             <label className="admin-label">
-              Testimonial Quote <span style={{ color: "var(--admin-danger)" }}>*</span>
+              Testimonial Quote <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <textarea
               className="admin-input"
