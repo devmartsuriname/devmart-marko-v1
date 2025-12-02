@@ -1020,6 +1020,7 @@
 
 .dashboard-panel:hover {
   box-shadow: var(--admin-shadow-md);
+  transform: translateY(-2px);
 }
 
 .dashboard-panel-header {
