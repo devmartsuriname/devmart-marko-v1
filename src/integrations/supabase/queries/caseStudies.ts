@@ -63,3 +63,14 @@ export async function getPublishedCaseStudies() {
   
   return { data, error };
 }
+
+export async function getCaseStudyBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  
+  return { data, error };
+}

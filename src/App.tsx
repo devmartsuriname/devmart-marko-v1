@@ -7,6 +7,7 @@ import SingleServicePage from "./pages/SingleServicePage";
 import BlogPage from "./pages/BlogPage";
 import SinglePostPage from "./pages/SinglePostPage";
 import CaseStudiesPage from "./pages/CaseStudiesPage";
+import SingleCaseStudyPage from "./pages/SingleCaseStudyPage";
 import TeamPage from "./pages/TeamPage";
 import PartnershipPage from "./pages/PartnershipPage";
 import PricingPage from "./pages/PricingPage";
@@ -46,6 +47,7 @@ const App = () => (
         <Route path="blog" element={<BlogPage />} />
         <Route path="blog/:slug" element={<SinglePostPage />} />
         <Route path="case-studies" element={<CaseStudiesPage />} />
+        <Route path="case-studies/:slug" element={<SingleCaseStudyPage />} />
         <Route path="team" element={<TeamPage />} />
         <Route path="partnership" element={<PartnershipPage />} />
         <Route path="pricing" element={<PricingPage />} />
