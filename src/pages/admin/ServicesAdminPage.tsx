@@ -92,7 +92,7 @@ export default function ServicesAdminPage() {
         </button>
       </div>
       {error && (
-        <div className="admin-card" style={{ marginBottom: "16px", padding: "16px", color: "#ef4444" }}>
+        <div className="admin-alert admin-alert-error" style={{ marginBottom: "16px" }}>
           {error}
         </div>
       )}

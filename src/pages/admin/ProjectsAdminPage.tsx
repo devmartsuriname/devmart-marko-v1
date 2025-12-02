@@ -52,7 +52,7 @@ export default function ProjectsAdminPage() {
       render: (value: string) => (
         <span
           className={`admin-badge admin-badge-${
-            value === "published" ? "success" : value === "draft" ? "default" : "outline"
+            value === "published" ? "success" : value === "draft" ? "warning" : "default"
           }`}
         >
           {value}
@@ -69,7 +69,7 @@ export default function ProjectsAdminPage() {
 
   if (isLoading) {
     return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
+      <div style={{ padding: "2rem", textAlign: "center", color: "var(--admin-text-muted)" }}>
         <p>Loading case studies...</p>
       </div>
     );
@@ -78,15 +78,7 @@ export default function ProjectsAdminPage() {
   if (error) {
     return (
       <div style={{ padding: "2rem" }}>
-        <div
-          style={{
-            backgroundColor: "rgba(220, 38, 38, 0.1)",
-            border: "1px solid #dc2626",
-            borderRadius: "8px",
-            padding: "1rem",
-            color: "#dc2626",
-          }}
-        >
+        <div className="admin-alert admin-alert-error">
           <strong>Error loading case studies:</strong> {error}
         </div>
       </div>

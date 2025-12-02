@@ -59,7 +59,7 @@ export const DeleteBlogDialog = ({ open, post, onClose, onSuccess }: DeleteBlogD
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
           borderRadius: '0.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--admin-shadow-lg)',
           color: "var(--admin-text)",
         }}
       >
@@ -69,16 +69,7 @@ export const DeleteBlogDialog = ({ open, post, onClose, onSuccess }: DeleteBlogD
 
         <div style={{ marginTop: "20px" }}>
           {error && (
-            <div
-              style={{
-                padding: "12px",
-                marginBottom: "20px",
-                backgroundColor: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                borderRadius: "6px",
-                color: "#ef4444",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
@@ -98,14 +89,9 @@ export const DeleteBlogDialog = ({ open, post, onClose, onSuccess }: DeleteBlogD
             </button>
             <button
               type="button"
-              className="admin-btn"
+              className="admin-btn admin-btn-destructive"
               onClick={handleDelete}
               disabled={isDeleting}
-              style={{
-                backgroundColor: "#ef4444",
-                color: "#ffffff",
-                border: "1px solid #dc2626",
-              }}
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>

@@ -54,7 +54,7 @@ export default function FaqAdminPage() {
       key: "status",
       label: "Status",
       render: (value: string) => (
-        <span className={`admin-badge admin-badge-${value === "active" ? "success" : "secondary"}`}>
+        <span className={`admin-badge admin-badge-${value === "active" ? "success" : "default"}`}>
           {value}
         </span>
       ),
@@ -94,16 +94,7 @@ export default function FaqAdminPage() {
       </div>
 
       {error && (
-        <div 
-          style={{
-            padding: '1rem',
-            marginBottom: '1rem',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '4px',
-            color: '#ef4444',
-          }}
-        >
+        <div className="admin-alert admin-alert-error">
           Error loading FAQ items: {error}
         </div>
       )}

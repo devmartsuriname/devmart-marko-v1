@@ -43,18 +43,7 @@ export default function TeamAdminPage() {
       key: "status",
       label: "Status",
       render: (value: string) => (
-        <span
-          style={{
-            display: "inline-block",
-            padding: "0.25rem 0.5rem",
-            fontSize: "0.75rem",
-            fontWeight: 500,
-            borderRadius: "4px",
-            backgroundColor: value === "active" ? "rgba(34, 197, 94, 0.1)" : "rgba(156, 163, 175, 0.1)",
-            color: value === "active" ? "#22c55e" : "#9ca3af",
-            border: `1px solid ${value === "active" ? "rgba(34, 197, 94, 0.2)" : "rgba(156, 163, 175, 0.2)"}`,
-          }}
-        >
+        <span className={`admin-badge admin-badge-${value === "active" ? "success" : "default"}`}>
           {value === "active" ? "Active" : "Inactive"}
         </span>
       ),
@@ -78,7 +67,7 @@ export default function TeamAdminPage() {
             </p>
           </div>
         </div>
-        <div style={{ padding: "2rem", textAlign: "center", color: "var(--admin-text-muted, #888)" }}>
+        <div style={{ padding: "2rem", textAlign: "center", color: "var(--admin-text-muted)" }}>
           Loading team members...
         </div>
       </div>
@@ -96,15 +85,7 @@ export default function TeamAdminPage() {
             </p>
           </div>
         </div>
-        <div
-          style={{
-            padding: "1rem",
-            backgroundColor: "rgba(239, 68, 68, 0.1)",
-            border: "1px solid rgba(239, 68, 68, 0.3)",
-            borderRadius: "4px",
-            color: "#f87171",
-          }}
-        >
+        <div className="admin-alert admin-alert-error">
           {error}
         </div>
       </div>
