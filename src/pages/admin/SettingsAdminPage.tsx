@@ -130,17 +130,17 @@ export default function SettingsAdminPage() {
 
   if (isLoading) {
     return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
-        <p style={{ color: "var(--admin-text-muted)" }}>Loading settings...</p>
+      <div className="admin-loading-state">
+        <p>Loading settings...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ padding: "40px" }}>
-        <div className="admin-card" style={{ padding: "24px", textAlign: "center" }}>
-          <p style={{ color: "var(--admin-error)", marginBottom: "16px" }}>
+      <div className="admin-loading-state">
+        <div className="admin-card">
+          <p className="admin-alert admin-alert-error admin-alert-mb">
             Error loading settings: {error}
           </p>
           <button
@@ -168,7 +168,7 @@ export default function SettingsAdminPage() {
       {/* Brand Information Section */}
       <form onSubmit={handleSaveBrand}>
         <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "20px" }}>
+          <h3 className="admin-section-title">
             Brand Information
           </h3>
           <div className="admin-form-group">
@@ -224,7 +224,7 @@ export default function SettingsAdminPage() {
       {/* Contact Information Section */}
       <form onSubmit={handleSaveContact}>
         <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "20px" }}>
+          <h3 className="admin-section-title">
             Contact Information
           </h3>
           <div className="admin-form-group">
@@ -283,7 +283,7 @@ export default function SettingsAdminPage() {
       {/* Social Media Links Section */}
       <form onSubmit={handleSaveSocial}>
         <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "20px" }}>
+          <h3 className="admin-section-title">
             Social Media Links
           </h3>
           <div className="admin-form-group">
@@ -369,7 +369,7 @@ export default function SettingsAdminPage() {
       {/* SEO Defaults Section */}
       <form onSubmit={handleSaveSeo}>
         <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "20px" }}>
+          <h3 className="admin-section-title">
             SEO Defaults
           </h3>
           <div className="admin-form-group">
@@ -385,7 +385,7 @@ export default function SettingsAdminPage() {
               maxLength={60}
               placeholder="Devmart Suriname - Web Development & Digital Solutions"
             />
-            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
+            <small className="admin-helper-text">
               Recommended: 50-60 characters
             </small>
           </div>
@@ -403,7 +403,7 @@ export default function SettingsAdminPage() {
               placeholder="Professional web development and digital solutions in Suriname"
               style={{ resize: "vertical" }}
             />
-            <small style={{ color: "var(--admin-text-muted)", fontSize: "12px" }}>
+            <small className="admin-helper-text">
               Recommended: 150-160 characters
             </small>
           </div>

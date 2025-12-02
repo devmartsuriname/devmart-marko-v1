@@ -164,7 +164,7 @@ export default function DashboardPage() {
         <div className="dashboard-panel">
           <div className="dashboard-panel-header">
             <h3 className="dashboard-panel-title">Recent Contacts</h3>
-            <Link to="/admin/contacts" className="admin-btn admin-btn-ghost" style={{ padding: "6px 12px", fontSize: "13px" }}>
+            <Link to="/admin/contacts" className="admin-btn admin-btn-ghost admin-btn-sm">
               View All →
             </Link>
           </div>
