@@ -1,9 +1,5 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { createPricingPlan } from "@/integrations/supabase/queries/pricingPlans";
 import { toast } from "sonner";
 
@@ -148,13 +144,15 @@ export const AddPricingPlanModal = ({
         }}
       >
         <DialogHeader>
-          <DialogTitle>Add Pricing Plan</DialogTitle>
+          <DialogTitle style={{ color: "var(--admin-text)" }}>Add Pricing Plan</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
           <div>
-            <Label htmlFor="name">Name *</Label>
-            <Input
+            <label htmlFor="name" className="admin-form-label">Name *</label>
+            <input
               id="name"
+              type="text"
+              className="admin-form-input"
               value={formData.name}
               onChange={(e) => handleNameChange(e.target.value)}
               required
@@ -163,9 +161,11 @@ export const AddPricingPlanModal = ({
           </div>
 
           <div>
-            <Label htmlFor="slug">Slug *</Label>
-            <Input
+            <label htmlFor="slug" className="admin-form-label">Slug *</label>
+            <input
               id="slug"
+              type="text"
+              className="admin-form-input"
               value={formData.slug}
               onChange={(e) => handleSlugChange(e.target.value)}
               required
@@ -175,9 +175,10 @@ export const AddPricingPlanModal = ({
           </div>
 
           <div>
-            <Label htmlFor="description">Description *</Label>
-            <Textarea
+            <label htmlFor="description" className="admin-form-label">Description *</label>
+            <textarea
               id="description"
+              className="admin-textarea"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
@@ -188,10 +189,11 @@ export const AddPricingPlanModal = ({
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div>
-              <Label htmlFor="price">Price *</Label>
-              <Input
+              <label htmlFor="price" className="admin-form-label">Price *</label>
+              <input
                 id="price"
                 type="number"
+                className="admin-form-input"
                 step="0.01"
                 min="0"
                 value={formData.price}
@@ -202,13 +204,13 @@ export const AddPricingPlanModal = ({
             </div>
 
             <div>
-              <Label htmlFor="billing_period">Billing Period *</Label>
+              <label htmlFor="billing_period" className="admin-form-label">Billing Period *</label>
               <select
                 id="billing_period"
                 value={formData.billing_period}
                 onChange={(e) => setFormData({ ...formData, billing_period: e.target.value as any })}
                 disabled={isSubmitting}
-                className="admin-input"
+                className="admin-form-input"
                 style={{ width: "100%", height: "40px" }}
               >
                 <option value="month">Month</option>
@@ -219,9 +221,10 @@ export const AddPricingPlanModal = ({
           </div>
 
           <div>
-            <Label htmlFor="features">Features (comma-separated)</Label>
-            <Textarea
+            <label htmlFor="features" className="admin-form-label">Features (comma-separated)</label>
+            <textarea
               id="features"
+              className="admin-textarea"
               value={formData.features}
               onChange={(e) => setFormData({ ...formData, features: e.target.value })}
               disabled={isSubmitting}
@@ -231,9 +234,11 @@ export const AddPricingPlanModal = ({
           </div>
 
           <div>
-            <Label htmlFor="target_segment">Target Segment</Label>
-            <Input
+            <label htmlFor="target_segment" className="admin-form-label">Target Segment</label>
+            <input
               id="target_segment"
+              type="text"
+              className="admin-form-input"
               value={formData.target_segment}
               onChange={(e) => setFormData({ ...formData, target_segment: e.target.value })}
               disabled={isSubmitting}
@@ -243,13 +248,13 @@ export const AddPricingPlanModal = ({
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
             <div>
-              <Label htmlFor="status">Status *</Label>
+              <label htmlFor="status" className="admin-form-label">Status *</label>
               <select
                 id="status"
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
                 disabled={isSubmitting}
-                className="admin-input"
+                className="admin-form-input"
                 style={{ width: "100%", height: "40px" }}
               >
                 <option value="draft">Draft</option>
@@ -259,10 +264,11 @@ export const AddPricingPlanModal = ({
             </div>
 
             <div>
-              <Label htmlFor="sort_order">Sort Order</Label>
-              <Input
+              <label htmlFor="sort_order" className="admin-form-label">Sort Order</label>
+              <input
                 id="sort_order"
                 type="number"
+                className="admin-form-input"
                 value={formData.sort_order}
                 onChange={(e) => setFormData({ ...formData, sort_order: e.target.value })}
                 disabled={isSubmitting}
@@ -278,19 +284,19 @@ export const AddPricingPlanModal = ({
                 disabled={isSubmitting}
                 style={{ width: "20px", height: "20px", cursor: "pointer" }}
               />
-              <Label htmlFor="highlighted" style={{ cursor: "pointer", margin: 0 }}>
+              <label htmlFor="highlighted" className="admin-form-label" style={{ cursor: "pointer", margin: 0 }}>
                 Highlighted
-              </Label>
+              </label>
             </div>
           </div>
 
           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-end", marginTop: "1rem" }}>
-            <Button type="button" variant="outline" onClick={handleClose} disabled={isSubmitting}>
+            <button type="button" className="admin-btn admin-btn-secondary" onClick={handleClose} disabled={isSubmitting}>
               Cancel
-            </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            </button>
+            <button type="submit" className="admin-btn admin-btn-primary" disabled={isSubmitting}>
               {isSubmitting ? "Creating..." : "Create Pricing Plan"}
-            </Button>
+            </button>
           </div>
         </form>
       </DialogContent>
