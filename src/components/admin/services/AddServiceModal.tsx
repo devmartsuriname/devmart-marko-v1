@@ -161,7 +161,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="admin-modal-form">
           {error && (
             <div className="admin-alert admin-alert-error">
               {error}
@@ -212,7 +212,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
               name="description"
               value={formData.description}
               onChange={handleInputChange}
-              className="admin-form-input"
+              className="admin-textarea"
               rows={4}
               placeholder="Full description of the service..."
               required
@@ -228,7 +228,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
               name="short_description"
               value={formData.short_description || ""}
               onChange={handleInputChange}
-              className="admin-form-input"
+              className="admin-textarea"
               rows={2}
               placeholder="Brief summary for cards..."
             />
@@ -249,7 +249,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="admin-form-row-3">
             <div className="admin-form-group">
               <label htmlFor="status" className="admin-form-label">
                 Status <span className="admin-required">*</span>
@@ -259,7 +259,7 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
                 name="status"
                 value={formData.status}
                 onChange={handleInputChange}
-                className="admin-form-input"
+                className="admin-select"
                 required
               >
                 <option value="draft">Draft</option>
@@ -285,16 +285,16 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
 
             <div className="admin-form-group">
               <label className="admin-form-label">Featured</label>
-              <div className="flex items-center h-[42px]">
+              <div className="admin-checkbox-container">
                 <input
                   type="checkbox"
                   id="featured"
                   name="featured"
                   checked={formData.featured}
                   onChange={handleInputChange}
-                  className="w-4 h-4 rounded border-[var(--admin-border)] bg-[var(--admin-bg)] checked:bg-[var(--admin-accent)]"
+                  className="admin-checkbox"
                 />
-                <label htmlFor="featured" style={{ marginLeft: "8px", fontSize: "14px", color: "var(--admin-text-muted)" }}>
+                <label htmlFor="featured" style={{ fontSize: "14px", color: "var(--admin-text-muted)" }}>
                   Feature on homepage
                 </label>
               </div>
@@ -325,13 +325,13 @@ export default function AddServiceModal({ open, onClose, onSuccess }: AddService
               name="meta_description"
               value={formData.meta_description || ""}
               onChange={handleInputChange}
-              className="admin-form-input"
+              className="admin-textarea"
               rows={2}
               placeholder="SEO meta description..."
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-[var(--admin-border)]">
+          <div className="admin-modal-footer">
             <button
               type="button"
               onClick={handleClose}

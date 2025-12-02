@@ -206,8 +206,7 @@ export default function EditTeamMemberModal({
               onChange={handleInputChange}
               rows={3}
               placeholder="Brief description of the team member"
-              className="admin-input"
-              style={{ resize: "vertical" }}
+              className="admin-textarea"
             />
           </div>
 
@@ -293,7 +292,7 @@ export default function EditTeamMemberModal({
                 value={formData.status || "active"}
                 onChange={handleInputChange}
                 required
-                className="admin-input"
+                className="admin-select"
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -308,7 +307,7 @@ export default function EditTeamMemberModal({
               name="is_featured"
               checked={formData.is_featured || false}
               onChange={handleInputChange}
-              style={{ width: "16px", height: "16px", cursor: "pointer" }}
+              className="admin-checkbox"
             />
             <label
               htmlFor="is_featured"

@@ -182,7 +182,7 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-textarea"
               rows={4}
               required
             />
@@ -194,7 +194,7 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-select"
             >
               <option value="new">New</option>
               <option value="read">Read</option>
@@ -209,7 +209,7 @@ export const AddContactModal = ({ open, onOpenChange, onSuccess }: AddContactMod
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-textarea"
               rows={3}
               placeholder="Internal notes (not visible to the contact)"
             />

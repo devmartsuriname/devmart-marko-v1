@@ -199,7 +199,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-textarea"
               rows={4}
               required
             />
@@ -211,7 +211,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-select"
             >
               <option value="new">New</option>
               <option value="read">Read</option>
@@ -239,7 +239,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              className="admin-input"
+              className="admin-textarea"
               rows={3}
               placeholder="Internal notes (not visible to the contact)"
             />

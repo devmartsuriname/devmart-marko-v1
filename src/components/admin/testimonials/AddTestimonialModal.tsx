@@ -158,7 +158,7 @@ export const AddTestimonialModal = ({ open, onClose, onSuccess }: AddTestimonial
               Testimonial Quote <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               rows={5}
               value={formData.quote}
               onChange={(e) => setFormData({ ...formData, quote: e.target.value })}
@@ -193,7 +193,7 @@ export const AddTestimonialModal = ({ open, onClose, onSuccess }: AddTestimonial
           <div style={{ marginBottom: "16px" }}>
             <label className="admin-label">Status</label>
             <select
-              className="admin-input"
+              className="admin-select"
               value={formData.status}
               onChange={(e) =>
                 setFormData({

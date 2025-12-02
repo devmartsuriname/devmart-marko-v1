@@ -145,7 +145,7 @@ export const EditCaseStudyModal = ({ open, caseStudy, onClose, onSuccess }: Edit
               Description <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={4}
@@ -188,7 +188,7 @@ export const EditCaseStudyModal = ({ open, caseStudy, onClose, onSuccess }: Edit
           <div>
             <label className="admin-label">Results Summary</label>
             <textarea
-              className="admin-input"
+              className="admin-textarea"
               value={formData.results_summary}
               onChange={(e) => setFormData({ ...formData, results_summary: e.target.value })}
               rows={2}
@@ -200,7 +200,7 @@ export const EditCaseStudyModal = ({ open, caseStudy, onClose, onSuccess }: Edit
             <div>
               <label className="admin-label">Status</label>
               <select
-                className="admin-input"
+                className="admin-select"
                 value={formData.status}
                 onChange={(e) =>
                   setFormData({
@@ -231,7 +231,7 @@ export const EditCaseStudyModal = ({ open, caseStudy, onClose, onSuccess }: Edit
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  style={{ width: "18px", height: "18px", cursor: "pointer" }}
+                  className="admin-checkbox"
                 />
                 <span className="admin-label" style={{ marginBottom: 0 }}>Featured</span>
               </label>
