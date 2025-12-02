@@ -24,11 +24,10 @@ export const AdminHeader = ({ title, onToggleSidebar }: AdminHeaderProps) => {
       <div className="admin-header-left">
         <button
           onClick={onToggleSidebar}
-          className="admin-btn admin-btn-ghost"
-          style={{ padding: "8px" }}
+          className="admin-btn admin-btn-ghost admin-btn-icon"
           aria-label="Toggle sidebar"
         >
-          <Menu size={20} />
+          <Menu className="admin-icon-20" />
         </button>
         <h1 className="admin-header-title">{title}</h1>
       </div>
@@ -37,12 +36,11 @@ export const AdminHeader = ({ title, onToggleSidebar }: AdminHeaderProps) => {
         <div className="admin-avatar">{userInitials}</div>
         <button
           onClick={handleSignOut}
-          className="admin-btn admin-btn-ghost"
-          style={{ padding: "8px" }}
+          className="admin-btn admin-btn-ghost admin-btn-icon"
           aria-label="Sign out"
           title="Sign out"
         >
-          <LogOut size={18} />
+          <LogOut className="admin-icon-20" />
         </button>
       </div>
     </header>

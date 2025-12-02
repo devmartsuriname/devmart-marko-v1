@@ -31,10 +31,10 @@ export const AdminThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="admin-btn admin-btn-ghost"
+      className="admin-btn admin-btn-ghost admin-btn-icon"
       aria-label="Toggle theme"
     >
-      {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      {isDark ? <Sun className="admin-icon-20" /> : <Moon className="admin-icon-20" />}
     </button>
   );
 };
