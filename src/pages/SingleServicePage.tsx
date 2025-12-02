@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getServiceBySlug, getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const SingleServicePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -97,6 +99,25 @@ const SingleServicePage = () => {
 
   return (
     <>
+      <SEO
+        title={service.meta_title || `${service.name} | Devmart Suriname`}
+        description={service.meta_description || service.short_description || service.description}
+        canonical={canonical(`/services/${service.slug}`)}
+        type="service"
+        image={service.icon || undefined}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": service.name,
+          "description": service.short_description || service.description,
+          "provider": {
+            "@type": "Organization",
+            "name": "Devmart Suriname"
+          },
+          "url": canonical(`/services/${service.slug}`),
+          "image": service.icon || undefined
+        }}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

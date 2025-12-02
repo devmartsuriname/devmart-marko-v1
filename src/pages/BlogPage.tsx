@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const BlogPage = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -38,6 +40,13 @@ const BlogPage = () => {
 
   return (
     <>
+      <SEO
+        title="Blog | Devmart Suriname"
+        description="Insights, tutorials, and updates from the Devmart team. Stay informed about web development trends, best practices, and technology innovations."
+        canonical={canonical("/blog")}
+        type="website"
+        keywords={["web development blog", "tech insights suriname", "software development tips"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

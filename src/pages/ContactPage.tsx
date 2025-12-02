@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { createContactSubmission } from "@/integrations/supabase/queries/contactSubmissions";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -70,6 +72,31 @@ const ContactPage = () => {
 
   return (
     <>
+      <SEO
+        title="Contact Us | Devmart Suriname"
+        description="Get in touch with Devmart. Based in Paramaribo, Suriname. Email: info@devmart.sr | Phone: +597 854-1211"
+        canonical={canonical("/contact")}
+        type="website"
+        keywords={["contact devmart", "web development suriname contact", "paramaribo software company"]}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Devmart Suriname",
+          "description": "Get in touch with Devmart for web development services",
+          "provider": {
+            "@type": "Organization",
+            "name": "Devmart Suriname",
+            "telephone": "+597-854-1211",
+            "email": "info@devmart.sr",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Jagernath Lachmon straat nr. 152",
+              "addressLocality": "Paramaribo",
+              "addressCountry": "SR"
+            }
+          }
+        }}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

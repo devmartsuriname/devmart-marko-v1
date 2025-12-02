@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { getPublishedCaseStudies, type CaseStudy } from "@/integrations/supabase/queries/caseStudies";
 import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
 import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const HomePage = () => {
   const [homeCaseStudies, setHomeCaseStudies] = useState<CaseStudy[]>([]);
@@ -38,6 +40,32 @@ const HomePage = () => {
 
   return (
     <>
+      <SEO
+        title="Devmart Suriname | Web Development & Tech Solutions"
+        description="Professional web applications, government portals, AI tools, and enterprise systems. Based in Paramaribo, Suriname."
+        canonical={canonical("/")}
+        type="website"
+        keywords={["web development", "government portals", "enterprise systems", "AI tools", "Suriname", "Paramaribo"]}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Devmart Suriname",
+          "url": canonical("/"),
+          "description": "Professional web applications, government portals, AI tools, and enterprise systems",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Jagernath Lachmon straat nr. 152",
+            "addressLocality": "Paramaribo",
+            "addressCountry": "SR"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+597-854-1211",
+            "contactType": "Customer Service",
+            "email": "info@devmart.sr"
+          }
+        }}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div

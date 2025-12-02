@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPublishedCaseStudies, type CaseStudy } from "@/integrations/supabase/queries/caseStudies";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const CaseStudiesPage = () => {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
@@ -47,6 +49,14 @@ const CaseStudiesPage = () => {
 
   return (
     <>
+      <SEO
+        title="Case Studies | Devmart Suriname"
+        description="Real-world projects showcasing our impact across industries. Explore successful web applications, government portals, and enterprise systems we've delivered."
+        canonical={canonical("/case-studies")}
+        type="website"
+        keywords={["web development portfolio", "project case studies suriname", "successful implementations"]}
+      />
+      {/* Section Banner */}
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

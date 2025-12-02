@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPublishedTestimonials, type Testimonial } from "@/integrations/supabase/queries/testimonials";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const TestimonialsPage = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -28,6 +30,13 @@ const TestimonialsPage = () => {
   }, []);
   return (
     <>
+      <SEO
+        title="Testimonials | Devmart Suriname"
+        description="What our clients say about working with Devmart. Read testimonials from satisfied businesses across Suriname and beyond."
+        canonical={canonical("/testimonials")}
+        type="website"
+        keywords={["client testimonials suriname", "web development reviews", "customer feedback"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

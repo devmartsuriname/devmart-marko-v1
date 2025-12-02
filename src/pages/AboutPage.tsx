@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getActiveTeamMembers, type TeamMember } from "@/integrations/supabase/queries/teamMembers";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const AboutPage = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -29,6 +31,13 @@ const AboutPage = () => {
 
   return (
     <>
+      <SEO
+        title="About Us | Devmart Suriname"
+        description="Learn about Devmart's mission to deliver innovative web solutions across Suriname and beyond. Our team of skilled developers and designers brings your digital vision to life."
+        canonical={canonical("/about")}
+        type="website"
+        keywords={["about devmart", "web development company suriname", "software development team"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

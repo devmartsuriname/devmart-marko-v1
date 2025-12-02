@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBlogPostBySlug, getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
+import { SEO } from "@/components/SEO";
+import { canonical, truncate } from "@/utils/seo";
 
 const SinglePostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -96,6 +98,31 @@ const SinglePostPage = () => {
 
   return (
     <>
+      <SEO
+        title={post.meta_title || `${post.title} | Devmart Blog`}
+        description={post.meta_description || post.excerpt || truncate(post.content, 160)}
+        canonical={canonical(`/blog/${post.slug}`)}
+        type="article"
+        publishedAt={post.published_at || undefined}
+        image={post.featured_image || undefined}
+        keywords={post.tags || undefined}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "image": post.featured_image,
+          "datePublished": post.published_at,
+          "description": post.excerpt || truncate(post.content, 160),
+          "author": {
+            "@type": "Person",
+            "name": "Devmart Team"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Devmart Suriname"
+          }
+        }}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">
