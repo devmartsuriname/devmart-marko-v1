@@ -125,6 +125,12 @@
   text-decoration: none;
 }
 
+.admin-sidebar-logo-img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+}
+
 .admin-sidebar-nav {
   flex: 1;
   padding: 20px 0;
@@ -758,6 +764,13 @@
 .auth-logo {
   text-align: center;
   margin-bottom: 32px;
+}
+
+.auth-logo-img {
+  max-width: 200px;
+  height: auto;
+  margin: 0 auto 16px auto;
+  display: block;
 }
 
 .auth-title {

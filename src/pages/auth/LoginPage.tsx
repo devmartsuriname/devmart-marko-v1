@@ -30,7 +30,11 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-logo">
-          <h1 className="auth-title">Devmart Admin</h1>
+          <img 
+            src="/marko-digital-marketing-agency-html/image/devmart-logo.png" 
+            alt="Devmart Admin" 
+            className="auth-logo-img"
+          />
           <p className="auth-description">
             Sign in to manage your Devmart content
           </p>
