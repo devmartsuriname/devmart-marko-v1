@@ -1,6 +1,41 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getPublishedCaseStudies, type CaseStudy } from "@/integrations/supabase/queries/caseStudies";
+import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/queries/blogPosts";
+import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
 
 const HomePage = () => {
+  const [homeCaseStudies, setHomeCaseStudies] = useState<CaseStudy[]>([]);
+  const [homeBlogPosts, setHomeBlogPosts] = useState<BlogPost[]>([]);
+  const [homePricingPlans, setHomePricingPlans] = useState<PricingPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHomeData = async () => {
+      setIsLoading(true);
+      try {
+        const [
+          { data: caseStudiesData },
+          { data: blogData },
+          { data: pricingData },
+        ] = await Promise.all([
+          getPublishedCaseStudies(),
+          getPublishedBlogPosts(),
+          getPublishedPricingPlans(),
+        ]);
+        
+        setHomeCaseStudies((caseStudiesData || []).slice(0, 4));
+        setHomeBlogPosts((blogData || []).slice(0, 3));
+        setHomePricingPlans((pricingData || []).slice(0, 3));
+      } catch (error) {
+        console.error("Error fetching home data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchHomeData();
+  }, []);
+
   return (
     <>
       {/* Section Banner */}
@@ -682,159 +717,107 @@ const HomePage = () => {
               </div>
             </div>
             <div className="d-flex flex-column gspace-2">
-              <div className="d-flex flex-column flex-xl-row gspace-2">
-                <div
-                  className="card case-studies-content local-business animate-box animated fast animate__animated"
-                  data-animate="animate__fadeInUp"
-                >
-                  <div className="case-studies-component large align-self-end justify-content-end align-items-end">
-                    <div className="cs-component">
-                      <a href="#">React</a>
+              {isLoading ? (
+                <>
+                  <div className="d-flex flex-column flex-xl-row gspace-2">
+                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>Loading case studies...</h4>
+                      </div>
                     </div>
-                    <div className="cs-component">
-                      <a href="#">Supabase</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Portal</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Gov-Tech</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Forms</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">PDF</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Auth</a>
+                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>Loading...</h4>
+                      </div>
                     </div>
                   </div>
-                  <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title">
-                      <h4>Housing Subsidy Application Portal</h4>
-                    </a>
-                    <p>
-                      Streamlined application processing for 5,000+ citizens with automated eligibility checks and
-                      real-time status tracking.
-                    </p>
+                  <div className="d-flex flex-column flex-xl-row gspace-2">
+                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>Loading...</h4>
+                      </div>
+                    </div>
+                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>Loading...</h4>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="card case-studies-content saas-leads animate-box animated animate__animated"
-                  data-animate="animate__fadeInUp"
-                >
-                  <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title">
-                      <h4>Immigration Case Management System</h4>
-                    </a>
-                    <p>
-                      Complete case workflow digitalization for 2,000+ applications per month with document management
-                      and approval tracking.
-                    </p>
-                  </div>
-                  <div className="case-studies-component small align-self-end justify-content-end align-items-end">
-                    <div className="cs-component">
-                      <a href="#">Workflow</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Dashboard</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">CMS</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Documents</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Reports</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Multi-user</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Secure</a>
+                </>
+              ) : homeCaseStudies.length === 0 ? (
+                <div className="d-flex flex-column gspace-2">
+                  <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                    <div className="d-flex flex-column gspace-2">
+                      <h4>No case studies available</h4>
+                      <p>Check back soon for our latest projects and success stories.</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="d-flex flex-column flex-xl-row gspace-2">
-                <div
-                  className="card case-studies-content ecommerce animate-box animated fast animate__animated"
-                  data-animate="animate__fadeInUp"
-                >
-                  <div className="case-studies-component small align-self-start justify-content-start align-items-start">
-                    <div className="cs-component">
-                      <a href="#">Website</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">CMS</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Responsive</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">SEO</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Accessibility</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Fast</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Secure</a>
-                    </div>
+              ) : (
+                <>
+                  <div className="d-flex flex-column flex-xl-row gspace-2">
+                    {homeCaseStudies.slice(0, 2).map((cs, idx) => (
+                      <div
+                        key={cs.id}
+                        className={`card case-studies-content ${idx === 0 ? 'local-business animate-box animated fast' : 'saas-leads animate-box animated'} animate__animated`}
+                        data-animate="animate__fadeInUp"
+                      >
+                        {idx === 0 && cs.tags && cs.tags.length > 0 && (
+                          <div className="case-studies-component large align-self-end justify-content-end align-items-end">
+                            {cs.tags.slice(0, 7).map((tag, i) => (
+                              <div key={i} className="cs-component">
+                                <a href="#">{tag}</a>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <div className="d-flex flex-column gspace-2">
+                          <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
+                            <h4>{cs.title}</h4>
+                          </Link>
+                          <p>{cs.description}</p>
+                        </div>
+                        {idx === 1 && cs.tags && cs.tags.length > 0 && (
+                          <div className="case-studies-component small align-self-end justify-content-end align-items-end">
+                            {cs.tags.slice(0, 7).map((tag, i) => (
+                              <div key={i} className="cs-component">
+                                <a href="#">{tag}</a>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                  <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title">
-                      <h4>High-Profile Government Website</h4>
-                    </a>
-                    <p>
-                      Modern, accessible website meeting WCAG standards with multilingual support and content management
-                      for public communications.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className="card case-studies-content startup-branding animate-box animated animate__animated"
-                  data-animate="animate__fadeInUp"
-                >
-                  <div className="d-flex flex-column gspace-2">
-                    <a href="#" className="case-studies-title">
-                      <h4>SME Digital Transformation Platform</h4>
-                    </a>
-                    <p>
-                      Custom business platform with CRM, inventory management, and reporting dashboards—driving 200%
-                      operational efficiency improvement.
-                    </p>
-                  </div>
-                  <div className="case-studies-component large align-self-start justify-content-start align-items-start">
-                    <div className="cs-component">
-                      <a href="#">SaaS</a>
+                  {homeCaseStudies.length > 2 && (
+                    <div className="d-flex flex-column flex-xl-row gspace-2">
+                      {homeCaseStudies.slice(2, 4).map((cs, idx) => (
+                        <div
+                          key={cs.id}
+                          className={`card case-studies-content ${idx === 0 ? 'ecommerce animate-box animated fast' : 'startup-branding animate-box animated'} animate__animated`}
+                          data-animate="animate__fadeInUp"
+                        >
+                          {cs.tags && cs.tags.length > 0 && (
+                            <div className={`case-studies-component ${idx === 0 ? 'small' : 'large'} align-self-start justify-content-start align-items-start`}>
+                              {cs.tags.slice(0, 7).map((tag, i) => (
+                                <div key={i} className="cs-component">
+                                  <a href="#">{tag}</a>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          <div className="d-flex flex-column gspace-2">
+                            <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
+                              <h4>{cs.title}</h4>
+                            </Link>
+                            <p>{cs.description}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="cs-component">
-                      <a href="#">Multi-tenant</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">API</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Real-time</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Analytics</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Integration</a>
-                    </div>
-                    <div className="cs-component">
-                      <a href="#">Scalable</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  )}
+                </>
+              )}
             </div>
             <div className="spacer"></div>
           </div>
@@ -1363,171 +1346,193 @@ const HomePage = () => {
               </h2>
             </div>
             <div className="row row-cols-xl-3 row-cols-1 grid-spacer-2">
-              {/* Column 1: Consultation + Starter */}
-              <div className="col">
-                <div className="pricing-container">
-                  <div
-                    className="card card-pricing-title animate-box animated animate__animated"
-                    data-animate="animate__fadeInLeft"
-                  >
-                    <div className="spacer"></div>
-                    <div className="content">
-                      <h3 className="title-heading">Let's Find the Right Solution for You!</h3>
-                      <div className="link-wrapper">
-                        <Link to="/contact">Book a Free Consultation</Link>
-                        <i className="fa-solid fa-arrow-circle-right"></i>
-                      </div>
+              {isLoading ? (
+                <>
+                  <div className="col">
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>Loading pricing plans...</h4>
                     </div>
                   </div>
-                  <div
-                    className="card card-pricing animate-box animated animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
-                    <h4>Starter Website</h4>
-                    <p>Perfect for businesses needing a web presence</p>
-                    <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>$99</h3>
-                      <p>/Month</p>
+                  <div className="col">
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>Loading...</h4>
                     </div>
-                    <Link to="/pricing" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                    <ul className="check-list">
-                      <li>
-                        <Link to="/services">Single-Page Website</Link>
-                      </li>
-                      <li>
-                        <Link to="/services">Basic SEO & Responsive Design</Link>
-                      </li>
-                      <li>
-                        <Link to="/services">Contact Form</Link>
-                      </li>
-                    </ul>
+                  </div>
+                  <div className="col">
+                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <h4>Loading...</h4>
+                    </div>
+                  </div>
+                </>
+              ) : homePricingPlans.length === 0 ? (
+                <div className="col">
+                  <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                    <h4>Pricing information coming soon</h4>
+                    <p>Please contact us for custom pricing.</p>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <>
+                  {/* Column 1: Consultation + First Plan */}
+                  <div className="col">
+                    <div className="pricing-container">
+                      <div
+                        className="card card-pricing-title animate-box animated animate__animated"
+                        data-animate="animate__fadeInLeft"
+                      >
+                        <div className="spacer"></div>
+                        <div className="content">
+                          <h3 className="title-heading">Let's Find the Right Solution for You!</h3>
+                          <div className="link-wrapper">
+                            <Link to="/contact">Book a Free Consultation</Link>
+                            <i className="fa-solid fa-arrow-circle-right"></i>
+                          </div>
+                        </div>
+                      </div>
+                      {homePricingPlans[0] && (
+                        <div
+                          className="card card-pricing animate-box animated animate__animated"
+                          data-animate="animate__fadeInUp"
+                        >
+                          <h4>{homePricingPlans[0].name}</h4>
+                          <p>{homePricingPlans[0].description}</p>
+                          <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                            <h3>${homePricingPlans[0].price}</h3>
+                            <p>/{homePricingPlans[0].billing_period === 'month' ? 'Month' : homePricingPlans[0].billing_period === 'year' ? 'Year' : 'One-time'}</p>
+                          </div>
+                          <Link to="/pricing" className="btn btn-accent">
+                            <div className="btn-title">
+                              <span>View Details</span>
+                            </div>
+                            <div className="icon-circle">
+                              <i className="fa-solid fa-arrow-right"></i>
+                            </div>
+                          </Link>
+                          {homePricingPlans[0].features && Array.isArray(homePricingPlans[0].features) && (
+                            <ul className="check-list">
+                              {homePricingPlans[0].features.slice(0, 3).map((feature, i) => (
+                                <li key={i}>
+                                  <Link to="/services">{feature}</Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-              {/* Column 2: Enterprise (Highlighted) */}
-              <div className="col">
-                <div
-                  className="card card-pricing pricing-highlight animate-box animated slow animate__animated"
-                  data-animate="animate__fadeInUp"
-                >
-                  <div className="spacer"></div>
-                  <h4>Government/Enterprise</h4>
-                  <p>Full portal & application development</p>
-                  <div className="d-flex flex-row gspace-1 align-items-center">
-                    <h3>$399</h3>
-                    <p>/Month</p>
-                  </div>
-                  <Link to="/pricing" className="btn btn-accent">
-                    <div className="btn-title">
-                      <span>View Details</span>
+                  {/* Column 2: Second Plan (Highlighted if marked) */}
+                  {homePricingPlans[1] && (
+                    <div className="col">
+                      <div
+                        className={`card card-pricing ${homePricingPlans[1].highlighted ? 'pricing-highlight' : ''} animate-box animated ${homePricingPlans[1].highlighted ? 'slow' : ''} animate__animated`}
+                        data-animate="animate__fadeInUp"
+                      >
+                        <div className="spacer"></div>
+                        <h4>{homePricingPlans[1].name}</h4>
+                        <p>{homePricingPlans[1].description}</p>
+                        <div className="d-flex flex-row gspace-1 align-items-center">
+                          <h3>${homePricingPlans[1].price}</h3>
+                          <p>/{homePricingPlans[1].billing_period === 'month' ? 'Month' : homePricingPlans[1].billing_period === 'year' ? 'Year' : 'One-time'}</p>
+                        </div>
+                        <Link to="/pricing" className="btn btn-accent">
+                          <div className="btn-title">
+                            <span>View Details</span>
+                          </div>
+                          <div className="icon-circle">
+                            <i className="fa-solid fa-arrow-right"></i>
+                          </div>
+                        </Link>
+                        {homePricingPlans[1].highlighted && (
+                          <div className="core-benefits">
+                            <div className="benefit">
+                              <i className="fa-solid fa-brain"></i>
+                              <a href="#">Dedicated Account Manager</a>
+                            </div>
+                            <div className="benefit">
+                              <i className="fa-brands fa-accessible-icon"></i>
+                              <a href="#">Priority Support 24/7</a>
+                            </div>
+                            <div className="benefit">
+                              <i className="fa-solid fa-bug"></i>
+                              <a href="#">Customized Growth Strategy</a>
+                            </div>
+                          </div>
+                        )}
+                        {homePricingPlans[1].features && Array.isArray(homePricingPlans[1].features) && (
+                          <ul className="check-list">
+                            {homePricingPlans[1].features.map((feature, i) => (
+                              <li key={i}>
+                                <a href="#">{feature}</a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     </div>
-                    <div className="icon-circle">
-                      <i className="fa-solid fa-arrow-right"></i>
-                    </div>
-                  </Link>
-                  <div className="core-benefits">
-                    <div className="benefit">
-                      <i className="fa-solid fa-brain"></i>
-                      <a href="#">Dedicated Account Manager</a>
-                    </div>
-                    <div className="benefit">
-                      <i className="fa-brands fa-accessible-icon"></i>
-                      <a href="#">Priority Support 24/7</a>
-                    </div>
-                    <div className="benefit">
-                      <i className="fa-solid fa-bug"></i>
-                      <a href="#">Customized Growth Strategy</a>
-                    </div>
-                  </div>
-                  <ul className="check-list">
-                    <li>
-                      <a href="#">Complete Portal/App Development</a>
-                    </li>
-                    <li>
-                      <a href="#">Admin Dashboard & CMS</a>
-                    </li>
-                    <li>
-                      <a href="#">AI Features & Automation</a>
-                    </li>
-                    <li>
-                      <a href="#">Multi-user & Role Management</a>
-                    </li>
-                    <li>
-                      <a href="#">Dedicated Support Team</a>
-                    </li>
-                    <li>
-                      <a href="#">Weekly Progress Reports</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                  )}
 
-              {/* Column 3: Your Growth + Growth Plan */}
-              <div className="col">
-                <div className="pricing-container">
-                  <div
-                    className="card pricing-highlight-box animate-box animated animate__animated"
-                    data-animate="animate__fadeInRight"
-                  >
-                    <div className="d-flex flex-column gspace-2 w-100">
-                      <h5>Your Growth, Our Priority!</h5>
-                      <div className="d-flex flex-column gspace-2">
-                        <div className="pricing-highlights">
-                          <a href="#">Modern Tech Stack (React + Supabase)</a>
-                          <i className="fa-solid fa-arrow-circle-right"></i>
+                  {/* Column 3: Your Growth + Third Plan */}
+                  {homePricingPlans[2] && (
+                    <div className="col">
+                      <div className="pricing-container">
+                        <div
+                          className="card pricing-highlight-box animate-box animated animate__animated"
+                          data-animate="animate__fadeInRight"
+                        >
+                          <div className="d-flex flex-column gspace-2 w-100">
+                            <h5>Your Growth, Our Priority!</h5>
+                            <div className="d-flex flex-column gspace-2">
+                              <div className="pricing-highlights">
+                                <a href="#">Modern Tech Stack (React + Supabase)</a>
+                                <i className="fa-solid fa-arrow-circle-right"></i>
+                              </div>
+                              <div className="pricing-highlights">
+                                <a href="#">Proven Architecture for Scalability</a>
+                                <i className="fa-solid fa-arrow-circle-right"></i>
+                              </div>
+                              <div className="pricing-highlights">
+                                <a href="#">Flexible Solutions for Any Business</a>
+                                <i className="fa-solid fa-arrow-circle-right"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="spacer"></div>
                         </div>
-                        <div className="pricing-highlights">
-                          <a href="#">Proven Architecture for Scalability</a>
-                          <i className="fa-solid fa-arrow-circle-right"></i>
-                        </div>
-                        <div className="pricing-highlights">
-                          <a href="#">Flexible Solutions for Any Business</a>
-                          <i className="fa-solid fa-arrow-circle-right"></i>
+                        <div
+                          className="card card-pricing animate-box animated animate__animated"
+                          data-animate="animate__fadeInUp"
+                        >
+                          <h4>{homePricingPlans[2].name}</h4>
+                          <p>{homePricingPlans[2].description}</p>
+                          <div className="d-flex flex-row gspace-1 align-items-center h-100">
+                            <h3>${homePricingPlans[2].price}</h3>
+                            <p>/{homePricingPlans[2].billing_period === 'month' ? 'Month' : homePricingPlans[2].billing_period === 'year' ? 'Year' : 'One-time'}</p>
+                          </div>
+                          <Link to="/pricing" className="btn btn-accent">
+                            <div className="btn-title">
+                              <span>View Details</span>
+                            </div>
+                            <div className="icon-circle">
+                              <i className="fa-solid fa-arrow-right"></i>
+                            </div>
+                          </Link>
+                          {homePricingPlans[2].features && Array.isArray(homePricingPlans[2].features) && (
+                            <ul className="check-list">
+                              {homePricingPlans[2].features.slice(0, 3).map((feature, i) => (
+                                <li key={i}>
+                                  <Link to="/services">{feature}</Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="spacer"></div>
-                  </div>
-                  <div
-                    className="card card-pricing animate-box animated animate__animated"
-                    data-animate="animate__fadeInUp"
-                  >
-                    <h4>Business Platform</h4>
-                    <p>Best for growing businesses</p>
-                    <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                      <h3>$299</h3>
-                      <p>/Month</p>
-                    </div>
-                    <Link to="/pricing" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                    <ul className="check-list">
-                      <li>
-                        <Link to="/services">Multi-Page Website</Link>
-                      </li>
-                      <li>
-                        <Link to="/services">Custom Design & CMS Integration</Link>
-                      </li>
-                      <li>
-                        <Link to="/services">Analytics & Reporting</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -1630,72 +1635,75 @@ const HomePage = () => {
               </div>
             </div>
             <div className="row row-cols-md-2 row-cols-1 grid-spacer-3">
-              <div className="col">
-                <div
-                  className="card card-blog animate-box animated animate__animated"
-                  data-animate="animate__fadeInUp"
-                  onClick={() => (window.location.href = "/blog/instagram-facebook-ads")}
-                >
-                  <div className="blog-image">
-                    <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Blog Image" />
-                  </div>
-                  <div className="card-body">
-                    <div className="d-flex flex-row gspace-2">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data">April 14, 2025</span>
-                      </div>
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">Social Media</span>
+              {isLoading ? (
+                <>
+                  <div className="col">
+                    <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="card-body">
+                        <h4>Loading blog posts...</h4>
                       </div>
                     </div>
-                    <Link to="/blog/ai-government-services" className="blog-link">
-                      How AI is Transforming Government Services
-                    </Link>
-                    <p>
-                      Exploring how artificial intelligence is revolutionizing public sector operations, from automated
-                      document processing to predictive analytics for policy planning.
-                    </p>
-                    <Link to="/blog/ai-government-services" className="read-more">
-                      Read More
-                    </Link>
                   </div>
-                </div>
-              </div>
-              <div className="col">
-                <div
-                  className="card card-blog animate-box animated animate__animated"
-                  data-animate="animate__fadeInUp"
-                  onClick={() => (window.location.href = "/blog/secure-enterprise-portals")}
-                >
-                  <div className="blog-image">
-                    <img src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg" alt="Blog Image" />
-                  </div>
-                  <div className="card-body">
-                    <div className="d-flex flex-row gspace-2">
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-calendar accent-color"></i>
-                        <span className="meta-data">April 14, 2025</span>
-                      </div>
-                      <div className="d-flex flex-row gspace-1 align-items-center">
-                        <i className="fa-solid fa-folder accent-color"></i>
-                        <span className="meta-data">Security</span>
+                  <div className="col">
+                    <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="card-body">
+                        <h4>Loading...</h4>
                       </div>
                     </div>
-                    <Link to="/blog/secure-enterprise-portals" className="blog-link">
-                      Building Secure Portals for Enterprise
-                    </Link>
-                    <p>
-                      Best practices for developing enterprise-grade portals with robust authentication, encryption, and
-                      compliance standards for sensitive data handling.
-                    </p>
-                    <Link to="/blog/secure-enterprise-portals" className="read-more">
-                      Read More
-                    </Link>
+                  </div>
+                </>
+              ) : homeBlogPosts.length === 0 ? (
+                <div className="col">
+                  <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                    <div className="card-body">
+                      <h4>No blog posts available</h4>
+                      <p>Check back soon for our latest insights and articles.</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                homeBlogPosts.slice(0, 2).map((post) => (
+                  <div key={post.id} className="col">
+                    <div
+                      className="card card-blog animate-box animated animate__animated"
+                      data-animate="animate__fadeInUp"
+                      onClick={() => (window.location.href = `/blog/${post.slug}`)}
+                    >
+                      <div className="blog-image">
+                        <img 
+                          src={post.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
+                          alt={post.title} 
+                        />
+                      </div>
+                      <div className="card-body">
+                        <div className="d-flex flex-row gspace-2">
+                          <div className="d-flex flex-row gspace-1 align-items-center">
+                            <i className="fa-solid fa-calendar accent-color"></i>
+                            <span className="meta-data">
+                              {post.published_at 
+                                ? new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                                : 'Recently Published'}
+                            </span>
+                          </div>
+                          <div className="d-flex flex-row gspace-1 align-items-center">
+                            <i className="fa-solid fa-folder accent-color"></i>
+                            <span className="meta-data">{post.category || 'General'}</span>
+                          </div>
+                        </div>
+                        <Link to={`/blog/${post.slug}`} className="blog-link">
+                          {post.title}
+                        </Link>
+                        <p>
+                          {post.excerpt || post.content?.substring(0, 150) + '...'}
+                        </p>
+                        <Link to={`/blog/${post.slug}`} className="read-more">
+                          Read More
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
