@@ -34,7 +34,11 @@ export const AdminSidebar = ({ isOpen }: AdminSidebarProps) => {
     <aside className={`admin-sidebar ${isOpen ? "" : "collapsed"}`}>
       <div className="admin-sidebar-header">
         <a href="/admin" className="admin-sidebar-logo">
-          Devmart Admin
+          <img 
+            src="/marko-digital-marketing-agency-html/image/devmart-logo.png" 
+            alt="Devmart Admin" 
+            className="admin-sidebar-logo-img"
+          />
         </a>
       </div>
       <nav className="admin-sidebar-nav">
