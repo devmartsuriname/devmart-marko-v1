@@ -73,7 +73,7 @@ export default function DeleteServiceDialog({ service, open, onClose, onSuccess 
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div style={{ display: "grid", gap: "1rem" }}>
           {error && (
             <div className="admin-alert admin-alert-error">
               {error}
@@ -88,7 +88,7 @@ export default function DeleteServiceDialog({ service, open, onClose, onSuccess 
             ?
           </p>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-[var(--admin-border)]">
+          <div className="admin-modal-footer">
             <button
               type="button"
               onClick={handleClose}

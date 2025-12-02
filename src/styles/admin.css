@@ -434,6 +434,54 @@
   box-shadow: 0 0 0 3px var(--admin-accent-muted);
 }
 
+/* ========================================
+   Admin Form Layout Utilities (Phase 3A)
+   ======================================== */
+.admin-modal-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-form-row {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 42px;
+}
+
+.admin-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--admin-accent);
+}
+
+.admin-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--admin-border);
+}
+
 /* Required field indicator */
 .admin-required {
   color: var(--admin-error);
