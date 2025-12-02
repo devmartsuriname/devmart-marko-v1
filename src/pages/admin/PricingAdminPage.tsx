@@ -105,7 +105,7 @@ export default function PricingAdminPage() {
           </div>
         </div>
         <div className="admin-card">
-          <div className="admin-table-empty" style={{ color: "var(--admin-error, #ef4444)" }}>
+          <div className="admin-table-empty" style={{ color: "var(--admin-error)" }}>
             Error loading pricing plans: {error}
           </div>
         </div>

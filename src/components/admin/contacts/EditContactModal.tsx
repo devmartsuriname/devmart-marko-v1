@@ -102,7 +102,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
           borderRadius: '0.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--admin-shadow-lg)',
           color: "var(--admin-text)",
           overflowY: "auto",
         }}
@@ -114,7 +114,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div>
               <label className="admin-label">
-                First Name <span style={{ color: "var(--admin-destructive)" }}>*</span>
+                First Name <span style={{ color: "var(--admin-error)" }}>*</span>
               </label>
               <input
                 type="text"
@@ -127,7 +127,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
             </div>
             <div>
               <label className="admin-label">
-                Last Name <span style={{ color: "var(--admin-destructive)" }}>*</span>
+                Last Name <span style={{ color: "var(--admin-error)" }}>*</span>
               </label>
               <input
                 type="text"
@@ -142,7 +142,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
 
           <div>
             <label className="admin-label">
-              Email <span style={{ color: "var(--admin-destructive)" }}>*</span>
+              Email <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="email"
@@ -179,7 +179,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
 
           <div>
             <label className="admin-label">
-              Subject <span style={{ color: "var(--admin-destructive)" }}>*</span>
+              Subject <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <input
               type="text"
@@ -193,7 +193,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
 
           <div>
             <label className="admin-label">
-              Message <span style={{ color: "var(--admin-destructive)" }}>*</span>
+              Message <span style={{ color: "var(--admin-error)" }}>*</span>
             </label>
             <textarea
               name="message"
@@ -228,7 +228,7 @@ export const EditContactModal = ({ open, onOpenChange, onSuccess, contact }: Edi
                 value={new Date(formData.responded_at).toLocaleString()}
                 className="admin-input"
                 disabled
-                style={{ backgroundColor: "var(--admin-bg-muted)", cursor: "not-allowed" }}
+                style={{ backgroundColor: "var(--admin-bg-tertiary)", cursor: "not-allowed", opacity: 0.7 }}
               />
             </div>
           )}

@@ -53,12 +53,12 @@ export const DeleteContactDialog = ({ open, onOpenChange, onSuccess, contact }: 
           backgroundColor: "var(--admin-bg-secondary)",
           border: "1px solid var(--admin-border)",
           borderRadius: '0.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--admin-shadow-lg)',
           color: "var(--admin-text)",
         }}
       >
         <DialogHeader>
-          <DialogTitle style={{ fontSize: "18px", fontWeight: 600, color: "var(--admin-destructive)" }}>
+          <DialogTitle style={{ fontSize: "18px", fontWeight: 600, color: "var(--admin-error)" }}>
             Delete Contact Submission
           </DialogTitle>
           <DialogDescription style={{ color: "var(--admin-text-muted)", marginTop: "0.5rem" }}>

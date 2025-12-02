@@ -63,10 +63,10 @@ export const DeleteTestimonialDialog = ({
           overflowY: "auto",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-lg)",
           borderRadius: "8px",
         }}
       >
@@ -81,9 +81,9 @@ export const DeleteTestimonialDialog = ({
             </div>
           )}
 
-          <p style={{ marginBottom: "24px", color: "var(--admin-text-secondary)" }}>
+          <p style={{ marginBottom: "24px", color: "var(--admin-text-muted)" }}>
             Are you sure you want to delete the testimonial from{" "}
-            <strong style={{ color: "var(--admin-text-primary)" }}>
+            <strong style={{ color: "var(--admin-text)" }}>
               {testimonial.author_name}
             </strong>
             ? This action cannot be undone.
@@ -101,7 +101,7 @@ export const DeleteTestimonialDialog = ({
             <button
               type="button"
               onClick={handleDelete}
-              className="admin-btn admin-btn-danger"
+              className="admin-btn admin-btn-destructive"
               disabled={isDeleting}
             >
               {isDeleting ? "Deleting..." : "Delete"}

@@ -61,10 +61,10 @@ export default function DeleteTeamMemberDialog({
           maxWidth: "500px",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-lg)",
           borderRadius: "8px",
         }}
       >
@@ -75,48 +75,23 @@ export default function DeleteTeamMemberDialog({
         </DialogHeader>
 
         <div style={{ display: "grid", gap: "1rem" }}>
-          <p style={{ fontSize: "0.875rem", lineHeight: "1.5", color: "rgba(255,255,255,0.8)" }}>
-            Are you sure you want to remove <strong>{member.full_name}</strong> from the team list?
+          <p style={{ fontSize: "0.875rem", lineHeight: "1.5", color: "var(--admin-text-muted)" }}>
+            Are you sure you want to remove <strong style={{ color: "var(--admin-text)" }}>{member.full_name}</strong> from the team list?
             This will remove them from the public Team section.
           </p>
 
           {error && (
-            <div
-              style={{
-                padding: "0.75rem",
-                backgroundColor: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                borderRadius: "4px",
-                color: "#f87171",
-                fontSize: "0.875rem",
-              }}
-            >
+            <div className="admin-alert admin-alert-error">
               {error}
             </div>
           )}
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "0.75rem",
-              marginTop: "0.5rem",
-            }}
-          >
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
             <button
               type="button"
               onClick={handleClose}
               disabled={isDeleting}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "transparent",
-                border: "1px solid var(--admin-border, rgba(255,255,255,0.2))",
-                borderRadius: "4px",
-                color: "var(--admin-text, #ffffff)",
-                fontSize: "0.875rem",
-                cursor: isDeleting ? "not-allowed" : "pointer",
-                opacity: isDeleting ? 0.5 : 1,
-              }}
+              className="admin-btn admin-btn-ghost"
             >
               Cancel
             </button>
@@ -124,17 +99,7 @@ export default function DeleteTeamMemberDialog({
               type="button"
               onClick={handleDelete}
               disabled={isDeleting}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "#ef4444",
-                border: "none",
-                borderRadius: "4px",
-                color: "#ffffff",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                cursor: isDeleting ? "not-allowed" : "pointer",
-                opacity: isDeleting ? 0.7 : 1,
-              }}
+              className="admin-btn admin-btn-destructive"
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { deletePricingPlan, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
 import { toast } from "sonner";
 
@@ -60,10 +59,10 @@ export const DeletePricingPlanDialog = ({
           overflowY: "auto",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
+          boxShadow: "var(--admin-shadow-lg)",
           borderRadius: "8px",
         }}
       >
@@ -71,21 +70,21 @@ export const DeletePricingPlanDialog = ({
           <DialogTitle>Delete Pricing Plan</DialogTitle>
         </DialogHeader>
         <div>
-          <p style={{ marginBottom: "1rem" }}>
-            Are you sure you want to delete the pricing plan <strong>"{pricingPlan?.name}"</strong>?
+          <p style={{ marginBottom: "1rem", color: "var(--admin-text-muted)" }}>
+            Are you sure you want to delete the pricing plan <strong style={{ color: "var(--admin-text)" }}>"{pricingPlan?.name}"</strong>?
             This action cannot be undone.
           </p>
           <div style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-end" }}>
-            <Button variant="outline" onClick={handleClose} disabled={isDeleting}>
+            <button className="admin-btn admin-btn-ghost" onClick={handleClose} disabled={isDeleting}>
               Cancel
-            </Button>
-            <Button
-              variant="destructive"
+            </button>
+            <button
+              className="admin-btn admin-btn-destructive"
               onClick={handleDelete}
               disabled={isDeleting}
             >
               {isDeleting ? "Deleting..." : "Delete"}
-            </Button>
+            </button>
           </div>
         </div>
       </DialogContent>

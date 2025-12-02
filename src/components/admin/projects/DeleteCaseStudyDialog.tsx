@@ -54,18 +54,18 @@ export const DeleteCaseStudyDialog = ({
           maxWidth: "500px",
           gap: "1rem",
           padding: "1.5rem",
-          backgroundColor: "var(--admin-bg-secondary, #1a1a2e)",
-          color: "var(--admin-text, #ffffff)",
-          border: "1px solid var(--admin-border, rgba(255,255,255,0.1))",
+          backgroundColor: "var(--admin-bg-secondary)",
+          color: "var(--admin-text)",
+          border: "1px solid var(--admin-border)",
           borderRadius: "8px",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
+          boxShadow: "var(--admin-shadow-lg)",
         }}
       >
         <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "0.5rem" }}>
           Delete Case Study
         </h2>
-        <p style={{ fontSize: "0.95rem", color: "var(--admin-text-muted, #aaa)", lineHeight: "1.6" }}>
-          Are you sure you want to delete the case study <strong>"{caseStudy.title}"</strong>? This action
+        <p style={{ fontSize: "0.95rem", color: "var(--admin-text-muted)", lineHeight: "1.6" }}>
+          Are you sure you want to delete the case study <strong style={{ color: "var(--admin-text)" }}>"{caseStudy.title}"</strong>? This action
           cannot be undone.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end", marginTop: "0.5rem" }}>
@@ -75,12 +75,7 @@ export const DeleteCaseStudyDialog = ({
           <button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="admin-btn"
-            style={{
-              backgroundColor: "#dc2626",
-              color: "#ffffff",
-              border: "1px solid #dc2626",
-            }}
+            className="admin-btn admin-btn-destructive"
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </button>
