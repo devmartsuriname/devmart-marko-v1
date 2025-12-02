@@ -207,8 +207,8 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 | **Testimonials** | ✅ Complete | ✅ All functions | TestimonialsPage, Home, About | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
 | **Pricing Plans** | ✅ Complete | ✅ All functions | PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
 | **Case Studies** | ✅ Complete | ✅ All functions | CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
-| **Blog Posts** | ✅ Complete | ✅ 4/5 functions | BlogPage, SinglePostPage, Home | 🔴 Static JSX | ⭐ Medium |
-| **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | 🔴 Static JSX | 📋 Lower |
+| **Blog Posts** | ✅ Complete | ✅ All functions | BlogPage, SinglePostPage, Home | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
+| **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | ✅ TeamPage & AboutPage Team Section Dynamic | 🟢 Phase 6I Complete |
 | **FAQ Items** | ✅ Complete | ✅ All functions | FaqPage | 🔴 Static JSX | 📋 Lower |
 | **Contact Form** | ✅ Complete | ✅ All functions | ContactPage | 🔴 No submission | 🔥 High |
 | **Site Settings** | ✅ Complete | ✅ All functions | Footer, Header, All Pages | 🔴 Hardcoded | 🔥 High |
@@ -456,6 +456,25 @@ const [error, setError] = useState<string | null>(null);
   - `20251201194301_*` - PostgREST schema reload
 
 #### **Phase 6E: Testimonials Page** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files:** `queries/testimonials.ts`, `TestimonialsPage.tsx`
+
+#### **Phase 6F: Pricing Page** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files:** `queries/pricingPlans.ts`, `PricingPage.tsx`
+
+#### **Phase 6G: Case Studies Page** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`
+
+#### **Phase 6H: Blog Pages** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files:** `queries/blogPosts.ts`, `BlogPage.tsx`, `SinglePostPage.tsx`
+
+#### **Phase 6I: Team Pages** ✅ COMPLETE
+- **Status:** Completed 2025-12-02
+- **Files:** `queries/teamMembers.ts`, `TeamPage.tsx`, `AboutPage.tsx` (team section)
+- **Note:** HomePage team section still static (deferred to Phase 6K)
 - **Status:** Completed 2025-12-02
 - **Files Modified:**
   - `src/integrations/supabase/queries/testimonials.ts` - Added `getPublishedTestimonials()`

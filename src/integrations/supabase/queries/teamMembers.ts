@@ -55,3 +55,14 @@ export async function deleteTeamMember(id: string) {
 
   return { error };
 }
+
+export async function getActiveTeamMembers() {
+  const { data, error } = await supabase
+    .from("team_members")
+    .select("*")
+    .eq("status", "active")
+    .order("sort_order", { ascending: true })
+    .order("full_name", { ascending: true });
+
+  return { data, error };
+}
