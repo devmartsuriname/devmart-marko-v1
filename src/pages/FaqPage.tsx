@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getActiveFaqItems, type FaqItem } from "@/integrations/supabase/queries/faqItems";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const FaqPage = () => {
   const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
@@ -29,6 +31,13 @@ const FaqPage = () => {
 
   return (
     <>
+      <SEO
+        title="FAQ | Devmart Suriname"
+        description="Frequently asked questions about our web development services and process. Get answers to common questions about working with Devmart."
+        canonical={canonical("/faq")}
+        type="website"
+        keywords={["web development faq", "software development questions", "devmart services"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

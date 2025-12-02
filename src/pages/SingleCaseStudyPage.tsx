@@ -5,6 +5,8 @@ import {
   getPublishedCaseStudies,
   type CaseStudy,
 } from "@/integrations/supabase/queries/caseStudies";
+import { SEO } from "@/components/SEO";
+import { canonical, truncate } from "@/utils/seo";
 
 const SingleCaseStudyPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -108,6 +110,27 @@ const SingleCaseStudyPage = () => {
 
   return (
     <>
+      <SEO
+        title={`${caseStudy.title} | Case Study | Devmart Suriname`}
+        description={truncate(caseStudy.description, 160)}
+        canonical={canonical(`/case-studies/${caseStudy.slug}`)}
+        type="case-study"
+        image={caseStudy.featured_image || undefined}
+        keywords={caseStudy.tags}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          "name": caseStudy.title,
+          "about": caseStudy.tags?.join(", "),
+          "description": caseStudy.description,
+          "image": caseStudy.featured_image,
+          "url": canonical(`/case-studies/${caseStudy.slug}`),
+          "creator": {
+            "@type": "Organization",
+            "name": "Devmart Suriname"
+          }
+        }}
+      />
       {/* Banner Section */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

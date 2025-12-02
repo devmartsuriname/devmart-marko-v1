@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const PartnershipPage = () => {
   return (
     <>
+      <SEO
+        title="Partnership | Devmart Suriname"
+        description="Partner with Devmart for scalable tech solutions. Let's collaborate to bring your digital vision to life with cutting-edge web development."
+        canonical={canonical("/partnership")}
+        type="website"
+        keywords={["tech partnership suriname", "software development collaboration", "web development partners"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

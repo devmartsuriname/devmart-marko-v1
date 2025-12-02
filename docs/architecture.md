@@ -546,6 +546,190 @@ useEffect(() => {
 
 ---
 
+## Phase 6L: Dynamic SEO Meta Tags + OpenGraph + JSON-LD (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** Full SEO implementation across all 14 public pages  
+**Impact:** Enhanced search engine visibility, social sharing, and structured data support
+
+### Scope
+
+Implemented comprehensive SEO system including:
+- Dynamic meta tags (title, description, keywords)
+- OpenGraph tags for social media sharing
+- Twitter Card tags
+- JSON-LD structured data schemas
+- Canonical URL management
+- Default Devmart branding in index.html
+
+### New Files Created
+
+1. **`src/utils/seo.ts`** - SEO utility functions
+   - `SITE_URL` constant: "https://devmart.sr"
+   - `canonical(path: string)`: Generates full canonical URLs
+   - `truncate(text: string, maxLength: number)`: Safely truncates descriptions
+
+2. **`src/components/SEO.tsx`** - Reusable SEO component
+   - Props: title, description, keywords, image, canonical, type, publishedAt, updatedAt, schema
+   - Updates `document.title` via useEffect
+   - Creates/updates meta tags dynamically
+   - Injects JSON-LD schema scripts
+   - Cleans up on component unmount
+   - Renders null (zero UI impact)
+
+### Integration Map
+
+#### Dynamic Detail Pages (Database-Driven)
+
+| Page | Meta Source | JSON-LD Schema |
+|------|-------------|----------------|
+| SingleServicePage | `service.meta_title`, `service.meta_description` | Service |
+| SinglePostPage | `post.meta_title`, `post.excerpt` | BlogPosting |
+| SingleCaseStudyPage | `caseStudy.title`, `caseStudy.description` | CreativeWork |
+
+#### Static Pages (Hardcoded Metadata)
+
+| Page | Title | Schema Type |
+|------|-------|-------------|
+| HomePage | "Devmart Suriname \| Web Development & Tech Solutions" | Organization |
+| AboutPage | "About Us \| Devmart Suriname" | Website |
+| ServicesPage | "Our Services \| Devmart Suriname" | Website |
+| BlogPage | "Blog \| Devmart Suriname" | Website |
+| CaseStudiesPage | "Case Studies \| Devmart Suriname" | Website |
+| TeamPage | "Our Team \| Devmart Suriname" | Website |
+| PartnershipPage | "Partnership \| Devmart Suriname" | Website |
+| PricingPage | "Pricing \| Devmart Suriname" | Website |
+| FaqPage | "FAQ \| Devmart Suriname" | Website |
+| TestimonialsPage | "Testimonials \| Devmart Suriname" | Website |
+| ContactPage | "Contact Us \| Devmart Suriname" | ContactPage |
+
+### JSON-LD Schema Patterns
+
+#### Service Schema (SingleServicePage)
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Custom Web Applications",
+  "description": "Tailored web solutions...",
+  "provider": {
+    "@type": "Organization",
+    "name": "Devmart Suriname"
+  },
+  "url": "https://devmart.sr/services/custom-web-applications"
+}
+```
+
+#### BlogPosting Schema (SinglePostPage)
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Post Title",
+  "datePublished": "2025-01-15",
+  "author": { "@type": "Person", "name": "Devmart Team" },
+  "publisher": { "@type": "Organization", "name": "Devmart Suriname" }
+}
+```
+
+#### Organization Schema (HomePage)
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Devmart Suriname",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jagernath Lachmon straat nr. 152",
+    "addressLocality": "Paramaribo",
+    "addressCountry": "SR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+597-854-1211",
+    "email": "info@devmart.sr"
+  }
+}
+```
+
+### Canonical URL Strategy
+
+All pages generate canonical URLs using:
+```typescript
+canonical(`/path`)  // Returns: "https://devmart.sr/path"
+```
+
+**Examples:**
+- HomePage: `https://devmart.sr/`
+- ServicesPage: `https://devmart.sr/services`
+- SingleServicePage: `https://devmart.sr/services/custom-web-applications`
+- BlogPage: `https://devmart.sr/blog`
+- SinglePostPage: `https://devmart.sr/blog/post-slug`
+
+### Default Meta Tags (index.html)
+
+Updated fallback meta tags for Devmart branding:
+```html
+<title>Devmart Suriname | Web Development & Tech Solutions</title>
+<meta name="description" content="Professional web applications, government portals, AI tools, and enterprise systems. Based in Paramaribo, Suriname." />
+<meta property="og:title" content="Devmart Suriname | Web Development & Tech Solutions" />
+<meta property="og:description" content="Professional web applications, government portals, AI tools, and enterprise systems." />
+```
+
+### Technical Implementation
+
+1. **Component Pattern:**
+   - SEO component placed immediately after `return (<>` in all pages
+   - Uses useEffect to manipulate document.head
+   - No render output (returns null)
+   - Cleanup function removes injected scripts on unmount
+
+2. **Dynamic Pages:**
+   - Uses database fields (`meta_title`, `meta_description`, etc.)
+   - Fallback to derived values (e.g., `post.title` if `post.meta_title` is null)
+   - Truncates long descriptions to 160 characters
+
+3. **Static Pages:**
+   - Hardcoded page-specific titles and descriptions
+   - Keywords array for targeted SEO
+   - Consistent Devmart branding across all pages
+
+### Verification ✅
+
+- ✅ SEO component integrated into all 14 public pages
+- ✅ Meta tags update correctly on route changes
+- ✅ JSON-LD schemas valid and properly formatted
+- ✅ Canonical URLs generated correctly
+- ✅ OpenGraph and Twitter Card tags present
+- ✅ No UI impact (component renders null)
+- ✅ No console errors or warnings
+- ✅ Default meta tags updated in index.html
+
+### Files Modified
+
+**New Files (2):**
+- `src/utils/seo.ts`
+- `src/components/SEO.tsx`
+
+**Modified Files (15):**
+- `index.html`
+- `src/pages/SingleServicePage.tsx`
+- `src/pages/SinglePostPage.tsx`
+- `src/pages/SingleCaseStudyPage.tsx`
+- `src/pages/HomePage.tsx`
+- `src/pages/AboutPage.tsx`
+- `src/pages/ServicesPage.tsx`
+- `src/pages/BlogPage.tsx`
+- `src/pages/CaseStudiesPage.tsx`
+- `src/pages/TeamPage.tsx`
+- `src/pages/PartnershipPage.tsx`
+- `src/pages/PricingPage.tsx`
+- `src/pages/FaqPage.tsx`
+- `src/pages/TestimonialsPage.tsx`
+- `src/pages/ContactPage.tsx`
+
+---
+
 
 ### Frontend Integration Roadmap
 

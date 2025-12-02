@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const ServicesPage = () => {
   const [services, setServices] = useState<Service[]>([]);
@@ -34,6 +36,13 @@ const ServicesPage = () => {
 
   return (
     <>
+      <SEO
+        title="Our Services | Devmart Suriname"
+        description="Custom web applications, government portals, enterprise systems, AI tools, and more. Professional development services based in Paramaribo, Suriname."
+        canonical={canonical("/services")}
+        type="website"
+        keywords={["web development services", "custom software development", "enterprise solutions suriname", "government portals"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

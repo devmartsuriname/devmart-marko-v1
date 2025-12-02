@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
+import { SEO } from "@/components/SEO";
+import { canonical } from "@/utils/seo";
 
 const PricingPage = () => {
   const [plans, setPlans] = useState<PricingPlan[]>([]);
@@ -49,6 +51,13 @@ const PricingPage = () => {
   const lastPlan = nonHighlightedPlans[1];
   return (
     <>
+      <SEO
+        title="Pricing | Devmart Suriname"
+        description="Transparent pricing for web development and tech services. Explore our flexible packages designed for businesses of all sizes in Suriname."
+        canonical={canonical("/pricing")}
+        type="website"
+        keywords={["web development pricing suriname", "software development cost", "tech services pricing"]}
+      />
       {/* Section Banner */}
       <div className="section-banner">
         <div className="banner-layout-wrapper">

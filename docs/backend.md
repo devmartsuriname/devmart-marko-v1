@@ -268,6 +268,150 @@ useEffect(() => {
 
 ---
 
+## Phase 6L: Dynamic SEO Meta Tags + OpenGraph + JSON-LD (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** Full SEO implementation across all 14 public pages  
+
+### Scope
+
+Implement comprehensive SEO system with:
+- Dynamic meta tags (title, description, keywords)
+- OpenGraph tags for social sharing
+- Twitter Card tags
+- JSON-LD structured data schemas
+- Canonical URL management
+
+### Files Created
+
+1. **SEO Utility (`src/utils/seo.ts`):**
+   - `SITE_URL` constant: "https://devmart.sr"
+   - `canonical(path)` function: generates full canonical URLs
+   - `truncate(text, maxLength)` function: safely truncates descriptions
+
+2. **SEO Component (`src/components/SEO.tsx`):**
+   - Accepts: title, description, keywords, image, canonical, type, publishedAt, updatedAt, schema
+   - Updates document.title dynamically
+   - Creates/updates meta tags via useEffect
+   - Injects JSON-LD schema scripts
+   - Cleans up on unmount
+   - Renders null (no DOM output)
+
+### Integration Summary
+
+#### Dynamic Detail Pages (3)
+- **SingleServicePage:** Uses `service.meta_title`, `service.meta_description`, Service schema
+- **SinglePostPage:** Uses `post.meta_title`, `post.excerpt`, BlogPosting schema
+- **SingleCaseStudyPage:** Uses `caseStudy.title`, `caseStudy.description`, CreativeWork schema
+
+#### Static Pages (11)
+- **HomePage:** Organization schema with address and contact info
+- **AboutPage:** Website type with team and mission description
+- **ServicesPage:** Website type with services overview
+- **BlogPage:** Website type with blog content description
+- **CaseStudiesPage:** Website type with portfolio description
+- **TeamPage:** Website type with team overview
+- **PartnershipPage:** Website type with partnership information
+- **PricingPage:** Website type with pricing overview
+- **FaqPage:** Website type with FAQ description
+- **TestimonialsPage:** Website type with testimonials overview
+- **ContactPage:** ContactPage schema with full contact information
+
+### JSON-LD Schemas Implemented
+
+1. **Service Schema** (SingleServicePage):
+   ```json
+   {
+     "@context": "https://schema.org",
+     "@type": "Service",
+     "name": "service.name",
+     "description": "service.short_description",
+     "provider": { "@type": "Organization", "name": "Devmart Suriname" },
+     "url": "canonical URL"
+   }
+   ```
+
+2. **BlogPosting Schema** (SinglePostPage):
+   ```json
+   {
+     "@context": "https://schema.org",
+     "@type": "BlogPosting",
+     "headline": "post.title",
+     "datePublished": "post.published_at",
+     "author": { "@type": "Person", "name": "Devmart Team" },
+     "publisher": { "@type": "Organization", "name": "Devmart Suriname" }
+   }
+   ```
+
+3. **CreativeWork Schema** (SingleCaseStudyPage):
+   ```json
+   {
+     "@context": "https://schema.org",
+     "@type": "CreativeWork",
+     "name": "caseStudy.title",
+     "about": "caseStudy.tags",
+     "creator": { "@type": "Organization", "name": "Devmart Suriname" }
+   }
+   ```
+
+4. **Organization Schema** (HomePage):
+   ```json
+   {
+     "@context": "https://schema.org",
+     "@type": "Organization",
+     "name": "Devmart Suriname",
+     "address": { "@type": "PostalAddress", ... },
+     "contactPoint": { "@type": "ContactPoint", "telephone": "+597-854-1211", ... }
+   }
+   ```
+
+5. **ContactPage Schema** (ContactPage):
+   ```json
+   {
+     "@context": "https://schema.org",
+     "@type": "ContactPage",
+     "provider": { "@type": "Organization", "name": "Devmart Suriname", ... }
+   }
+   ```
+
+### Default Meta Tags Updated
+
+**index.html fallbacks updated to Devmart branding:**
+- Title: "Devmart Suriname | Web Development & Tech Solutions"
+- Description: "Professional web applications, government portals, AI tools, and enterprise systems. Based in Paramaribo, Suriname."
+- OpenGraph title and description updated to match
+
+### Verification ✅
+
+- ✅ All 14 pages have SEO component integrated
+- ✅ Dynamic pages use database fields for meta content
+- ✅ Static pages use hardcoded Devmart-specific content
+- ✅ Canonical URLs generated correctly
+- ✅ JSON-LD schemas valid and complete
+- ✅ OpenGraph and Twitter Card tags present
+- ✅ No UI impact (component renders null)
+- ✅ Meta tags update on route changes via useEffect
+
+### Files Modified
+
+- `index.html` (updated default meta tags)
+- `src/pages/SingleServicePage.tsx`
+- `src/pages/SinglePostPage.tsx`
+- `src/pages/SingleCaseStudyPage.tsx`
+- `src/pages/HomePage.tsx`
+- `src/pages/AboutPage.tsx`
+- `src/pages/ServicesPage.tsx`
+- `src/pages/BlogPage.tsx`
+- `src/pages/CaseStudiesPage.tsx`
+- `src/pages/TeamPage.tsx`
+- `src/pages/PartnershipPage.tsx`
+- `src/pages/PricingPage.tsx`
+- `src/pages/FaqPage.tsx`
+- `src/pages/TestimonialsPage.tsx`
+- `src/pages/ContactPage.tsx`
+
+---
+
 
 ### Database Seed Data Verification
 
