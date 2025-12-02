@@ -351,6 +351,61 @@
   color: var(--admin-text-muted);
 }
 
+/* Table Wrapper */
+.admin-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Actions Column */
+.admin-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Small Button Variant for Tables */
+.admin-btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* Loading State Container */
+.admin-loading-state {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--admin-text-muted);
+}
+
+/* Alert margin utility */
+.admin-alert-mb {
+  margin-bottom: 16px;
+}
+
+/* Table Cell with Name + Subtitle */
+.admin-table-cell-name {
+  font-weight: 500;
+  color: var(--admin-text);
+}
+
+.admin-table-cell-subtitle {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+}
+
+/* Zebra striping */
+.admin-table-zebra tbody tr:nth-child(even) {
+  background-color: var(--admin-bg-tertiary);
+}
+
+/* Text truncation helper */
+.admin-table-cell-truncate {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ========================================
    Admin Forms
    ======================================== */

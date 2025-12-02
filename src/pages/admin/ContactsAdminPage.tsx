@@ -47,10 +47,10 @@ export default function ContactsAdminPage() {
       label: "From",
       render: (_: any, row: any) => (
         <div>
-          <div style={{ fontWeight: 500 }}>
+          <div className="admin-table-cell-name">
             {row.first_name} {row.last_name}
           </div>
-          <div style={{ fontSize: "13px", color: "var(--admin-text-muted)" }}>{row.email}</div>
+          <div className="admin-table-cell-subtitle">{row.email}</div>
         </div>
       ),
     },
@@ -94,9 +94,9 @@ export default function ContactsAdminPage() {
         <div className="admin-card-header">
           <div>
             <h2 className="admin-card-title">Contact Submissions</h2>
-            <p className="admin-card-description" style={{ color: "var(--admin-error)" }}>
+            <div className="admin-alert admin-alert-error">
               {error}
-            </p>
+            </div>
           </div>
         </div>
         <div className="admin-card">

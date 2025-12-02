@@ -104,10 +104,8 @@ export default function PricingAdminPage() {
             </p>
           </div>
         </div>
-        <div className="admin-card">
-          <div className="admin-table-empty" style={{ color: "var(--admin-error)" }}>
-            Error loading pricing plans: {error}
-          </div>
+        <div className="admin-alert admin-alert-error admin-alert-mb">
+          Error loading pricing plans: {error}
         </div>
       </div>
     );

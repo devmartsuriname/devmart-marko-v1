@@ -23,7 +23,7 @@ export const DataTable = ({ columns, rows, emptyMessage = "No data available", o
 
   return (
     <div className="admin-card">
-      <div style={{ overflowX: "auto" }}>
+      <div className="admin-table-wrapper">
         <table className="admin-table">
           <thead>
             <tr>
@@ -44,11 +44,10 @@ export const DataTable = ({ columns, rows, emptyMessage = "No data available", o
                   </td>
                 ))}
                 <td>
-                  <div style={{ display: "flex", gap: "8px" }}>
+                  <div className="admin-table-actions">
                     {onEdit && (
                       <button 
-                        className="admin-btn admin-btn-ghost" 
-                        style={{ padding: "6px 12px" }}
+                        className="admin-btn admin-btn-ghost admin-btn-sm"
                         onClick={() => onEdit(row)}
                       >
                         Edit
@@ -56,8 +55,7 @@ export const DataTable = ({ columns, rows, emptyMessage = "No data available", o
                     )}
                     {onDelete && (
                       <button 
-                        className="admin-btn admin-btn-ghost" 
-                        style={{ padding: "6px 12px" }}
+                        className="admin-btn admin-btn-ghost admin-btn-sm"
                         onClick={() => onDelete(row)}
                       >
                         Delete
