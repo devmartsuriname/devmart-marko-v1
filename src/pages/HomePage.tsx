@@ -9,7 +9,14 @@ const HomePage = () => {
           className="banner-video-container keep-dark animate-box animated animate__animated"
           data-animate="animate__fadeInUp"
         >
-          <div id="banner-video-background"></div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="banner-video-bg"
+            src="/videos/hero-background.mp4"
+          />
           <div className="hero-container position-relative">
             <div className="d-flex flex-column gspace-2">
               <h1

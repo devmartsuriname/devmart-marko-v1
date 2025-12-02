@@ -1113,6 +1113,34 @@ body.lightmode .keep-dark .btn-accent {
   z-index: 0;
 }
 
+/* Native MP4 Video Background */
+.banner-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: var(--global-border-radius);
+}
+
+/* Dark overlay for video background - ensures text readability */
+.banner-video-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 100%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: var(--global-border-radius);
+}
+
+/* Legacy YouTube video background styles - no longer used */
 #banner-video-background {
   position: absolute;
   top: 0;
