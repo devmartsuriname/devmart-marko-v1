@@ -1,6 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getActiveTeamMembers, type TeamMember } from "@/integrations/supabase/queries/teamMembers";
 
 const AboutPage = () => {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [isTeamLoading, setIsTeamLoading] = useState(true);
+  const [teamError, setTeamError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      setIsTeamLoading(true);
+      setTeamError(null);
+
+      const { data, error } = await getActiveTeamMembers();
+
+      if (error) {
+        console.error("Error fetching team members (AboutPage):", error);
+        setTeamError("Unable to load team members.");
+      } else {
+        setTeamMembers(data || []);
+      }
+
+      setIsTeamLoading(false);
+    };
+
+    fetchTeam();
+  }, []);
+
   return (
     <>
       {/* Section Banner */}
@@ -509,102 +535,81 @@ const AboutPage = () => {
                 <h2 className="title-heading">Meet the Minds Behind Your Digital Success</h2>
               </div>
               <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1 grid-spacer-2">
-                <div className="col">
-                  <div className="d-flex flex-column">
-                    <div className="image-team">
-                      <img
-                        src="/marko-digital-marketing-agency-html/image/humility-in-the-face-of-praise-5M6A7Q9.jpg"
-                        alt="Team Image"
-                        className="img-fluid"
-                      />
-                      <div className="social-team-wrapper">
-                        <div className="social-team-spacer"></div>
-                        <div className="d-flex flex-column align-items-end">
-                          <div className="social-team-container">
-                            <a href="https://facebook.com" className="social-item">
-                              <i className="fa-brands fa-facebook"></i>
-                            </a>
-                            <a href="https://instagram.com" className="social-item">
-                              <i className="fa-brands fa-instagram"></i>
-                            </a>
-                            <a href="https://linkedin.com" className="social-item">
-                              <i className="fa-brands fa-linkedin"></i>
-                            </a>
-                          </div>
-                          <div className="social-team-spacer"></div>
+                {isTeamLoading ? (
+                  // Loading state: 3 skeleton cards
+                  Array.from({ length: 3 }).map((_, index) => (
+                    <div key={index} className="col">
+                      <div className="d-flex flex-column">
+                        <div className="image-team">
+                          <div
+                            style={{
+                              width: "100%",
+                              aspectRatio: "3/4",
+                              backgroundColor: "var(--admin-bg-secondary, #f0f0f0)",
+                              borderRadius: "8px",
+                            }}
+                          />
+                        </div>
+                        <div className="team-profile">
+                          <h4>Loading...</h4>
+                          <span className="title">Loading role...</span>
                         </div>
                       </div>
                     </div>
-                    <div className="team-profile">
-                      <h4>Lead Developer</h4>
-                      <span className="title">Full-Stack Engineering</span>
-                    </div>
+                  ))
+                ) : teamError ? (
+                  // Error state
+                  <div className="col-12">
+                    <p className="text-muted mb-0">{teamError}</p>
                   </div>
-                </div>
-                <div className="col">
-                  <div className="d-flex flex-column">
-                    <div className="image-team">
-                      <img
-                        src="/marko-digital-marketing-agency-html/image/asian-buinsesswoman-hoding-a-file-folder-and-a-cof-SU69HLN.jpg"
-                        alt="Team Image"
-                        className="img-fluid"
-                      />
-                      <div className="social-team-wrapper">
-                        <div className="social-team-spacer"></div>
-                        <div className="d-flex flex-column align-items-end">
-                          <div className="social-team-container">
-                            <a href="https://facebook.com" className="social-item">
-                              <i className="fa-brands fa-facebook"></i>
-                            </a>
-                            <a href="https://instagram.com" className="social-item">
-                              <i className="fa-brands fa-instagram"></i>
-                            </a>
-                            <a href="https://linkedin.com" className="social-item">
-                              <i className="fa-brands fa-linkedin"></i>
-                            </a>
+                ) : teamMembers.length === 0 ? (
+                  // Empty state
+                  <div className="col-12">
+                    <p className="text-muted mb-0">Team information will be available soon.</p>
+                  </div>
+                ) : (
+                  // Data state: show first 3 team members
+                  teamMembers.slice(0, 3).map((member) => (
+                    <div key={member.id} className="col">
+                      <div className="d-flex flex-column">
+                        <div className="image-team">
+                          <img
+                            src={member.photo_url || "/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg"}
+                            alt={member.full_name}
+                            className="img-fluid"
+                          />
+                          <div className="social-team-wrapper">
+                            <div className="social-team-spacer"></div>
+                            <div className="d-flex flex-column align-items-end">
+                              <div className="social-team-container">
+                                {member.facebook_url && (
+                                  <a href={member.facebook_url} className="social-item" target="_blank" rel="noopener noreferrer">
+                                    <i className="fa-brands fa-facebook"></i>
+                                  </a>
+                                )}
+                                {member.instagram_url && (
+                                  <a href={member.instagram_url} className="social-item" target="_blank" rel="noopener noreferrer">
+                                    <i className="fa-brands fa-instagram"></i>
+                                  </a>
+                                )}
+                                {member.linkedin_url && (
+                                  <a href={member.linkedin_url} className="social-item" target="_blank" rel="noopener noreferrer">
+                                    <i className="fa-brands fa-linkedin"></i>
+                                  </a>
+                                )}
+                              </div>
+                              <div className="social-team-spacer"></div>
+                            </div>
                           </div>
-                          <div className="social-team-spacer"></div>
+                        </div>
+                        <div className="team-profile">
+                          <h4>{member.role}</h4>
+                          {member.title && <span className="title">{member.title}</span>}
                         </div>
                       </div>
                     </div>
-                    <div className="team-profile">
-                      <h4>Project Manager</h4>
-                      <span className="title">Delivery & Client Relations</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="d-flex flex-column">
-                    <div className="image-team">
-                      <img
-                        src="/marko-digital-marketing-agency-html/image/young-african-american-businessman-holding-digital-FYREY7J.jpg"
-                        alt="Team Image"
-                        className="img-fluid"
-                      />
-                      <div className="social-team-wrapper">
-                        <div className="social-team-spacer"></div>
-                        <div className="d-flex flex-column align-items-end">
-                          <div className="social-team-container">
-                            <a href="https://facebook.com" className="social-item">
-                              <i className="fa-brands fa-facebook"></i>
-                            </a>
-                            <a href="https://instagram.com" className="social-item">
-                              <i className="fa-brands fa-instagram"></i>
-                            </a>
-                            <a href="https://linkedin.com" className="social-item">
-                              <i className="fa-brands fa-linkedin"></i>
-                            </a>
-                          </div>
-                          <div className="social-team-spacer"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="team-profile">
-                      <h4>Technical Architect</h4>
-                      <span className="title">System Design & Infrastructure</span>
-                    </div>
-                  </div>
-                </div>
+                  ))
+                )}
               </div>
               <div className="spacer"></div>
             </div>

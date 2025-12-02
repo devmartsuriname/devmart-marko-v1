@@ -378,7 +378,50 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 - Data fetching: `useEffect` calls `getPublishedPricingPlans()` on mount
 - Plan separation logic: `highlightedPlan`, `firstPlan`, `lastPlan` for 3-column layout
 - Helper functions: `formatBillingPeriod()`, `parseFeatures()`
-- Dynamic rendering: 
+- Dynamic rendering:
+
+---
+
+### Phase 6I: Team Members Dynamic Wiring (COMPLETED ✅)
+
+**Date:** 2025-12-02  
+**Status:** Complete
+
+**Implementation Summary:**
+- Added `getActiveTeamMembers()` to query layer
+- Wired TeamPage to Supabase with all 6 team members displayed dynamically
+- Wired AboutPage Team Section to Supabase showing first 3 team members
+- Implemented loading, error, and empty states for both pages
+- Maintained 1:1 visual parity with original template
+- Conditional social link rendering based on database values
+
+**Query Layer Enhancements:**
+- Added `getActiveTeamMembers()` to `src/integrations/supabase/queries/teamMembers.ts`
+  - Filters: `status = 'active'`
+  - Order: `sort_order ASC, full_name ASC`
+  - Returns: `TeamMember[]`
+
+**TeamPage Implementation:**
+- State management: `teamMembers`, `isLoading`, `error`
+- Data fetching: `useEffect` calls `getActiveTeamMembers()` on mount
+- Dynamic rendering: All 6 active team members with photos, names, roles, social links
+- Fallback image for missing photos
+- Social links conditionally rendered (Facebook, Instagram, LinkedIn)
+
+**AboutPage Team Section Implementation:**
+- State management: `teamMembers`, `isTeamLoading`, `teamError`
+- Data fetching: Same `getActiveTeamMembers()` function
+- Dynamic rendering: First 3 team members using `teamMembers.slice(0, 3)`
+- Field mapping: `member.role` → h4, `member.title` → span.title (matches existing layout)
+- All other AboutPage sections remain unchanged
+
+**Files Modified:**
+- `src/integrations/supabase/queries/teamMembers.ts` (added function)
+- `src/pages/TeamPage.tsx` (state + data fetching + dynamic mapping)
+- `src/pages/AboutPage.tsx` (team section only)
+
+**Not Included in This Phase:**
+- ❌ HomePage team section (still static, deferred to Phase 6K)
   - Column 1: Static promotional card + `firstPlan` (non-highlighted)
   - Column 2: `highlightedPlan` with `pricing-highlight` class + special styling
   - Column 3: Static promotional card + `lastPlan` (non-highlighted)
