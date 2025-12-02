@@ -617,7 +617,8 @@ useEffect(() => {
 
 #### **Phase 6G: Case Studies Page** ✅ COMPLETE
 - **Status:** Completed 2025-12-02
-- **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`
+- **Files:** `queries/caseStudies.ts`, `CaseStudiesPage.tsx`, `SingleCaseStudyPage.tsx`
+- **Post-Fix:** Spacing corrected in SingleCaseStudyPage to match detail page pattern (gspace-3 wrapper + underline divider)
 
 #### **Phase 6H: Blog Pages** ✅ COMPLETE
 - **Status:** Completed 2025-12-02

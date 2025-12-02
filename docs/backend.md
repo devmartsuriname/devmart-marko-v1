@@ -660,9 +660,15 @@ ServicesPage → useEffect → getPublishedServices() → Supabase
 - Tag positioning and sizing correct for each variant
 - 2-column row layout preserved
 
+**Post-Implementation Fix (2025-12-02):**
+- SingleCaseStudyPage spacing corrected to match SinglePostPage and SingleServicePage patterns
+- Added `d-flex flex-column gspace-3` wrapper inside article tag for consistent vertical rhythm
+- Added `underline-muted-full` divider after meta information section
+- Content elements now properly spaced (Featured Image → Meta → Divider → Tags → Title → Description → Cards)
+- All template CSS classes maintained, no Bootstrap utilities used
+
 **Not Included in This Phase:**
 - ❌ HomePage case studies section (still static, separate phase)
-- ❌ Single case study detail pages (future phase)
 
 ---
 
