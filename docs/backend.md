@@ -94,7 +94,7 @@
 | Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
 | Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
 | Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ✅ TeamPage & AboutPage Dynamic | 🟢 Phase 6I Complete |
-| FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ❌ Static JSX | 🔴 Not Wired |
+| FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ✅ FaqPage Dynamic | 🟢 Phase 6J Complete |
 
 ### Missing Query Functions Identified
 
@@ -108,6 +108,62 @@ All required query functions have been implemented:
 
 3. **Blog Posts:**
    - ✅ `getBlogPostBySlug(slug: string)` - Implemented in Phase 6H
+
+4. **FAQ Items:**
+   - ✅ `getActiveFaqItems()` - Implemented in Phase 6J
+
+---
+
+## Phase 6J: FAQ Page Dynamic Wiring (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** FaqPage fully wired to Supabase  
+
+### Query Layer Enhancement
+
+**File:** `src/integrations/supabase/queries/faqItems.ts`
+
+Added new query function:
+
+**`getActiveFaqItems()`**
+- Filters: `status = 'active'`
+- Order: `sort_order ASC, question ASC`
+- Returns: `{ data: FaqItem[], error }`
+
+### FaqPage Implementation
+
+**State Management:**
+```typescript
+const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+```
+
+**Dynamic Rendering:**
+- Replaced 6 hardcoded accordion items with `faqItems.map()`
+- Each accordion renders: `faq.question`, `faq.answer`
+- First item expanded by default, others collapsed
+- Bootstrap accordion structure preserved exactly
+
+**UI States:**
+- Loading: 4 skeleton accordion items
+- Error: Single accordion with error message
+- Empty: "No FAQs available" message
+- Success: Dynamic accordions from database
+
+### Verification ✅
+
+- ✅ 6 FAQ items render from database
+- ✅ First accordion expanded, others collapsed
+- ✅ Bootstrap collapse behavior preserved
+- ✅ Loading skeleton displays properly
+- ✅ Banner, Guide, Modal Video, Testimonials sections unchanged
+- ✅ All animation classes intact
+
+**Not Included:**
+- ❌ HomePage FAQ teasers (deferred to Phase 6K)
+
+---
 
 ### Database Seed Data Verification
 
