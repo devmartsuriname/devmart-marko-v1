@@ -91,23 +91,23 @@
 | Contact Form | ✅ Complete | ✅ contactSubmissions.ts | ✅ ContactPage | ✅ Form → Supabase INSERT | 🟢 Phase 6D Complete |
 | Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
 | Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
-| Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ❌ Static JSX | 🔴 Not Wired |
+| Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
 | Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
-| Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ❌ Static JSX | 🔴 Not Wired |
+| Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ✅ TeamPage & AboutPage Dynamic | 🟢 Phase 6I Complete |
 | FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ❌ Static JSX | 🔴 Not Wired |
 
 ### Missing Query Functions Identified
 
-The following query functions are required for detail pages but not yet implemented:
+All required query functions have been implemented:
 
 1. **Services:**
-   - ❌ `getServiceBySlug(slug: string)` - Required for `/services/:slug` route
+   - ✅ `getServiceBySlug(slug: string)` - Implemented in Phase 6B
 
 2. **Case Studies:**
-   - ❌ `getCaseStudyBySlug(slug: string)` - Required for `/case-studies/:slug` route (if implemented)
+   - ✅ `getCaseStudyBySlug(slug: string)` - Implemented in Phase 6G
 
 3. **Blog Posts:**
-   - ❌ `getBlogPostBySlug(slug: string)` - Required for `/blog/:slug` route
+   - ✅ `getBlogPostBySlug(slug: string)` - Implemented in Phase 6H
 
 ### Database Seed Data Verification
 
