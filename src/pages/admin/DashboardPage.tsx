@@ -147,7 +147,7 @@ export default function DashboardPage() {
           return (
             <Link key={stat.label} to={stat.link} className="dashboard-stat-card">
               <div className={`stat-icon-wrapper ${stat.colorClass}`}>
-                <Icon size={24} />
+                <Icon className="admin-icon-24" />
               </div>
               <div className="stat-content">
                 <div className="stat-value">{stat.value}</div>
