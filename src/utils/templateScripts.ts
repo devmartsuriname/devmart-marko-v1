@@ -16,35 +16,8 @@ export const initializeTemplateScripts = () => {
   const $ = window.$;
   if (!$) return;
 
-  // Initialize YouTube player for banner video
-  const initBannerVideo = () => {
-    if (!document.getElementById('banner-video-background')) return;
-
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-    window.onYouTubeIframeAPIReady = function() {
-      const player = new window.YT.Player('banner-video-background', {
-        videoId: 'P68V3iH4TeE',
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          mute: 1,
-          loop: 1,
-          playlist: 'P68V3iH4TeE',
-          showinfo: 0,
-          rel: 0,
-          enablejsapi: 1,
-          disablekb: 1,
-          modestbranding: 1,
-          iv_load_policy: 3,
-          origin: window.location.origin
-        }
-      });
-    };
-  };
+  // YouTube video initialization removed - now using native HTML5 video
+  // const initBannerVideo = () => { ... }
 
   // Initialize video modal
   const initVideoModal = () => {
@@ -121,7 +94,7 @@ export const initializeTemplateScripts = () => {
 
   // Run all initializations
   try {
-    initBannerVideo();
+    // initBannerVideo(); // Removed - now using native HTML5 video
     initVideoModal();
     initSwipers();
   } catch (error) {
