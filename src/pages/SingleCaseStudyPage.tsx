@@ -85,9 +85,10 @@ const SingleCaseStudyPage = () => {
               <i className="fa-solid fa-circle-exclamation fa-4x accent-color"></i>
               <h3>Case Study Not Found</h3>
               <p>The case study you're looking for doesn't exist or has been removed.</p>
-              <Link to="/case-studies" className="btn btn-primary">
-                View All Case Studies
-              </Link>
+              <div className="link-wrapper">
+                <Link to="/case-studies">View All Case Studies</Link>
+                <i className="fa-solid fa-circle-arrow-right"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -129,48 +130,52 @@ const SingleCaseStudyPage = () => {
       {/* Main Content Section */}
       <div className="section">
         <div className="hero-container">
-          <div className="row">
+          <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5">
             {/* Sidebar - Order 2 on mobile, Order 1 on desktop */}
-            <div className="col-xl-4 order-2 order-xl-1">
-              {/* Related Case Studies */}
-              {relatedCaseStudies.length > 0 && (
-                <div className="card service-recent animate-box">
-                  <h4>More Case Studies</h4>
-                  <div className="underline-accent-short"></div>
-                  <ul className="single-service-list">
-                    {relatedCaseStudies.map((cs) => (
-                      <li key={cs.id}>
-                        <Link to={`/case-studies/${cs.slug}`}>
-                          {cs.title}
-                          {cs.client_name && <span> - {cs.client_name}</span>}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+            <div className="col col-xl-4 order-2 order-xl-1">
+              <div className="d-flex flex-column flex-md-row flex-xl-column gspace-5">
+                {/* Related Case Studies */}
+                {relatedCaseStudies.length > 0 && (
+                  <div className="card service-recent animate-box">
+                    <h4>More Case Studies</h4>
+                    <div className="underline-accent-short"></div>
+                    <ul className="single-service-list">
+                      {relatedCaseStudies.map((cs) => (
+                        <li key={cs.id}>
+                          <Link to={`/case-studies/${cs.slug}`}>
+                            {cs.title}
+                            {cs.client_name && <span> - {cs.client_name}</span>}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="link-wrapper">
+                      <Link to="/case-studies">View All Case Studies</Link>
+                      <i className="fa-solid fa-circle-arrow-right"></i>
+                    </div>
+                  </div>
+                )}
+
+                {/* CTA Banner */}
+                <div className="cta-service-banner animate-box">
+                  <div className="spacer"></div>
+                  <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                  <p>
+                    Elevate your digital infrastructure with cutting-edge web development 
+                    and modern tech solutions. Let's build something exceptional together!
+                  </p>
                   <div className="link-wrapper">
-                    <Link to="/case-studies">View All Case Studies</Link>
+                    <Link to="/contact">Get In Touch</Link>
                     <i className="fa-solid fa-circle-arrow-right"></i>
                   </div>
-                </div>
-              )}
-
-              {/* CTA Banner */}
-              <div className="cta-service-banner animate-box">
-                <div className="d-flex flex-column gspace-2">
-                  <h4>Ready to Start Your Project?</h4>
-                  <p>
-                    Let's discuss how Devmart can help transform your digital presence with custom solutions tailored to your needs.
-                  </p>
-                  <Link to="/contact" className="btn btn-primary">
-                    Get In Touch
-                  </Link>
                 </div>
               </div>
             </div>
 
             {/* Main Content - Order 1 on mobile, Order 2 on desktop */}
-            <div className="col-xl-8 order-1 order-xl-2">
-              <article className="animate-box">
+            <div className="col col-xl-8 order-1 order-xl-2">
+              <div className="d-flex flex-column gspace-2">
+                <article className="animate-box">
                 {/* Featured Image */}
                 {caseStudy.featured_image && (
                   <div className="post-image">
@@ -241,9 +246,10 @@ const SingleCaseStudyPage = () => {
                       Let's discuss how we can help your organization achieve success with our custom digital solutions.
                     </p>
                     <div className="d-flex flex-wrap justify-content-center gspace-2">
-                      <Link to="/contact" className="btn btn-primary">
-                        Start Your Project
-                      </Link>
+                      <div className="link-wrapper">
+                        <Link to="/contact">Start Your Project</Link>
+                        <i className="fa-solid fa-circle-arrow-right"></i>
+                      </div>
                       <div className="link-wrapper">
                         <Link to="/case-studies">View More Case Studies</Link>
                         <i className="fa-solid fa-circle-arrow-right"></i>
@@ -252,6 +258,7 @@ const SingleCaseStudyPage = () => {
                   </div>
                 </div>
               </article>
+              </div>
             </div>
           </div>
         </div>
