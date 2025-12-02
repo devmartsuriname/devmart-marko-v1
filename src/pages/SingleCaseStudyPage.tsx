@@ -50,11 +50,8 @@ const SingleCaseStudyPage = () => {
     return (
       <div className="section">
         <div className="hero-container">
-          <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: "50vh" }}>
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-            <p className="mt-3">Loading case study details...</p>
+          <div className="d-flex flex-column align-items-center justify-content-center gspace-2" style={{ minHeight: "50vh" }}>
+            <p>Loading case study details...</p>
           </div>
         </div>
       </div>
@@ -137,23 +134,23 @@ const SingleCaseStudyPage = () => {
             <div className="col-xl-4 order-2 order-xl-1">
               {/* Related Case Studies */}
               {relatedCaseStudies.length > 0 && (
-                <div className="card service-recent mb-4 animate-box">
-                  <h5 className="mb-3">More Case Studies</h5>
-                  <ul className="list-unstyled">
+                <div className="card service-recent animate-box">
+                  <h4>More Case Studies</h4>
+                  <div className="underline-accent-short"></div>
+                  <ul className="single-service-list">
                     {relatedCaseStudies.map((cs) => (
-                      <li key={cs.id} className="mb-3">
-                        <Link to={`/case-studies/${cs.slug}`} className="d-flex flex-column">
-                          <span className="fw-semibold">{cs.title}</span>
-                          {cs.client_name && (
-                            <small className="text-muted">Client: {cs.client_name}</small>
-                          )}
+                      <li key={cs.id}>
+                        <Link to={`/case-studies/${cs.slug}`}>
+                          {cs.title}
+                          {cs.client_name && <span> - {cs.client_name}</span>}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                  <Link to="/case-studies" className="btn btn-primary w-100 mt-2">
-                    View All Case Studies
-                  </Link>
+                  <div className="link-wrapper">
+                    <Link to="/case-studies">View All Case Studies</Link>
+                    <i className="fa-solid fa-circle-arrow-right"></i>
+                  </div>
                 </div>
               )}
 
@@ -176,26 +173,26 @@ const SingleCaseStudyPage = () => {
               <article className="animate-box">
                 {/* Featured Image */}
                 {caseStudy.featured_image && (
-                  <div className="post-image mb-4">
+                  <div className="post-image">
                     <img
                       src={caseStudy.featured_image}
                       alt={caseStudy.title}
-                      className="img-fluid rounded"
+                      className="img-fluid"
                     />
                   </div>
                 )}
 
                 {/* Meta Information */}
-                <div className="post-meta mb-4">
-                  <div className="d-flex flex-wrap align-items-center gap-3">
+                <div className="post-meta">
+                  <div className="d-flex flex-wrap align-items-center gspace-2">
                     {caseStudy.client_name && (
                       <span className="meta-item">
-                        <i className="fa-regular fa-building me-2"></i>
+                        <i className="fa-regular fa-building"></i>
                         <strong>Client:</strong> {caseStudy.client_name}
                       </span>
                     )}
                     <span className="meta-item">
-                      <i className="fa-regular fa-calendar me-2"></i>
+                      <i className="fa-regular fa-calendar"></i>
                       <strong>Date:</strong> {formatDate(caseStudy.created_at)}
                     </span>
                   </div>
@@ -203,20 +200,20 @@ const SingleCaseStudyPage = () => {
 
                 {/* Tags */}
                 {caseStudy.tags && caseStudy.tags.length > 0 && (
-                  <div className="d-flex flex-wrap gap-2 mb-4">
+                  <div className="case-studies-component large">
                     {caseStudy.tags.map((tag, index) => (
-                      <span key={index} className="cs-component">
-                        {tag}
-                      </span>
+                      <div key={index} className="cs-component">
+                        <span>{tag}</span>
+                      </div>
                     ))}
                   </div>
                 )}
 
                 {/* Title */}
-                <h3 className="mb-4">{caseStudy.title}</h3>
+                <h3>{caseStudy.title}</h3>
 
                 {/* Description */}
-                <div className="post-content mb-4">
+                <div className="post-content">
                   <div style={{ whiteSpace: "pre-wrap" }}>
                     {caseStudy.description}
                   </div>
@@ -224,11 +221,12 @@ const SingleCaseStudyPage = () => {
 
                 {/* Results Summary */}
                 {caseStudy.results_summary && (
-                  <div className="card bg-light p-4 mb-4">
-                    <h4 className="mb-3">
-                      <i className="fa-solid fa-chart-line me-2 accent-color"></i>
+                  <div className="card service-included">
+                    <h4>
+                      <i className="fa-solid fa-chart-line accent-color"></i>
                       Results & Impact
                     </h4>
+                    <div className="underline-accent-short"></div>
                     <div style={{ whiteSpace: "pre-wrap" }}>
                       {caseStudy.results_summary}
                     </div>
@@ -236,19 +234,20 @@ const SingleCaseStudyPage = () => {
                 )}
 
                 {/* Call to Action */}
-                <div className="card border-primary p-4 mt-5">
+                <div className="card service-included">
                   <div className="text-center">
-                    <h4 className="mb-3">Interested in Similar Results?</h4>
-                    <p className="mb-4">
+                    <h4>Interested in Similar Results?</h4>
+                    <p>
                       Let's discuss how we can help your organization achieve success with our custom digital solutions.
                     </p>
-                    <div className="d-flex flex-wrap justify-content-center gap-3">
+                    <div className="d-flex flex-wrap justify-content-center gspace-2">
                       <Link to="/contact" className="btn btn-primary">
                         Start Your Project
                       </Link>
-                      <Link to="/case-studies" className="btn btn-outline-primary">
-                        View More Case Studies
-                      </Link>
+                      <div className="link-wrapper">
+                        <Link to="/case-studies">View More Case Studies</Link>
+                        <i className="fa-solid fa-circle-arrow-right"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
