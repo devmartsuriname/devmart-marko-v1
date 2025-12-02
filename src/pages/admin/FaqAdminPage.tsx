@@ -94,7 +94,7 @@ export default function FaqAdminPage() {
       </div>
 
       {error && (
-        <div className="admin-alert admin-alert-error">
+        <div className="admin-alert admin-alert-error admin-alert-mb">
           Error loading FAQ items: {error}
         </div>
       )}
