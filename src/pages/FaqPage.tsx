@@ -1,6 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getActiveFaqItems, type FaqItem } from "@/integrations/supabase/queries/faqItems";
 
 const FaqPage = () => {
+  const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      const { data, error: fetchError } = await getActiveFaqItems();
+
+      if (fetchError) {
+        console.error("Error fetching FAQ items:", fetchError);
+        setError("Unable to load frequently asked questions at the moment.");
+      } else {
+        setFaqItems(data || []);
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchFaqs();
+  }, []);
+
   return (
     <>
       {/* Section Banner */}
@@ -40,142 +66,88 @@ const FaqPage = () => {
             <div className="col col-xl-7">
               <div className="d-flex flex-column">
                 <div className="accordion" id="faqAccordion1">
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq1"
-                        aria-expanded="false"
-                        aria-controls="faq1"
-                      >
-                        What services does Devmart offer?
-                      </button>
-                    </h2>
-                    <div id="faq1" className="accordion-collapse collapse show" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>
-                          We specialize in web development, including custom web applications, government portals,
-                          enterprise systems, AI-powered tools, and mobile app development.
-                        </p>
+                  {isLoading ? (
+                    // Loading state: 4 skeleton accordion items
+                    <>
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={`skeleton-${i}`} className="accordion-item">
+                          <h2 className="accordion-header">
+                            <button
+                              className="accordion-button collapsed"
+                              type="button"
+                              disabled
+                            >
+                              Loading...
+                            </button>
+                          </h2>
+                        </div>
+                      ))}
+                    </>
+                  ) : error ? (
+                    // Error state
+                    <div className="accordion-item">
+                      <h2 className="accordion-header">
+                        <button
+                          className="accordion-button"
+                          type="button"
+                        >
+                          Error Loading FAQs
+                        </button>
+                      </h2>
+                      <div className="accordion-collapse collapse show">
+                        <div className="accordion-body">
+                          <div className="accordion-spacer"></div>
+                          <p>{error}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq2"
-                        aria-expanded="true"
-                        aria-controls="faq2"
-                      >
-                        How long does it take to see results?
-                      </button>
-                    </h2>
-                    <div id="faq2" className="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>
-                          While some channels like paid ads offer quicker results, most strategies (like content and
-                          SEO) show steady growth within 3-6 months.
-                        </p>
+                  ) : faqItems.length === 0 ? (
+                    // Empty state
+                    <div className="accordion-item">
+                      <h2 className="accordion-header">
+                        <button
+                          className="accordion-button"
+                          type="button"
+                        >
+                          No FAQs Available
+                        </button>
+                      </h2>
+                      <div className="accordion-collapse collapse show">
+                        <div className="accordion-body">
+                          <div className="accordion-spacer"></div>
+                          <p>No FAQs available at this time. Please check back later.</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq3"
-                        aria-expanded="false"
-                        aria-controls="faq3"
-                      >
-                        Do you work with businesses of all sizes?
-                      </button>
-                    </h2>
-                    <div id="faq3" className="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>
-                          Yes! We collaborate with startups, SMEs, and enterprise-level companies across various
-                          industries.
-                        </p>
+                  ) : (
+                    // Dynamic FAQ items
+                    faqItems.map((faq, index) => (
+                      <div key={faq.id} className="accordion-item">
+                        <h2 className="accordion-header">
+                          <button
+                            className={`accordion-button ${index !== 0 ? "collapsed" : ""}`}
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target={`#faq-${faq.id}`}
+                            aria-expanded={index === 0 ? "true" : "false"}
+                            aria-controls={`faq-${faq.id}`}
+                          >
+                            {faq.question}
+                          </button>
+                        </h2>
+                        <div
+                          id={`faq-${faq.id}`}
+                          className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`}
+                          data-bs-parent="#faqAccordion1"
+                        >
+                          <div className="accordion-body">
+                            <div className="accordion-spacer"></div>
+                            <p>{faq.answer}</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq4"
-                        aria-expanded="false"
-                        aria-controls="faq4"
-                      >
-                        Can I request a custom web development package?
-                      </button>
-                    </h2>
-                    <div id="faq4" className="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>Absolutely. We tailor our services to fit your business goals, budget, and timeline</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq5"
-                        aria-expanded="false"
-                        aria-controls="faq5"
-                      >
-                        How do I know which service is right for me?
-                      </button>
-                    </h2>
-                    <div id="faq5" className="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>
-                          During our initial consultation, we'll assess your current strategy and recommend the best
-                          path forward based on data and goals.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq6"
-                        aria-expanded="false"
-                        aria-controls="faq6"
-                      >
-                        Do you provide monthly performance reports?
-                      </button>
-                    </h2>
-                    <div id="faq6" className="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
-                      <div className="accordion-body">
-                        <div className="accordion-spacer"></div>
-                        <p>
-                          Yes. Every month, you'll receive a clear and comprehensive report outlining progress, key
-                          metrics, and next steps.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -370,7 +342,7 @@ const FaqPage = () => {
                         </div>
                         <p className="testimonial-description">
                           "We've worked with many developers before, but Devmart stands out. Their systematic approach
-                          and technical expertise delivered exactly what we needed."
+                          and transparency make them a trusted partner."
                         </p>
                       </div>
                     </div>
@@ -393,15 +365,15 @@ const FaqPage = () => {
                               />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">Sophia Lewis</span>
-                              <p className="profile-info">Founder</p>
+                              <span className="profile-name">Sarah Williams</span>
+                              <p className="profile-info">Operations Manager</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "From planning to deployment, Devmart handled every aspect of our web application. Performance
-                          is excellent and the system runs flawlessly."
+                          "The enterprise system Devmart developed has streamlined our operations significantly. Highly
+                          recommend their services."
                         </p>
                       </div>
                     </div>
@@ -424,15 +396,15 @@ const FaqPage = () => {
                               />
                             </div>
                             <div className="d-flex flex-column">
-                              <span className="profile-name">James Peterson</span>
-                              <p className="profile-info">COO, BrightWave</p>
+                              <span className="profile-name">Michael Chen</span>
+                              <p className="profile-info">Product Lead</p>
                             </div>
                           </div>
                           <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
                         </div>
                         <p className="testimonial-description">
-                          "Highly professional and results-oriented. Devmart's expertise in enterprise systems helped us
-                          modernize our entire infrastructure."
+                          "From concept to deployment, Devmart handled everything professionally. Our AI-powered tool is
+                          performing beyond expectations."
                         </p>
                       </div>
                     </div>

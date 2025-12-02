@@ -209,7 +209,7 @@ Admin clicks Add → AddContactModal → createContactSubmission() → refresh
 | **Case Studies** | ✅ Complete | ✅ All functions | CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
 | **Blog Posts** | ✅ Complete | ✅ All functions | BlogPage, SinglePostPage, Home | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
 | **Team Members** | ✅ Complete | ✅ All functions | TeamPage, AboutPage | ✅ TeamPage & AboutPage Team Section Dynamic | 🟢 Phase 6I Complete |
-| **FAQ Items** | ✅ Complete | ✅ All functions | FaqPage | 🔴 Static JSX | 📋 Lower |
+| **FAQ Items** | ✅ Complete | ✅ All functions | FaqPage | ✅ FaqPage Dynamic | 🟢 Phase 6J Complete |
 | **Contact Form** | ✅ Complete | ✅ All functions | ContactPage | 🔴 No submission | 🔥 High |
 | **Site Settings** | ✅ Complete | ✅ All functions | Footer, Header, All Pages | 🔴 Hardcoded | 🔥 High |
 
@@ -392,6 +392,59 @@ const [error, setError] = useState<string | null>(null);
 **Not Included:**
 - ❌ SingleServicePage wiring (deferred)
 - ❌ HomePage services section (separate phase)
+
+---
+
+## Phase 6J: FAQ Page Dynamic Wiring (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** FaqPage fully wired to Supabase  
+**Impact:** FAQ page now displays active questions from database
+
+### Query Layer Enhancement
+
+**File:** `src/integrations/supabase/queries/faqItems.ts`
+
+Added new query function:
+
+**`getActiveFaqItems()`**
+- Filters: `status = 'active'`
+- Order: `sort_order ASC, question ASC`
+- Returns: `{ data: FaqItem[], error }`
+
+### FaqPage Implementation
+
+**State Management:**
+```typescript
+const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+```
+
+**Dynamic Rendering:**
+- Replaced 6 hardcoded accordion items with `faqItems.map()`
+- Each accordion renders from database: `faq.question`, `faq.answer`
+- First item expanded by default (`.show` class), others collapsed
+- Bootstrap accordion data attributes and collapse behavior preserved
+
+**UI States:**
+- Loading: 4 skeleton accordion items with "Loading..." text
+- Error: Single accordion with user-friendly error message
+- Empty: "No FAQs available" message
+- Success: Dynamic accordions mapped from database
+
+### Verification ✅
+
+- ✅ 6 FAQ items render with database content
+- ✅ First accordion item expanded, rest collapsed
+- ✅ Bootstrap collapse mechanism works correctly
+- ✅ Loading skeleton displays properly
+- ✅ Grid layout preserved (2-col: FAQ left, title right)
+- ✅ Banner, Guide, Modal Video, Testimonials sections unchanged
+
+**Not Included:**
+- ❌ HomePage FAQ highlights (separate phase if needed)
+- ❌ Category-based grouping (can be added later if required)
 
 ---
 

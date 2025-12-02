@@ -55,3 +55,14 @@ export async function deleteFaqItem(id: string) {
 
   return { error };
 }
+
+export async function getActiveFaqItems() {
+  const { data, error } = await supabase
+    .from("faq_items")
+    .select("*")
+    .eq("status", "active")
+    .order("sort_order", { ascending: true })
+    .order("question", { ascending: true });
+
+  return { data, error };
+}
