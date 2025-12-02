@@ -16,6 +16,16 @@ const HomePage = () => {
             playsInline
             className="banner-video-bg"
             src="/videos/hero-background.mp4"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              pointerEvents: "none",
+              zIndex: 1,
+              borderRadius: "var(--global-border-radius)",
+            }}
           />
           <div className="hero-container position-relative">
             <div className="d-flex flex-column gspace-2">
