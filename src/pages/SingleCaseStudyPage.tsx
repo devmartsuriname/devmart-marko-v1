@@ -175,6 +175,7 @@ const SingleCaseStudyPage = () => {
             {/* Main Content - Order 1 on mobile, Order 2 on desktop */}
             <div className="col col-xl-8 order-1 order-xl-2">
                 <article className="animate-box">
+                <div className="d-flex flex-column gspace-3">
                 {/* Featured Image */}
                 {caseStudy.featured_image && (
                   <div className="post-image">
@@ -201,6 +202,9 @@ const SingleCaseStudyPage = () => {
                     </span>
                   </div>
                 </div>
+
+                {/* Divider */}
+                <div className="underline-muted-full"></div>
 
                 {/* Tags */}
                 {caseStudy.tags && caseStudy.tags.length > 0 && (
@@ -255,6 +259,7 @@ const SingleCaseStudyPage = () => {
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
               </article>
             </div>
