@@ -90,11 +90,12 @@
 | Site Settings | ✅ Complete | ✅ siteSettings.ts | ✅ Footer, Header | ✅ Dynamic via SettingsContext | 🟢 Phase 6C Complete |
 | Contact Form | ✅ Complete | ✅ contactSubmissions.ts | ✅ ContactPage | ✅ Form → Supabase INSERT | 🟢 Phase 6D Complete |
 | Testimonials | ✅ Complete | ✅ testimonials.ts | ✅ TestimonialsPage, HomePage, AboutPage | ✅ TestimonialsPage Dynamic | 🟢 Phase 6E Complete |
-| Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ✅ PricingPage Dynamic | 🟢 Phase 6F Complete |
-| Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ✅ CaseStudiesPage Dynamic | 🟢 Phase 6G Complete |
-| Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ✅ BlogPage & SinglePostPage Dynamic | 🟢 Phase 6H Complete |
+| Pricing Plans | ✅ Complete | ✅ pricingPlans.ts | ✅ PricingPage, HomePage | ✅ PricingPage & HomePage Dynamic | 🟢 Phase 6F & 6K Complete |
+| Case Studies | ✅ Complete | ✅ caseStudies.ts | ✅ CaseStudiesPage, HomePage | ✅ Both Pages Dynamic | 🟢 Phase 6G & 6K Complete |
+| Blog Posts | ✅ Complete | ✅ blogPosts.ts | ✅ BlogPage, SinglePostPage, HomePage | ✅ All Pages Dynamic | 🟢 Phase 6H & 6K Complete |
 | Team Members | ✅ Complete | ✅ teamMembers.ts | ✅ TeamPage, AboutPage | ✅ TeamPage & AboutPage Dynamic | 🟢 Phase 6I Complete |
 | FAQ Items | ✅ Complete | ✅ faqItems.ts | ✅ FaqPage | ✅ FaqPage Dynamic | 🟢 Phase 6J Complete |
+| HomePage | N/A | Reuses existing queries | ✅ HomePage | ✅ Dynamic Previews (Case Studies, Pricing, Blog) | 🟢 Phase 6K Complete |
 
 ### Missing Query Functions Identified
 
@@ -164,6 +165,109 @@ const [error, setError] = useState<string | null>(null);
 - ❌ HomePage FAQ teasers (deferred to Phase 6K)
 
 ---
+
+## Phase 6K: HomePage Dynamic Wiring (COMPLETE ✅)
+
+**Date:** 2025-12-02  
+**Status:** HomePage preview sections fully wired to Supabase  
+
+### Scope
+
+Wire 3 existing HomePage preview sections to Supabase:
+- Case Studies preview (4 cards)
+- Pricing preview (3 plans)
+- Blog preview (2-3 posts)
+
+**Not Included:**
+- Team preview (does not exist on HomePage)
+- FAQ preview (does not exist on HomePage)
+
+### Query Functions Used
+
+All query functions reused from previous phases:
+- `getPublishedCaseStudies()` from Phase 6G
+- `getPublishedPricingPlans()` from Phase 6F
+- `getPublishedBlogPosts()` from Phase 6H
+
+### State Management
+
+**Single useEffect with Promise.all:**
+```typescript
+const [homeCaseStudies, setHomeCaseStudies] = useState<CaseStudy[]>([]);
+const [homeBlogPosts, setHomeBlogPosts] = useState<BlogPost[]>([]);
+const [homePricingPlans, setHomePricingPlans] = useState<PricingPlan[]>([]);
+const [isLoading, setIsLoading] = useState(true);
+
+useEffect(() => {
+  const fetchHomeData = async () => {
+    const [
+      { data: caseStudiesData },
+      { data: blogData },
+      { data: pricingData },
+    ] = await Promise.all([
+      getPublishedCaseStudies(),
+      getPublishedBlogPosts(),
+      getPublishedPricingPlans(),
+    ]);
+    
+    setHomeCaseStudies((caseStudiesData || []).slice(0, 4));
+    setHomeBlogPosts((blogData || []).slice(0, 3));
+    setHomePricingPlans((pricingData || []).slice(0, 3));
+    setIsLoading(false);
+  };
+  fetchHomeData();
+}, []);
+```
+
+### Section Wiring Details
+
+#### Case Studies Preview (Lines 684-821)
+- Replaced 4 hardcoded case study cards with `homeCaseStudies.map()`
+- Preserved all CSS classes: `local-business`, `saas-leads`, `ecommerce`, `startup-branding`
+- Dynamic rendering: `cs.title`, `cs.description`, `cs.tags` array
+- Links to: `/case-studies/${cs.slug}`
+- Loading state: 4 skeleton cards
+- Empty state: "No case studies available"
+
+#### Pricing Preview (Lines 1365-1540)
+- Replaced 3 static pricing plans with `homePricingPlans.map()`
+- Preserved consultation card and "Your Growth" highlight box (static)
+- Dynamic rendering: `plan.name`, `plan.price`, `plan.billing_period`, `plan.features`
+- Highlighted middle plan styling applied when `plan.highlighted === true`
+- Loading state: 3 skeleton cards
+- Empty state: "Pricing information coming soon"
+
+#### Blog Preview (Lines 1632-1705)
+- Replaced 2 static blog cards with `homeBlogPosts.slice(0, 2).map()`
+- Dynamic rendering: `post.title`, `post.excerpt`, `post.featured_image`, `post.published_at`
+- Date formatting: `toLocaleDateString()` with full date format
+- Links to: `/blog/${post.slug}`
+- Loading state: 2 skeleton cards
+- Empty state: "No blog posts available"
+
+### Verification ✅
+
+- ✅ All 3 preview sections display live Supabase data
+- ✅ Loading states show skeleton placeholders
+- ✅ Empty states display friendly messages
+- ✅ All CSS classes and animations preserved
+- ✅ Hero, Expertise, Why Choose Us, Services, Testimonials sections unchanged
+- ✅ No console errors or React warnings
+- ✅ Responsive behavior maintained
+
+### Sections NOT Wired (Remain Static)
+
+- Hero/Banner section (video background)
+- Expertise section
+- Partner slider
+- Why Choose Us section
+- Services grid (6 static cards)
+- Testimonials slider (static - may need separate wiring later)
+- Digital Process section
+- Newsletter form
+
+---
+
 
 ### Database Seed Data Verification
 
