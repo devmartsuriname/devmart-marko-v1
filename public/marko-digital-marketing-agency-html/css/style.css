@@ -354,7 +354,7 @@ ul {
   margin-left: auto;
   width: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 
 .section-banner {
@@ -1100,6 +1100,7 @@ body.lightmode .keep-dark .btn-accent {
   position: relative;
   overflow: hidden;
   z-index: 1;
+  isolation: isolate;
 }
 
 .banner-video-container::before {
@@ -1124,7 +1125,7 @@ body.lightmode .keep-dark .btn-accent {
   height: 100%;
   object-fit: cover;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
   border-radius: var(--global-border-radius);
 }
 
@@ -1137,7 +1138,7 @@ body.lightmode .keep-dark .btn-accent {
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 100%);
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   border-radius: var(--global-border-radius);
 }
