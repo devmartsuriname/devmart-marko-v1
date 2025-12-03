@@ -1,6 +1,6 @@
 # Devmart Admin UI Style Guide
 
-> **Version:** 1.0 (Phases 1-3B Complete)  
+> **Version:** 1.1 (Phases 1-3C Complete)  
 > **Last Updated:** December 2025  
 > **Source:** `src/styles/admin.css`
 
@@ -23,6 +23,7 @@ This document provides a comprehensive reference for all CSS classes, tokens, an
 11. [Auth Page Components](#11-auth-page-components)
 12. [Responsive Breakpoints](#12-responsive-breakpoints)
 13. [Usage Examples](#13-usage-examples)
+14. [Settings Page Components](#14-settings-page-components)
 
 ---
 
@@ -760,6 +761,66 @@ const getStatusBadge = (status) => {
 
 ---
 
+## 14. Settings Page Components
+
+### 14.1 Settings Tabs
+
+The Settings page uses a custom tabbed interface for organizing configuration sections.
+
+| Class | Usage |
+|-------|-------|
+| `.settings-tabs` | Container wrapper for tab navigation |
+| `.settings-tab-list` | Horizontal scrollable tab bar (flexbox with gap) |
+| `.settings-tab` | Individual tab button (pill-style) |
+| `.settings-tab--active` | Active tab state (accent background) |
+
+**Styling Details:**
+- Tab list has `background-color: var(--admin-bg-tertiary)` with rounded corners
+- Active tab uses `var(--admin-accent)` background with `var(--admin-bg-secondary)` text
+- Inactive tabs use `var(--admin-text-muted)` and transparent background
+- Hover state adds subtle background and text color change
+- Mobile responsive with smaller padding at ≤640px
+
+**Example:**
+```html
+<div class="settings-tabs">
+  <div class="settings-tab-list">
+    <button class="settings-tab settings-tab--active">Brand</button>
+    <button class="settings-tab">Contact</button>
+    <button class="settings-tab">Social Media</button>
+    <button class="settings-tab">SEO & Branding</button>
+  </div>
+</div>
+```
+
+### 14.2 Color Picker
+
+Color picker utilities for branding color controls.
+
+| Class | Usage |
+|-------|-------|
+| `.admin-color-picker-wrapper` | Flex container for color input + text input combo |
+| `.admin-color-input` | Native `<input type="color">` styled (48×48px) |
+
+**Styling Details:**
+- Color picker wrapper uses `display: flex; gap: 12px; align-items: center`
+- Color input has border radius and border matching other inputs
+- Focus state uses accent color ring (`box-shadow: 0 0 0 3px var(--admin-accent-muted)`)
+
+**Example:**
+```html
+<div class="admin-form-group">
+  <label class="admin-form-label">Primary Color</label>
+  <div class="admin-color-picker-wrapper">
+    <input type="color" class="admin-color-input" value="#4be89b" />
+    <input type="text" class="admin-form-input" value="#4be89b" maxlength="7" />
+  </div>
+  <small class="admin-helper-text">Main brand color for marketing site.</small>
+</div>
+```
+
+---
+
 ## Quick Reference Card
 
 ```
@@ -774,4 +835,5 @@ BADGES:          .admin-badge + .admin-badge-{success|warning|error|info|default
 INPUTS:          .admin-input, .admin-textarea, .admin-select
 LAYOUT:          .admin-card, .admin-table, .admin-modal-form
 ICONS:           .admin-icon-{16|20|24}, .admin-icon-{muted|accent}
+SETTINGS:        .settings-tabs, .settings-tab, .admin-color-picker-wrapper
 ```

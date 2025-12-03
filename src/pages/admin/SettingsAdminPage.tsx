@@ -2,16 +2,26 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { getAllSiteSettings, updateSiteSettings, type SiteSettingsMap } from "@/integrations/supabase/queries/siteSettings";
 
+type SettingsTab = "brand" | "contact" | "social" | "seo";
+
+// Validate hex color format
+const isValidHexColor = (color: string): boolean => {
+  return /^#[0-9A-Fa-f]{6}$/.test(color);
+};
+
 export default function SettingsAdminPage() {
   const [settings, setSettings] = useState<SiteSettingsMap>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<SettingsTab>("brand");
 
   // Section-specific loading states
   const [savingBrand, setSavingBrand] = useState(false);
   const [savingContact, setSavingContact] = useState(false);
   const [savingSocial, setSavingSocial] = useState(false);
   const [savingSeo, setSavingSeo] = useState(false);
+  const [savingBranding, setSavingBranding] = useState(false);
+  const [brandingError, setBrandingError] = useState<string | null>(null);
 
   // Fetch settings on mount
   useEffect(() => {
@@ -128,6 +138,37 @@ export default function SettingsAdminPage() {
     setSavingSeo(false);
   };
 
+  // Save Branding Colors section
+  const handleSaveBranding = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBrandingError(null);
+
+    const primary = settings.primary_color || "#4be89b";
+    const accent = settings.accent_color || "#4be89b";
+
+    if (!isValidHexColor(primary)) {
+      setBrandingError("Primary color must be a valid hex code (e.g., #4be89b)");
+      return;
+    }
+    if (!isValidHexColor(accent)) {
+      setBrandingError("Accent color must be a valid hex code (e.g., #4be89b)");
+      return;
+    }
+
+    setSavingBranding(true);
+    const { error } = await updateSiteSettings({
+      primary_color: primary,
+      accent_color: accent,
+    });
+
+    if (error) {
+      toast.error("Failed to save branding colors");
+    } else {
+      toast.success("Branding colors updated successfully");
+    }
+    setSavingBranding(false);
+  };
+
   if (isLoading) {
     return (
       <div className="admin-loading-state">
@@ -165,257 +206,373 @@ export default function SettingsAdminPage() {
         </div>
       </div>
 
-      {/* Brand Information Section */}
-      <form onSubmit={handleSaveBrand}>
-        <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 className="admin-section-title">
-            Brand Information
-          </h3>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="site_name">
-              Site Name
-            </label>
-            <input
-              type="text"
-              id="site_name"
-              className="admin-form-input"
-              value={settings.site_name || ""}
-              onChange={(e) => handleInputChange("site_name", e.target.value)}
-              required
-              maxLength={100}
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="tagline">
-              Tagline
-            </label>
-            <input
-              type="text"
-              id="tagline"
-              className="admin-form-input"
-              value={settings.tagline || ""}
-              onChange={(e) => handleInputChange("tagline", e.target.value)}
-              maxLength={200}
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="copyright_text">
-              Copyright Text
-            </label>
-            <input
-              type="text"
-              id="copyright_text"
-              className="admin-form-input"
-              value={settings.copyright_text || ""}
-              onChange={(e) => handleInputChange("copyright_text", e.target.value)}
-              maxLength={200}
-            />
-          </div>
+      {/* Tab Navigation */}
+      <div className="settings-tabs">
+        <div className="settings-tab-list">
           <button
-            type="submit"
-            className="admin-btn admin-btn-primary"
-            disabled={savingBrand}
+            type="button"
+            className={`settings-tab ${activeTab === "brand" ? "settings-tab--active" : ""}`}
+            onClick={() => setActiveTab("brand")}
           >
-            {savingBrand ? "Saving..." : "Save Brand Information"}
+            Brand
+          </button>
+          <button
+            type="button"
+            className={`settings-tab ${activeTab === "contact" ? "settings-tab--active" : ""}`}
+            onClick={() => setActiveTab("contact")}
+          >
+            Contact
+          </button>
+          <button
+            type="button"
+            className={`settings-tab ${activeTab === "social" ? "settings-tab--active" : ""}`}
+            onClick={() => setActiveTab("social")}
+          >
+            Social Media
+          </button>
+          <button
+            type="button"
+            className={`settings-tab ${activeTab === "seo" ? "settings-tab--active" : ""}`}
+            onClick={() => setActiveTab("seo")}
+          >
+            SEO & Branding
           </button>
         </div>
-      </form>
+      </div>
 
-      {/* Contact Information Section */}
-      <form onSubmit={handleSaveContact}>
-        <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 className="admin-section-title">
-            Contact Information
-          </h3>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="contact_email">
-              Contact Email
-            </label>
-            <input
-              type="email"
-              id="contact_email"
-              className="admin-form-input"
-              value={settings.contact_email || ""}
-              onChange={(e) => handleInputChange("contact_email", e.target.value)}
-              required
-              maxLength={255}
-              placeholder="info@devmart.sr"
-            />
+      {/* Brand Information Tab */}
+      {activeTab === "brand" && (
+        <form onSubmit={handleSaveBrand}>
+          <div className="admin-card">
+            <h3 className="admin-section-title">Brand Information</h3>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="site_name">
+                Site Name
+              </label>
+              <input
+                type="text"
+                id="site_name"
+                className="admin-form-input"
+                value={settings.site_name || ""}
+                onChange={(e) => handleInputChange("site_name", e.target.value)}
+                required
+                maxLength={100}
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="tagline">
+                Tagline
+              </label>
+              <input
+                type="text"
+                id="tagline"
+                className="admin-form-input"
+                value={settings.tagline || ""}
+                onChange={(e) => handleInputChange("tagline", e.target.value)}
+                maxLength={200}
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="copyright_text">
+                Copyright Text
+              </label>
+              <input
+                type="text"
+                id="copyright_text"
+                className="admin-form-input"
+                value={settings.copyright_text || ""}
+                onChange={(e) => handleInputChange("copyright_text", e.target.value)}
+                maxLength={200}
+              />
+            </div>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              disabled={savingBrand}
+            >
+              {savingBrand ? "Saving..." : "Save Brand Information"}
+            </button>
           </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="contact_phone">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              id="contact_phone"
-              className="admin-form-input"
-              value={settings.contact_phone || ""}
-              onChange={(e) => handleInputChange("contact_phone", e.target.value)}
-              maxLength={50}
-              placeholder="+597 854-1211"
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="contact_address">
-              Address
-            </label>
-            <input
-              type="text"
-              id="contact_address"
-              className="admin-form-input"
-              value={settings.contact_address || ""}
-              onChange={(e) => handleInputChange("contact_address", e.target.value)}
-              maxLength={500}
-              placeholder="Jagernath Lachmon straat nr. 152, Paramaribo, Suriname"
-            />
-          </div>
-          <button
-            type="submit"
-            className="admin-btn admin-btn-primary"
-            disabled={savingContact}
-          >
-            {savingContact ? "Saving..." : "Save Contact Information"}
-          </button>
-        </div>
-      </form>
+        </form>
+      )}
 
-      {/* Social Media Links Section */}
-      <form onSubmit={handleSaveSocial}>
-        <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 className="admin-section-title">
-            Social Media Links
-          </h3>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="facebook_url">
-              Facebook URL
-            </label>
-            <input
-              type="url"
-              id="facebook_url"
-              className="admin-form-input"
-              value={settings.facebook_url || ""}
-              onChange={(e) => handleInputChange("facebook_url", e.target.value)}
-              maxLength={500}
-              placeholder="https://www.facebook.com/DevmartSuriname/"
-            />
+      {/* Contact Information Tab */}
+      {activeTab === "contact" && (
+        <form onSubmit={handleSaveContact}>
+          <div className="admin-card">
+            <h3 className="admin-section-title">Contact Information</h3>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="contact_email">
+                Contact Email
+              </label>
+              <input
+                type="email"
+                id="contact_email"
+                className="admin-form-input"
+                value={settings.contact_email || ""}
+                onChange={(e) => handleInputChange("contact_email", e.target.value)}
+                required
+                maxLength={255}
+                placeholder="info@devmart.sr"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="contact_phone">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                id="contact_phone"
+                className="admin-form-input"
+                value={settings.contact_phone || ""}
+                onChange={(e) => handleInputChange("contact_phone", e.target.value)}
+                maxLength={50}
+                placeholder="+597 854-1211"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="contact_address">
+                Address
+              </label>
+              <input
+                type="text"
+                id="contact_address"
+                className="admin-form-input"
+                value={settings.contact_address || ""}
+                onChange={(e) => handleInputChange("contact_address", e.target.value)}
+                maxLength={500}
+                placeholder="Jagernath Lachmon straat nr. 152, Paramaribo, Suriname"
+              />
+            </div>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              disabled={savingContact}
+            >
+              {savingContact ? "Saving..." : "Save Contact Information"}
+            </button>
           </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="linkedin_url">
-              LinkedIn URL
-            </label>
-            <input
-              type="url"
-              id="linkedin_url"
-              className="admin-form-input"
-              value={settings.linkedin_url || ""}
-              onChange={(e) => handleInputChange("linkedin_url", e.target.value)}
-              maxLength={500}
-              placeholder="https://linkedin.com/company/devmart"
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="instagram_url">
-              Instagram URL
-            </label>
-            <input
-              type="url"
-              id="instagram_url"
-              className="admin-form-input"
-              value={settings.instagram_url || ""}
-              onChange={(e) => handleInputChange("instagram_url", e.target.value)}
-              maxLength={500}
-              placeholder="https://instagram.com/devmart"
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="twitter_url">
-              Twitter/X URL
-            </label>
-            <input
-              type="url"
-              id="twitter_url"
-              className="admin-form-input"
-              value={settings.twitter_url || ""}
-              onChange={(e) => handleInputChange("twitter_url", e.target.value)}
-              maxLength={500}
-              placeholder="https://twitter.com/devmart"
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="github_url">
-              GitHub URL
-            </label>
-            <input
-              type="url"
-              id="github_url"
-              className="admin-form-input"
-              value={settings.github_url || ""}
-              onChange={(e) => handleInputChange("github_url", e.target.value)}
-              maxLength={500}
-              placeholder="https://github.com/devmart"
-            />
-          </div>
-          <button
-            type="submit"
-            className="admin-btn admin-btn-primary"
-            disabled={savingSocial}
-          >
-            {savingSocial ? "Saving..." : "Save Social Links"}
-          </button>
-        </div>
-      </form>
+        </form>
+      )}
 
-      {/* SEO Defaults Section */}
-      <form onSubmit={handleSaveSeo}>
-        <div className="admin-card" style={{ marginBottom: "24px" }}>
-          <h3 className="admin-section-title">
-            SEO Defaults
-          </h3>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="seo_default_title">
-              Default Meta Title
-            </label>
-            <input
-              type="text"
-              id="seo_default_title"
-              className="admin-form-input"
-              value={settings.seo_default_title || ""}
-              onChange={(e) => handleInputChange("seo_default_title", e.target.value)}
-              maxLength={60}
-              placeholder="Devmart Suriname - Web Development & Digital Solutions"
-            />
-            <small className="admin-helper-text">
-              Recommended: 50-60 characters
-            </small>
+      {/* Social Media Links Tab */}
+      {activeTab === "social" && (
+        <form onSubmit={handleSaveSocial}>
+          <div className="admin-card">
+            <h3 className="admin-section-title">Social Media Links</h3>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="facebook_url">
+                Facebook URL
+              </label>
+              <input
+                type="url"
+                id="facebook_url"
+                className="admin-form-input"
+                value={settings.facebook_url || ""}
+                onChange={(e) => handleInputChange("facebook_url", e.target.value)}
+                maxLength={500}
+                placeholder="https://www.facebook.com/DevmartSuriname/"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="linkedin_url">
+                LinkedIn URL
+              </label>
+              <input
+                type="url"
+                id="linkedin_url"
+                className="admin-form-input"
+                value={settings.linkedin_url || ""}
+                onChange={(e) => handleInputChange("linkedin_url", e.target.value)}
+                maxLength={500}
+                placeholder="https://linkedin.com/company/devmart"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="instagram_url">
+                Instagram URL
+              </label>
+              <input
+                type="url"
+                id="instagram_url"
+                className="admin-form-input"
+                value={settings.instagram_url || ""}
+                onChange={(e) => handleInputChange("instagram_url", e.target.value)}
+                maxLength={500}
+                placeholder="https://instagram.com/devmart"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="twitter_url">
+                Twitter/X URL
+              </label>
+              <input
+                type="url"
+                id="twitter_url"
+                className="admin-form-input"
+                value={settings.twitter_url || ""}
+                onChange={(e) => handleInputChange("twitter_url", e.target.value)}
+                maxLength={500}
+                placeholder="https://twitter.com/devmart"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label className="admin-form-label" htmlFor="github_url">
+                GitHub URL
+              </label>
+              <input
+                type="url"
+                id="github_url"
+                className="admin-form-input"
+                value={settings.github_url || ""}
+                onChange={(e) => handleInputChange("github_url", e.target.value)}
+                maxLength={500}
+                placeholder="https://github.com/devmart"
+              />
+            </div>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              disabled={savingSocial}
+            >
+              {savingSocial ? "Saving..." : "Save Social Links"}
+            </button>
           </div>
-          <div className="admin-form-group">
-            <label className="admin-form-label" htmlFor="seo_default_description">
-              Default Meta Description
-            </label>
-            <textarea
-              id="seo_default_description"
-              className="admin-form-input"
-              value={settings.seo_default_description || ""}
-              onChange={(e) => handleInputChange("seo_default_description", e.target.value)}
-              maxLength={160}
-              rows={3}
-              placeholder="Professional web development and digital solutions in Suriname"
-              style={{ resize: "vertical" }}
-            />
-            <small className="admin-helper-text">
-              Recommended: 150-160 characters
-            </small>
-          </div>
-          <button
-            type="submit"
-            className="admin-btn admin-btn-primary"
-            disabled={savingSeo}
-          >
-            {savingSeo ? "Saving..." : "Save SEO Settings"}
-          </button>
-        </div>
-      </form>
+        </form>
+      )}
+
+      {/* SEO & Branding Tab */}
+      {activeTab === "seo" && (
+        <>
+          {/* SEO Defaults Card */}
+          <form onSubmit={handleSaveSeo}>
+            <div className="admin-card" style={{ marginBottom: "24px" }}>
+              <h3 className="admin-section-title">SEO Defaults</h3>
+              <div className="admin-form-group">
+                <label className="admin-form-label" htmlFor="seo_default_title">
+                  Default Meta Title
+                </label>
+                <input
+                  type="text"
+                  id="seo_default_title"
+                  className="admin-form-input"
+                  value={settings.seo_default_title || ""}
+                  onChange={(e) => handleInputChange("seo_default_title", e.target.value)}
+                  maxLength={60}
+                  placeholder="Devmart Suriname - Web Development & Digital Solutions"
+                />
+                <small className="admin-helper-text">
+                  Recommended: 50-60 characters
+                </small>
+              </div>
+              <div className="admin-form-group">
+                <label className="admin-form-label" htmlFor="seo_default_description">
+                  Default Meta Description
+                </label>
+                <textarea
+                  id="seo_default_description"
+                  className="admin-form-input"
+                  value={settings.seo_default_description || ""}
+                  onChange={(e) => handleInputChange("seo_default_description", e.target.value)}
+                  maxLength={160}
+                  rows={3}
+                  placeholder="Professional web development and digital solutions in Suriname"
+                  style={{ resize: "vertical" }}
+                />
+                <small className="admin-helper-text">
+                  Recommended: 150-160 characters
+                </small>
+              </div>
+              <button
+                type="submit"
+                className="admin-btn admin-btn-primary"
+                disabled={savingSeo}
+              >
+                {savingSeo ? "Saving..." : "Save SEO Settings"}
+              </button>
+            </div>
+          </form>
+
+          {/* Branding Colors Card */}
+          <form onSubmit={handleSaveBranding}>
+            <div className="admin-card">
+              <h3 className="admin-section-title">Branding Colors</h3>
+
+              {brandingError && (
+                <div className="admin-alert admin-alert-error admin-alert-mb">
+                  {brandingError}
+                </div>
+              )}
+
+              <div className="admin-form-row-2">
+                {/* Primary Color */}
+                <div className="admin-form-group">
+                  <label className="admin-form-label" htmlFor="primary_color">
+                    Primary Color
+                  </label>
+                  <div className="admin-color-picker-wrapper">
+                    <input
+                      type="color"
+                      id="primary_color_picker"
+                      className="admin-color-input"
+                      value={settings.primary_color || "#4be89b"}
+                      onChange={(e) => handleInputChange("primary_color", e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      id="primary_color"
+                      className="admin-form-input"
+                      value={settings.primary_color || "#4be89b"}
+                      onChange={(e) => handleInputChange("primary_color", e.target.value)}
+                      maxLength={7}
+                      placeholder="#4be89b"
+                    />
+                  </div>
+                  <small className="admin-helper-text">
+                    Main brand color for buttons and highlights on the marketing site.
+                  </small>
+                </div>
+
+                {/* Accent Color */}
+                <div className="admin-form-group">
+                  <label className="admin-form-label" htmlFor="accent_color">
+                    Accent Color
+                  </label>
+                  <div className="admin-color-picker-wrapper">
+                    <input
+                      type="color"
+                      id="accent_color_picker"
+                      className="admin-color-input"
+                      value={settings.accent_color || "#4be89b"}
+                      onChange={(e) => handleInputChange("accent_color", e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      id="accent_color"
+                      className="admin-form-input"
+                      value={settings.accent_color || "#4be89b"}
+                      onChange={(e) => handleInputChange("accent_color", e.target.value)}
+                      maxLength={7}
+                      placeholder="#4be89b"
+                    />
+                  </div>
+                  <small className="admin-helper-text">
+                    Secondary highlight color for badges, links or special sections.
+                  </small>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="admin-btn admin-btn-primary"
+                disabled={savingBranding}
+              >
+                {savingBranding ? "Saving..." : "Save Branding Colors"}
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 }

@@ -8,6 +8,38 @@
 
 ---
 
+## Settings Tabbed Layout & Branding Colors (COMPLETE ✅)
+
+**Date:** 2025-12-03  
+**Status:** Implemented  
+**Scope:** Admin Settings page only – zero impact on marketing frontend
+
+### Changes Implemented
+
+1. **Tabbed Settings Layout**: Refactored long vertical settings page into 4 tabs:
+   - Brand (site name, tagline, copyright)
+   - Contact (email, phone, address)
+   - Social Media (Facebook, LinkedIn, Instagram, Twitter, GitHub)
+   - SEO & Branding (meta tags + branding color controls)
+
+2. **Branding Color Controls**: New form for managing marketing site brand colors:
+   - `primary_color` - Main brand color (default: #4be89b)
+   - `accent_color` - Secondary accent (default: #4be89b)
+   - Combined color picker + hex input for each field
+   - Hex validation before save
+
+3. **Database**: Added `primary_color` and `accent_color` keys to `site_settings` table
+
+4. **CSS**: New classes added to `admin.css`:
+   - `.settings-tabs`, `.settings-tab-list`, `.settings-tab`, `.settings-tab--active`
+   - `.admin-color-picker-wrapper`, `.admin-color-input`
+
+### Future Use
+
+The `primary_color` and `accent_color` values are stored in Supabase and returned by `getAllSiteSettings()`. A future phase will wire these to the marketing frontend CSS variables.
+
+---
+
 ## Admin Backend Enhancement – Final Standardization Summary (COMPLETE ✅)
 
 **Date:** 2025-12-02  
