@@ -15,6 +15,7 @@ import FaqPage from "./pages/FaqPage";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
 
 // Auth pages
 import LoginPage from "./pages/auth/LoginPage";
@@ -34,6 +35,7 @@ import TeamAdminPage from "./pages/admin/TeamAdminPage";
 import FaqAdminPage from "./pages/admin/FaqAdminPage";
 import ContactsAdminPage from "./pages/admin/ContactsAdminPage";
 import SettingsAdminPage from "./pages/admin/SettingsAdminPage";
+import UsersAdminPage from "./pages/admin/UsersAdminPage";
 
 const App = () => (
   <BrowserRouter>
@@ -62,6 +64,9 @@ const App = () => (
       <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />
 
+      {/* Unauthorized page */}
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
       {/* Admin routes - Protected */}
       <Route path="/admin" element={<RequireAuth />}>
         <Route element={<AdminLayout />}>
@@ -75,6 +80,7 @@ const App = () => (
           <Route path="faqs" element={<FaqAdminPage />} />
           <Route path="contacts" element={<ContactsAdminPage />} />
           <Route path="settings" element={<SettingsAdminPage />} />
+          <Route path="users" element={<UsersAdminPage />} />
         </Route>
       </Route>
     </Routes>

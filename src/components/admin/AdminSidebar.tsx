@@ -1,4 +1,7 @@
 import { NavLink } from "@/components/NavLink";
+import { useAuth } from "@/hooks/useAuth";
+import { canAccessRoute } from "@/lib/permissions";
+import type { AppRole } from "@/lib/permissions";
 import {
   LayoutDashboard,
   Briefcase,
@@ -10,13 +13,14 @@ import {
   HelpCircle,
   Mail,
   Settings,
+  UserCog,
 } from "lucide-react";
 
 interface AdminSidebarProps {
   isOpen: boolean;
 }
 
-const navItems = [
+const allNavItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/admin/services", label: "Services", icon: Briefcase },
   { to: "/admin/projects", label: "Projects", icon: FolderKanban },
@@ -27,9 +31,17 @@ const navItems = [
   { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { to: "/admin/contacts", label: "Contacts", icon: Mail },
   { to: "/admin/settings", label: "Settings", icon: Settings },
+  { to: "/admin/users", label: "Users", icon: UserCog },
 ];
 
 export const AdminSidebar = ({ isOpen }: AdminSidebarProps) => {
+  const { userRole } = useAuth();
+
+  // Filter nav items based on user role
+  const navItems = allNavItems.filter((item) => 
+    canAccessRoute(userRole as AppRole, item.to)
+  );
+
   return (
     <aside className={`admin-sidebar ${isOpen ? "" : "collapsed"}`}>
       <div className="admin-sidebar-header">

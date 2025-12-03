@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 export const RequireAuth = () => {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, isAdmin, isEditor, userRole } = useAuth();
 
   if (isLoading) {
     return (
@@ -12,8 +12,14 @@ export const RequireAuth = () => {
     );
   }
 
+  // Not logged in - redirect to login
   if (!user) {
     return <Navigate to="/auth/login" replace />;
+  }
+
+  // Logged in but no admin/editor role - redirect to unauthorized
+  if (!isAdmin && !isEditor) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return <Outlet />;
