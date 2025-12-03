@@ -56,7 +56,8 @@ export default function DeleteSubscriberDialog({ open, subscriber, onClose, onSu
             Delete Subscriber
           </DialogTitle>
           <DialogDescription style={{ color: "var(--admin-text-muted)", marginTop: "0.5rem" }}>
-            Are you sure you want to delete <strong>{subscriber?.email}</strong>? This action cannot be undone.
+            Are you sure you want to <strong>permanently delete</strong> the subscriber <strong>{subscriber?.email}</strong>? 
+            This will remove them from your mailing list and cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
