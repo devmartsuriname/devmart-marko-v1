@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getServiceBySlug, getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
+import { subscribeToNewsletter } from "@/integrations/supabase/queries/newsletterSubscribers";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/utils/seo";
 
@@ -10,6 +11,51 @@ const SingleServicePage = () => {
   const [relatedServices, setRelatedServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Newsletter form state
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "success" | "error" | "duplicate">("idle");
+
+  const validateEmail = (email: string) => {
+    const trimmed = email.trim();
+    if (trimmed.length < 5) return false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return false;
+    return true;
+  };
+
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setNewsletterStatus("idle");
+
+    if (!validateEmail(newsletterEmail)) {
+      setNewsletterStatus("error");
+      return;
+    }
+
+    setIsNewsletterSubmitting(true);
+
+    try {
+      const { error } = await subscribeToNewsletter(newsletterEmail.trim());
+
+      if (error) {
+        if (error.code === "23505") {
+          setNewsletterStatus("duplicate");
+        } else {
+          console.error("Newsletter subscription error:", error);
+          setNewsletterStatus("error");
+        }
+      } else {
+        setNewsletterStatus("success");
+        setNewsletterEmail("");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setNewsletterStatus("error");
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const fetchService = async () => {
@@ -683,21 +729,26 @@ const SingleServicePage = () => {
                     inbox. Subscribe now!
                   </p>
                 </div>
-                <div id="newsletter-success" className="alert success hidden">
+                <div id="newsletter-success" className={`alert success ${newsletterStatus === "success" ? "" : "hidden"}`}>
                   <span className="check-icon">
                     <i className="fa-solid fa-2xl fa-check"></i>
                   </span>
-                  <p className="text-center">Thank you! Form submitted successfully.</p>
+                  <p className="text-center">Thank you for subscribing! Check your inbox for updates.</p>
                 </div>
-                <div id="newsletter-error" className="alert error hidden">
+                <div id="newsletter-error" className={`alert error ${newsletterStatus === "error" ? "" : "hidden"}`}>
                   <span className="cross-icon">
                     <i className="fa-solid fa-2xl fa-xmark"></i>
                   </span>
-                  <p className="text-center">Oops! Form submission failed. Please try again.</p>
+                  <p className="text-center">Please enter a valid email address.</p>
+                </div>
+                <div id="newsletter-duplicate" className={`alert error ${newsletterStatus === "duplicate" ? "" : "hidden"}`}>
+                  <span className="cross-icon">
+                    <i className="fa-solid fa-2xl fa-xmark"></i>
+                  </span>
+                  <p className="text-center">You are already subscribed with this email address.</p>
                 </div>
                 <form
-                  action="./php/newsletter_process.php"
-                  method="POST"
+                  onSubmit={handleNewsletterSubmit}
                   id="newsletterForm"
                   className="needs-validation animate-box animated animate__animated"
                   data-animate="animate__fadeInRight"
@@ -708,13 +759,15 @@ const SingleServicePage = () => {
                       name="newsletter-email"
                       id="newsletter-email"
                       placeholder="Give your best email"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
                       required
                     />
                     <p className="error-text hidden"></p>
                   </div>
-                  <button className="btn btn-accent" type="submit">
+                  <button className="btn btn-accent" type="submit" disabled={isNewsletterSubmitting}>
                     <span className="btn-title">
-                      <span>Subscribe</span>
+                      <span>{isNewsletterSubmitting ? "Subscribing..." : "Subscribe"}</span>
                     </span>
                     <span className="icon-circle">
                       <i className="fa-solid fa-arrow-right"></i>

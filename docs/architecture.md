@@ -1329,7 +1329,11 @@ Wire the final two static content sections on HomePage to Supabase:
 - Why Choose Us
 - Guide CTA
 - Digital Process Steps
-- Newsletter Form
+- Newsletter Form (static layout, dynamic submission via Supabase - Phase C2)
+
+**Public Marketing Data Flow - Forms:**
+- Contact form → `contact_submissions` (INSERT via `createContactSubmission`)
+- Newsletter form → `newsletter_subscribers` (INSERT via `subscribeToNewsletter`)
 
 ### Files Modified
 

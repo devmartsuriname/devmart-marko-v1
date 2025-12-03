@@ -1504,9 +1504,32 @@ All data fetched in parallel on page mount for optimal performance.
 - Why Choose Us
 - Guide CTA
 - Digital Process Steps
-- Newsletter Form
+- Newsletter Form (static layout, dynamic submission via Supabase - Phase C2)
 
-HomePage is now **~95% dynamic** with only intentional static sections remaining (Hero, Expertise, Process, Newsletter).
+HomePage is now **~95% dynamic** with only intentional static sections remaining (Hero, Expertise, Process). Newsletter form has dynamic backend submission.
+
+---
+
+### Phase C2: Newsletter Form Wiring
+
+The public Newsletter forms on `HomePage` and `SingleServicePage` are now wired to Supabase:
+
+**Implementation:**
+- **Query function**: `subscribeToNewsletter(email)` from `newsletterSubscribers.ts`
+- **RLS**: Public INSERT allowed (anonymous visitors can subscribe)
+- **Validation**: Client-side email format validation before API call
+- **Duplicate handling**: Detects PostgreSQL unique constraint (code 23505) and shows friendly message
+- **Admin access**: Subscribers managed via `/admin/newsletter`
+
+**Pages wired:**
+- `src/pages/HomePage.tsx` - Main newsletter section
+- `src/pages/SingleServicePage.tsx` - Service page newsletter section
+
+**Form states:**
+- `idle` - Initial state
+- `success` - Subscription successful, email cleared
+- `error` - Validation failed or API error
+- `duplicate` - Email already subscribed (unique constraint)
 
 ---
 
