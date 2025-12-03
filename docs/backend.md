@@ -1499,14 +1499,16 @@ All data fetched in parallel on page mount for optimal performance.
 - ✅ Partner Logos Slider (Phase C1)
 
 **Static Sections (Remain Hardcoded):**
-- Hero Banner (video background, title, CTA)
 - Expertise Counter
 - Why Choose Us
-- Guide CTA
 - Digital Process Steps
 - Newsletter Form (static layout, dynamic submission via Supabase - Phase C2)
 
-HomePage is now **~95% dynamic** with only intentional static sections remaining (Hero, Expertise, Process). Newsletter form has dynamic backend submission.
+**Dynamic Content Sections (Text Only - Phase C3):**
+- Hero Banner (title, subtitle, button via `homepage_blocks` key: `hero`)
+- Guide CTA (title, subtitle, optional button via `homepage_blocks` key: `cta`)
+
+HomePage is now **~98% dynamic** with only intentional static sections remaining (Expertise, Why Choose Us, Process). Newsletter form has dynamic backend submission.
 
 ---
 
@@ -1533,6 +1535,34 @@ The public Newsletter forms on `HomePage` and `SingleServicePage` are now wired 
 
 ---
 
+### Phase C3: Homepage Blocks Wiring
+
+The public Homepage Hero and Guide/CTA sections are now wired to Supabase `homepage_blocks`:
+
+**Implementation:**
+- **Query function**: `getActiveHomepageBlocks()` from `homepageBlocks.ts`
+- **Block keys used**:
+  - `hero` → Hero section title, subtitle, button label/URL
+  - `cta` → Guide CTA section title, subtitle, optional button
+- **Fallback behavior**: If blocks don't exist or are inactive, static template text displays
+- **Admin management**: Via `/admin/homepage`
+
+**Fields mapped:**
+| Block Key | Field | Usage |
+|-----------|-------|-------|
+| `hero` | `title` | Main hero heading |
+| `hero` | `subtitle` | Hero description paragraph |
+| `hero` | `button_label` | CTA button text |
+| `hero` | `button_url` | CTA button link |
+| `cta` | `title` | Guide section heading |
+| `cta` | `subtitle` | Guide section description |
+| `cta` | `button_label` | Optional CTA button (shows only if URL exists) |
+| `cta` | `button_url` | Optional CTA button link |
+
+**Page wired:**
+- `src/pages/HomePage.tsx` - Hero banner + Guide CTA sections
+
+---
 
 ### Database Seed Data Verification
 
