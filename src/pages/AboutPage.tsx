@@ -1,32 +1,38 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getActiveTeamMembers, type TeamMember } from "@/integrations/supabase/queries/teamMembers";
+import { getActivePartnerLogos, type PartnerLogo } from "@/integrations/supabase/queries/partnerLogos";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/utils/seo";
 
 const AboutPage = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [partnerLogos, setPartnerLogos] = useState<PartnerLogo[]>([]);
   const [isTeamLoading, setIsTeamLoading] = useState(true);
   const [teamError, setTeamError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTeam = async () => {
+    const fetchData = async () => {
       setIsTeamLoading(true);
       setTeamError(null);
 
-      const { data, error } = await getActiveTeamMembers();
+      const [teamResult, partnerResult] = await Promise.all([
+        getActiveTeamMembers(),
+        getActivePartnerLogos(),
+      ]);
 
-      if (error) {
-        console.error("Error fetching team members (AboutPage):", error);
+      if (teamResult.error) {
+        console.error("Error fetching team members (AboutPage):", teamResult.error);
         setTeamError("Unable to load team members.");
       } else {
-        setTeamMembers(data || []);
+        setTeamMembers(teamResult.data || []);
       }
 
+      setPartnerLogos(partnerResult.data || []);
       setIsTeamLoading(false);
     };
 
-    fetchTeam();
+    fetchData();
   }, []);
 
   return (
@@ -149,193 +155,56 @@ const AboutPage = () => {
       </div>
 
       {/* Section Partner */}
-      <div className="section-partner">
-        <div className="hero-container">
-          <div className="card card-partner animate-box animated animate__animated" data-animate="animate__fadeInRight">
-            <div className="partner-spacer"></div>
-            <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
-              <div className="col">
-                <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
-                  <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
+      {partnerLogos.length > 0 && (
+        <div className="section-partner">
+          <div className="hero-container">
+            <div className="card card-partner animate-box animated animate__animated" data-animate="animate__fadeInRight">
+              <div className="partner-spacer"></div>
+              <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
+                <div className="col">
+                  <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
+                    <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="d-flex flex-column ps-xl-3 ps-0">
+                    <p>
+                      From government ministries to private enterprises, leading organizations rely on Devmart to deliver
+                      secure, scalable digital solutions that drive efficiency and modernize their operations.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className="col">
-                <div className="d-flex flex-column ps-xl-3 ps-0">
-                  <p>
-                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver
-                    secure, scalable digital solutions that drive efficiency and modernize their operations.
-                  </p>
+              <div className="swiperPartner-layout">
+                <div className="swiperPartner-overlay">
+                  <div className="spacer"></div>
                 </div>
-              </div>
-            </div>
-            <div className="swiperPartner-layout">
-              <div className="swiperPartner-overlay">
-                <div className="spacer"></div>
-              </div>
-              <div className="swiperPartner-container">
-                <div className="swiper swiperPartner">
-                  <div className="swiper-wrapper">
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-7.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
+                <div className="swiperPartner-container">
+                  <div className="swiper swiperPartner">
+                    <div className="swiper-wrapper">
+                      {partnerLogos.map((partner) => (
+                        <div key={partner.id} className="swiper-slide">
+                          {partner.website_url ? (
+                            <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
+                              <div className="partner-slide">
+                                <img
+                                  src={partner.logo_url}
+                                  alt={partner.name}
+                                  className="partner-logo img-fluid"
+                                />
+                              </div>
+                            </a>
+                          ) : (
+                            <div className="partner-slide">
+                              <img
+                                src={partner.logo_url}
+                                alt={partner.name}
+                                className="partner-logo img-fluid"
+                              />
+                            </div>
+                          )}
                         </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-6.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-8.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-2.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-1.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-3.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-5.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-4.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <a href="#">
-                        <div className="partner-slide">
-                          <img
-                            src="/marko-digital-marketing-agency-html/image/client-7.png"
-                            alt="Client"
-                            className="partner-logo img-fluid"
-                          />
-                        </div>
-                      </a>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-6.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-8.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-2.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-1.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-3.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-5.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="partner-slide">
-                        <img
-                          src="/marko-digital-marketing-agency-html/image/client-4.png"
-                          alt="Client"
-                          className="partner-logo img-fluid"
-                        />
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -343,7 +212,7 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Section Why Choose Us */}
       <div className="section">

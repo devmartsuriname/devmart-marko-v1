@@ -28,6 +28,50 @@
 
 ---
 
+## Phase C1: Partner Logos Frontend Wiring (2025-12-03)
+
+**Status:** COMPLETE ✅
+
+### Summary
+
+Wired `partner_logos` table to public marketing pages using `getActivePartnerLogos()` query function.
+
+### Pages Updated
+
+| Page | Implementation |
+|------|----------------|
+| `HomePage.tsx` | Fetches partner logos in `Promise.all()` alongside other homepage data |
+| `AboutPage.tsx` | Fetches partner logos alongside team members |
+| `TeamPage.tsx` | Fetches partner logos alongside team members |
+
+### Implementation Details
+
+- **Conditional rendering:** Section hidden when `partnerLogos.length === 0`
+- **Dynamic slides:** Each partner logo rendered as a Swiper slide
+- **External links:** Partners with `website_url` open in new tab (`target="_blank" rel="noopener noreferrer"`)
+- **Alt text:** Uses `partner.name` for accessibility
+- **Swiper compatibility:** Existing Swiper initialization in `MainLayout.tsx` handles dynamic content
+
+### Query Function
+
+```typescript
+// src/integrations/supabase/queries/partnerLogos.ts
+export async function getActivePartnerLogos() {
+  const { data, error } = await supabase
+    .from("partner_logos")
+    .select("*")
+    .eq("status", "active")
+    .order("sort_order", { ascending: true });
+  return { data: data as PartnerLogo[] | null, error };
+}
+```
+
+### RLS Policy
+
+Public SELECT policy requires `status = 'active'` (already configured in Phase D).
+
+---
+
 ## Phase D Polish Notes (2025-12-03)
 
 ### Auth Session Fix
