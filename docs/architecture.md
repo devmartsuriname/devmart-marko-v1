@@ -8,6 +8,98 @@
 
 ---
 
+## Phase A: Security Architecture & Role Matrix (COMPLETE ✅)
+
+**Date:** 2025-12-03  
+**Status:** Implemented  
+**Scope:** Production-ready security hardening
+
+### Security Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client (Browser)                         │
+├─────────────────────────────────────────────────────────────────┤
+│  AuthContext                                                    │
+│  ├── user (from Supabase Auth)                                  │
+│  ├── userRole (fetched via has_role RPC)                        │
+│  ├── isAdmin / isEditor (derived booleans)                      │
+│  └── signIn / signOut methods                                   │
+├─────────────────────────────────────────────────────────────────┤
+│  RequireAuth (Route Guard)                                      │
+│  ├── If !user → redirect to /auth/login                         │
+│  ├── If user && !isAdmin && !isEditor → redirect to /unauthorized│
+│  └── If authorized → render <Outlet />                          │
+├─────────────────────────────────────────────────────────────────┤
+│  AdminSidebar (Navigation)                                      │
+│  └── Filters navItems based on canAccessRoute(userRole, route)  │
+├─────────────────────────────────────────────────────────────────┤
+│  RequirePermission (UI Guard)                                   │
+│  └── Conditionally renders children based on hasPermission()    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      Supabase Backend                           │
+├─────────────────────────────────────────────────────────────────┤
+│  has_role(_user_id, _role) RPC                                  │
+│  ├── SECURITY DEFINER function                                  │
+│  ├── Bypasses RLS to check user_roles table                     │
+│  └── Returns boolean                                            │
+├─────────────────────────────────────────────────────────────────┤
+│  RLS Policies                                                   │
+│  ├── Public SELECT: status='published' (anonymous)              │
+│  ├── Admin SELECT: has_role(auth.uid(), 'admin')                │
+│  ├── Admin WRITE: has_role(auth.uid(), 'admin')                 │
+│  └── Editor WRITE: has_role(auth.uid(), 'editor') (limited)     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Permission Matrix
+
+| Module | Admin | Editor |
+|--------|-------|--------|
+| Dashboard | ✅ Read | ✅ Read |
+| Services | ✅ Full CRUD | ❌ No Access |
+| Projects | ✅ Full CRUD | ❌ No Access |
+| Pricing | ✅ Full CRUD | ❌ No Access |
+| Testimonials | ✅ Full CRUD | ✅ Full CRUD |
+| Blog | ✅ Full CRUD | ✅ Full CRUD |
+| Team | ✅ Full CRUD | ❌ No Access |
+| FAQs | ✅ Full CRUD | ✅ Full CRUD |
+| Contacts | ✅ Full CRUD | ✅ Read Only |
+| Settings | ✅ Read/Update | ❌ No Access |
+| Users | ✅ Full CRUD | ❌ No Access |
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/permissions.ts` | Permission matrix and helper functions |
+| `src/context/AuthContext.tsx` | Auth state with role information |
+| `src/components/admin/RequireAuth.tsx` | Route-level protection |
+| `src/components/admin/RequirePermission.tsx` | Component-level protection |
+| `src/integrations/supabase/queries/userRoles.ts` | Role query functions |
+| `src/pages/UnauthorizedPage.tsx` | Access denied page |
+
+### RLS Policy Summary
+
+All tables use `has_role()` function for write authorization:
+
+```sql
+-- Admin-only write example
+CREATE POLICY "Admins can create services" ON services
+  FOR INSERT TO authenticated
+  WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+-- Admin + Editor write example
+CREATE POLICY "Admins and editors can create blog posts" ON blog_posts
+  FOR INSERT TO authenticated
+  WITH CHECK (public.has_role(auth.uid(), 'admin') OR public.has_role(auth.uid(), 'editor'));
+```
+
+---
+
 ## Settings Tabbed Layout & Branding Colors (COMPLETE ✅)
 
 **Date:** 2025-12-03  

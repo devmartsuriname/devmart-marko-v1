@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Settings Tabbed Layout & Branding Colors - IMPLEMENTED ✅
+## Current Status: Phase A Security & Authorization - IMPLEMENTED ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -25,7 +25,103 @@
 **Admin Enhancement Phase 4 (Micro-Interactions & UX Polish):** 2025-12-02 ✅  
 **Admin Enhancement Phase 5 (Final QA & Edge Case Hardening):** 2025-12-02 ✅  
 **Settings Tabbed Layout & Branding Colors:** 2025-12-03 ✅  
-**Implementation Status:** All admin CRUD modules complete. Settings page refactored with tabbed UI and branding color controls.
+**Phase A Security & Authorization:** 2025-12-03 ✅  
+**Implementation Status:** Role-based access control implemented with hardened RLS policies.
+
+---
+
+## Phase A: Security & Authorization (COMPLETE ✅)
+
+**Date:** 2025-12-03  
+**Status:** Fully implemented and verified  
+**Scope:** Security hardening for production readiness
+
+### A1 — Role-Based Route Protection
+
+**Files Created:**
+- `src/integrations/supabase/queries/userRoles.ts` - Role checking functions
+- `src/lib/permissions.ts` - Permission matrix and helper functions
+- `src/pages/UnauthorizedPage.tsx` - Access denied page
+- `src/components/admin/RequirePermission.tsx` - UI element permission wrapper
+
+**Files Updated:**
+- `src/context/AuthContext.tsx` - Added `isAdmin`, `isEditor`, `userRole` to context
+- `src/components/admin/RequireAuth.tsx` - Role-based redirect logic
+- `src/components/admin/AdminSidebar.tsx` - Filtered navigation by role
+- `src/App.tsx` - Added `/unauthorized` and `/admin/users` routes
+
+**Behavior:**
+- Unauthenticated users → redirected to `/auth/login`
+- Authenticated users without admin/editor role → redirected to `/unauthorized`
+- Admins → full access to all admin routes
+- Editors → limited access (Blog, FAQs, Testimonials, Contacts view-only)
+
+### A2 — RLS Policy Hardening
+
+All write operations now require `has_role(auth.uid(), 'admin')` check:
+
+| Table | Public SELECT | Admin Write | Editor Write |
+|-------|---------------|-------------|--------------|
+| services | status='published' | ✅ | ❌ |
+| case_studies | status='published' | ✅ | ❌ |
+| pricing_plans | status='published' | ✅ | ❌ |
+| team_members | status='active' | ✅ | ❌ |
+| site_settings | ✅ (all) | ✅ | ❌ |
+| contact_submissions | ❌ (INSERT only) | ✅ | View only |
+| blog_posts | status='published' | ✅ | ✅ |
+| testimonials | status='published' | ✅ | ✅ |
+| faq_items | status='active' | ✅ | ✅ |
+
+### A3 — Permission Matrix
+
+Located in `src/lib/permissions.ts`:
+
+```typescript
+export const PERMISSIONS = {
+  admin: {
+    dashboard: ['read'],
+    services: ['read', 'create', 'update', 'delete'],
+    projects: ['read', 'create', 'update', 'delete'],
+    pricing: ['read', 'create', 'update', 'delete'],
+    testimonials: ['read', 'create', 'update', 'delete'],
+    blog: ['read', 'create', 'update', 'delete'],
+    team: ['read', 'create', 'update', 'delete'],
+    faqs: ['read', 'create', 'update', 'delete'],
+    contacts: ['read', 'create', 'update', 'delete'],
+    settings: ['read', 'update'],
+    users: ['read', 'create', 'update', 'delete'],
+  },
+  editor: {
+    dashboard: ['read'],
+    testimonials: ['read', 'create', 'update', 'delete'],
+    blog: ['read', 'create', 'update', 'delete'],
+    faqs: ['read', 'create', 'update', 'delete'],
+    contacts: ['read'],
+  },
+};
+```
+
+### A4 — Admin User Management
+
+**New Route:** `/admin/users`
+
+**Files Created:**
+- `src/integrations/supabase/queries/adminUsers.ts` - Admin user CRUD
+- `src/pages/admin/UsersAdminPage.tsx` - User management page
+- `src/components/admin/users/EditUserRoleModal.tsx` - Role editing modal
+
+**Features:**
+- DataTable listing all admin users
+- View full_name, email, role, last_login
+- Edit modal to change role (Admin/Editor)
+- Only visible to admin users (via permission filtering)
+
+### Initial Admin Seeded
+
+The `info@devmart.sr` user has been assigned the `admin` role:
+- User ID: `b4731dce-6a97-4cb3-bc83-4cb38d01dd73`
+- Role: `admin`
+- Entry created in both `user_roles` and `admin_users` tables
 
 ---
 

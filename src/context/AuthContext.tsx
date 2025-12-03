@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import type { AppRole } from "@/lib/permissions";
 
 interface AuthContextType {
   user: User | null;
@@ -8,6 +9,9 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   isLoading: boolean;
+  isAdmin: boolean;
+  isEditor: boolean;
+  userRole: AppRole | null;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,6 +24,33 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState<AppRole | null>(null);
+
+  const fetchUserRole = async (userId: string) => {
+    // Check admin role first
+    const { data: isAdmin } = await supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    });
+
+    if (isAdmin) {
+      setUserRole("admin");
+      return;
+    }
+
+    // Check editor role
+    const { data: isEditor } = await supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "editor",
+    });
+
+    if (isEditor) {
+      setUserRole("editor");
+      return;
+    }
+
+    setUserRole(null);
+  };
 
   useEffect(() => {
     // Set up auth state listener FIRST (prevents race conditions)
@@ -28,6 +59,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setSession(session);
         setUser(session?.user ?? null);
         setIsLoading(false);
+
+        // Fetch user role after auth state changes (use setTimeout to avoid deadlock)
+        if (session?.user) {
+          setTimeout(() => {
+            fetchUserRole(session.user.id);
+          }, 0);
+        } else {
+          setUserRole(null);
+        }
       }
     );
 
@@ -36,6 +76,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setSession(session);
       setUser(session?.user ?? null);
       setIsLoading(false);
+
+      if (session?.user) {
+        fetchUserRole(session.user.id);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -54,11 +98,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut = async () => {
+    setUserRole(null);
     await supabase.auth.signOut();
   };
 
+  const isAdmin = userRole === "admin";
+  const isEditor = userRole === "editor";
+
   return (
-    <AuthContext.Provider value={{ user, session, signIn, signOut, isLoading }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      session, 
+      signIn, 
+      signOut, 
+      isLoading, 
+      isAdmin, 
+      isEditor, 
+      userRole 
+    }}>
       {children}
     </AuthContext.Provider>
   );
