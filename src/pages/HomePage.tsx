@@ -5,6 +5,7 @@ import { getPublishedBlogPosts, type BlogPost } from "@/integrations/supabase/qu
 import { getPublishedPricingPlans, type PricingPlan } from "@/integrations/supabase/queries/pricingPlans";
 import { getPublishedServices, type Service } from "@/integrations/supabase/queries/services";
 import { getPublishedTestimonials, type Testimonial } from "@/integrations/supabase/queries/testimonials";
+import { getActivePartnerLogos, type PartnerLogo } from "@/integrations/supabase/queries/partnerLogos";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/utils/seo";
 
@@ -14,6 +15,7 @@ const HomePage = () => {
   const [homePricingPlans, setHomePricingPlans] = useState<PricingPlan[]>([]);
   const [homeServices, setHomeServices] = useState<Service[]>([]);
   const [homeTestimonials, setHomeTestimonials] = useState<Testimonial[]>([]);
+  const [homePartnerLogos, setHomePartnerLogos] = useState<PartnerLogo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -26,12 +28,14 @@ const HomePage = () => {
           { data: pricingData },
           { data: servicesData },
           { data: testimonialsData },
+          { data: partnerData },
         ] = await Promise.all([
           getPublishedCaseStudies(),
           getPublishedBlogPosts(),
           getPublishedPricingPlans(),
           getPublishedServices(),
           getPublishedTestimonials(),
+          getActivePartnerLogos(),
         ]);
         
         setHomeCaseStudies((caseStudiesData || []).slice(0, 4));
@@ -39,6 +43,7 @@ const HomePage = () => {
         setHomePricingPlans((pricingData || []).slice(0, 3));
         setHomeServices((servicesData || []).slice(0, 6));
         setHomeTestimonials(testimonialsData || []);
+        setHomePartnerLogos(partnerData || []);
       } catch (error) {
         console.error("Error fetching home data:", error);
       } finally {
@@ -280,52 +285,64 @@ const HomePage = () => {
       </div>
 
       {/* Section Partner */}
-      <div className="section-partner">
-        <div className="hero-container">
-          <div className="card card-partner animate-box animated animate__animated" data-animate="animate__fadeInRight">
-            <div className="partner-spacer"></div>
-            <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
-              <div className="col">
-                <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
-                  <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
+      {homePartnerLogos.length > 0 && (
+        <div className="section-partner">
+          <div className="hero-container">
+            <div className="card card-partner animate-box animated animate__animated" data-animate="animate__fadeInRight">
+              <div className="partner-spacer"></div>
+              <div className="row row-cols-xl-2 row-cols-1 align-items-center px-5 position-relative z-2">
+                <div className="col">
+                  <div className="d-flex flex-column justify-content-start pe-xl-3 pe-0">
+                    <h3 className="title-heading">Trusted by Organizations Across Suriname</h3>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="d-flex flex-column ps-xl-3 ps-0">
+                    <p>
+                      From government ministries to private enterprises, leading organizations rely on Devmart to deliver
+                      secure, scalable digital solutions that drive efficiency and modernize their operations.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className="col">
-                <div className="d-flex flex-column ps-xl-3 ps-0">
-                  <p>
-                    From government ministries to private enterprises, leading organizations rely on Devmart to deliver
-                    secure, scalable digital solutions that drive efficiency and modernize their operations.
-                  </p>
+              <div className="swiperPartner-layout">
+                <div className="swiperPartner-overlay">
+                  <div className="spacer"></div>
                 </div>
-              </div>
-            </div>
-            <div className="swiperPartner-layout">
-              <div className="swiperPartner-overlay">
-                <div className="spacer"></div>
-              </div>
-              <div className="swiperPartner-container">
-                <div className="swiper swiperPartner">
-                  <div className="swiper-wrapper">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                      <div key={num} className="swiper-slide">
-                        <a href="#">
-                          <div className="partner-slide">
-                            <img
-                              src={`/marko-digital-marketing-agency-html/image/client-${num}.png`}
-                              alt="Client"
-                              className="partner-logo img-fluid"
-                            />
-                          </div>
-                        </a>
-                      </div>
-                    ))}
+                <div className="swiperPartner-container">
+                  <div className="swiper swiperPartner">
+                    <div className="swiper-wrapper">
+                      {homePartnerLogos.map((partner) => (
+                        <div key={partner.id} className="swiper-slide">
+                          {partner.website_url ? (
+                            <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
+                              <div className="partner-slide">
+                                <img
+                                  src={partner.logo_url}
+                                  alt={partner.name}
+                                  className="partner-logo img-fluid"
+                                />
+                              </div>
+                            </a>
+                          ) : (
+                            <div className="partner-slide">
+                              <img
+                                src={partner.logo_url}
+                                alt={partner.name}
+                                className="partner-logo img-fluid"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Section Why Choose Us */}
       <div className="section">

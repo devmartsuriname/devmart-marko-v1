@@ -148,6 +148,24 @@ sequenceDiagram
     UI->>Visitor: Show success message
 </presentation-mermaid>
 
+### Dynamic Content on Public Pages
+
+The following content is dynamically fetched from Supabase on public marketing pages:
+
+| Page | Content Source | Query Function |
+|------|----------------|----------------|
+| HomePage | Services, Testimonials, Case Studies, Blog, Pricing, **Partner Logos** | `getPublished*()`, `getActivePartnerLogos()` |
+| AboutPage | Team Members, **Partner Logos** | `getActiveTeamMembers()`, `getActivePartnerLogos()` |
+| TeamPage | Team Members, **Partner Logos** | `getActiveTeamMembers()`, `getActivePartnerLogos()` |
+| ServicesPage | Services | `getPublishedServices()` |
+| BlogPage | Blog Posts | `getPublishedBlogPosts()` |
+| CaseStudiesPage | Case Studies | `getPublishedCaseStudies()` |
+| PricingPage | Pricing Plans | `getPublishedPricingPlans()` |
+| TestimonialsPage | Testimonials | `getPublishedTestimonials()` |
+| FaqPage | FAQ Items | `getPublishedFaqItems()` |
+| ContactPage | Site Settings | `useSettings()` context |
+| Footer/Header | Site Settings | `useSettings()` context |
+
 ### Diagram 3: Authentication & Authorization Flow
 
 <presentation-mermaid>
