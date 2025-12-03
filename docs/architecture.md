@@ -2183,13 +2183,13 @@ All 14 marketing pages are complete with 1:1 template parity:
 
 ---
 
-### Admin Routes (Phase 2+)
+### Admin Routes (Phase D - V2 Modules)
 
 | Route | Component | Status | Phase | Notes |
 |-------|-----------|--------|-------|-------|
-| `/admin/partners` | PartnersAdminPage | 🔮 Future | Phase 2+ | Partner logos carousel |
-| `/admin/homepage` | HomepageAdminPage | 🔮 Future | Phase 2+ | Dynamic homepage blocks |
-| `/admin/newsletter` | NewsletterAdminPage | 🔮 Future | Phase 2+ | Subscriber management |
+| `/admin/partners` | PartnersAdminPage | ✅ Implemented | Phase D | Partner logos carousel |
+| `/admin/homepage` | HomepageBlocksAdminPage | ✅ Implemented | Phase D | Dynamic homepage blocks |
+| `/admin/newsletter` | NewsletterAdminPage | ✅ Implemented | Phase D | Subscriber management |
 
 ---
 
