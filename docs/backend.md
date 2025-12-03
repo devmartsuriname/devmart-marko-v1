@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase A Security & Authorization - IMPLEMENTED ✅
+## Current Status: Phase B Documentation Sync - COMPLETE ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -18,15 +18,410 @@
 **Phase 5H Settings CRUD:** 2025-12-02  
 **Phase 6L SEO Implementation:** 2025-12-02  
 **Phase 6M HomePage Dynamic Sections:** 2025-12-02  
-**Admin Enhancement Phase 1 (Color & Token Standardization):** 2025-12-02 ✅  
-**Admin Enhancement Phase 2 (Dashboard Layout Polish):** 2025-12-02 ✅  
-**Admin Enhancement Phase 3A (Modals & Forms Standardization):** 2025-12-02 ✅  
-**Admin Enhancement Phase 3B (Tables & Data Presentation):** 2025-12-02 ✅  
-**Admin Enhancement Phase 4 (Micro-Interactions & UX Polish):** 2025-12-02 ✅  
-**Admin Enhancement Phase 5 (Final QA & Edge Case Hardening):** 2025-12-02 ✅  
+**Admin Enhancement Phases 1-5:** 2025-12-02 ✅  
 **Settings Tabbed Layout & Branding Colors:** 2025-12-03 ✅  
 **Phase A Security & Authorization:** 2025-12-03 ✅  
-**Implementation Status:** Role-based access control implemented with hardened RLS policies.
+**Phase B Documentation Sync:** 2025-12-03 ✅  
+**Implementation Status:** Documentation synchronized with actual database schema and codebase.
+
+---
+
+## Table of Contents
+
+1. [Consolidated RLS Policy Summary](#consolidated-rls-policy-summary)
+2. [Security & Authorization (Phase A)](#phase-a-security--authorization-complete-)
+3. [How to Add a New Admin Module](#how-to-add-a-new-admin-module-playbook)
+4. [Admin Enhancement Summary](#admin-backend-enhancement--final-standardization-summary)
+5. [Phase History](#phase-history)
+
+---
+
+## Consolidated RLS Policy Summary
+
+This section provides a complete reference for all Row-Level Security (RLS) policies in the Devmart database.
+
+### Policy Matrix (All Tables)
+
+| Table | Public SELECT | Auth SELECT | INSERT | UPDATE | DELETE | Role Required |
+|-------|---------------|-------------|--------|--------|--------|---------------|
+| `services` | `status='published'` | Admin: all | Admin | Admin | Admin | admin |
+| `case_studies` | `status='published'` | Admin: all | Admin | Admin | Admin | admin |
+| `pricing_plans` | `status='published'` | Admin: all | Admin | Admin | Admin | admin |
+| `testimonials` | `status='published'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
+| `blog_posts` | `status='published'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
+| `team_members` | `status='active'` | Admin: all | Admin | Admin | Admin | admin |
+| `faq_items` | `status='active'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
+| `site_settings` | ✅ All keys | Admin: all | Admin | Admin | Admin | admin |
+| `contact_submissions` | ❌ None (INSERT only) | Admin+Editor | Public | Admin | Admin | admin (write) |
+| `admin_users` | ❌ None | Authenticated | ❌ | Own profile only | ❌ | - |
+| `user_roles` | ❌ None | Admin | Admin | Admin | Admin | admin |
+
+### RLS Policy SQL Examples
+
+**Admin-only write access (services, case_studies, pricing_plans, team_members):**
+
+```sql
+-- Public read for published content
+CREATE POLICY "Public can view published services" 
+  ON public.services 
+  FOR SELECT 
+  USING (status = 'published'::content_status);
+
+-- Admin SELECT all
+CREATE POLICY "Admins can view all services" 
+  ON public.services 
+  FOR SELECT 
+  USING (public.has_role(auth.uid(), 'admin'::app_role));
+
+-- Admin INSERT
+CREATE POLICY "Admins can create services" 
+  ON public.services 
+  FOR INSERT 
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
+
+-- Admin UPDATE
+CREATE POLICY "Admins can update services" 
+  ON public.services 
+  FOR UPDATE 
+  USING (public.has_role(auth.uid(), 'admin'::app_role))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
+
+-- Admin DELETE
+CREATE POLICY "Admins can delete services" 
+  ON public.services 
+  FOR DELETE 
+  USING (public.has_role(auth.uid(), 'admin'::app_role));
+```
+
+**Admin + Editor write access (blog_posts, testimonials, faq_items):**
+
+```sql
+-- Public read for published content
+CREATE POLICY "Public can view published blog posts" 
+  ON public.blog_posts 
+  FOR SELECT 
+  USING (status = 'published'::content_status);
+
+-- Admin + Editor SELECT all
+CREATE POLICY "Admins and editors can view all blog posts" 
+  ON public.blog_posts 
+  FOR SELECT 
+  USING (public.has_role(auth.uid(), 'admin'::app_role) 
+      OR public.has_role(auth.uid(), 'editor'::app_role));
+
+-- Admin + Editor INSERT
+CREATE POLICY "Admins and editors can create blog posts" 
+  ON public.blog_posts 
+  FOR INSERT 
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role) 
+           OR public.has_role(auth.uid(), 'editor'::app_role));
+
+-- Admin + Editor UPDATE
+CREATE POLICY "Admins and editors can update blog posts" 
+  ON public.blog_posts 
+  FOR UPDATE 
+  USING (public.has_role(auth.uid(), 'admin'::app_role) 
+      OR public.has_role(auth.uid(), 'editor'::app_role))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role) 
+           OR public.has_role(auth.uid(), 'editor'::app_role));
+
+-- Admin + Editor DELETE
+CREATE POLICY "Admins and editors can delete blog posts" 
+  ON public.blog_posts 
+  FOR DELETE 
+  USING (public.has_role(auth.uid(), 'admin'::app_role) 
+      OR public.has_role(auth.uid(), 'editor'::app_role));
+```
+
+**Public INSERT only (contact_submissions):**
+
+```sql
+-- Anyone can submit contact forms
+CREATE POLICY "Public can submit contact forms" 
+  ON public.contact_submissions 
+  FOR INSERT 
+  WITH CHECK (true);
+
+-- Admin + Editor can view
+CREATE POLICY "Admins can view contact submissions" 
+  ON public.contact_submissions 
+  FOR SELECT 
+  USING (public.has_role(auth.uid(), 'admin'::app_role) 
+      OR public.has_role(auth.uid(), 'editor'::app_role));
+
+-- Admin only UPDATE/DELETE
+CREATE POLICY "Admins can update contact submissions" 
+  ON public.contact_submissions 
+  FOR UPDATE 
+  USING (public.has_role(auth.uid(), 'admin'::app_role))
+  WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
+```
+
+### The has_role() Function
+
+The `has_role()` function is a SECURITY DEFINER function that safely checks user roles:
+
+```sql
+CREATE OR REPLACE FUNCTION public.has_role(_user_id uuid, _role app_role)
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.user_roles
+    WHERE user_id = _user_id
+      AND role = _role
+  )
+$$;
+```
+
+**Why SECURITY DEFINER?**
+- Bypasses RLS when checking roles to prevent recursive policy evaluation
+- Runs with elevated privileges safely
+- Returns only a boolean, not sensitive data
+
+---
+
+## How to Add a New Admin Module (Playbook)
+
+This section provides a step-by-step guide for adding new admin modules to the CMS.
+
+### Step 1: Define Database Schema
+
+Create a migration file with the table definition:
+
+```sql
+-- Create table
+CREATE TABLE public.new_module (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
+  description TEXT,
+  status content_status NOT NULL DEFAULT 'draft',
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE public.new_module ENABLE ROW LEVEL SECURITY;
+
+-- Create trigger for updated_at
+CREATE TRIGGER update_new_module_updated_at
+  BEFORE UPDATE ON public.new_module
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_updated_at_column();
+```
+
+### Step 2: Add RLS Policies
+
+Choose the appropriate pattern based on access requirements:
+
+```sql
+-- Public read (published only)
+CREATE POLICY "Public can view published items" 
+  ON public.new_module FOR SELECT 
+  USING (status = 'published');
+
+-- Admin full access
+CREATE POLICY "Admins can view all" ON public.new_module FOR SELECT 
+  USING (has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can create" ON public.new_module FOR INSERT 
+  WITH CHECK (has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can update" ON public.new_module FOR UPDATE 
+  USING (has_role(auth.uid(), 'admin')) 
+  WITH CHECK (has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can delete" ON public.new_module FOR DELETE 
+  USING (has_role(auth.uid(), 'admin'));
+```
+
+### Step 3: Create Query Layer
+
+Create `src/integrations/supabase/queries/newModule.ts`:
+
+```typescript
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
+
+export type NewModule = Tables<"new_module">;
+
+// Get all items (admin)
+export async function getAllNewModuleItems() {
+  const { data, error } = await supabase
+    .from("new_module")
+    .select("*")
+    .order("sort_order", { ascending: true });
+  return { data, error };
+}
+
+// Get published items (public)
+export async function getPublishedNewModuleItems() {
+  const { data, error } = await supabase
+    .from("new_module")
+    .select("*")
+    .eq("status", "published")
+    .order("sort_order", { ascending: true });
+  return { data, error };
+}
+
+// Get single by slug
+export async function getNewModuleBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("new_module")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  return { data, error };
+}
+
+// Create
+export async function createNewModuleItem(item: Omit<NewModule, "id" | "created_at" | "updated_at">) {
+  const { data, error } = await supabase
+    .from("new_module")
+    .insert(item)
+    .select()
+    .single();
+  return { data, error };
+}
+
+// Update
+export async function updateNewModuleItem(id: string, updates: Partial<NewModule>) {
+  const { data, error } = await supabase
+    .from("new_module")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+  return { data, error };
+}
+
+// Delete
+export async function deleteNewModuleItem(id: string) {
+  const { error } = await supabase
+    .from("new_module")
+    .delete()
+    .eq("id", id);
+  return { error };
+}
+```
+
+### Step 4: Create Admin Page
+
+Create `src/pages/admin/NewModuleAdminPage.tsx`:
+
+```typescript
+import { useState, useEffect } from "react";
+import { DataTable } from "@/components/admin/DataTable";
+import { getAllNewModuleItems, NewModule } from "@/integrations/supabase/queries/newModule";
+import { AddNewModuleModal } from "@/components/admin/newModule/AddNewModuleModal";
+import { EditNewModuleModal } from "@/components/admin/newModule/EditNewModuleModal";
+import { DeleteNewModuleDialog } from "@/components/admin/newModule/DeleteNewModuleDialog";
+
+export default function NewModuleAdminPage() {
+  const [items, setItems] = useState<NewModule[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editItem, setEditItem] = useState<NewModule | null>(null);
+  const [deleteItem, setDeleteItem] = useState<NewModule | null>(null);
+
+  const fetchItems = async () => {
+    setIsLoading(true);
+    const { data, error } = await getAllNewModuleItems();
+    if (error) setError(error.message);
+    else setItems(data || []);
+    setIsLoading(false);
+  };
+
+  useEffect(() => { fetchItems(); }, []);
+
+  const columns = [
+    { key: "name", label: "Name" },
+    { key: "status", label: "Status", render: (item: NewModule) => (
+      <span className={`admin-badge admin-badge-${item.status === 'published' ? 'success' : 'warning'}`}>
+        {item.status}
+      </span>
+    )},
+    { key: "actions", label: "Actions", render: (item: NewModule) => (
+      <div className="admin-table-actions">
+        <button className="admin-btn admin-btn-sm admin-btn-ghost" onClick={() => setEditItem(item)}>Edit</button>
+        <button className="admin-btn admin-btn-sm admin-btn-destructive" onClick={() => setDeleteItem(item)}>Delete</button>
+      </div>
+    )}
+  ];
+
+  return (
+    <div className="admin-page">
+      <div className="admin-page-header">
+        <h1 className="admin-page-title">New Module</h1>
+        <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+          Add Item
+        </button>
+      </div>
+      
+      {error && <div className="admin-alert admin-alert-error admin-alert-mb">{error}</div>}
+      
+      {isLoading ? (
+        <div className="admin-loading-state">Loading...</div>
+      ) : (
+        <DataTable columns={columns} data={items} />
+      )}
+
+      <AddNewModuleModal open={isAddModalOpen} onOpenChange={setIsAddModalOpen} onSuccess={fetchItems} />
+      <EditNewModuleModal item={editItem} onOpenChange={() => setEditItem(null)} onSuccess={fetchItems} />
+      <DeleteNewModuleDialog item={deleteItem} onOpenChange={() => setDeleteItem(null)} onSuccess={fetchItems} />
+    </div>
+  );
+}
+```
+
+### Step 5: Create Modal Components
+
+Create Add, Edit, and Delete modal components in `src/components/admin/newModule/`:
+
+- `AddNewModuleModal.tsx` - Form for creating new items
+- `EditNewModuleModal.tsx` - Form for updating items
+- `DeleteNewModuleDialog.tsx` - Confirmation dialog
+
+All modals must use the standard inline style pattern (see admin-ui-style-guide.md Section 6).
+
+### Step 6: Wire Routes & Navigation
+
+**Add route to `src/App.tsx`:**
+
+```typescript
+<Route path="newmodule" element={<NewModuleAdminPage />} />
+```
+
+**Add nav item to `src/components/admin/AdminSidebar.tsx`:**
+
+```typescript
+{ label: "New Module", href: "/admin/newmodule", icon: IconComponent }
+```
+
+**Add permissions to `src/lib/permissions.ts`:**
+
+```typescript
+// Add to Module type
+export type Module = ... | "newmodule";
+
+// Add to PERMISSIONS
+newmodule: ['read', 'create', 'update', 'delete'], // for admin
+// OR for editor-accessible modules:
+newmodule: ['read', 'create', 'update', 'delete'], // in editor section too
+```
+
+### Step 7: Update Documentation
+
+- Update `docs/backend-modules.json` with new module definition
+- Update `docs/backend.md` with RLS policy details
+- Update `docs/architecture.md` if data flow changes
 
 ---
 
@@ -58,19 +453,7 @@
 
 ### A2 — RLS Policy Hardening
 
-All write operations now require `has_role(auth.uid(), 'admin')` check:
-
-| Table | Public SELECT | Admin Write | Editor Write |
-|-------|---------------|-------------|--------------|
-| services | status='published' | ✅ | ❌ |
-| case_studies | status='published' | ✅ | ❌ |
-| pricing_plans | status='published' | ✅ | ❌ |
-| team_members | status='active' | ✅ | ❌ |
-| site_settings | ✅ (all) | ✅ | ❌ |
-| contact_submissions | ❌ (INSERT only) | ✅ | View only |
-| blog_posts | status='published' | ✅ | ✅ |
-| testimonials | status='published' | ✅ | ✅ |
-| faq_items | status='active' | ✅ | ✅ |
+See [Consolidated RLS Policy Summary](#consolidated-rls-policy-summary) above.
 
 ### A3 — Permission Matrix
 

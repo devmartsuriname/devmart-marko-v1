@@ -1,23 +1,27 @@
 {
-  "version": "1.0",
-  "lastUpdated": "2025-11-28",
-  "description": "Backend CMS modules and data models for Devmart Marko v1",
+  "version": "1.1",
+  "lastUpdated": "2025-12-03",
+  "description": "Backend CMS modules and data models for Devmart Marko v1 - Synchronized with actual database schema",
   "enums": {
     "ContentStatus": {
       "description": "Standard content status across publishable entities",
-      "values": ["draft", "published", "archived"]
+      "values": ["draft", "published", "archived"],
+      "dbType": "content_status"
     },
     "SubmissionStatus": {
       "description": "Status for user-submitted forms (contact, newsletter, etc.)",
-      "values": ["new", "read", "responded", "archived"]
+      "values": ["new", "read", "responded", "archived"],
+      "dbType": "submission_status"
     },
     "BillingPeriod": {
       "description": "Pricing plan billing frequency",
-      "values": ["month", "year", "one-time"]
+      "values": ["month", "year", "one-time"],
+      "dbType": "billing_period"
     },
-    "AdminRole": {
+    "AppRole": {
       "description": "Admin user permission levels",
-      "values": ["admin", "editor"]
+      "values": ["admin", "editor"],
+      "dbType": "app_role"
     }
   },
   "modules": [
@@ -27,23 +31,24 @@
       "tableName": "services",
       "description": "Service offerings displayed on Services page",
       "adminRoute": "/admin/services",
+      "publicAccess": "SELECT WHERE status='published'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "name",
-          "type": "string",
+          "type": "text",
           "required": true,
           "maxLength": 100,
           "example": "Custom Web Application Development"
         },
         {
           "name": "slug",
-          "type": "string",
+          "type": "text",
           "required": true,
           "unique": true,
           "pattern": "^[a-z0-9-]+$",
@@ -53,12 +58,17 @@
           "name": "description",
           "type": "text",
           "required": true,
-          "maxLength": 500,
           "example": "We build scalable web applications tailored to your business needs..."
         },
         {
-          "name": "icon_url",
-          "type": "string",
+          "name": "short_description",
+          "type": "text",
+          "nullable": true,
+          "example": "Tailored web solutions for your business"
+        },
+        {
+          "name": "icon",
+          "type": "text",
           "nullable": true,
           "example": "/marko-digital-marketing-agency-html/image/Icon-2.png"
         },
@@ -78,17 +88,29 @@
           "name": "status",
           "type": "enum",
           "enum": "ContentStatus",
-          "default": "published"
+          "default": "draft"
+        },
+        {
+          "name": "meta_title",
+          "type": "text",
+          "nullable": true,
+          "example": "Custom Web Apps | Devmart"
+        },
+        {
+          "name": "meta_description",
+          "type": "text",
+          "nullable": true,
+          "example": "Professional custom web application development services"
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -98,51 +120,48 @@
       "tableName": "case_studies",
       "description": "Portfolio projects and case studies",
       "adminRoute": "/admin/projects",
+      "publicAccess": "SELECT WHERE status='published'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "title",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 150,
           "example": "Government Portal Modernization"
         },
         {
           "name": "slug",
-          "type": "string",
+          "type": "text",
           "required": true,
           "unique": true,
-          "pattern": "^[a-z0-9-]+$",
           "example": "government-portal-2024"
         },
         {
           "name": "description",
           "type": "text",
           "required": true,
-          "maxLength": 1000,
           "example": "Comprehensive modernization of legacy government system..."
         },
         {
           "name": "client_name",
-          "type": "string",
+          "type": "text",
           "nullable": true,
-          "maxLength": 100,
           "example": "Tech Solutions Inc."
         },
         {
           "name": "tags",
-          "type": "array<string>",
-          "default": [],
+          "type": "text[]",
+          "default": "'{}'::text[]",
           "example": ["Government", "Portal", "Legacy Modernization"]
         },
         {
           "name": "featured_image",
-          "type": "string",
+          "type": "text",
           "nullable": true,
           "example": "/uploads/case-studies/project-hero.jpg"
         },
@@ -150,7 +169,6 @@
           "name": "results_summary",
           "type": "text",
           "nullable": true,
-          "maxLength": 500,
           "example": "Reduced processing time by 60%, improved citizen satisfaction by 45%"
         },
         {
@@ -172,13 +190,13 @@
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -188,40 +206,37 @@
       "tableName": "pricing_plans",
       "description": "Service packages and pricing tiers",
       "adminRoute": "/admin/pricing",
+      "publicAccess": "SELECT WHERE status='published'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "name",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 50,
           "example": "Starter"
         },
         {
           "name": "slug",
-          "type": "string",
+          "type": "text",
           "required": true,
           "unique": true,
           "example": "starter"
         },
         {
           "name": "description",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 200,
           "example": "Perfect for small businesses getting started online"
         },
         {
           "name": "price",
-          "type": "decimal",
+          "type": "numeric",
           "required": true,
-          "precision": 10,
-          "scale": 2,
           "example": 99.00
         },
         {
@@ -232,15 +247,14 @@
         },
         {
           "name": "features",
-          "type": "array<string>",
-          "default": [],
+          "type": "text[]",
+          "default": "'{}'::text[]",
           "example": ["5-page website", "Mobile responsive", "Basic SEO", "Contact form"]
         },
         {
           "name": "target_segment",
-          "type": "string",
+          "type": "text",
           "nullable": true,
-          "maxLength": 100,
           "example": "Small businesses & startups"
         },
         {
@@ -262,13 +276,13 @@
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -278,39 +292,36 @@
       "tableName": "testimonials",
       "description": "Client reviews and testimonials",
       "adminRoute": "/admin/testimonials",
+      "publicAccess": "SELECT WHERE status='published'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
-          "name": "client_name",
-          "type": "string",
+          "name": "author_name",
+          "type": "text",
           "required": true,
-          "maxLength": 100,
           "example": "Sarah Johnson"
         },
         {
-          "name": "client_company",
-          "type": "string",
+          "name": "company_name",
+          "type": "text",
           "nullable": true,
-          "maxLength": 100,
           "example": "Tech Innovations Ltd."
         },
         {
-          "name": "client_role",
-          "type": "string",
+          "name": "author_title",
+          "type": "text",
           "nullable": true,
-          "maxLength": 100,
           "example": "CEO"
         },
         {
           "name": "quote",
           "type": "text",
           "required": true,
-          "maxLength": 500,
           "example": "Devmart delivered exceptional results. Their technical expertise and professionalism exceeded our expectations."
         },
         {
@@ -322,16 +333,10 @@
           "example": 5
         },
         {
-          "name": "photo_url",
-          "type": "string",
+          "name": "avatar_url",
+          "type": "text",
           "nullable": true,
           "example": "/uploads/testimonials/client-photo.jpg"
-        },
-        {
-          "name": "company_logo_url",
-          "type": "string",
-          "nullable": true,
-          "example": "/uploads/testimonials/company-logo.png"
         },
         {
           "name": "featured",
@@ -352,13 +357,13 @@
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -368,33 +373,31 @@
       "tableName": "blog_posts",
       "description": "Blog articles and content marketing",
       "adminRoute": "/admin/blog",
+      "publicAccess": "SELECT WHERE status='published'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "title",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 200,
           "example": "10 Web Development Trends for 2025"
         },
         {
           "name": "slug",
-          "type": "string",
+          "type": "text",
           "required": true,
           "unique": true,
-          "pattern": "^[a-z0-9-]+$",
           "example": "web-development-trends-2025"
         },
         {
           "name": "excerpt",
-          "type": "string",
+          "type": "text",
           "nullable": true,
-          "maxLength": 300,
           "example": "Discover the latest trends shaping the future of web development..."
         },
         {
@@ -405,20 +408,19 @@
         },
         {
           "name": "category",
-          "type": "string",
-          "nullable": true,
-          "maxLength": 50,
+          "type": "text",
+          "required": true,
           "example": "Web Development"
         },
         {
           "name": "tags",
-          "type": "array<string>",
-          "default": [],
+          "type": "text[]",
+          "nullable": true,
           "example": ["JavaScript", "React", "Web Design"]
         },
         {
           "name": "featured_image",
-          "type": "string",
+          "type": "text",
           "nullable": true,
           "example": "/uploads/blog/post-hero.jpg"
         },
@@ -429,10 +431,16 @@
           "nullable": true
         },
         {
-          "name": "read_time_minutes",
-          "type": "integer",
-          "default": 5,
-          "example": 8
+          "name": "meta_title",
+          "type": "text",
+          "nullable": true,
+          "example": "Web Development Trends 2025 | Devmart Blog"
+        },
+        {
+          "name": "meta_description",
+          "type": "text",
+          "nullable": true,
+          "example": "Explore the top web development trends for 2025"
         },
         {
           "name": "status",
@@ -442,18 +450,18 @@
         },
         {
           "name": "published_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "nullable": true
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ],
       "relationships": [
@@ -471,56 +479,68 @@
       "tableName": "team_members",
       "description": "Company team member profiles",
       "adminRoute": "/admin/team",
+      "publicAccess": "SELECT WHERE status='active'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
-          "name": "name",
-          "type": "string",
+          "name": "full_name",
+          "type": "text",
           "required": true,
-          "maxLength": 100,
           "example": "Alex Martinez"
         },
         {
           "name": "role",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 100,
           "example": "Lead Developer"
         },
         {
-          "name": "bio",
+          "name": "title",
           "type": "text",
           "nullable": true,
-          "maxLength": 500,
+          "example": "Senior Software Engineer"
+        },
+        {
+          "name": "short_bio",
+          "type": "text",
+          "nullable": true,
           "example": "10+ years of experience building scalable web applications..."
         },
         {
           "name": "photo_url",
-          "type": "string",
+          "type": "text",
           "nullable": true,
           "example": "/uploads/team/alex-martinez.jpg"
         },
         {
-          "name": "social_links",
-          "type": "json",
-          "default": {},
-          "example": {
-            "linkedin": "https://linkedin.com/in/alexmartinez",
-            "github": "https://github.com/alexm",
-            "twitter": "https://twitter.com/alexmartinez"
-          }
-        },
-        {
           "name": "email",
-          "type": "string",
+          "type": "text",
           "nullable": true,
           "format": "email",
           "example": "alex@devmart.sr"
+        },
+        {
+          "name": "linkedin_url",
+          "type": "text",
+          "nullable": true,
+          "example": "https://linkedin.com/in/alexmartinez"
+        },
+        {
+          "name": "facebook_url",
+          "type": "text",
+          "nullable": true,
+          "example": "https://facebook.com/alexmartinez"
+        },
+        {
+          "name": "instagram_url",
+          "type": "text",
+          "nullable": true,
+          "example": "https://instagram.com/alexmartinez"
         },
         {
           "name": "sort_order",
@@ -528,20 +548,26 @@
           "default": 0
         },
         {
-          "name": "active",
+          "name": "is_featured",
           "type": "boolean",
-          "default": true,
-          "description": "Show on team page"
+          "default": false,
+          "description": "Highlight on homepage"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'",
+          "description": "Values: active, inactive"
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -551,32 +577,30 @@
       "tableName": "faq_items",
       "description": "Frequently asked questions",
       "adminRoute": "/admin/faqs",
+      "publicAccess": "SELECT WHERE status='active'",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "question",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 300,
           "example": "How long does it take to build a custom web application?"
         },
         {
           "name": "answer",
           "type": "text",
           "required": true,
-          "maxLength": 1000,
           "example": "Development timelines vary based on project complexity. A typical web application takes 8-12 weeks..."
         },
         {
           "name": "category",
-          "type": "string",
+          "type": "text",
           "nullable": true,
-          "maxLength": 50,
           "example": "Development Process"
         },
         {
@@ -585,19 +609,26 @@
           "default": 0
         },
         {
-          "name": "active",
+          "name": "is_featured",
           "type": "boolean",
-          "default": true
+          "default": false,
+          "description": "Show on homepage FAQ section"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'",
+          "description": "Values: active, inactive"
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ]
     },
@@ -607,46 +638,55 @@
       "tableName": "contact_submissions",
       "description": "Contact form submissions inbox",
       "adminRoute": "/admin/contacts",
+      "publicAccess": "INSERT only (anonymous)",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true
+          "default": "gen_random_uuid()"
         },
         {
           "name": "first_name",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 50,
           "example": "John"
         },
         {
           "name": "last_name",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 50,
           "example": "Doe"
         },
         {
           "name": "email",
-          "type": "string",
+          "type": "text",
           "required": true,
           "format": "email",
           "example": "john.doe@example.com"
         },
         {
-          "name": "subject",
-          "type": "string",
+          "name": "phone",
+          "type": "text",
           "nullable": true,
-          "maxLength": 200,
+          "example": "+597 123-4567"
+        },
+        {
+          "name": "company",
+          "type": "text",
+          "nullable": true,
+          "example": "Acme Corp"
+        },
+        {
+          "name": "subject",
+          "type": "text",
+          "required": true,
           "example": "Project Inquiry - E-commerce Website"
         },
         {
           "name": "message",
           "type": "text",
           "required": true,
-          "maxLength": 2000,
           "example": "I'm interested in building an e-commerce platform for my business..."
         },
         {
@@ -656,21 +696,20 @@
           "default": "new"
         },
         {
-          "name": "admin_notes",
+          "name": "notes",
           "type": "text",
           "nullable": true,
-          "maxLength": 1000,
-          "description": "Internal notes for tracking"
+          "description": "Internal admin notes for tracking"
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true,
+          "type": "timestamp with time zone",
+          "default": "now()",
           "description": "Submission date"
         },
         {
           "name": "responded_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "nullable": true,
           "description": "When admin marked as responded"
         }
@@ -682,12 +721,12 @@
       "tableName": "site_settings",
       "description": "Global site configuration (contact info, branding, SEO)",
       "adminRoute": "/admin/settings",
+      "publicAccess": "SELECT (all keys)",
       "fields": [
         {
           "name": "key",
-          "type": "string",
+          "type": "text",
           "primaryKey": true,
-          "maxLength": 50,
           "example": "site_name"
         },
         {
@@ -698,45 +737,51 @@
         },
         {
           "name": "description",
-          "type": "string",
+          "type": "text",
           "nullable": true,
-          "maxLength": 200,
           "example": "Brand name displayed in header and footer"
         },
         {
           "name": "updated_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
       ],
       "predefinedSettings": [
-        { "key": "site_name", "value": "Devmart Suriname" },
-        { "key": "contact_email", "value": "info@devmart.sr" },
-        { "key": "contact_phone", "value": "+597 854-1211" },
-        { "key": "contact_address", "value": "Jagernath Lachmon straat nr. 152, Paramaribo, Suriname" },
-        { "key": "facebook_url", "value": "https://www.facebook.com/DevmartSuriname/" },
-        { "key": "copyright_text", "value": "© 2025 Devmart Suriname. All Rights Reserved." },
-        { "key": "seo_default_title", "value": "Devmart - Web Development & Digital Solutions" },
-        { "key": "seo_default_description", "value": "Professional web development and digital solutions in Suriname" }
+        { "key": "site_name", "value": "Devmart Suriname", "category": "brand" },
+        { "key": "tagline", "value": "Digital Solutions for Your Business", "category": "brand" },
+        { "key": "copyright_text", "value": "© 2025 Devmart Suriname. All Rights Reserved.", "category": "brand" },
+        { "key": "contact_email", "value": "info@devmart.sr", "category": "contact" },
+        { "key": "contact_phone", "value": "+597 854-1211", "category": "contact" },
+        { "key": "contact_address", "value": "Jagernath Lachmon straat nr. 152, Paramaribo, Suriname", "category": "contact" },
+        { "key": "facebook_url", "value": "https://www.facebook.com/DevmartSuriname/", "category": "social" },
+        { "key": "linkedin_url", "value": "", "category": "social" },
+        { "key": "instagram_url", "value": "", "category": "social" },
+        { "key": "twitter_url", "value": "", "category": "social" },
+        { "key": "github_url", "value": "", "category": "social" },
+        { "key": "seo_default_title", "value": "Devmart - Web Development & Digital Solutions", "category": "seo" },
+        { "key": "seo_default_description", "value": "Professional web development and digital solutions in Suriname", "category": "seo" },
+        { "key": "primary_color", "value": "#4be89b", "category": "branding" },
+        { "key": "accent_color", "value": "#4be89b", "category": "branding" }
       ]
     },
     {
       "name": "Admin Users",
       "phase": "v1",
       "tableName": "admin_users",
-      "description": "CMS admin user accounts (managed via Supabase Auth)",
-      "adminRoute": null,
+      "description": "CMS admin user profiles (linked to Supabase Auth)",
+      "adminRoute": "/admin/users",
+      "publicAccess": "None",
       "fields": [
         {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "generated": true,
           "description": "Linked to Supabase Auth user ID"
         },
         {
           "name": "email",
-          "type": "string",
+          "type": "text",
           "required": true,
           "unique": true,
           "format": "email",
@@ -744,28 +789,69 @@
         },
         {
           "name": "full_name",
-          "type": "string",
+          "type": "text",
           "required": true,
-          "maxLength": 100,
           "example": "Admin User"
         },
         {
-          "name": "role",
-          "type": "enum",
-          "enum": "AdminRole",
-          "default": "admin"
-        },
-        {
           "name": "last_login",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "nullable": true
         },
         {
           "name": "created_at",
-          "type": "timestamp",
-          "generated": true
+          "type": "timestamp with time zone",
+          "default": "now()"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
         }
-      ]
+      ],
+      "note": "Roles are NOT stored in this table. See user_roles table for role assignments."
+    },
+    {
+      "name": "User Roles",
+      "phase": "v1",
+      "tableName": "user_roles",
+      "description": "Role assignments for admin users (separate table for security)",
+      "adminRoute": "/admin/users",
+      "publicAccess": "None",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "required": true,
+          "description": "References auth.users.id"
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "enum": "AppRole",
+          "required": true,
+          "description": "admin or editor"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        }
+      ],
+      "constraints": [
+        {
+          "type": "unique",
+          "columns": ["user_id", "role"],
+          "description": "Each user can only have one entry per role"
+        }
+      ],
+      "securityNote": "Roles MUST be stored in this separate table, NOT in admin_users or profiles. This prevents privilege escalation attacks via direct profile updates."
     },
     {
       "name": "Partner Logos",
@@ -773,7 +859,17 @@
       "tableName": "partner_logos",
       "description": "Trusted by / partner logo carousel",
       "adminRoute": "/admin/partners",
-      "note": "Deferred to Phase 2 - not critical for v1 launch"
+      "note": "Deferred to Phase 2 - not critical for v1 launch",
+      "plannedFields": [
+        { "name": "id", "type": "uuid", "primaryKey": true },
+        { "name": "name", "type": "text", "required": true },
+        { "name": "logo_url", "type": "text", "required": true },
+        { "name": "website_url", "type": "text", "nullable": true },
+        { "name": "sort_order", "type": "integer", "default": 0 },
+        { "name": "status", "type": "text", "default": "'active'" },
+        { "name": "created_at", "type": "timestamp" },
+        { "name": "updated_at", "type": "timestamp" }
+      ]
     },
     {
       "name": "Homepage Content Blocks",
@@ -781,7 +877,20 @@
       "tableName": "homepage_blocks",
       "description": "Dynamic hero, stats, feature cards",
       "adminRoute": "/admin/homepage",
-      "note": "Deferred to Phase 2 - homepage content can remain static for v1"
+      "note": "Deferred to Phase 2 - homepage content can remain static for v1",
+      "plannedFields": [
+        { "name": "id", "type": "uuid", "primaryKey": true },
+        { "name": "block_type", "type": "text", "required": true, "description": "hero, stat, feature, cta" },
+        { "name": "title", "type": "text", "nullable": true },
+        { "name": "content", "type": "text", "nullable": true },
+        { "name": "image_url", "type": "text", "nullable": true },
+        { "name": "link_url", "type": "text", "nullable": true },
+        { "name": "link_text", "type": "text", "nullable": true },
+        { "name": "sort_order", "type": "integer", "default": 0 },
+        { "name": "status", "type": "text", "default": "'active'" },
+        { "name": "created_at", "type": "timestamp" },
+        { "name": "updated_at", "type": "timestamp" }
+      ]
     },
     {
       "name": "Newsletter Subscribers",
@@ -789,7 +898,31 @@
       "tableName": "newsletter_subscribers",
       "description": "Email subscription list",
       "adminRoute": "/admin/newsletter",
-      "note": "Deferred to Phase 2 - newsletter form can remain non-functional for v1"
+      "note": "Deferred to Phase 2 - newsletter form can remain non-functional for v1",
+      "plannedFields": [
+        { "name": "id", "type": "uuid", "primaryKey": true },
+        { "name": "email", "type": "text", "required": true, "unique": true },
+        { "name": "subscribed_at", "type": "timestamp", "default": "now()" },
+        { "name": "unsubscribed_at", "type": "timestamp", "nullable": true },
+        { "name": "status", "type": "text", "default": "'active'", "description": "active, unsubscribed" },
+        { "name": "source", "type": "text", "nullable": true, "description": "homepage, footer, popup" }
+      ]
+    }
+  ],
+  "databaseFunctions": [
+    {
+      "name": "has_role",
+      "description": "Check if a user has a specific role",
+      "parameters": ["_user_id uuid", "_role app_role"],
+      "returns": "boolean",
+      "security": "SECURITY DEFINER",
+      "usage": "Used in RLS policies for authorization checks"
+    },
+    {
+      "name": "update_updated_at_column",
+      "description": "Trigger function to auto-update updated_at timestamp",
+      "returns": "trigger",
+      "security": "SECURITY DEFINER"
     }
   ]
 }
