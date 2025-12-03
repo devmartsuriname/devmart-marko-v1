@@ -1316,18 +1316,18 @@ Wire the final two static content sections on HomePage to Supabase:
 ### HomePage Dynamic Status
 
 **Dynamic Sections (Wired to Supabase):**
+- ✅ Hero Banner (title, subtitle, button via Phase C3 - `homepage_blocks`)
 - ✅ Services Grid (Phase 6M)
 - ✅ Case Studies Preview (Phase 6K)
 - ✅ Testimonials Slider (Phase 6M)
 - ✅ Pricing Preview (Phase 6K)
 - ✅ Blog Preview (Phase 6K)
 - ✅ Partner Logos Slider (Phase C1)
+- ✅ Guide CTA (title, subtitle, optional button via Phase C3 - `homepage_blocks`)
 
 **Static Sections (Remain Hardcoded):**
-- Hero Banner (video, title, CTA)
 - Expertise Counter
 - Why Choose Us
-- Guide CTA
 - Digital Process Steps
 - Newsletter Form (static layout, dynamic submission via Supabase - Phase C2)
 

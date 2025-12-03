@@ -7,6 +7,7 @@ import { getPublishedServices, type Service } from "@/integrations/supabase/quer
 import { getPublishedTestimonials, type Testimonial } from "@/integrations/supabase/queries/testimonials";
 import { getActivePartnerLogos, type PartnerLogo } from "@/integrations/supabase/queries/partnerLogos";
 import { subscribeToNewsletter } from "@/integrations/supabase/queries/newsletterSubscribers";
+import { getActiveHomepageBlocks, type HomepageBlock } from "@/integrations/supabase/queries/homepageBlocks";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/utils/seo";
 
@@ -17,7 +18,13 @@ const HomePage = () => {
   const [homeServices, setHomeServices] = useState<Service[]>([]);
   const [homeTestimonials, setHomeTestimonials] = useState<Testimonial[]>([]);
   const [homePartnerLogos, setHomePartnerLogos] = useState<PartnerLogo[]>([]);
+  const [homepageBlocks, setHomepageBlocks] = useState<HomepageBlock[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Helper to find a homepage block by key
+  const findBlock = (key: string) => homepageBlocks.find((b) => b.key === key);
+  const heroBlock = findBlock("hero");
+  const ctaBlock = findBlock("cta");
 
   // Newsletter form state
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -75,6 +82,7 @@ const HomePage = () => {
           { data: servicesData },
           { data: testimonialsData },
           { data: partnerData },
+          { data: blocksData },
         ] = await Promise.all([
           getPublishedCaseStudies(),
           getPublishedBlogPosts(),
@@ -82,6 +90,7 @@ const HomePage = () => {
           getPublishedServices(),
           getPublishedTestimonials(),
           getActivePartnerLogos(),
+          getActiveHomepageBlocks(),
         ]);
         
         setHomeCaseStudies((caseStudiesData || []).slice(0, 4));
@@ -90,6 +99,7 @@ const HomePage = () => {
         setHomeServices((servicesData || []).slice(0, 6));
         setHomeTestimonials(testimonialsData || []);
         setHomePartnerLogos(partnerData || []);
+        setHomepageBlocks(blocksData || []);
       } catch (error) {
         console.error("Error fetching home data:", error);
       } finally {
@@ -157,7 +167,7 @@ const HomePage = () => {
                 className="title-heading-banner animate-box animated animate__animated"
                 data-animate="animate__fadeInLeft"
               >
-                Build Powerful Digital Solutions That Drive Results
+                {heroBlock?.title || "Build Powerful Digital Solutions That Drive Results"}
               </h1>
               <div className="banner-heading">
                 <div
@@ -182,13 +192,12 @@ const HomePage = () => {
                   data-animate="animate__fadeInRight"
                 >
                   <p>
-                    Devmart empowers businesses and government with modern web apps, AI-powered tools, and
-                    enterprise-grade systems built in Suriname.
+                    {heroBlock?.subtitle || "Devmart empowers businesses and government with modern web apps, AI-powered tools, and enterprise-grade systems built in Suriname."}
                   </p>
                   <div className="d-flex flex-md-row flex-column justify-content-center justify-content-xl-start align-self-center align-self-xl-start gspace-3">
-                    <Link to="/about" className="btn btn-accent">
+                    <Link to={heroBlock?.button_url || "/about"} className="btn btn-accent">
                       <div className="btn-title">
-                        <span>Book a Call</span>
+                        <span>{heroBlock?.button_label || "Book a Call"}</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
@@ -549,11 +558,20 @@ const HomePage = () => {
                 <p>See How We Help Organizations Grow</p>
               </div>
               <div className="d-flex flex-column gspace-2">
-                <h3 className="title-heading">Transform Your Organization with Devmart</h3>
+                <h3 className="title-heading">{ctaBlock?.title || "Transform Your Organization with Devmart"}</h3>
                 <p>
-                  Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered
-                  tools. Let's build something powerful together.
+                  {ctaBlock?.subtitle || "Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together."}
                 </p>
+                {ctaBlock?.button_url && (
+                  <Link to={ctaBlock.button_url} className="btn btn-accent align-self-start">
+                    <div className="btn-title">
+                      <span>{ctaBlock.button_label || "Get Started"}</span>
+                    </div>
+                    <div className="icon-circle">
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
