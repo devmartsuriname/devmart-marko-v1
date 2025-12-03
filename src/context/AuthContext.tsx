@@ -23,62 +23,70 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
   const [userRole, setUserRole] = useState<AppRole | null>(null);
 
   const fetchUserRole = async (userId: string) => {
-    // Check admin role first
-    const { data: isAdmin } = await supabase.rpc("has_role", {
-      _user_id: userId,
-      _role: "admin",
-    });
+    setIsRoleLoading(true);
+    try {
+      // Check admin role first
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: userId,
+        _role: "admin",
+      });
 
-    if (isAdmin) {
-      setUserRole("admin");
-      return;
+      if (isAdmin) {
+        setUserRole("admin");
+        return;
+      }
+
+      // Check editor role
+      const { data: isEditor } = await supabase.rpc("has_role", {
+        _user_id: userId,
+        _role: "editor",
+      });
+
+      if (isEditor) {
+        setUserRole("editor");
+        return;
+      }
+
+      setUserRole(null);
+    } finally {
+      setIsRoleLoading(false);
     }
-
-    // Check editor role
-    const { data: isEditor } = await supabase.rpc("has_role", {
-      _user_id: userId,
-      _role: "editor",
-    });
-
-    if (isEditor) {
-      setUserRole("editor");
-      return;
-    }
-
-    setUserRole(null);
   };
 
   useEffect(() => {
     // Set up auth state listener FIRST (prevents race conditions)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        setIsLoading(false);
+        setIsAuthLoading(false);
 
-        // Fetch user role after auth state changes (use setTimeout to avoid deadlock)
         if (session?.user) {
-          setTimeout(() => {
-            fetchUserRole(session.user.id);
-          }, 0);
+          // Fetch role and wait for completion
+          await fetchUserRole(session.user.id);
         } else {
           setUserRole(null);
+          setIsRoleLoading(false);
         }
       }
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      setIsLoading(false);
+      setIsAuthLoading(false);
 
       if (session?.user) {
-        fetchUserRole(session.user.id);
+        await fetchUserRole(session.user.id);
+      } else {
+        setUserRole(null);
+        setIsRoleLoading(false);
       }
     });
 
@@ -104,6 +112,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const isAdmin = userRole === "admin";
   const isEditor = userRole === "editor";
+  
+  // Combined loading state - wait for BOTH auth AND role to be determined
+  const isLoading = isAuthLoading || isRoleLoading;
 
   return (
     <AuthContext.Provider value={{ 
