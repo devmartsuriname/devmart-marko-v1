@@ -60,15 +60,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     // Set up auth state listener FIRST (prevents race conditions)
+    // IMPORTANT: Do NOT use async callback - causes auth deadlock
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setIsAuthLoading(false);
 
         if (session?.user) {
-          // Fetch role and wait for completion
-          await fetchUserRole(session.user.id);
+          // Defer Supabase calls with setTimeout to prevent deadlock
+          setTimeout(() => {
+            fetchUserRole(session.user.id);
+          }, 0);
         } else {
           setUserRole(null);
           setIsRoleLoading(false);
@@ -77,13 +80,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setIsAuthLoading(false);
 
       if (session?.user) {
-        await fetchUserRole(session.user.id);
+        // Defer role fetch to prevent blocking
+        setTimeout(() => {
+          fetchUserRole(session.user.id);
+        }, 0);
       } else {
         setUserRole(null);
         setIsRoleLoading(false);

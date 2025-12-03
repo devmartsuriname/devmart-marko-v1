@@ -113,7 +113,7 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
               placeholder="https://example.com"
             />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Sort Order</label>
               <input
