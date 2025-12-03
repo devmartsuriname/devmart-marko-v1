@@ -232,6 +232,114 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_blocks: {
+        Row: {
+          block_type: string
+          button_label: string | null
+          button_url: string | null
+          content: string | null
+          created_at: string
+          id: string
+          image_url: string | null
+          key: string
+          sort_order: number
+          status: string
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          block_type: string
+          button_label?: string | null
+          button_url?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          key: string
+          sort_order?: number
+          status?: string
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          block_type?: string
+          button_label?: string | null
+          button_url?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          key?: string
+          sort_order?: number
+          status?: string
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          status: string
+          subscribed_at: string
+          unsubscribed_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          status?: string
+          subscribed_at?: string
+          unsubscribed_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          status?: string
+          subscribed_at?: string
+          unsubscribed_at?: string | null
+        }
+        Relationships: []
+      }
+      partner_logos: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string
+          name: string
+          sort_order: number
+          status: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url: string
+          name: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string
+          name?: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       pricing_plans: {
         Row: {
           billing_period: Database["public"]["Enums"]["billing_period"]

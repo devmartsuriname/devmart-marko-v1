@@ -70,6 +70,9 @@
 | Contacts | ✅ Full CRUD | ✅ Read Only |
 | Settings | ✅ Read/Update | ❌ No Access |
 | Users | ✅ Full CRUD | ❌ No Access |
+| Partners | ✅ Full CRUD | ❌ No Access |
+| Newsletter | ✅ Read/Update/Delete | ❌ No Access |
+| Homepage | ✅ Full CRUD | ❌ No Access |
 
 ### Key Files
 

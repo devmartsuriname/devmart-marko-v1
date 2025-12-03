@@ -1,6 +1,7 @@
 /**
  * Permission Matrix for Admin Roles
  * Phase A3: Editor Permissions Structure
+ * Phase D: Added partners, newsletter, homepage modules (admin-only)
  */
 
 export type AppRole = "admin" | "editor";
@@ -16,7 +17,10 @@ export type Module =
   | "faqs"
   | "contacts"
   | "settings"
-  | "users";
+  | "users"
+  | "partners"
+  | "newsletter"
+  | "homepage";
 
 /**
  * Permission matrix defining what each role can do
@@ -34,6 +38,9 @@ export const PERMISSIONS: Record<AppRole, Record<Module, Permission[]>> = {
     contacts: ["read", "create", "update", "delete"],
     settings: ["read", "update"],
     users: ["read", "create", "update", "delete"],
+    partners: ["read", "create", "update", "delete"],
+    newsletter: ["read", "update", "delete"],
+    homepage: ["read", "create", "update", "delete"],
   },
   editor: {
     dashboard: ["read"],
@@ -47,6 +54,9 @@ export const PERMISSIONS: Record<AppRole, Record<Module, Permission[]>> = {
     contacts: ["read"],
     settings: [],
     users: [],
+    partners: [],
+    newsletter: [],
+    homepage: [],
   },
 };
 
@@ -65,6 +75,9 @@ const ROUTE_MODULE_MAP: Record<string, Module> = {
   "/admin/contacts": "contacts",
   "/admin/settings": "settings",
   "/admin/users": "users",
+  "/admin/partners": "partners",
+  "/admin/newsletter": "newsletter",
+  "/admin/homepage": "homepage",
 };
 
 /**
