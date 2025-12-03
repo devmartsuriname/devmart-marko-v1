@@ -41,14 +41,7 @@ export default function LoginPage() {
         </div>
         <form onSubmit={handleSubmit}>
           {error && (
-            <div style={{ 
-              padding: "12px", 
-              marginBottom: "16px", 
-              backgroundColor: "#fee", 
-              color: "#c33", 
-              borderRadius: "4px",
-              fontSize: "14px"
-            }}>
+            <div className="admin-alert admin-alert-error admin-alert-mb">
               {error}
             </div>
           )}

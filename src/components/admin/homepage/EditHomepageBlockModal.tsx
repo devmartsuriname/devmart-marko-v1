@@ -104,7 +104,7 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Key * (unique identifier)</label>
               <input
@@ -169,7 +169,7 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
               placeholder="https://example.com/image.jpg"
             />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Button Label</label>
               <input
@@ -191,7 +191,7 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
               />
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Sort Order</label>
               <input

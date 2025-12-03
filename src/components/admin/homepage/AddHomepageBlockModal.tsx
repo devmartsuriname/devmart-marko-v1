@@ -99,7 +99,7 @@ export default function AddHomepageBlockModal({ open, onClose, onSuccess }: AddH
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Key * (unique identifier)</label>
               <input
@@ -164,7 +164,7 @@ export default function AddHomepageBlockModal({ open, onClose, onSuccess }: AddH
               placeholder="https://example.com/image.jpg"
             />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Button Label</label>
               <input
@@ -186,7 +186,7 @@ export default function AddHomepageBlockModal({ open, onClose, onSuccess }: AddH
               />
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div className="admin-form-row-2">
             <div className="admin-form-group">
               <label className="admin-label">Sort Order</label>
               <input

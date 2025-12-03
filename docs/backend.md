@@ -23,7 +23,58 @@
 **Phase A Security & Authorization:** 2025-12-03 ✅  
 **Phase B Documentation Sync:** 2025-12-03 ✅  
 **Phase D Deferred Modules (v2):** 2025-12-03 ✅  
-**Implementation Status:** V2 modules (Partner Logos, Newsletter, Homepage Blocks) implemented with admin UI.
+**Phase D Polish (Auth Fix, Seed Data, Style Guide):** 2025-12-03 ✅  
+**Implementation Status:** V2 modules (Partner Logos, Newsletter, Homepage Blocks) implemented with admin UI, seed data, and auth fix.
+
+---
+
+## Phase D Polish Notes (2025-12-03)
+
+### Auth Session Fix
+
+**Problem:** "Checking session..." dark screen would persist indefinitely on some page loads.
+
+**Root Cause:** The `onAuthStateChange` callback in `AuthContext.tsx` was using `async/await` which blocks Supabase's internal auth listener and can cause deadlocks.
+
+**Solution:** Removed `async` from the callback and deferred `fetchUserRole()` calls using `setTimeout(0)`:
+
+```typescript
+// FIXED - No async, deferred role fetch
+supabase.auth.onAuthStateChange((_event, session) => {
+  setSession(session);
+  setUser(session?.user ?? null);
+  setIsAuthLoading(false);
+
+  if (session?.user) {
+    setTimeout(() => { fetchUserRole(session.user.id); }, 0);
+  } else {
+    setUserRole(null);
+    setIsRoleLoading(false);
+  }
+});
+```
+
+**Files Changed:**
+- `src/context/AuthContext.tsx` - Removed async callback pattern
+- `src/components/admin/RequireAuth.tsx` - Improved loading UI with spinner
+- `src/styles/admin.css` - Added `.admin-loading-fullscreen` styles
+
+### Seed Data for V2 Modules
+
+Example data seeded for testing and validation:
+
+| Table | Records | Notes |
+|-------|---------|-------|
+| `partner_logos` | 3 | TechNova Labs (active), Global Finance Group (active), Suriname Digital Council (inactive) |
+| `newsletter_subscribers` | 3 | Mix of subscribed/unsubscribed with different dates |
+| `homepage_blocks` | 3 | hero, stats, cta blocks with sample content |
+
+### Style Guide Compliance
+
+Partner, Newsletter, and Homepage admin pages/modals aligned with Admin UI Style Guide:
+- Replaced inline grid styles with `.admin-form-row-2` utility class
+- LoginPage error message now uses `admin-alert admin-alert-error` classes
+- All modals use consistent inline DialogContent styling pattern
 
 ---
 
