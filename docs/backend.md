@@ -70,6 +70,38 @@ export async function getActivePartnerLogos() {
 
 Public SELECT policy requires `status = 'active'` (already configured in Phase D).
 
+### Admin UI Features (Phase D Polish)
+
+- **Filters:** Status filter pills (All / Active / Inactive)
+- **Search:** Filter by partner name
+- **Empty state:** "No partner logos yet" with "Add Partner" action button
+- **Error state:** Alert with "Retry" button
+- **Form validation:** Name (min 2 chars), Logo URL (valid URL pattern) with inline errors
+- **Console logging:** `[PartnersAdminPage]` tag for debugging
+
+---
+
+## Newsletter Subscribers Admin UI Features
+
+- **Filters:** Status filter pills (All / Subscribed / Unsubscribed)
+- **Search:** Filter by email address
+- **Empty state:** "No subscribers yet" with explanation
+- **Error state:** Alert with "Retry" button
+- **Delete warning:** Explicit warning about permanent mailing list removal
+- **Console logging:** `[NewsletterAdminPage]` tag for debugging
+
+---
+
+## Homepage Blocks Admin UI Features
+
+- **Filters:** Status filter pills (All / Active / Inactive)
+- **Core block badges:** "hero" and "cta" blocks display "Core" badge in table
+- **Edit guardrails:** Key field disabled for core blocks with helper text
+- **Delete guardrails:** Strong warning for deleting core blocks (may break homepage)
+- **Empty state:** "No homepage blocks configured" with seeding hint
+- **Error state:** Alert with "Retry" button
+- **Console logging:** `[HomepageBlocksAdminPage]` tag for debugging
+
 ---
 
 ## Phase D Polish Notes (2025-12-03)

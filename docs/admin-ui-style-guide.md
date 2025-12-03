@@ -1,6 +1,6 @@
 # Devmart Admin UI Style Guide
 
-> **Version:** 1.2 (Phase B Documentation Sync)  
+> **Version:** 1.3 (Phase D V2 Modules Polish)  
 > **Last Updated:** December 3, 2025  
 > **Source:** `src/styles/admin.css`
 
@@ -26,6 +26,7 @@ This document provides a comprehensive reference for all CSS classes, tokens, an
 14. [Settings Page Components](#14-settings-page-components)
 15. [Admin Module UI Pattern](#15-admin-module-ui-pattern)
 16. [Error Handling & Notification Patterns](#16-error-handling--notification-patterns)
+17. [V2 Modules Polish Patterns](#17-v2-modules-polish-patterns)
 
 ---
 
@@ -1143,6 +1144,177 @@ const handleCreate = async (data: ServiceInput) => {
 
 ---
 
+## 17. V2 Modules Polish Patterns
+
+This section documents the UX patterns implemented during Phase D for V2 modules (Partners, Newsletter, Homepage Blocks).
+
+### 17.1 Toolbar Pattern
+
+All V2 modules use a consistent toolbar above the DataTable:
+
+```css
+.admin-toolbar               /* Flex container with gap */
+.admin-search                /* Search input wrapper (min 200px, max 300px) */
+.admin-filter-pills          /* Filter button group */
+```
+
+**Usage:**
+```jsx
+<div className="admin-toolbar">
+  <div className="admin-search">
+    <input
+      type="text"
+      className="admin-input"
+      placeholder="Search..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+  <div className="admin-filter-pills">
+    <button className={`admin-btn admin-btn-sm ${filter === "all" ? "admin-btn-primary" : "admin-btn-ghost"}`}>All</button>
+    <button className={`admin-btn admin-btn-sm ${filter === "active" ? "admin-btn-primary" : "admin-btn-ghost"}`}>Active</button>
+    <button className={`admin-btn admin-btn-sm ${filter === "inactive" ? "admin-btn-primary" : "admin-btn-ghost"}`}>Inactive</button>
+  </div>
+</div>
+```
+
+### 17.2 Enhanced Empty State Pattern
+
+When no data exists, show a descriptive empty state with an action:
+
+```css
+.admin-empty-state           /* Centered container with padding */
+.admin-empty-state h3        /* Title styling */
+.admin-empty-state p         /* Description (muted) */
+```
+
+**Usage:**
+```jsx
+{items.length === 0 ? (
+  <div className="admin-card">
+    <div className="admin-empty-state">
+      <h3>No items yet</h3>
+      <p>Description explaining what this module is for.</p>
+      <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+        Add First Item
+      </button>
+    </div>
+  </div>
+) : filteredItems.length === 0 ? (
+  <div className="admin-card">
+    <div className="admin-table-empty">No items match your filter.</div>
+  </div>
+) : (
+  <DataTable ... />
+)}
+```
+
+### 17.3 Error State with Retry Pattern
+
+When data fetching fails, show an actionable error:
+
+```jsx
+{error && (
+  <div className="admin-alert admin-alert-error admin-alert-mb">
+    {error}
+    <button 
+      className="admin-btn admin-btn-sm admin-btn-ghost" 
+      onClick={fetchData} 
+      style={{ marginLeft: '1rem' }}
+    >
+      Retry
+    </button>
+  </div>
+)}
+```
+
+### 17.4 Core Block Guardrails (Homepage Blocks)
+
+For critical blocks like `hero` and `cta`:
+
+1. **Visual Badge in Table:**
+```jsx
+{(value === "hero" || value === "cta") && (
+  <span className="admin-badge admin-badge-info">Core</span>
+)}
+```
+
+2. **Read-Only Key Field in Edit Modal:**
+```jsx
+<input
+  type="text"
+  className="admin-input"
+  value={formData.key}
+  disabled={isCoreBlock}
+/>
+{isCoreBlock && (
+  <span className="admin-helper-text">This is a core block. The key cannot be changed.</span>
+)}
+```
+
+3. **Strong Delete Warning:**
+```jsx
+{isCoreBlock ? (
+  <DialogDescription>
+    <strong style={{ color: 'var(--admin-error)' }}>⚠️ Warning:</strong> 
+    Deleting the "{block?.key}" block will break the homepage. Are you absolutely sure?
+  </DialogDescription>
+) : (
+  <DialogDescription>Standard delete confirmation...</DialogDescription>
+)}
+```
+
+### 17.5 Inline Form Validation Pattern
+
+Add validation with inline error messages:
+
+```typescript
+const [errors, setErrors] = useState<{ name?: string; logo_url?: string }>({});
+
+const validate = () => {
+  const newErrors: { name?: string; logo_url?: string } = {};
+  if (!formData.name.trim() || formData.name.trim().length < 2) {
+    newErrors.name = "Name must be at least 2 characters";
+  }
+  if (!formData.logo_url.match(/^https?:\/\/.+/)) {
+    newErrors.logo_url = "Please enter a valid URL";
+  }
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+```
+
+**Display inline errors:**
+```jsx
+<input
+  type="text"
+  className="admin-input"
+  value={formData.name}
+  onChange={(e) => {
+    setFormData({ ...formData, name: e.target.value });
+    if (errors.name) setErrors({ ...errors, name: undefined });
+  }}
+/>
+{errors.name && (
+  <span className="admin-helper-text" style={{ color: 'var(--admin-error)' }}>
+    {errors.name}
+  </span>
+)}
+```
+
+### 17.6 Console Logging Pattern
+
+All modules should log errors with module-specific tags:
+
+```typescript
+if (error) {
+  console.error("[PartnersAdminPage] Failed to load partners", error);
+  setError(error.message);
+}
+```
+
+---
+
 ## Quick Reference Card
 
 ```
@@ -1158,4 +1330,7 @@ INPUTS:          .admin-input, .admin-textarea, .admin-select
 LAYOUT:          .admin-card, .admin-table, .admin-modal-form
 ICONS:           .admin-icon-{16|20|24}, .admin-icon-{muted|accent}
 SETTINGS:        .settings-tabs, .settings-tab, .admin-color-picker-wrapper
+TOOLBAR:         .admin-toolbar, .admin-search, .admin-filter-pills
+EMPTY STATE:     .admin-empty-state
+```
 ```
