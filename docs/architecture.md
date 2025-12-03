@@ -82,21 +82,122 @@
 | `src/integrations/supabase/queries/userRoles.ts` | Role query functions |
 | `src/pages/UnauthorizedPage.tsx` | Access denied page |
 
-### RLS Policy Summary
+---
 
-All tables use `has_role()` function for write authorization:
+## Data Flow Diagrams
 
-```sql
--- Admin-only write example
-CREATE POLICY "Admins can create services" ON services
-  FOR INSERT TO authenticated
-  WITH CHECK (public.has_role(auth.uid(), 'admin'));
+### Diagram 1: Admin Panel Data Flow
 
--- Admin + Editor write example
-CREATE POLICY "Admins and editors can create blog posts" ON blog_posts
-  FOR INSERT TO authenticated
-  WITH CHECK (public.has_role(auth.uid(), 'admin') OR public.has_role(auth.uid(), 'editor'));
-```
+<presentation-mermaid>
+sequenceDiagram
+    participant Admin as Admin User
+    participant UI as React Admin UI
+    participant Query as Query Layer
+    participant RLS as Supabase RLS
+    participant DB as PostgreSQL
+
+    Admin->>UI: Navigate to /admin/services
+    UI->>Query: getAllServices()
+    Query->>RLS: SELECT * FROM services
+    RLS->>RLS: Check has_role(uid, 'admin')
+    alt Has Admin Role
+        RLS->>DB: Execute query (all records)
+        DB-->>UI: Return all services
+    else No Admin Role
+        RLS-->>UI: Return empty / error
+    end
+    
+    Admin->>UI: Click "Add Service"
+    UI->>Query: createService(data)
+    Query->>RLS: INSERT INTO services
+    RLS->>RLS: Check has_role(uid, 'admin')
+    RLS->>DB: Execute insert
+    DB-->>UI: Return new record
+    UI->>Admin: Show success toast
+</presentation-mermaid>
+
+### Diagram 2: Public Marketing Site Data Flow
+
+<presentation-mermaid>
+sequenceDiagram
+    participant Visitor as Anonymous Visitor
+    participant UI as React Frontend
+    participant Query as Query Layer
+    participant RLS as Supabase RLS
+    participant DB as PostgreSQL
+
+    Visitor->>UI: Visit /services
+    UI->>Query: getPublishedServices()
+    Query->>RLS: SELECT * FROM services WHERE status='published'
+    RLS->>RLS: Check public SELECT policy
+    Note over RLS: Policy allows: status='published'
+    RLS->>DB: Execute filtered query
+    DB-->>UI: Return published services only
+    UI->>Visitor: Render services page
+    
+    Visitor->>UI: Submit contact form
+    UI->>Query: createContactSubmission(data)
+    Query->>RLS: INSERT INTO contact_submissions
+    RLS->>RLS: Check public INSERT policy
+    Note over RLS: Policy allows: true (anyone)
+    RLS->>DB: Execute insert
+    DB-->>UI: Success (no data returned)
+    UI->>Visitor: Show success message
+</presentation-mermaid>
+
+### Diagram 3: Authentication & Authorization Flow
+
+<presentation-mermaid>
+flowchart TD
+    A[User visits /admin] --> B{Authenticated?}
+    B -->|No| C[Redirect to /auth/login]
+    C --> D[User enters credentials]
+    D --> E[Supabase Auth validates]
+    E -->|Invalid| F[Show error message]
+    E -->|Valid| G[Session created]
+    G --> H[AuthContext fetches role]
+    H --> I[Call has_role RPC]
+    I --> J{has_role result}
+    J -->|admin| K[Set userRole = admin]
+    J -->|editor| L[Set userRole = editor]
+    J -->|neither| M[Set userRole = null]
+    
+    B -->|Yes| N{Check userRole}
+    K --> N
+    L --> N
+    M --> N
+    
+    N -->|admin| O[Full admin access]
+    N -->|editor| P[Limited admin access]
+    N -->|null| Q[Redirect to /unauthorized]
+    
+    O --> R[AdminSidebar shows all items]
+    P --> S[AdminSidebar filters items]
+    R --> T[RLS enforces data access]
+    S --> T
+</presentation-mermaid>
+
+### Diagram 4: Settings Context Flow (Frontend)
+
+<presentation-mermaid>
+flowchart TD
+    A[App loads] --> B[SettingsProvider mounts]
+    B --> C[Fetch getAllSiteSettings]
+    C --> D[Transform to key-value map]
+    D --> E[Store in context state]
+    
+    F[Footer component] --> G[useSettings hook]
+    G --> H[getSetting 'contact_email', fallback]
+    H --> I[Return value or fallback]
+    
+    J[Header component] --> K[useSettings hook]
+    K --> L[getSetting 'site_name', fallback]
+    L --> M[Return value or fallback]
+    
+    N[ContactPage] --> O[useSettings hook]
+    O --> P[Multiple getSetting calls]
+    P --> Q[Render with dynamic values]
+</presentation-mermaid>
 
 ---
 

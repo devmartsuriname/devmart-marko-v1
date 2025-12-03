@@ -1,7 +1,7 @@
 # Devmart Admin UI Style Guide
 
-> **Version:** 1.1 (Phases 1-3C Complete)  
-> **Last Updated:** December 2025  
+> **Version:** 1.2 (Phase B Documentation Sync)  
+> **Last Updated:** December 3, 2025  
 > **Source:** `src/styles/admin.css`
 
 This document provides a comprehensive reference for all CSS classes, tokens, and usage patterns implemented in the Devmart Admin Backend UI.
@@ -24,6 +24,8 @@ This document provides a comprehensive reference for all CSS classes, tokens, an
 12. [Responsive Breakpoints](#12-responsive-breakpoints)
 13. [Usage Examples](#13-usage-examples)
 14. [Settings Page Components](#14-settings-page-components)
+15. [Admin Module UI Pattern](#15-admin-module-ui-pattern)
+16. [Error Handling & Notification Patterns](#16-error-handling--notification-patterns)
 
 ---
 
@@ -817,6 +819,326 @@ Color picker utilities for branding color controls.
   </div>
   <small class="admin-helper-text">Main brand color for marketing site.</small>
 </div>
+```
+
+---
+
+## 15. Admin Module UI Pattern
+
+This section describes the standard structure for admin module pages to ensure consistency.
+
+### 15.1 Standard Module Page Structure
+
+Every admin module page follows this layout pattern:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Page Header                                                 │
+│ ┌─────────────────────────────────────┐ ┌─────────────────┐ │
+│ │ Page Title (h1.admin-page-title)    │ │ Add Button      │ │
+│ └─────────────────────────────────────┘ └─────────────────┘ │
+├─────────────────────────────────────────────────────────────┤
+│ Error Alert (if error)                                      │
+├─────────────────────────────────────────────────────────────┤
+│ Loading State OR DataTable                                  │
+│ ┌─────────────────────────────────────────────────────────┐ │
+│ │ Table Header (Name, Status, Actions...)                 │ │
+│ ├─────────────────────────────────────────────────────────┤ │
+│ │ Row 1: Data... | Edit | Delete                          │ │
+│ │ Row 2: Data... | Edit | Delete                          │ │
+│ │ ...                                                     │ │
+│ └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 15.2 Required Components per Module
+
+Each admin module requires these files:
+
+| File | Purpose |
+|------|---------|
+| `src/pages/admin/{Module}AdminPage.tsx` | Main list page with DataTable |
+| `src/components/admin/{module}/Add{Module}Modal.tsx` | Create form modal |
+| `src/components/admin/{module}/Edit{Module}Modal.tsx` | Update form modal |
+| `src/components/admin/{module}/Delete{Module}Dialog.tsx` | Delete confirmation |
+| `src/integrations/supabase/queries/{module}.ts` | Query layer functions |
+
+### 15.3 DataTable Column Patterns
+
+Standard column types and renderers:
+
+```jsx
+// Text column
+{ key: "name", label: "Name" }
+
+// Status badge column
+{ 
+  key: "status", 
+  label: "Status", 
+  render: (item) => (
+    <span className={`admin-badge admin-badge-${item.status === 'published' ? 'success' : 'warning'}`}>
+      {item.status}
+    </span>
+  )
+}
+
+// Boolean column
+{ 
+  key: "featured", 
+  label: "Featured", 
+  render: (item) => item.featured ? "Yes" : "No" 
+}
+
+// Date column
+{ 
+  key: "updated_at", 
+  label: "Updated", 
+  render: (item) => new Date(item.updated_at).toLocaleDateString() 
+}
+
+// Actions column (always last)
+{ 
+  key: "actions", 
+  label: "Actions", 
+  render: (item) => (
+    <div className="admin-table-actions">
+      <button className="admin-btn admin-btn-sm admin-btn-ghost" onClick={() => setEditItem(item)}>
+        Edit
+      </button>
+      <button className="admin-btn admin-btn-sm admin-btn-destructive" onClick={() => setDeleteItem(item)}>
+        Delete
+      </button>
+    </div>
+  )
+}
+```
+
+### 15.4 Form Field Patterns
+
+Standard form field groupings in modals:
+
+```jsx
+// Single field row
+<div className="admin-form-group">
+  <label className="admin-label">Field Name <span className="admin-required">*</span></label>
+  <input type="text" className="admin-input" value={value} onChange={onChange} />
+</div>
+
+// Two-column row
+<div className="admin-form-row-2">
+  <div className="admin-form-group">
+    <label className="admin-label">First Field</label>
+    <input type="text" className="admin-input" />
+  </div>
+  <div className="admin-form-group">
+    <label className="admin-label">Second Field</label>
+    <input type="text" className="admin-input" />
+  </div>
+</div>
+
+// Status/Featured row (common pattern)
+<div className="admin-form-row-2">
+  <div className="admin-form-group">
+    <label className="admin-label">Status</label>
+    <select className="admin-select">
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+      <option value="archived">Archived</option>
+    </select>
+  </div>
+  <div className="admin-checkbox-container">
+    <input type="checkbox" className="admin-checkbox" id="featured" />
+    <label htmlFor="featured" className="admin-label">Featured</label>
+  </div>
+</div>
+
+// Textarea
+<div className="admin-form-group">
+  <label className="admin-label">Description</label>
+  <textarea className="admin-textarea" rows={4}></textarea>
+</div>
+
+// Button bar
+<div className="admin-modal-footer">
+  <button type="button" className="admin-btn admin-btn-secondary">Cancel</button>
+  <button type="submit" className="admin-btn admin-btn-primary">Save</button>
+</div>
+```
+
+---
+
+## 16. Error Handling & Notification Patterns
+
+This section documents the standard patterns for errors, validation, and notifications.
+
+### 16.1 Toast Notifications
+
+We use `sonner` for toast notifications. Import and use as follows:
+
+```typescript
+import { toast } from "sonner";
+
+// Success notification (after create/update/delete)
+toast.success("Service created successfully");
+
+// Error notification (API failures)
+toast.error("Failed to save. Please try again.");
+
+// Info notification (neutral feedback)
+toast.info("Processing your request...");
+
+// Warning notification (non-blocking alerts)
+toast.warning("This action cannot be undone");
+```
+
+**When to use toasts:**
+- After successful CRUD operations
+- After API errors
+- For temporary status messages
+- NOT for field validation errors (use inline errors instead)
+
+### 16.2 Page-Level Error Alerts
+
+For errors that apply to the entire page (e.g., failed to load data):
+
+```jsx
+{error && (
+  <div className="admin-alert admin-alert-error admin-alert-mb">
+    {error}
+  </div>
+)}
+```
+
+**Alert variants:**
+
+| Class | Use Case |
+|-------|----------|
+| `.admin-alert-success` | Operation completed successfully |
+| `.admin-alert-error` | Failed to load data, API errors |
+| `.admin-alert-warning` | Non-critical warnings |
+| `.admin-alert-info` | Informational messages |
+
+### 16.3 Form Validation Errors
+
+Display field-level validation errors inline below the input:
+
+```jsx
+<div className="admin-form-group">
+  <label className="admin-label">Email <span className="admin-required">*</span></label>
+  <input 
+    type="email" 
+    className="admin-input" 
+    style={{ borderColor: emailError ? 'var(--admin-error)' : undefined }}
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+  />
+  {emailError && (
+    <span style={{ color: 'var(--admin-error)', fontSize: '12px', marginTop: '4px', display: 'block' }}>
+      {emailError}
+    </span>
+  )}
+</div>
+```
+
+**Validation patterns:**
+- Check required fields before submission
+- Show error text below the specific field
+- Add red border to invalid inputs
+- Clear errors when user starts typing
+
+### 16.4 Loading States
+
+Show loading state while fetching data:
+
+```jsx
+{isLoading ? (
+  <div className="admin-loading-state">Loading...</div>
+) : (
+  <DataTable columns={columns} data={items} />
+)}
+```
+
+For button loading states:
+
+```jsx
+<button 
+  className="admin-btn admin-btn-primary" 
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Saving..." : "Save"}
+</button>
+```
+
+### 16.5 Empty States
+
+When no data exists:
+
+```jsx
+{items.length === 0 && !isLoading && (
+  <div className="admin-table-empty">
+    No items found. Click "Add" to create your first item.
+  </div>
+)}
+```
+
+### 16.6 Permission Denied Feedback
+
+When user lacks permission for an action:
+
+```typescript
+import { toast } from "sonner";
+
+const handleDelete = async () => {
+  if (!hasPermission(userRole, 'services', 'delete')) {
+    toast.error("You don't have permission to delete services");
+    return;
+  }
+  // proceed with delete...
+};
+```
+
+### 16.7 Network Error Handling
+
+Standard pattern for handling Supabase errors:
+
+```typescript
+const fetchData = async () => {
+  setIsLoading(true);
+  setError(null);
+  
+  const { data, error } = await getAllServices();
+  
+  if (error) {
+    setError(error.message || "Failed to load data");
+    toast.error("Failed to load services");
+  } else {
+    setItems(data || []);
+  }
+  
+  setIsLoading(false);
+};
+```
+
+### 16.8 RLS Error Handling
+
+When RLS policies block an operation:
+
+```typescript
+const handleCreate = async (data: ServiceInput) => {
+  const { error } = await createService(data);
+  
+  if (error) {
+    if (error.message.includes('row-level security')) {
+      toast.error("Permission denied. You may not have access to this action.");
+    } else {
+      toast.error(`Failed to create: ${error.message}`);
+    }
+    return;
+  }
+  
+  toast.success("Service created successfully");
+  onSuccess();
+};
 ```
 
 ---
