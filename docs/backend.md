@@ -1496,17 +1496,17 @@ All data fetched in parallel on page mount for optimal performance.
 - ✅ Testimonials Slider (Phase 6M)
 - ✅ Pricing Preview (Phase 6K)
 - ✅ Blog Preview (Phase 6K)
+- ✅ Partner Logos Slider (Phase C1)
 
 **Static Sections (Remain Hardcoded):**
 - Hero Banner (video background, title, CTA)
 - Expertise Counter
-- Partner Logos Slider
 - Why Choose Us
 - Guide CTA
 - Digital Process Steps
 - Newsletter Form
 
-HomePage is now **90% dynamic** with only intentional static sections remaining (Hero, Expertise, Process, Newsletter).
+HomePage is now **~95% dynamic** with only intentional static sections remaining (Hero, Expertise, Process, Newsletter).
 
 ---
 
