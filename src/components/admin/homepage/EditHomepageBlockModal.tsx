@@ -31,6 +31,7 @@ const modalContentStyle: React.CSSProperties = {
 };
 
 const BLOCK_TYPES = ["hero", "text-and-image", "stat-grid", "cta", "features", "custom"];
+const CORE_BLOCK_KEYS = ["hero", "cta"];
 
 export default function EditHomepageBlockModal({ open, block, onClose, onSuccess }: EditHomepageBlockModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +47,8 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
     sort_order: 1,
     status: "active",
   });
+
+  const isCoreBlock = block ? CORE_BLOCK_KEYS.includes(block.key) : false;
 
   useEffect(() => {
     if (block) {
@@ -74,7 +77,7 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
 
     setIsSubmitting(true);
     const { error } = await updateHomepageBlock(block.id, {
-      key: formData.key.trim().toLowerCase().replace(/\s+/g, "-"),
+      key: isCoreBlock ? block.key : formData.key.trim().toLowerCase().replace(/\s+/g, "-"),
       block_type: formData.block_type,
       title: formData.title.trim() || null,
       subtitle: formData.subtitle.trim() || null,
@@ -114,7 +117,12 @@ export default function EditHomepageBlockModal({ open, block, onClose, onSuccess
                 onChange={(e) => setFormData({ ...formData, key: e.target.value })}
                 placeholder="e.g. hero, stats, cta"
                 required
+                disabled={isCoreBlock}
+                style={isCoreBlock ? { opacity: 0.7, cursor: 'not-allowed' } : undefined}
               />
+              {isCoreBlock && (
+                <span className="admin-helper-text">This is a core block. The key cannot be changed.</span>
+              )}
             </div>
             <div className="admin-form-group">
               <label className="admin-label">Block Type *</label>

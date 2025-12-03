@@ -1,6 +1,49 @@
 /* Admin-specific styles for Devmart Admin UI */
 /* Phase 1: Complete Color & Token Standardization */
 /* Phase 3C: Settings Tabs & Color Picker */
+/* Phase D: V2 Modules Polish */
+
+/* ========================================
+   Admin Toolbar (Search & Filters)
+   ======================================== */
+.admin-toolbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.admin-filter-pills {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ========================================
+   Enhanced Empty State
+   ======================================== */
+.admin-empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.admin-empty-state h3 {
+  color: var(--admin-text);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.admin-empty-state p {
+  color: var(--admin-text-muted);
+  margin-bottom: 16px;
+}
 
 :root {
   /* Backgrounds & Surfaces */

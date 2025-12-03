@@ -30,8 +30,12 @@ const modalContentStyle: React.CSSProperties = {
   borderRadius: "8px",
 };
 
+const CORE_BLOCK_KEYS = ["hero", "cta"];
+
 export default function DeleteHomepageBlockDialog({ open, block, onClose, onSuccess }: DeleteHomepageBlockDialogProps) {
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const isCoreBlock = block ? CORE_BLOCK_KEYS.includes(block.key) : false;
 
   const handleDelete = async () => {
     if (!block) return;
@@ -56,7 +60,17 @@ export default function DeleteHomepageBlockDialog({ open, block, onClose, onSucc
             Delete Homepage Block
           </DialogTitle>
           <DialogDescription style={{ color: "var(--admin-text-muted)", marginTop: "0.5rem" }}>
-            Are you sure you want to delete the block <strong>"{block?.key}"</strong>? This action cannot be undone.
+            {isCoreBlock ? (
+              <>
+                <strong style={{ color: 'var(--admin-error)' }}>⚠️ Warning:</strong> You are about to delete the <strong>"{block?.key}"</strong> block, 
+                which is a <strong>core block</strong> that controls critical homepage content. Deleting this will break the homepage. 
+                Are you absolutely sure?
+              </>
+            ) : (
+              <>
+                Are you sure you want to delete the block <strong>"{block?.key}"</strong>? This action cannot be undone.
+              </>
+            )}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter style={{ marginTop: "1rem", display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
@@ -64,7 +78,7 @@ export default function DeleteHomepageBlockDialog({ open, block, onClose, onSucc
             Cancel
           </button>
           <button type="button" className="admin-btn admin-btn-destructive" onClick={handleDelete} disabled={isDeleting}>
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? "Deleting..." : isCoreBlock ? "Yes, Delete Core Block" : "Delete"}
           </button>
         </DialogFooter>
       </DialogContent>

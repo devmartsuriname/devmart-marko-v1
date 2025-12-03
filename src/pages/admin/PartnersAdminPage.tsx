@@ -13,11 +13,16 @@ export default function PartnersAdminPage() {
   const [editPartner, setEditPartner] = useState<PartnerLogo | null>(null);
   const [deletePartner, setDeletePartner] = useState<PartnerLogo | null>(null);
 
+  // Filter & Search state
+  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive">("all");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const fetchPartners = async () => {
     setIsLoading(true);
     setError(null);
     const { data, error } = await getAllPartnerLogos();
     if (error) {
+      console.error("[PartnersAdminPage] Failed to load partners", error);
       setError(error.message);
     } else {
       setPartners(data || []);
@@ -28,6 +33,13 @@ export default function PartnersAdminPage() {
   useEffect(() => {
     fetchPartners();
   }, []);
+
+  // Filter logic
+  const filteredPartners = partners.filter((partner) => {
+    const matchesStatus = statusFilter === "all" || partner.status === statusFilter;
+    const matchesSearch = partner.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesStatus && matchesSearch;
+  });
 
   const columns = [
     {
@@ -94,15 +106,76 @@ export default function PartnersAdminPage() {
         </button>
       </div>
 
-      {error && <div className="admin-alert admin-alert-error admin-alert-mb">{error}</div>}
+      {error && (
+        <div className="admin-alert admin-alert-error admin-alert-mb">
+          {error}
+          <button 
+            className="admin-btn admin-btn-sm admin-btn-ghost" 
+            onClick={fetchPartners} 
+            style={{ marginLeft: '1rem' }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
 
-      <DataTable
-        columns={columns}
-        rows={partners}
-        emptyMessage="No partner logos found. Add your first partner!"
-        onEdit={(partner) => setEditPartner(partner)}
-        onDelete={(partner) => setDeletePartner(partner)}
-      />
+      {/* Toolbar: Search & Filters */}
+      <div className="admin-toolbar">
+        <div className="admin-search">
+          <input
+            type="text"
+            className="admin-input"
+            placeholder="Search by name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="admin-filter-pills">
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "all" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("all")}
+          >
+            All
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "active" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("active")}
+          >
+            Active
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "inactive" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("inactive")}
+          >
+            Inactive
+          </button>
+        </div>
+      </div>
+
+      {/* Empty state when no partners at all */}
+      {filteredPartners.length === 0 && partners.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-empty-state">
+            <h3>No partner logos yet</h3>
+            <p>Add your first partner to show trusted organizations on the website.</p>
+            <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+              Add Partner
+            </button>
+          </div>
+        </div>
+      ) : filteredPartners.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-table-empty">No partners match your filter.</div>
+        </div>
+      ) : (
+        <DataTable
+          columns={columns}
+          rows={filteredPartners}
+          emptyMessage="No partner logos found."
+          onEdit={(partner) => setEditPartner(partner)}
+          onDelete={(partner) => setDeletePartner(partner)}
+        />
+      )}
 
       <AddPartnerLogoModal
         open={isAddModalOpen}

@@ -38,13 +38,23 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
     sort_order: 1,
     status: "active",
   });
+  const [errors, setErrors] = useState<{ name?: string; logo_url?: string }>({});
+
+  const validate = () => {
+    const newErrors: { name?: string; logo_url?: string } = {};
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+    if (!formData.logo_url.trim() || !formData.logo_url.match(/^https?:\/\/.+/)) {
+      newErrors.logo_url = "Please enter a valid URL (starting with http:// or https://)";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.logo_url.trim()) {
-      toast.error("Name and Logo URL are required");
-      return;
-    }
+    if (!validate()) return;
 
     setIsSubmitting(true);
     const { error } = await createPartnerLogo({
@@ -60,6 +70,7 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
     } else {
       toast.success("Partner created successfully");
       setFormData({ name: "", logo_url: "", website_url: "", sort_order: 1, status: "active" });
+      setErrors({});
       onSuccess();
     }
     setIsSubmitting(false);
@@ -68,6 +79,7 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
   const handleClose = () => {
     if (!isSubmitting) {
       setFormData({ name: "", logo_url: "", website_url: "", sort_order: 1, status: "active" });
+      setErrors({});
       onClose();
     }
   };
@@ -87,10 +99,15 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
               type="text"
               className="admin-input"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, name: e.target.value });
+                if (errors.name) setErrors({ ...errors, name: undefined });
+              }}
               placeholder="Partner name"
-              required
             />
+            {errors.name && (
+              <span className="admin-helper-text" style={{ color: 'var(--admin-error)' }}>{errors.name}</span>
+            )}
           </div>
           <div className="admin-form-group">
             <label className="admin-label">Logo URL *</label>
@@ -98,10 +115,15 @@ export default function AddPartnerLogoModal({ open, onClose, onSuccess }: AddPar
               type="text"
               className="admin-input"
               value={formData.logo_url}
-              onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, logo_url: e.target.value });
+                if (errors.logo_url) setErrors({ ...errors, logo_url: undefined });
+              }}
               placeholder="https://example.com/logo.png"
-              required
             />
+            {errors.logo_url && (
+              <span className="admin-helper-text" style={{ color: 'var(--admin-error)' }}>{errors.logo_url}</span>
+            )}
           </div>
           <div className="admin-form-group">
             <label className="admin-label">Website URL</label>

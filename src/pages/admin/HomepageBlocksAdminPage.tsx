@@ -5,6 +5,8 @@ import AddHomepageBlockModal from "@/components/admin/homepage/AddHomepageBlockM
 import EditHomepageBlockModal from "@/components/admin/homepage/EditHomepageBlockModal";
 import DeleteHomepageBlockDialog from "@/components/admin/homepage/DeleteHomepageBlockDialog";
 
+const CORE_BLOCK_KEYS = ["hero", "cta"];
+
 export default function HomepageBlocksAdminPage() {
   const [blocks, setBlocks] = useState<HomepageBlock[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,11 +15,15 @@ export default function HomepageBlocksAdminPage() {
   const [editBlock, setEditBlock] = useState<HomepageBlock | null>(null);
   const [deleteBlock, setDeleteBlock] = useState<HomepageBlock | null>(null);
 
+  // Filter state
+  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive">("all");
+
   const fetchBlocks = async () => {
     setIsLoading(true);
     setError(null);
     const { data, error } = await getAllHomepageBlocks();
     if (error) {
+      console.error("[HomepageBlocksAdminPage] Failed to load blocks", error);
       setError(error.message);
     } else {
       setBlocks(data || []);
@@ -29,8 +35,24 @@ export default function HomepageBlocksAdminPage() {
     fetchBlocks();
   }, []);
 
+  // Filter logic
+  const filteredBlocks = blocks.filter((block) => {
+    return statusFilter === "all" || block.status === statusFilter;
+  });
+
   const columns = [
-    { key: "key", label: "Key" },
+    { 
+      key: "key", 
+      label: "Key",
+      render: (value: string) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span>{value}</span>
+          {CORE_BLOCK_KEYS.includes(value) && (
+            <span className="admin-badge admin-badge-info">Core</span>
+          )}
+        </div>
+      ),
+    },
     {
       key: "block_type",
       label: "Block Type",
@@ -61,7 +83,7 @@ export default function HomepageBlocksAdminPage() {
         <div className="admin-page-header">
           <div>
             <h1 className="admin-page-title">Homepage Content Blocks</h1>
-            <p className="admin-page-description">Manage dynamic content blocks for the homepage (backend only - not yet wired to frontend).</p>
+            <p className="admin-page-description">Manage dynamic content blocks for the homepage hero and CTA sections.</p>
           </div>
         </div>
         <div className="admin-card">
@@ -76,22 +98,74 @@ export default function HomepageBlocksAdminPage() {
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Homepage Content Blocks</h1>
-          <p className="admin-page-description">Manage dynamic content blocks for the homepage (backend only - not yet wired to frontend).</p>
+          <p className="admin-page-description">Manage dynamic content blocks for the homepage hero and CTA sections.</p>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
           Add Block
         </button>
       </div>
 
-      {error && <div className="admin-alert admin-alert-error admin-alert-mb">{error}</div>}
+      {error && (
+        <div className="admin-alert admin-alert-error admin-alert-mb">
+          {error}
+          <button 
+            className="admin-btn admin-btn-sm admin-btn-ghost" 
+            onClick={fetchBlocks} 
+            style={{ marginLeft: '1rem' }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
 
-      <DataTable
-        columns={columns}
-        rows={blocks}
-        emptyMessage="No homepage blocks found. Add your first block!"
-        onEdit={(block) => setEditBlock(block)}
-        onDelete={(block) => setDeleteBlock(block)}
-      />
+      {/* Toolbar: Filters */}
+      <div className="admin-toolbar">
+        <div className="admin-filter-pills">
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "all" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("all")}
+          >
+            All
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "active" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("active")}
+          >
+            Active
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "inactive" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("inactive")}
+          >
+            Inactive
+          </button>
+        </div>
+      </div>
+
+      {/* Empty state when no blocks at all */}
+      {filteredBlocks.length === 0 && blocks.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-empty-state">
+            <h3>No homepage blocks configured</h3>
+            <p>Add blocks or seed the standard hero and CTA blocks to manage homepage content.</p>
+            <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+              Add Block
+            </button>
+          </div>
+        </div>
+      ) : filteredBlocks.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-table-empty">No blocks match your filter.</div>
+        </div>
+      ) : (
+        <DataTable
+          columns={columns}
+          rows={filteredBlocks}
+          emptyMessage="No homepage blocks found."
+          onEdit={(block) => setEditBlock(block)}
+          onDelete={(block) => setDeleteBlock(block)}
+        />
+      )}
 
       <AddHomepageBlockModal
         open={isAddModalOpen}

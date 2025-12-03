@@ -11,11 +11,16 @@ export default function NewsletterAdminPage() {
   const [editSubscriber, setEditSubscriber] = useState<NewsletterSubscriber | null>(null);
   const [deleteSubscriber, setDeleteSubscriber] = useState<NewsletterSubscriber | null>(null);
 
+  // Filter & Search state
+  const [statusFilter, setStatusFilter] = useState<"all" | "subscribed" | "unsubscribed">("all");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const fetchSubscribers = async () => {
     setIsLoading(true);
     setError(null);
     const { data, error } = await getAllSubscribers();
     if (error) {
+      console.error("[NewsletterAdminPage] Failed to load subscribers", error);
       setError(error.message);
     } else {
       setSubscribers(data || []);
@@ -26,6 +31,13 @@ export default function NewsletterAdminPage() {
   useEffect(() => {
     fetchSubscribers();
   }, []);
+
+  // Filter logic
+  const filteredSubscribers = subscribers.filter((sub) => {
+    const matchesStatus = statusFilter === "all" || sub.status === statusFilter;
+    const matchesSearch = sub.email.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesStatus && matchesSearch;
+  });
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "—";
@@ -96,15 +108,73 @@ export default function NewsletterAdminPage() {
         </div>
       </div>
 
-      {error && <div className="admin-alert admin-alert-error admin-alert-mb">{error}</div>}
+      {error && (
+        <div className="admin-alert admin-alert-error admin-alert-mb">
+          {error}
+          <button 
+            className="admin-btn admin-btn-sm admin-btn-ghost" 
+            onClick={fetchSubscribers} 
+            style={{ marginLeft: '1rem' }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
 
-      <DataTable
-        columns={columns}
-        rows={subscribers}
-        emptyMessage="No newsletter subscribers yet."
-        onEdit={(subscriber) => setEditSubscriber(subscriber)}
-        onDelete={(subscriber) => setDeleteSubscriber(subscriber)}
-      />
+      {/* Toolbar: Search & Filters */}
+      <div className="admin-toolbar">
+        <div className="admin-search">
+          <input
+            type="text"
+            className="admin-input"
+            placeholder="Search by email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="admin-filter-pills">
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "all" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("all")}
+          >
+            All
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "subscribed" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("subscribed")}
+          >
+            Subscribed
+          </button>
+          <button 
+            className={`admin-btn admin-btn-sm ${statusFilter === "unsubscribed" ? "admin-btn-primary" : "admin-btn-ghost"}`} 
+            onClick={() => setStatusFilter("unsubscribed")}
+          >
+            Unsubscribed
+          </button>
+        </div>
+      </div>
+
+      {/* Empty state when no subscribers at all */}
+      {filteredSubscribers.length === 0 && subscribers.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-empty-state">
+            <h3>No subscribers yet</h3>
+            <p>When visitors subscribe from your website, they will appear here.</p>
+          </div>
+        </div>
+      ) : filteredSubscribers.length === 0 ? (
+        <div className="admin-card">
+          <div className="admin-table-empty">No subscribers match your filter.</div>
+        </div>
+      ) : (
+        <DataTable
+          columns={columns}
+          rows={filteredSubscribers}
+          emptyMessage="No newsletter subscribers yet."
+          onEdit={(subscriber) => setEditSubscriber(subscriber)}
+          onDelete={(subscriber) => setDeleteSubscriber(subscriber)}
+        />
+      )}
 
       <EditSubscriberModal
         open={!!editSubscriber}
