@@ -36,6 +36,9 @@ import FaqAdminPage from "./pages/admin/FaqAdminPage";
 import ContactsAdminPage from "./pages/admin/ContactsAdminPage";
 import SettingsAdminPage from "./pages/admin/SettingsAdminPage";
 import UsersAdminPage from "./pages/admin/UsersAdminPage";
+import PartnersAdminPage from "./pages/admin/PartnersAdminPage";
+import NewsletterAdminPage from "./pages/admin/NewsletterAdminPage";
+import HomepageBlocksAdminPage from "./pages/admin/HomepageBlocksAdminPage";
 
 const App = () => (
   <BrowserRouter>
@@ -81,6 +84,9 @@ const App = () => (
           <Route path="contacts" element={<ContactsAdminPage />} />
           <Route path="settings" element={<SettingsAdminPage />} />
           <Route path="users" element={<UsersAdminPage />} />
+          <Route path="partners" element={<PartnersAdminPage />} />
+          <Route path="newsletter" element={<NewsletterAdminPage />} />
+          <Route path="homepage" element={<HomepageBlocksAdminPage />} />
         </Route>
       </Route>
     </Routes>

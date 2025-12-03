@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase B Documentation Sync - COMPLETE ✅
+## Current Status: Phase D Deferred Modules - COMPLETE ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -22,7 +22,8 @@
 **Settings Tabbed Layout & Branding Colors:** 2025-12-03 ✅  
 **Phase A Security & Authorization:** 2025-12-03 ✅  
 **Phase B Documentation Sync:** 2025-12-03 ✅  
-**Implementation Status:** Documentation synchronized with actual database schema and codebase.
+**Phase D Deferred Modules (v2):** 2025-12-03 ✅  
+**Implementation Status:** V2 modules (Partner Logos, Newsletter, Homepage Blocks) implemented with admin UI.
 
 ---
 
@@ -55,6 +56,9 @@ This section provides a complete reference for all Row-Level Security (RLS) poli
 | `contact_submissions` | ❌ None (INSERT only) | Admin+Editor | Public | Admin | Admin | admin (write) |
 | `admin_users` | ❌ None | Authenticated | ❌ | Own profile only | ❌ | - |
 | `user_roles` | ❌ None | Admin | Admin | Admin | Admin | admin |
+| `partner_logos` | `status='active'` | Admin: all | Admin | Admin | Admin | admin |
+| `newsletter_subscribers` | ❌ None | Admin: all | Public | Admin | Admin | admin |
+| `homepage_blocks` | `status='active'` | Admin: all | Admin | Admin | Admin | admin |
 
 ### RLS Policy SQL Examples
 

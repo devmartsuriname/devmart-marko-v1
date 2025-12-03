@@ -14,6 +14,9 @@ import {
   Mail,
   Settings,
   UserCog,
+  Building2,
+  Newspaper,
+  Home,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -30,6 +33,9 @@ const allNavItems = [
   { to: "/admin/team", label: "Team", icon: Users },
   { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { to: "/admin/contacts", label: "Contacts", icon: Mail },
+  { to: "/admin/partners", label: "Partners", icon: Building2 },
+  { to: "/admin/newsletter", label: "Newsletter", icon: Newspaper },
+  { to: "/admin/homepage", label: "Homepage", icon: Home },
   { to: "/admin/settings", label: "Settings", icon: Settings },
   { to: "/admin/users", label: "Users", icon: UserCog },
 ];

@@ -855,58 +855,183 @@
     },
     {
       "name": "Partner Logos",
-      "phase": "v2",
+      "phase": "v2-implemented",
       "tableName": "partner_logos",
-      "description": "Trusted by / partner logo carousel",
+      "description": "Partner/client logo carousel for marketing site",
       "adminRoute": "/admin/partners",
-      "note": "Deferred to Phase 2 - not critical for v1 launch",
-      "plannedFields": [
-        { "name": "id", "type": "uuid", "primaryKey": true },
-        { "name": "name", "type": "text", "required": true },
-        { "name": "logo_url", "type": "text", "required": true },
-        { "name": "website_url", "type": "text", "nullable": true },
-        { "name": "sort_order", "type": "integer", "default": 0 },
-        { "name": "status", "type": "text", "default": "'active'" },
-        { "name": "created_at", "type": "timestamp" },
-        { "name": "updated_at", "type": "timestamp" }
-      ]
-    },
-    {
-      "name": "Homepage Content Blocks",
-      "phase": "v2",
-      "tableName": "homepage_blocks",
-      "description": "Dynamic hero, stats, feature cards",
-      "adminRoute": "/admin/homepage",
-      "note": "Deferred to Phase 2 - homepage content can remain static for v1",
-      "plannedFields": [
-        { "name": "id", "type": "uuid", "primaryKey": true },
-        { "name": "block_type", "type": "text", "required": true, "description": "hero, stat, feature, cta" },
-        { "name": "title", "type": "text", "nullable": true },
-        { "name": "content", "type": "text", "nullable": true },
-        { "name": "image_url", "type": "text", "nullable": true },
-        { "name": "link_url", "type": "text", "nullable": true },
-        { "name": "link_text", "type": "text", "nullable": true },
-        { "name": "sort_order", "type": "integer", "default": 0 },
-        { "name": "status", "type": "text", "default": "'active'" },
-        { "name": "created_at", "type": "timestamp" },
-        { "name": "updated_at", "type": "timestamp" }
+      "publicAccess": "SELECT WHERE status='active'",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "required": true,
+          "example": "Acme Corporation"
+        },
+        {
+          "name": "logo_url",
+          "type": "text",
+          "required": true,
+          "example": "/uploads/partners/acme-logo.png"
+        },
+        {
+          "name": "website_url",
+          "type": "text",
+          "nullable": true,
+          "example": "https://acme.com"
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'",
+          "description": "active or inactive"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        }
       ]
     },
     {
       "name": "Newsletter Subscribers",
-      "phase": "v2",
+      "phase": "v2-implemented",
       "tableName": "newsletter_subscribers",
-      "description": "Email subscription list",
+      "description": "Email subscription list for newsletter",
       "adminRoute": "/admin/newsletter",
-      "note": "Deferred to Phase 2 - newsletter form can remain non-functional for v1",
-      "plannedFields": [
-        { "name": "id", "type": "uuid", "primaryKey": true },
-        { "name": "email", "type": "text", "required": true, "unique": true },
-        { "name": "subscribed_at", "type": "timestamp", "default": "now()" },
-        { "name": "unsubscribed_at", "type": "timestamp", "nullable": true },
-        { "name": "status", "type": "text", "default": "'active'", "description": "active, unsubscribed" },
-        { "name": "source", "type": "text", "nullable": true, "description": "homepage, footer, popup" }
+      "publicAccess": "INSERT only (public subscription)",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "required": true,
+          "unique": true,
+          "example": "user@example.com"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'subscribed'",
+          "description": "subscribed or unsubscribed"
+        },
+        {
+          "name": "subscribed_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        },
+        {
+          "name": "unsubscribed_at",
+          "type": "timestamp with time zone",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        }
       ]
+    },
+    {
+      "name": "Homepage Content Blocks",
+      "phase": "v2-implemented",
+      "tableName": "homepage_blocks",
+      "description": "Dynamic content blocks for homepage (backend only - not yet wired to frontend)",
+      "adminRoute": "/admin/homepage",
+      "publicAccess": "SELECT WHERE status='active'",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "key",
+          "type": "text",
+          "required": true,
+          "unique": true,
+          "example": "hero"
+        },
+        {
+          "name": "block_type",
+          "type": "text",
+          "required": true,
+          "description": "hero, text-and-image, stat-grid, cta, features, custom"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "subtitle",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "image_url",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "button_label",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "button_url",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "sort_order",
+          "type": "integer",
+          "default": 1
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'",
+          "description": "active or inactive"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()"
+        }
+      ],
+      "note": "Backend + admin UI complete. Frontend wiring deferred to Phase C."
     }
   ],
   "databaseFunctions": [
