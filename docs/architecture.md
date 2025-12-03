@@ -1321,11 +1321,11 @@ Wire the final two static content sections on HomePage to Supabase:
 - ✅ Testimonials Slider (Phase 6M)
 - ✅ Pricing Preview (Phase 6K)
 - ✅ Blog Preview (Phase 6K)
+- ✅ Partner Logos Slider (Phase C1)
 
 **Static Sections (Remain Hardcoded):**
 - Hero Banner (video, title, CTA)
 - Expertise Counter
-- Partner Logos Slider
 - Why Choose Us
 - Guide CTA
 - Digital Process Steps
