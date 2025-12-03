@@ -1,5 +1,6 @@
 /* Admin-specific styles for Devmart Admin UI */
 /* Phase 1: Complete Color & Token Standardization */
+/* Phase 3C: Settings Tabs & Color Picker */
 
 :root {
   /* Backgrounds & Surfaces */
@@ -1187,5 +1188,94 @@
   
   .stat-value {
     font-size: 24px;
+  }
+}
+
+/* ========================================
+   Settings Tabs
+   ======================================== */
+.settings-tabs {
+  margin-bottom: 24px;
+}
+
+.settings-tab-list {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background-color: var(--admin-bg-tertiary);
+  border-radius: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.settings-tab {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.settings-tab:hover {
+  color: var(--admin-text);
+  background-color: var(--admin-card-bg);
+}
+
+.settings-tab--active {
+  background-color: var(--admin-accent);
+  color: var(--admin-bg-secondary);
+}
+
+.settings-tab:focus-visible {
+  outline: 2px solid var(--admin-accent);
+  outline-offset: 2px;
+}
+
+/* Color Picker Utilities */
+.admin-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-color-input {
+  width: 48px;
+  height: 48px;
+  padding: 4px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background-color: var(--admin-bg);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.admin-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.admin-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+.admin-color-input:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px var(--admin-accent-muted);
+}
+
+@media (max-width: 640px) {
+  .settings-tab-list {
+    padding: 2px;
+  }
+  
+  .settings-tab {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 }
