@@ -346,6 +346,9 @@ export type Database = {
           created_at: string
           description: string
           features: string[] | null
+          highlight_1: string | null
+          highlight_2: string | null
+          highlight_3: string | null
           highlighted: boolean
           id: string
           name: string
@@ -361,6 +364,9 @@ export type Database = {
           created_at?: string
           description: string
           features?: string[] | null
+          highlight_1?: string | null
+          highlight_2?: string | null
+          highlight_3?: string | null
           highlighted?: boolean
           id?: string
           name: string
@@ -376,6 +382,9 @@ export type Database = {
           created_at?: string
           description?: string
           features?: string[] | null
+          highlight_1?: string | null
+          highlight_2?: string | null
+          highlight_3?: string | null
           highlighted?: boolean
           id?: string
           name?: string

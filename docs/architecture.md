@@ -39,6 +39,19 @@ All spacing adjustments use inline `style={{ paddingTop: 0 }}` to override the d
 
 ---
 
+## Phase C6 – Pricing Plan Highlight Benefits ✅
+
+Premium highlight rows on pricing cards are now fully dynamic:
+
+- **Database:** `pricing_plans` table has `highlight_1`, `highlight_2`, `highlight_3` (text, nullable) columns
+- **Admin:** Edit via Pricing modal → "Premium Highlights" section (3 text inputs)
+- **Frontend:** HomePage renders highlights only when `highlighted: true` AND at least one highlight field is populated
+- **Icons:** fa-user-tie, fa-headset, fa-chart-line (consistent with Marko demo)
+
+This allows admins to customize the featured pricing card's benefit callouts without code changes.
+
+---
+
 ## Dynamic Branding Colors (Phase C4) ✅
 
 The public marketing site supports runtime brand color customization:
