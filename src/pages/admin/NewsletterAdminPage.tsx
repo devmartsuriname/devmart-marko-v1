@@ -79,26 +79,26 @@ export default function NewsletterAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="admin-page">
-        <div className="admin-page-header">
+      <div>
+        <div className="admin-card-header">
           <div>
-            <h1 className="admin-page-title">Newsletter Subscribers</h1>
-            <p className="admin-page-description">View and manage newsletter subscriptions.</p>
+            <h2 className="admin-card-title">Newsletter Subscribers</h2>
+            <p className="admin-card-description" style={{ marginBottom: 0 }}>View and manage newsletter subscriptions.</p>
           </div>
         </div>
         <div className="admin-card">
-          <div className="admin-loading-state">Loading subscribers...</div>
+          <div className="admin-table-empty">Loading subscribers...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-page-header">
+    <div>
+      <div className="admin-card-header">
         <div>
-          <h1 className="admin-page-title">Newsletter Subscribers</h1>
-          <p className="admin-page-description">View and manage newsletter subscriptions.</p>
+          <h2 className="admin-card-title">Newsletter Subscribers</h2>
+          <p className="admin-card-description" style={{ marginBottom: 0 }}>View and manage newsletter subscriptions.</p>
         </div>
         <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <span className="admin-badge admin-badge-info">{subscribers.length} total</span>

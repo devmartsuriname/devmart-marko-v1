@@ -98,6 +98,19 @@ Public SELECT policy requires `status = 'active'` (already configured in Phase D
 - **Core block badges:** "hero" and "cta" blocks display "Core" badge in table
 - **Edit guardrails:** Key field disabled for core blocks with helper text
 - **Delete guardrails:** Strong warning for deleting core blocks (may break homepage)
+
+---
+
+## Phase D Visual Parity Note
+
+**Visual Alignment (2025-12-04):** V2 modules (Partners, Newsletter, Homepage Blocks) have been aligned to match the Services/Testimonials inner page styling using the canonical `.admin-card-header`, `.admin-card-title`, and `.admin-card-description` classes. All pages now use consistent:
+
+- `<h2 className="admin-card-title">` for page titles (not h1)
+- `<p className="admin-card-description">` for descriptions
+- Primary action buttons with `<Plus size={16} />` icon
+- Simple `<div>` wrapper (not `admin-page` class)
+
+This ensures 1:1 visual parity across all admin inner pages.
 - **Empty state:** "No homepage blocks configured" with seeding hint
 - **Error state:** Alert with "Retry" button
 - **Console logging:** `[HomepageBlocksAdminPage]` tag for debugging

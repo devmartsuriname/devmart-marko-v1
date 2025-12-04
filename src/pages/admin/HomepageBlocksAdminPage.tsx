@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Plus } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
 import { getAllHomepageBlocks, HomepageBlock } from "@/integrations/supabase/queries/homepageBlocks";
 import AddHomepageBlockModal from "@/components/admin/homepage/AddHomepageBlockModal";
@@ -79,28 +80,29 @@ export default function HomepageBlocksAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="admin-page">
-        <div className="admin-page-header">
+      <div>
+        <div className="admin-card-header">
           <div>
-            <h1 className="admin-page-title">Homepage Content Blocks</h1>
-            <p className="admin-page-description">Manage dynamic content blocks for the homepage hero and CTA sections.</p>
+            <h2 className="admin-card-title">Homepage Content Blocks</h2>
+            <p className="admin-card-description" style={{ marginBottom: 0 }}>Manage dynamic content blocks for the homepage hero and CTA sections.</p>
           </div>
         </div>
         <div className="admin-card">
-          <div className="admin-loading-state">Loading homepage blocks...</div>
+          <div className="admin-table-empty">Loading homepage blocks...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-page-header">
+    <div>
+      <div className="admin-card-header">
         <div>
-          <h1 className="admin-page-title">Homepage Content Blocks</h1>
-          <p className="admin-page-description">Manage dynamic content blocks for the homepage hero and CTA sections.</p>
+          <h2 className="admin-card-title">Homepage Content Blocks</h2>
+          <p className="admin-card-description" style={{ marginBottom: 0 }}>Manage dynamic content blocks for the homepage hero and CTA sections.</p>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+          <Plus size={16} />
           Add Block
         </button>
       </div>
