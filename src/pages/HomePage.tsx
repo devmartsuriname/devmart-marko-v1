@@ -663,120 +663,99 @@ const HomePage = () => {
                 </div>
               )}
             </div>
+            <div className="service-link-footer">
+              <p>Need a custom solution? Let's create a digital platform tailored for your organization. <Link to="/contact">Get a Free Consultation</Link></p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Section Case Studies */}
-      <div className="section">
+      <div className="section px-0">
         <div className="hero-container">
-          <div className="d-flex flex-column gspace-5">
-            <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5">
-              <div className="col">
-                <div
-                  className="d-flex flex-column gspace-2 animate-box animated animate__animated"
-                  data-animate="animate__fadeInLeft"
-                >
-                  <div className="sub-heading">
-                    <i className="fa-regular fa-circle-dot"></i>
-                    <span>Portfolio</span>
+          <div className="case-studies-layout">
+            <div className="card card-case-studies">
+              {/* Two-column header */}
+              <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                <div className="col">
+                  <div
+                    className="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                    data-animate="animate__fadeInLeft"
+                  >
+                    <div className="sub-heading">
+                      <i className="fa-regular fa-circle-dot"></i>
+                      <span>Portfolio</span>
+                    </div>
+                    <h2 className="title-heading">See How We Help Organizations Thrive</h2>
                   </div>
-                  <h2 className="title-heading">See How We Help Organizations Thrive</h2>
-                  <p>
-                    We don't just talk about results—we deliver them. Here are some of our most impactful projects
-                    showcasing how our digital solutions drive success for government, enterprise, and businesses across
-                    Suriname.
-                  </p>
-                  <div className="link-wrapper">
-                    <Link to="/case-studies">More Case Studies</Link>
-                    <i className="fa-solid fa-circle-arrow-right"></i>
+                </div>
+                <div className="col">
+                  <div
+                    className="d-flex flex-column h-100 justify-content-end gspace-2 animate-box animated animate__animated"
+                    data-animate="animate__fadeInRight"
+                  >
+                    <p>
+                      We don't just talk about results—we deliver them. Here are some of our most impactful projects
+                      showcasing how our digital solutions drive success for government, enterprise, and businesses across
+                      Suriname.
+                    </p>
+                    <div className="link-wrapper">
+                      <Link to="/case-studies">More Case Studies</Link>
+                      <i className="fa-solid fa-circle-arrow-right"></i>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="d-flex flex-column gspace-2">
-              {isLoading ? (
-                <>
-                  <div className="d-flex flex-column flex-xl-row gspace-2">
-                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="d-flex flex-column gspace-2">
-                        <h4>Loading case studies...</h4>
-                      </div>
-                    </div>
-                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="d-flex flex-column gspace-2">
-                        <h4>Loading...</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex flex-column flex-xl-row gspace-2">
-                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="d-flex flex-column gspace-2">
-                        <h4>Loading...</h4>
-                      </div>
-                    </div>
-                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="d-flex flex-column gspace-2">
-                        <h4>Loading...</h4>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : homeCaseStudies.length === 0 ? (
-                <div className="d-flex flex-column gspace-2">
-                  <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                    <div className="d-flex flex-column gspace-2">
-                      <h4>No case studies available</h4>
-                      <p>Check back soon for our latest projects and success stories.</p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="d-flex flex-column flex-xl-row gspace-2">
-                    {homeCaseStudies.slice(0, 2).map((cs, idx) => (
-                      <div
-                        key={cs.id}
-                        className={`card case-studies-content ${idx === 0 ? 'local-business animate-box animated fast' : 'saas-leads animate-box animated'} animate__animated`}
-                        data-animate="animate__fadeInUp"
-                      >
-                        {idx === 0 && cs.tags && cs.tags.length > 0 && (
-                          <div className="case-studies-component large align-self-end justify-content-end align-items-end">
-                            {cs.tags.slice(0, 7).map((tag, i) => (
-                              <div key={i} className="cs-component">
-                                <a href="#">{tag}</a>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        <div className="d-flex flex-column gspace-2">
-                          <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
-                            <h4>{cs.title}</h4>
-                          </Link>
-                          <p>{cs.description}</p>
-                        </div>
-                        {idx === 1 && cs.tags && cs.tags.length > 0 && (
-                          <div className="case-studies-component small align-self-end justify-content-end align-items-end">
-                            {cs.tags.slice(0, 7).map((tag, i) => (
-                              <div key={i} className="cs-component">
-                                <a href="#">{tag}</a>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  {homeCaseStudies.length > 2 && (
+
+              {/* Case study cards */}
+              <div className="d-flex flex-column gspace-2">
+                {isLoading ? (
+                  <>
                     <div className="d-flex flex-column flex-xl-row gspace-2">
-                      {homeCaseStudies.slice(2, 4).map((cs, idx) => (
+                      <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="d-flex flex-column gspace-2">
+                          <h4>Loading case studies...</h4>
+                        </div>
+                      </div>
+                      <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="d-flex flex-column gspace-2">
+                          <h4>Loading...</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-column flex-xl-row gspace-2">
+                      <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="d-flex flex-column gspace-2">
+                          <h4>Loading...</h4>
+                        </div>
+                      </div>
+                      <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="d-flex flex-column gspace-2">
+                          <h4>Loading...</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : homeCaseStudies.length === 0 ? (
+                  <div className="d-flex flex-column gspace-2">
+                    <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                      <div className="d-flex flex-column gspace-2">
+                        <h4>No case studies available</h4>
+                        <p>Check back soon for our latest projects and success stories.</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="d-flex flex-column flex-xl-row gspace-2">
+                      {homeCaseStudies.slice(0, 2).map((cs, idx) => (
                         <div
                           key={cs.id}
-                          className={`card case-studies-content ${idx === 0 ? 'ecommerce animate-box animated fast' : 'startup-branding animate-box animated'} animate__animated`}
+                          className={`card case-studies-content ${idx === 0 ? 'local-business animate-box animated fast' : 'saas-leads animate-box animated'} animate__animated`}
                           data-animate="animate__fadeInUp"
                         >
-                          {cs.tags && cs.tags.length > 0 && (
-                            <div className={`case-studies-component ${idx === 0 ? 'small' : 'large'} align-self-start justify-content-start align-items-start`}>
+                          {idx === 0 && cs.tags && cs.tags.length > 0 && (
+                            <div className="case-studies-component large align-self-end justify-content-end align-items-end">
                               {cs.tags.slice(0, 7).map((tag, i) => (
                                 <div key={i} className="cs-component">
                                   <a href="#">{tag}</a>
@@ -790,12 +769,48 @@ const HomePage = () => {
                             </Link>
                             <p>{cs.description}</p>
                           </div>
+                          {idx === 1 && cs.tags && cs.tags.length > 0 && (
+                            <div className="case-studies-component small align-self-end justify-content-end align-items-end">
+                              {cs.tags.slice(0, 7).map((tag, i) => (
+                                <div key={i} className="cs-component">
+                                  <a href="#">{tag}</a>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
-                  )}
-                </>
-              )}
+                    {homeCaseStudies.length > 2 && (
+                      <div className="d-flex flex-column flex-xl-row gspace-2">
+                        {homeCaseStudies.slice(2, 4).map((cs, idx) => (
+                          <div
+                            key={cs.id}
+                            className={`card case-studies-content ${idx === 0 ? 'ecommerce animate-box animated fast' : 'startup-branding animate-box animated'} animate__animated`}
+                            data-animate="animate__fadeInUp"
+                          >
+                            {cs.tags && cs.tags.length > 0 && (
+                              <div className={`case-studies-component ${idx === 0 ? 'small' : 'large'} align-self-start justify-content-start align-items-start`}>
+                                {cs.tags.slice(0, 7).map((tag, i) => (
+                                  <div key={i} className="cs-component">
+                                    <a href="#">{tag}</a>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            <div className="d-flex flex-column gspace-2">
+                              <Link to={`/case-studies/${cs.slug}`} className="case-studies-title">
+                                <h4>{cs.title}</h4>
+                              </Link>
+                              <p>{cs.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
             <div className="spacer"></div>
           </div>
