@@ -57,6 +57,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-2.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -68,6 +72,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-1.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -79,6 +87,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-3.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -90,6 +102,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-5.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -101,6 +117,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-4.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -112,6 +132,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-6.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -123,6 +147,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-7.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -134,6 +162,10 @@ const PartnershipPage = () => {
                           src="/marko-digital-marketing-agency-html/image/client-8.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
+                          loading="lazy"
+                          width="150"
+                          height="50"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -198,21 +230,37 @@ const PartnershipPage = () => {
                             src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                         </div>
                         <div className="detail">
@@ -290,6 +338,10 @@ const PartnershipPage = () => {
                                 src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
+                                loading="lazy"
+                                width="80"
+                                height="80"
+                                decoding="async"
                               />
                             </div>
                             <div className="d-flex flex-column">
@@ -321,6 +373,10 @@ const PartnershipPage = () => {
                                 src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
+                                loading="lazy"
+                                width="80"
+                                height="80"
+                                decoding="async"
                               />
                             </div>
                             <div className="d-flex flex-column">
@@ -352,6 +408,10 @@ const PartnershipPage = () => {
                                 src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
+                                loading="lazy"
+                                width="80"
+                                height="80"
+                                decoding="async"
                               />
                             </div>
                             <div className="d-flex flex-column">

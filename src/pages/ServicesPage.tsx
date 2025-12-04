@@ -120,7 +120,11 @@ const ServicesPage = () => {
                                 <img 
                                   src={service.icon || "/marko-digital-marketing-agency-html/image/Icon-7.png"} 
                                   alt={`${service.name} Icon`} 
-                                  className="img-fluid" 
+                                  className="img-fluid"
+                                  loading="lazy"
+                                  width="64"
+                                  height="64"
+                                  decoding="async"
                                 />
                               </div>
                             </div>

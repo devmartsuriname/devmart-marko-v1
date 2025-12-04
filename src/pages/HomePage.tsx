@@ -209,16 +209,25 @@ const HomePage = () => {
                           src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                           alt="Reviewer"
                           className="avatar"
+                          width="48"
+                          height="48"
+                          decoding="async"
                         />
                         <img
                           src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                           alt="Reviewer"
                           className="avatar"
+                          width="48"
+                          height="48"
+                          decoding="async"
                         />
                         <img
                           src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                           alt="Reviewer"
                           className="avatar"
+                          width="48"
+                          height="48"
+                          decoding="async"
                         />
                       </div>
                       <div className="detail">
@@ -245,6 +254,10 @@ const HomePage = () => {
                   alt="Expertise Image"
                   className="img-fluid animate-box animated animate__animated"
                   data-animate="animate__fadeInUp"
+                  loading="lazy"
+                  width="600"
+                  height="400"
+                  decoding="async"
                 />
                 <div className="expertise-layout">
                   <div className="d-flex flex-column">
@@ -372,10 +385,14 @@ const HomePage = () => {
                           {partner.website_url ? (
                             <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
                               <div className="partner-slide">
-                                <img
+                              <img
                                   src={partner.logo_url}
                                   alt={partner.name}
                                   className="partner-logo img-fluid"
+                                  loading="lazy"
+                                  width="150"
+                                  height="50"
+                                  decoding="async"
                                 />
                               </div>
                             </a>
@@ -385,6 +402,10 @@ const HomePage = () => {
                                 src={partner.logo_url}
                                 alt={partner.name}
                                 className="partner-logo img-fluid"
+                                loading="lazy"
+                                width="150"
+                                height="50"
+                                decoding="async"
                               />
                             </div>
                           )}

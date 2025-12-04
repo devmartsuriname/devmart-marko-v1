@@ -206,6 +206,10 @@ const SingleCaseStudyPage = () => {
                       src={caseStudy.featured_image}
                       alt={caseStudy.title}
                       className="img-fluid"
+                      loading="lazy"
+                      width="600"
+                      height="400"
+                      decoding="async"
                     />
                   </div>
                 )}

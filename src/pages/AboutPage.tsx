@@ -76,6 +76,10 @@ const AboutPage = () => {
                   alt="About Us Image"
                   className="img-fluid animate-box animated animate__animated"
                   data-animate="animate__fadeInUp"
+                  loading="lazy"
+                  width="600"
+                  height="400"
+                  decoding="async"
                 />
                 <div className="about-layout">
                   <div className="d-flex flex-column">
@@ -187,11 +191,15 @@ const AboutPage = () => {
                           {partner.website_url ? (
                             <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
                               <div className="partner-slide">
-                                <img
-                                  src={partner.logo_url}
-                                  alt={partner.name}
-                                  className="partner-logo img-fluid"
-                                />
+                              <img
+                                src={partner.logo_url}
+                                alt={partner.name}
+                                className="partner-logo img-fluid"
+                                loading="lazy"
+                                width="150"
+                                height="50"
+                                decoding="async"
+                              />
                               </div>
                             </a>
                           ) : (
@@ -200,6 +208,10 @@ const AboutPage = () => {
                                 src={partner.logo_url}
                                 alt={partner.name}
                                 className="partner-logo img-fluid"
+                                loading="lazy"
+                                width="150"
+                                height="50"
+                                decoding="async"
                               />
                             </div>
                           )}
@@ -232,6 +244,10 @@ const AboutPage = () => {
                           src="/marko-digital-marketing-agency-html/image/Icon-2.png"
                           alt="Why Choose Us Icon"
                           className="img-fluid"
+                          loading="lazy"
+                          width="64"
+                          height="64"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -261,6 +277,10 @@ const AboutPage = () => {
                           src="/marko-digital-marketing-agency-html/image/icon-1.png"
                           alt="Why Choose Us Icon"
                           className="img-fluid"
+                          loading="lazy"
+                          width="64"
+                          height="64"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -290,6 +310,10 @@ const AboutPage = () => {
                           src="/marko-digital-marketing-agency-html/image/Icon-3.png"
                           alt="Why Choose Us Icon"
                           className="img-fluid"
+                          loading="lazy"
+                          width="64"
+                          height="64"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -336,6 +360,10 @@ const AboutPage = () => {
                     src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
                     alt="Why Choose Us Image"
                     className="chooseus-img"
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                    decoding="async"
                   />
                   <div className="card-chooseus-cta-layout">
                     <div className="chooseus-cta-spacer"></div>
@@ -455,6 +483,10 @@ const AboutPage = () => {
                             src={member.photo_url || "/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg"}
                             alt={member.full_name}
                             className="img-fluid"
+                            loading="lazy"
+                            width="600"
+                            height="800"
+                            decoding="async"
                           />
                           <div className="social-team-wrapper">
                             <div className="social-team-spacer"></div>
