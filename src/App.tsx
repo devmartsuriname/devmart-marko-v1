@@ -17,6 +17,10 @@ import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 
+// Legal pages
+import PrivacyPage from "./pages/legal/PrivacyPage";
+import TermsPage from "./pages/legal/TermsPage";
+
 // Auth pages
 import LoginPage from "./pages/auth/LoginPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
@@ -59,6 +63,8 @@ const App = () => (
         <Route path="faq" element={<FaqPage />} />
         <Route path="testimonials" element={<TestimonialsPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="legal/privacy" element={<PrivacyPage />} />
+        <Route path="legal/terms" element={<TermsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

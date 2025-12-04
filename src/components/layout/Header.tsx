@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSettings } from "@/context/SettingsContext";
+import { MAIN_NAV_ITEMS } from "@/config/navigation";
 
 const Header = () => {
   const location = useLocation();
@@ -38,6 +39,13 @@ const Header = () => {
     }
   }, []);
 
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(href);
+  };
+
   return (
     <header>
       <div className="navbar-wrapper">
@@ -54,46 +62,37 @@ const Header = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                  <Link className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} to="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} to="/about">About</Link>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className={`nav-link dropdown-toggle ${location.pathname.startsWith('/services') ? 'active' : ''}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Services <i className="fa-solid fa-angle-down accent-color"></i>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" to="/services">Services</Link></li>
-                    <li><Link className="dropdown-item" to="/services/social-media">Single Service</Link></li>
-                  </ul>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Pages <i className="fa-solid fa-angle-down accent-color"></i>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" to="/case-studies">Case Studies</Link></li>
-                    <li><Link className="dropdown-item" to="/team">Our Team</Link></li>
-                    <li><Link className="dropdown-item" to="/partnership">Partnership</Link></li>
-                    <li><Link className="dropdown-item" to="/pricing">Pricing Plan</Link></li>
-                    <li><Link className="dropdown-item" to="/testimonials">Testimonials</Link></li>
-                    <li><Link className="dropdown-item" to="/faq">FAQs</Link></li>
-                  </ul>
-                </li>
-                <li className="nav-item dropdown">
-                  <a className={`nav-link dropdown-toggle ${location.pathname.startsWith('/blog') ? 'active' : ''}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Archive <i className="fa-solid fa-angle-down accent-color"></i>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" to="/blog">Blog</Link></li>
-                    <li><Link className="dropdown-item" to="/blog/sample-post">Single Post</Link></li>
-                  </ul>
-                </li>
-                <li className="nav-item">
-                  <Link className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`} to="/contact">Contact Us</Link>
-                </li>
+                {MAIN_NAV_ITEMS.filter(item => !item.isCTA).map((item) => (
+                  <li className={`nav-item ${item.hasDropdown ? 'dropdown' : ''}`} key={item.href}>
+                    {item.hasDropdown && item.children ? (
+                      <>
+                        <a 
+                          className={`nav-link dropdown-toggle ${isActive(item.href) ? 'active' : ''}`} 
+                          href="#" 
+                          role="button" 
+                          data-bs-toggle="dropdown" 
+                          aria-expanded="false"
+                        >
+                          {item.label} <i className="fa-solid fa-angle-down accent-color"></i>
+                        </a>
+                        <ul className="dropdown-menu">
+                          {item.children.map((child) => (
+                            <li key={child.href}>
+                              <Link className="dropdown-item" to={child.href}>{child.label}</Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <Link 
+                        className={`nav-link ${isActive(item.href) ? 'active' : ''}`} 
+                        to={item.href}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="navbar-action-container">
@@ -103,10 +102,12 @@ const Header = () => {
                 </button>
               </div>
               <div className="navbar-icon-wrapper">
-                <div className="icon-circle">
-                  <i className="fa-solid fa-phone-volume"></i>
-                </div>
-                <h6>{getSetting("contact_phone", "+597 854-1211")}</h6>
+                <Link to="/contact" className="d-flex align-items-center text-decoration-none">
+                  <div className="icon-circle">
+                    <i className="fa-solid fa-phone-volume"></i>
+                  </div>
+                  <h6>{getSetting("contact_phone", "+597 854-1211")}</h6>
+                </Link>
               </div>
             </div>
           </div>
