@@ -99,33 +99,45 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
     const root = document.documentElement;
     const primaryColor = settings.primary_color;
 
-    // Helper to update theme-dependent opacity
-    const updateAccentColor6 = (rgb: { r: number; g: number; b: number }) => {
+    // Helper to update all theme-dependent CSS variables on both root and body
+    const updateBrandingVariables = (rgb: { r: number; g: number; b: number }, color: string) => {
       const isLightMode = document.body.classList.contains("lightmode");
       const opacity = isLightMode ? 0.33 : 0.85;
-      root.style.setProperty("--accent-color-6", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+      const accentColor6 = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+      
+      // Full box-shadow definitions (matching original template style.css)
+      const shadowTopLeft = `-3px -3px 7px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
+      const shadowBottomRight = `3px 3px 7px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
+      const shadowTopLeftWide = `-3px -3px 10px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
+      const shadowBottomRightWide = `3px 3px 10px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
+
+      // Set on root
+      root.style.setProperty("--accent-color", color);
+      root.style.setProperty("--accent-color-6", accentColor6);
+      root.style.setProperty("--box-shadow-top-left", shadowTopLeft);
+      root.style.setProperty("--box-shadow-bottom-right", shadowBottomRight);
+      root.style.setProperty("--box-shadow-top-left-wide", shadowTopLeftWide);
+      root.style.setProperty("--box-shadow-bottom-right-wide", shadowBottomRightWide);
+
+      // Also set on body for higher specificity (overrides .lightmode rules)
+      document.body.style.setProperty("--accent-color", color);
+      document.body.style.setProperty("--accent-color-6", accentColor6);
+      document.body.style.setProperty("--box-shadow-top-left", shadowTopLeft);
+      document.body.style.setProperty("--box-shadow-bottom-right", shadowBottomRight);
+      document.body.style.setProperty("--box-shadow-top-left-wide", shadowTopLeftWide);
+      document.body.style.setProperty("--box-shadow-bottom-right-wide", shadowBottomRightWide);
     };
 
     // Only update if we have a valid hex color
     if (primaryColor && isValidHexColor(primaryColor)) {
-      // Set main accent color
-      root.style.setProperty("--accent-color", primaryColor);
-
-      // Convert to RGB for box-shadow values
       const rgb = hexToRgb(primaryColor);
       if (rgb) {
-        // Set initial theme-dependent opacity
-        updateAccentColor6(rgb);
-        
-        // Set box-shadow values with RGB
-        root.style.setProperty("--box-shadow-top-left", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
-        root.style.setProperty("--box-shadow-bottom-right", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
-        root.style.setProperty("--box-shadow-top-left-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
-        root.style.setProperty("--box-shadow-bottom-right-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+        // Set initial branding variables
+        updateBrandingVariables(rgb, primaryColor);
 
-        // Watch for theme changes and recompute accent-color-6
+        // Watch for theme changes and recompute variables
         const observer = new MutationObserver(() => {
-          updateAccentColor6(rgb);
+          updateBrandingVariables(rgb, primaryColor);
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
