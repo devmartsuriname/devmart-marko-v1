@@ -663,7 +663,7 @@ const HomePage = () => {
                 </div>
               )}
             </div>
-            <div className="service-link-footer">
+            <div className="service-link-footer text-center mt-4">
               <p>Need a custom solution? Let's create a digital platform tailored for your organization. <Link to="/contact">Get a Free Consultation</Link></p>
             </div>
           </div>
