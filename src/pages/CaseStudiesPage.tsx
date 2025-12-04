@@ -175,7 +175,7 @@ const CaseStudiesPage = () => {
                                 <div className={`case-studies-component ${largeTags ? 'large' : 'small'} align-self-end justify-content-end align-items-end`}>
                                   {parseTags(cs.tags).map((tag) => (
                                     <div key={tag} className="cs-component">
-                                      <a href="#">{tag}</a>
+                                      <span>{tag}</span>
                                     </div>
                                   ))}
                                 </div>
@@ -197,7 +197,7 @@ const CaseStudiesPage = () => {
                                 <div className={`case-studies-component ${largeTags ? 'large' : 'small'} align-self-start justify-content-start align-items-start`}>
                                   {parseTags(cs.tags).map((tag) => (
                                     <div key={tag} className="cs-component">
-                                      <a href="#">{tag}</a>
+                                      <span>{tag}</span>
                                     </div>
                                   ))}
                                 </div>
@@ -313,11 +313,11 @@ const CaseStudiesPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Web Development</a>
+                        <Link to="/services">Web Development</Link>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Enterprise Solutions</a>
+                        <Link to="/services">Enterprise Solutions</Link>
                       </div>
                     </div>
                   </div>

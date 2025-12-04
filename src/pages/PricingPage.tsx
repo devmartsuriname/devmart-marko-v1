@@ -177,21 +177,21 @@ const PricingPage = () => {
                     <div className="core-benefits">
                       <div className="benefit">
                         <i className="fa-solid fa-user-tie"></i>
-                        <a href="#">Loading...</a>
+                        <span>Loading...</span>
                       </div>
                       <div className="benefit">
                         <i className="fa-solid fa-headset"></i>
-                        <a href="#">Loading...</a>
+                        <span>Loading...</span>
                       </div>
                       <div className="benefit">
                         <i className="fa-solid fa-chart-line"></i>
-                        <a href="#">Loading...</a>
+                        <span>Loading...</span>
                       </div>
                     </div>
                     <ul className="check-list">
-                      <li><a href="#">Loading features...</a></li>
-                      <li><a href="#">Loading features...</a></li>
-                      <li><a href="#">Loading features...</a></li>
+                      <li><span>Loading features...</span></li>
+                      <li><span>Loading features...</span></li>
+                      <li><span>Loading features...</span></li>
                     </ul>
                   </div>
                 ) : error ? (
@@ -228,26 +228,26 @@ const PricingPage = () => {
                         {highlightedPlan.highlight_1 && (
                           <div className="benefit">
                             <i className="fa-solid fa-user-tie"></i>
-                            <a href="#">{highlightedPlan.highlight_1}</a>
+                            <span>{highlightedPlan.highlight_1}</span>
                           </div>
                         )}
                         {highlightedPlan.highlight_2 && (
                           <div className="benefit">
                             <i className="fa-solid fa-headset"></i>
-                            <a href="#">{highlightedPlan.highlight_2}</a>
+                            <span>{highlightedPlan.highlight_2}</span>
                           </div>
                         )}
                         {highlightedPlan.highlight_3 && (
                           <div className="benefit">
                             <i className="fa-solid fa-chart-line"></i>
-                            <a href="#">{highlightedPlan.highlight_3}</a>
+                            <span>{highlightedPlan.highlight_3}</span>
                           </div>
                         )}
                       </div>
                     )}
                     <ul className="check-list">
                       {parseFeatures(highlightedPlan.features).map((feature, index) => (
-                        <li key={index}><a href="#">{feature}</a></li>
+                        <li key={index}><span>{feature}</span></li>
                       ))}
                     </ul>
                   </div>
@@ -260,15 +260,15 @@ const PricingPage = () => {
                       <h5>Your Growth, Our Priority!</h5>
                       <div className="d-flex flex-column gspace-2">
                         <div className="pricing-highlights">
-                          <a href="#">Modern Tech Stack (React + Supabase)</a>
+                          <Link to="/services">Modern Tech Stack (React + Supabase)</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Government-Grade Security</a>
+                          <Link to="/services">Government-Grade Security</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Scalable Solutions for Every Organization</a>
+                          <Link to="/contact">Scalable Solutions for Every Organization</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                       </div>
@@ -458,7 +458,7 @@ const PricingPage = () => {
                     <h4 className="chooseus-title">Reliable Long-Term Partnerships</h4>
                     <p>We build lasting relationships with our clients, offering consistent support and adapting solutions as your organization grows and evolves over time.</p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -477,7 +477,7 @@ const PricingPage = () => {
                     <h4 className="chooseus-title">Government-Grade Quality</h4>
                     <p>Our solutions meet the highest security and accessibility standards, perfect for government agencies and enterprises that demand reliability.</p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -496,7 +496,7 @@ const PricingPage = () => {
                     <h4 className="chooseus-title">AI-Powered Efficiency</h4>
                     <p>We leverage cutting-edge AI technologies to automate processes, improve decision-making, and deliver smarter solutions faster.</p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>

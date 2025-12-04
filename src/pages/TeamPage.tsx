@@ -323,11 +323,11 @@ const TeamPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Web Development</a>
+                        <Link to="/services">Web Development</Link>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Enterprise Solutions</a>
+                        <Link to="/services">Enterprise Solutions</Link>
                       </div>
                     </div>
                   </div>
