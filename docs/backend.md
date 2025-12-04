@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase 6G Public FAQ Wiring - COMPLETE ✅
+## Current Status: Phase C-2 Newsletter Form Wiring - COMPLETE ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -24,8 +24,51 @@
 **Phase B Documentation Sync:** 2025-12-03 ✅  
 **Phase D Deferred Modules (v2):** 2025-12-03 ✅  
 **Phase D Polish (Auth Fix, Seed Data, Style Guide):** 2025-12-03 ✅  
-**Phase 6G Public FAQ Wiring:** 2025-12-04 ✅  
-**Implementation Status:** Public FAQ page now dynamically fetches from Supabase using `getActiveFaqItems()`.
+**Phase 6G Public FAQ Wiring:** 2025-12-04 ✅
+**Phase C-2 Newsletter Form Wiring:** 2025-12-04 ✅
+**Implementation Status:** Newsletter subscription forms on HomePage and SingleServicePage now submit to Supabase using `subscribeToNewsletter()`.
+
+---
+
+## Phase C-2: Newsletter Form Wiring (2025-12-04)
+
+**Status:** COMPLETE ✅
+
+### Summary
+
+Wired newsletter subscription forms to Supabase using `subscribeToNewsletter()` query function.
+
+### Pages Updated
+
+| Page | Implementation |
+|------|----------------|
+| `HomePage.tsx` | Newsletter section form submits to `newsletter_subscribers` table |
+| `SingleServicePage.tsx` | Newsletter section form submits to `newsletter_subscribers` table |
+
+### Implementation Details
+
+- **Email validation:** Client-side regex validation before submission
+- **Duplicate detection:** Supabase unique constraint on email handles duplicates gracefully
+- **Success feedback:** Form shows success message and clears input on successful subscription
+- **Error handling:** Displays user-friendly error messages for failures
+- **Loading state:** Submit button disabled with "Subscribing..." text during submission
+
+### Query Function
+
+```typescript
+// src/integrations/supabase/queries/newsletterSubscribers.ts
+export async function subscribeToNewsletter(email: string) {
+  const { error } = await supabase
+    .from("newsletter_subscribers")
+    .insert([{ email }]);
+  return { error };
+}
+```
+
+### RLS Policy
+
+- **Public INSERT:** Anyone can subscribe (no authentication required)
+- **Admin-only SELECT/UPDATE/DELETE:** Only admins can view and manage subscribers
 
 ---
 
