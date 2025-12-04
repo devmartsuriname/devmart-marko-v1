@@ -29,29 +29,51 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const fetchUserRole = async (userId: string) => {
     setIsRoleLoading(true);
+    console.log("[AuthContext] Fetching role for user:", userId);
+    
     try {
       // Check admin role first
-      const { data: isAdmin } = await supabase.rpc("has_role", {
+      const { data: isAdmin, error: adminError } = await supabase.rpc("has_role", {
         _user_id: userId,
         _role: "admin",
       });
 
-      if (isAdmin) {
+      if (adminError) {
+        console.error("[AuthContext] Admin role check failed:", adminError);
+      } else {
+        console.log("[AuthContext] Admin role check result:", isAdmin);
+      }
+
+      if (isAdmin === true) {
+        console.log("[AuthContext] User is admin");
         setUserRole("admin");
+        setIsRoleLoading(false);
         return;
       }
 
       // Check editor role
-      const { data: isEditor } = await supabase.rpc("has_role", {
+      const { data: isEditor, error: editorError } = await supabase.rpc("has_role", {
         _user_id: userId,
         _role: "editor",
       });
 
-      if (isEditor) {
+      if (editorError) {
+        console.error("[AuthContext] Editor role check failed:", editorError);
+      } else {
+        console.log("[AuthContext] Editor role check result:", isEditor);
+      }
+
+      if (isEditor === true) {
+        console.log("[AuthContext] User is editor");
         setUserRole("editor");
+        setIsRoleLoading(false);
         return;
       }
 
+      console.log("[AuthContext] User has no admin/editor role");
+      setUserRole(null);
+    } catch (err) {
+      console.error("[AuthContext] Unexpected error fetching role:", err);
       setUserRole(null);
     } finally {
       setIsRoleLoading(false);
