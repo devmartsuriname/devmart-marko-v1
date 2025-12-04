@@ -429,7 +429,7 @@ const HomePage = () => {
                       ensure long-term success for your digital products.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -458,7 +458,7 @@ const HomePage = () => {
                       trusted by government and enterprise clients.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -487,7 +487,7 @@ const HomePage = () => {
                       compromising quality or user experience.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -748,7 +748,7 @@ const HomePage = () => {
                             <div className="case-studies-component large align-self-end justify-content-end align-items-end">
                               {cs.tags.slice(0, 7).map((tag, i) => (
                                 <div key={i} className="cs-component">
-                                  <a href="#">{tag}</a>
+                                  <span>{tag}</span>
                                 </div>
                               ))}
                             </div>
@@ -763,7 +763,7 @@ const HomePage = () => {
                             <div className="case-studies-component small align-self-end justify-content-end align-items-end">
                               {cs.tags.slice(0, 7).map((tag, i) => (
                                 <div key={i} className="cs-component">
-                                  <a href="#">{tag}</a>
+                                  <span>{tag}</span>
                                 </div>
                               ))}
                             </div>
@@ -783,7 +783,7 @@ const HomePage = () => {
                               <div className={`case-studies-component ${idx === 0 ? 'small' : 'large'} align-self-start justify-content-start align-items-start`}>
                                 {cs.tags.slice(0, 7).map((tag, i) => (
                                   <div key={i} className="cs-component">
-                                    <a href="#">{tag}</a>
+                                    <span>{tag}</span>
                                   </div>
                                 ))}
                               </div>
@@ -872,11 +872,11 @@ const HomePage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Web Development</a>
+                        <Link to="/services">Web Development</Link>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Government Portals</a>
+                        <Link to="/services">Government Portals</Link>
                       </div>
                     </div>
                   </div>
@@ -1243,19 +1243,19 @@ const HomePage = () => {
                             {homePricingPlans[1].highlight_1 && (
                               <div className="benefit">
                                 <i className="fa-solid fa-user-tie"></i>
-                                <a href="#">{homePricingPlans[1].highlight_1}</a>
+                                <span>{homePricingPlans[1].highlight_1}</span>
                               </div>
                             )}
                             {homePricingPlans[1].highlight_2 && (
                               <div className="benefit">
                                 <i className="fa-solid fa-headset"></i>
-                                <a href="#">{homePricingPlans[1].highlight_2}</a>
+                                <span>{homePricingPlans[1].highlight_2}</span>
                               </div>
                             )}
                             {homePricingPlans[1].highlight_3 && (
                               <div className="benefit">
                                 <i className="fa-solid fa-chart-line"></i>
-                                <a href="#">{homePricingPlans[1].highlight_3}</a>
+                                <span>{homePricingPlans[1].highlight_3}</span>
                               </div>
                             )}
                           </div>
@@ -1264,7 +1264,7 @@ const HomePage = () => {
                           <ul className="check-list">
                             {homePricingPlans[1].features.map((feature, i) => (
                               <li key={i}>
-                                <a href="#">{feature}</a>
+                                <span>{feature}</span>
                               </li>
                             ))}
                           </ul>
@@ -1285,15 +1285,15 @@ const HomePage = () => {
                             <h5>Your Growth, Our Priority!</h5>
                             <div className="d-flex flex-column gspace-2">
                               <div className="pricing-highlights">
-                                <a href="#">Modern Tech Stack (React + Supabase)</a>
+                                <Link to="/services">Modern Tech Stack (React + Supabase)</Link>
                                 <i className="fa-solid fa-arrow-circle-right"></i>
                               </div>
                               <div className="pricing-highlights">
-                                <a href="#">Proven Architecture for Scalability</a>
+                                <Link to="/services">Proven Architecture for Scalability</Link>
                                 <i className="fa-solid fa-arrow-circle-right"></i>
                               </div>
                               <div className="pricing-highlights">
-                                <a href="#">Flexible Solutions for Any Business</a>
+                                <Link to="/contact">Flexible Solutions for Any Business</Link>
                                 <i className="fa-solid fa-arrow-circle-right"></i>
                               </div>
                             </div>
