@@ -25,6 +25,76 @@ The project has successfully completed all backend development phases and is rea
 
 ---
 
+## Phase D: Navigation Information Architecture ✅
+
+### Centralized Navigation Configuration
+
+All navigation links are centralized in `src/config/navigation.ts` to ensure consistency across the site:
+
+```typescript
+// Main header navigation
+export const MAIN_NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services", hasDropdown: true, children: [...] },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact", isCTA: true },
+];
+
+// Footer link groups
+export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
+  { title: "Company", links: [...] },
+  { title: "Services", links: [...] },
+  { title: "Resources", links: [...] },
+  { title: "Legal", links: [...] },
+];
+
+// Programmatic route constants
+export const ROUTES = {
+  home: "/",
+  services: "/services",
+  caseStudies: "/case-studies",
+  // ...
+} as const;
+```
+
+### CTA Routing Decisions
+
+| Element | Route Target | Notes |
+|---------|--------------|-------|
+| Hero CTA buttons | `/contact` | Primary conversion path |
+| Service cards | `/services/{slug}` | Dynamic slug from database |
+| Case study cards | `/case-studies/{slug}` | Dynamic slug from database |
+| Blog cards | `/blog/{slug}` | Dynamic slug from database |
+| Pricing CTAs | `/contact` | All plans route to contact |
+| Newsletter forms | Supabase submission | No navigation, form submission |
+| Non-clickable tags | `<span>` elements | Removed dead `#` links |
+
+### Slug Conventions
+
+All slugs follow **lowercase-kebab-case** format:
+
+- **Services:** `custom-web-applications`, `government-portals`, `ai-powered-tools`
+- **Blog posts:** Auto-generated from title (e.g., "My Post Title" → `my-post-title`)
+- **Case studies:** Auto-generated from title
+
+### URL Query Parameters
+
+| Parameter | Usage | Example |
+|-----------|-------|---------|
+| None currently | Reserved for future filtering | `?plan=enterprise` (potential) |
+
+### Dead Link Resolution
+
+All `href="#"` placeholder links have been replaced with:
+1. **Actual routes** - For navigable items
+2. **`<span>` elements** - For non-clickable display items (tags, feature lists)
+3. **`<button>` elements** - For interactive non-navigation actions
+
+---
+
 ## Phase C5 – HomePage Spacing Parity ✅
 
 Fixed five layout/spacing issues to achieve 1:1 parity with Marko demo:
