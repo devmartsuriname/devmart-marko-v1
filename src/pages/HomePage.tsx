@@ -562,16 +562,6 @@ const HomePage = () => {
                 <p>
                   {ctaBlock?.subtitle || "Upgrade your digital infrastructure with modern web applications, secure portals, and AI-powered tools. Let's build something powerful together."}
                 </p>
-                {ctaBlock?.button_url && (
-                  <Link to={ctaBlock.button_url} className="btn btn-accent align-self-start">
-                    <div className="btn-title">
-                      <span>{ctaBlock.button_label || "Get Started"}</span>
-                    </div>
-                    <div className="icon-circle">
-                      <i className="fa-solid fa-arrow-right"></i>
-                    </div>
-                  </Link>
-                )}
               </div>
             </div>
           </div>
@@ -671,7 +661,7 @@ const HomePage = () => {
       </div>
 
       {/* Section Case Studies */}
-      <div className="section px-0">
+      <div className="section px-0" style={{ paddingTop: 0 }}>
         <div className="hero-container">
           <div className="case-studies-layout">
             <div className="card card-case-studies">
@@ -818,7 +808,7 @@ const HomePage = () => {
       </div>
 
       {/* Section Testimonial */}
-      <div className="section">
+      <div className="section" style={{ paddingTop: 0 }}>
         <div className="hero-container">
           <div className="d-flex flex-column gspace-5">
             <div className="d-flex flex-column flex-xl-row gspace-5">
@@ -1343,7 +1333,7 @@ const HomePage = () => {
       </div>
 
       {/* Section Newsletter */}
-      <div className="section">
+      <div className="section" style={{ paddingTop: 0 }}>
         <div className="hero-container">
           <div className="newsletter-wrapper">
             <div className="newsletter-layout">
@@ -1414,7 +1404,7 @@ const HomePage = () => {
       </div>
 
       {/* Section Blog */}
-      <div className="section">
+      <div className="section" style={{ paddingTop: 0 }}>
         <div className="hero-container">
           <div className="d-flex flex-column gspace-5">
             <div className="row row-cols-xl-2 row-cols-1 grid-spacer-5 m-0">

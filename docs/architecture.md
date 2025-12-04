@@ -25,6 +25,20 @@ The project has successfully completed all backend development phases and is rea
 
 ---
 
+## Phase C5 – HomePage Spacing Parity ✅
+
+Fixed five layout/spacing issues to achieve 1:1 parity with Marko demo:
+
+1. **Section Guide**: Removed conditional CTA button that was not in original template
+2. **Services → Case Studies**: Reduced gap by adding `paddingTop: 0` to Case Studies section
+3. **Case Studies → Testimonials**: Reduced gap by adding `paddingTop: 0` to Testimonials section
+4. **Pricing → Newsletter**: Reduced gap by adding `paddingTop: 0` to Newsletter section
+5. **Newsletter → Blog**: Reduced gap by adding `paddingTop: 0` to Blog section
+
+All spacing adjustments use inline `style={{ paddingTop: 0 }}` to override the default `.section` 120px padding while preserving the template CSS structure. No Supabase queries or dynamic data wiring was modified.
+
+---
+
 ## Dynamic Branding Colors (Phase C4) ✅
 
 The public marketing site supports runtime brand color customization:
