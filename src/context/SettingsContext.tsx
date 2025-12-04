@@ -105,23 +105,6 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
       const opacity = isLightMode ? 0.33 : 0.85;
       const accentColor6 = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
       
-      // Accent color variants for borders/glows (visible in both themes)
-      // --accent-color-3: used for card borders - should be visible accent tint
-      const accentColor3 = isLightMode 
-        ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.25)` // lighter tint for light mode
-        : `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`; // visible glow for dark mode
-      
-      // --accent-color-4: darker variant for gradients
-      const accentColor4 = isLightMode
-        ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05)`
-        : `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`;
-      
-      // --accent-color-5: for gradient overlays
-      const accentColor5 = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`;
-      
-      // --accent-color-7: for light mode gradients
-      const accentColor7 = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.08)`;
-      
       // Full box-shadow definitions (matching original template style.css)
       const shadowTopLeft = `-3px -3px 7px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
       const shadowBottomRight = `3px 3px 7px 0px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.44)`;
@@ -130,11 +113,7 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
 
       // Set on root
       root.style.setProperty("--accent-color", color);
-      root.style.setProperty("--accent-color-3", accentColor3);
-      root.style.setProperty("--accent-color-4", accentColor4);
-      root.style.setProperty("--accent-color-5", accentColor5);
       root.style.setProperty("--accent-color-6", accentColor6);
-      root.style.setProperty("--accent-color-7", accentColor7);
       root.style.setProperty("--box-shadow-top-left", shadowTopLeft);
       root.style.setProperty("--box-shadow-bottom-right", shadowBottomRight);
       root.style.setProperty("--box-shadow-top-left-wide", shadowTopLeftWide);
@@ -142,11 +121,7 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
 
       // Also set on body for higher specificity (overrides .lightmode rules)
       document.body.style.setProperty("--accent-color", color);
-      document.body.style.setProperty("--accent-color-3", accentColor3);
-      document.body.style.setProperty("--accent-color-4", accentColor4);
-      document.body.style.setProperty("--accent-color-5", accentColor5);
       document.body.style.setProperty("--accent-color-6", accentColor6);
-      document.body.style.setProperty("--accent-color-7", accentColor7);
       document.body.style.setProperty("--box-shadow-top-left", shadowTopLeft);
       document.body.style.setProperty("--box-shadow-bottom-right", shadowBottomRight);
       document.body.style.setProperty("--box-shadow-top-left-wide", shadowTopLeftWide);
