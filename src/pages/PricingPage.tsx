@@ -176,16 +176,16 @@ const PricingPage = () => {
                     </Link>
                     <div className="core-benefits">
                       <div className="benefit">
-                        <i className="fa-solid fa-brain"></i>
-                        <a href="#">Loading benefits...</a>
+                        <i className="fa-solid fa-user-tie"></i>
+                        <a href="#">Loading...</a>
                       </div>
                       <div className="benefit">
-                        <i className="fa-brands fa-accessible-icon"></i>
-                        <a href="#">Loading benefits...</a>
+                        <i className="fa-solid fa-headset"></i>
+                        <a href="#">Loading...</a>
                       </div>
                       <div className="benefit">
-                        <i className="fa-solid fa-bug"></i>
-                        <a href="#">Loading benefits...</a>
+                        <i className="fa-solid fa-chart-line"></i>
+                        <a href="#">Loading...</a>
                       </div>
                     </div>
                     <ul className="check-list">
@@ -223,14 +223,28 @@ const PricingPage = () => {
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
                     </Link>
-                    <div className="core-benefits">
-                      {parseFeatures(highlightedPlan.features).slice(0, 3).map((feature, index) => (
-                        <div className="benefit" key={index}>
-                          <i className={index === 0 ? "fa-solid fa-brain" : index === 1 ? "fa-brands fa-accessible-icon" : "fa-solid fa-bug"}></i>
-                          <a href="#">{feature}</a>
-                        </div>
-                      ))}
-                    </div>
+                    {(highlightedPlan.highlight_1 || highlightedPlan.highlight_2 || highlightedPlan.highlight_3) && (
+                      <div className="core-benefits">
+                        {highlightedPlan.highlight_1 && (
+                          <div className="benefit">
+                            <i className="fa-solid fa-user-tie"></i>
+                            <a href="#">{highlightedPlan.highlight_1}</a>
+                          </div>
+                        )}
+                        {highlightedPlan.highlight_2 && (
+                          <div className="benefit">
+                            <i className="fa-solid fa-headset"></i>
+                            <a href="#">{highlightedPlan.highlight_2}</a>
+                          </div>
+                        )}
+                        {highlightedPlan.highlight_3 && (
+                          <div className="benefit">
+                            <i className="fa-solid fa-chart-line"></i>
+                            <a href="#">{highlightedPlan.highlight_3}</a>
+                          </div>
+                        )}
+                      </div>
+                    )}
                     <ul className="check-list">
                       {parseFeatures(highlightedPlan.features).map((feature, index) => (
                         <li key={index}><a href="#">{feature}</a></li>
