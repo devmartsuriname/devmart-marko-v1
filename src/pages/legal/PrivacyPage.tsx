@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 import { useSettings } from "@/context/SettingsContext";
@@ -7,10 +6,6 @@ const PrivacyPage = () => {
   const { getSetting } = useSettings();
   const siteName = getSetting("site_name", "Devmart Suriname");
   const contactEmail = getSetting("contact_email", "info@devmart.sr");
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>
