@@ -206,14 +206,14 @@ const ServicesPage = () => {
                       <h3>$99</h3>
                       <p>/Month</p>
                     </div>
-                    <a href="#" className="btn btn-accent">
+                    <Link to="/contact" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
-                    </a>
+                    </Link>
                     <ul className="check-list">
                       <li><Link to="/services/social-media">Modern Tech Stack (React + Supabase)</Link></li>
                       <li><Link to="/services/social-media">Responsive Design</Link></li>
@@ -231,35 +231,35 @@ const ServicesPage = () => {
                     <h3>$399</h3>
                     <p>/Month</p>
                   </div>
-                  <a href="#" className="btn btn-accent">
+                  <Link to="/contact" className="btn btn-accent">
                     <div className="btn-title">
                       <span>View Details</span>
                     </div>
                     <div className="icon-circle">
                       <i className="fa-solid fa-arrow-right"></i>
                     </div>
-                  </a>
+                  </Link>
                   <div className="core-benefits">
                     <div className="benefit">
                       <i className="fa-solid fa-brain"></i>
-                      <a href="#">Dedicated Account Manager</a>
+                      <span>Dedicated Account Manager</span>
                     </div>
                     <div className="benefit">
                       <i className="fa-brands fa-accessible-icon"></i>
-                      <a href="#">Priority Support 24/7</a>
+                      <span>Priority Support 24/7</span>
                     </div>
                     <div className="benefit">
                       <i className="fa-solid fa-bug"></i>
-                      <a href="#">Customized Growth Strength</a>
+                      <span>Customized Growth Strength</span>
                     </div>
                   </div>
                   <ul className="check-list">
-                    <li><a href="#">Complete Full-Stack Development</a></li>
-                    <li><a href="#">Advanced Security Features</a></li>
-                    <li><a href="#">Dedicated Project Manager</a></li>
-                    <li><a href="#">AI Integration & Automation</a></li>
-                    <li><a href="#">Priority Support 24/7</a></li>
-                    <li><a href="#">Weekly Progress Reports</a></li>
+                    <li><span>Complete Full-Stack Development</span></li>
+                    <li><span>Advanced Security Features</span></li>
+                    <li><span>Dedicated Project Manager</span></li>
+                    <li><span>AI Integration & Automation</span></li>
+                    <li><span>Priority Support 24/7</span></li>
+                    <li><span>Weekly Progress Reports</span></li>
                   </ul>
                 </div>
               </div>
@@ -270,15 +270,15 @@ const ServicesPage = () => {
                       <h5>Your Growth, Our Priority!</h5>
                       <div className="d-flex flex-column gspace-2">
                         <div className="pricing-highlights">
-                          <a href="#">Modern Tech Stack (React + Supabase)</a>
+                          <Link to="/services">Modern Tech Stack (React + Supabase)</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Government-Grade Security</a>
+                          <Link to="/services">Government-Grade Security</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                         <div className="pricing-highlights">
-                          <a href="#">Scalable Solutions for Every Organization</a>
+                          <Link to="/contact">Scalable Solutions for Every Organization</Link>
                           <i className="fa-solid fa-arrow-circle-right"></i>
                         </div>
                       </div>
@@ -292,14 +292,14 @@ const ServicesPage = () => {
                       <h3>$299</h3>
                       <p>/Month</p>
                     </div>
-                    <a href="#" className="btn btn-accent">
+                    <Link to="/contact" className="btn btn-accent">
                       <div className="btn-title">
                         <span>View Details</span>
                       </div>
                       <div className="icon-circle">
                         <i className="fa-solid fa-arrow-right"></i>
                       </div>
-                    </a>
+                    </Link>
                     <ul className="check-list">
                       <li><Link to="/services/social-media">Full-Stack Web Development</Link></li>
                       <li><Link to="/services/social-media">Database & API Integration</Link></li>

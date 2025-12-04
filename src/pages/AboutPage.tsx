@@ -244,7 +244,7 @@ const AboutPage = () => {
                       support for long-term success.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ const AboutPage = () => {
                       culture.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ const AboutPage = () => {
                       projects.
                     </p>
                     <div className="link-wrapper">
-                      <a href="#">Read More</a>
+                      <Link to="/about">Read More</Link>
                       <i className="fa-solid fa-arrow-circle-right accent-color"></i>
                     </div>
                   </div>
@@ -711,11 +711,11 @@ const AboutPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Web Development</a>
+                        <Link to="/services">Web Development</Link>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Government Portals</a>
+                        <Link to="/services">Government Portals</Link>
                       </div>
                     </div>
                   </div>

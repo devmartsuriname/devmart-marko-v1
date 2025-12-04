@@ -52,90 +52,90 @@ const PartnershipPage = () => {
                 <div className="row row-cols-md-4 row-cols-1 g-0">
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-2.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-1.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-3.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-5.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-4.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-6.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-7.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="col partnership-container">
                     <div className="partnership-item">
-                      <a href="#">
+                      <div className="partner-logo-wrapper">
                         <img
                           src="/marko-digital-marketing-agency-html/image/client-8.png"
                           alt="Partner Logo"
                           className="partner-logo img-fluid"
                         />
-                      </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -241,11 +241,11 @@ const PartnershipPage = () => {
                     <div className="d-flex flex-column flex-md-row flex-xl-column justify-content-center gspace-2">
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Web Development</a>
+                        <Link to="/services">Web Development</Link>
                       </div>
                       <div className="testimonial-header-link-wrapper">
                         <i className="fa-regular fa-circle-check accent-color"></i>
-                        <a href="#">Enterprise Solutions</a>
+                        <Link to="/services">Enterprise Solutions</Link>
                       </div>
                     </div>
                   </div>
