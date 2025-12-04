@@ -1,13 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShieldX, Home, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
 import "@/styles/admin.css";
 
 const UnauthorizedPage = () => {
   const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut();
+    console.log("[UnauthorizedPage] Sign out clicked");
+    setIsSigningOut(true);
+    try {
+      await signOut();
+      console.log("[UnauthorizedPage] Sign out successful, navigating to login");
+      navigate("/auth/login", { replace: true });
+    } catch (error) {
+      console.error("[UnauthorizedPage] Sign out failed:", error);
+      setIsSigningOut(false);
+    }
   };
 
   return (
@@ -76,9 +88,10 @@ const UnauthorizedPage = () => {
           <button 
             onClick={handleSignOut}
             className="admin-btn admin-btn-secondary"
+            disabled={isSigningOut}
           >
             <LogOut style={{ width: "16px", height: "16px" }} />
-            Sign Out
+            {isSigningOut ? "Signing out..." : "Sign Out"}
           </button>
         </div>
       </div>
