@@ -18,12 +18,35 @@ export type KnownSettingKey =
   | "twitter_url"
   | "github_url"
   | "seo_default_title"
-  | "seo_default_description";
+  | "seo_default_description"
+  | "primary_color"
+  | "accent_color";
 
 /**
  * Settings map type - strongly typed for known keys, flexible for additional keys
  */
 export type SettingsMap = Partial<Record<KnownSettingKey, string>> & Record<string, string>;
+
+/**
+ * Validates if a string is a valid hex color
+ */
+const isValidHexColor = (color: string): boolean => {
+  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
+};
+
+/**
+ * Converts hex color to RGB values
+ */
+const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+};
 
 interface SettingsContextType {
   settings: SettingsMap;
@@ -68,6 +91,38 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
   useEffect(() => {
     fetchSettings();
   }, []);
+
+  // Wire branding colors to CSS variables (Phase C4)
+  useEffect(() => {
+    if (isLoading || !settings) return;
+
+    const root = document.documentElement;
+    const primaryColor = settings.primary_color;
+
+    // Only update if we have a valid hex color
+    if (primaryColor && isValidHexColor(primaryColor)) {
+      // Set main accent color
+      root.style.setProperty("--accent-color", primaryColor);
+
+      // Convert to RGB for box-shadow values
+      const rgb = hexToRgb(primaryColor);
+      if (rgb) {
+        // Detect current theme mode
+        const isLightMode = document.body.classList.contains("lightmode");
+        
+        // Set semi-transparent version (85% opacity dark, 33% light)
+        const opacity = isLightMode ? 0.33 : 0.85;
+        root.style.setProperty("--accent-color-6", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+        
+        // Set box-shadow values with RGB
+        root.style.setProperty("--box-shadow-top-left", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
+        root.style.setProperty("--box-shadow-bottom-right", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
+        root.style.setProperty("--box-shadow-top-left-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+        root.style.setProperty("--box-shadow-bottom-right-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+      }
+    }
+    // If setting is missing/invalid, CSS fallback values remain in effect
+  }, [isLoading, settings]);
 
   const refresh = async () => {
     await fetchSettings();
