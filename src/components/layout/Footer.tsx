@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import { useSettings } from "@/context/SettingsContext";
+import { FOOTER_LINK_GROUPS } from "@/config/navigation";
 
 const Footer = () => {
   const { getSetting } = useSettings();
+  
+  // Get link groups from config
+  const companyLinks = FOOTER_LINK_GROUPS.find(g => g.title === "Company")?.links || [];
+  const serviceLinks = FOOTER_LINK_GROUPS.find(g => g.title === "Services")?.links || [];
+  const legalLinks = FOOTER_LINK_GROUPS.find(g => g.title === "Legal")?.links || [];
+
   return (
     <footer>
       <div className="section-footer">
@@ -27,11 +34,11 @@ const Footer = () => {
                       <h5>Quick Links</h5>
                       <ul className="footer-list">
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="/about">About Us</Link></li>
-                        <li><Link to="/services">Service</Link></li>
-                        <li><Link to="/case-studies">Case Studies</Link></li>
-                        <li><Link to="/blog">Blog</Link></li>
-                        <li><Link to="/contact">Contact Us</Link></li>
+                        {companyLinks.map((link) => (
+                          <li key={link.href}>
+                            <Link to={link.href}>{link.label}</Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -39,12 +46,11 @@ const Footer = () => {
                     <div className="footer-services-container">
                       <h5>Services</h5>
                       <ul className="footer-list">
-                        <li><Link to="/services/web-development">Web Development</Link></li>
-                        <li><Link to="/services/government-portals">Government Portals</Link></li>
-                        <li><Link to="/services/enterprise-systems">Enterprise Systems</Link></li>
-                        <li><Link to="/services/mobile-apps">Mobile Applications</Link></li>
-                        <li><Link to="/services/ai-tools">AI-Powered Tools</Link></li>
-                        <li><Link to="/services/cloud-solutions">Cloud Solutions</Link></li>
+                        {serviceLinks.map((link) => (
+                          <li key={link.href}>
+                            <Link to={link.href}>{link.label}</Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -65,17 +71,17 @@ const Footer = () => {
                             </a>
                           </div>
                           <div className="social-item-wrapper">
-                            <a href="https://youtube.com" className="social-item">
+                            <a href={getSetting("youtube_url", "https://youtube.com")} className="social-item" target="_blank" rel="noopener noreferrer">
                               <i className="fa-brands fa-youtube"></i>
                             </a>
                           </div>
                           <div className="social-item-wrapper">
-                            <a href={getSetting("instagram_url", "https://instagram.com")} className="social-item">
+                            <a href={getSetting("instagram_url", "https://instagram.com")} className="social-item" target="_blank" rel="noopener noreferrer">
                               <i className="fa-brands fa-instagram"></i>
                             </a>
                           </div>
                           <div className="social-item-wrapper">
-                            <a href={getSetting("linkedin_url", "https://linkedin.com")} className="social-item">
+                            <a href={getSetting("linkedin_url", "https://linkedin.com")} className="social-item" target="_blank" rel="noopener noreferrer">
                               <i className="fa-brands fa-linkedin"></i>
                             </a>
                           </div>
@@ -89,8 +95,11 @@ const Footer = () => {
               <div className="copyright-container">
                 <span className="copyright">{getSetting("copyright_text", "© 2025 Devmart Suriname. All Rights Reserved.")}</span>
                 <div className="d-flex flex-row gspace-2">
-                  <a href="#" className="legal-link">Terms of Service</a>
-                  <a href="#" className="legal-link">Privacy Policy</a>
+                  {legalLinks.map((link) => (
+                    <Link key={link.href} to={link.href} className="legal-link">
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
               </div>
               <div className="footer-spacer"></div>
