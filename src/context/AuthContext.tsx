@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useEffect, useState, useRef, ReactNode } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import type { AppRole } from "@/lib/permissions";
@@ -27,7 +27,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isRoleLoading, setIsRoleLoading] = useState(true);
   const [userRole, setUserRole] = useState<AppRole | null>(null);
 
+  // Refs to prevent race conditions during hot reloads
+  const mountedRef = useRef(true);
+  const fetchingRoleRef = useRef(false);
+  const lastFetchedUserIdRef = useRef<string | null>(null);
+
   const fetchUserRole = async (userId: string) => {
+    // Prevent duplicate fetches for the same user
+    if (fetchingRoleRef.current && lastFetchedUserIdRef.current === userId) {
+      console.log("[AuthContext] Role fetch already in progress for this user, skipping");
+      return;
+    }
+
+    fetchingRoleRef.current = true;
+    lastFetchedUserIdRef.current = userId;
     setIsRoleLoading(true);
     console.log("[AuthContext] Fetching role for user:", userId);
     
@@ -37,6 +50,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         _user_id: userId,
         _role: "admin",
       });
+
+      if (!mountedRef.current) {
+        console.log("[AuthContext] Component unmounted, aborting role update");
+        return;
+      }
 
       if (adminError) {
         console.error("[AuthContext] Admin role check failed:", adminError);
@@ -48,6 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log("[AuthContext] User is admin");
         setUserRole("admin");
         setIsRoleLoading(false);
+        fetchingRoleRef.current = false;
         return;
       }
 
@@ -56,6 +75,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         _user_id: userId,
         _role: "editor",
       });
+
+      if (!mountedRef.current) {
+        console.log("[AuthContext] Component unmounted, aborting role update");
+        return;
+      }
 
       if (editorError) {
         console.error("[AuthContext] Editor role check failed:", editorError);
@@ -67,6 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log("[AuthContext] User is editor");
         setUserRole("editor");
         setIsRoleLoading(false);
+        fetchingRoleRef.current = false;
         return;
       }
 
@@ -74,25 +99,37 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUserRole(null);
     } catch (err) {
       console.error("[AuthContext] Unexpected error fetching role:", err);
-      setUserRole(null);
+      if (mountedRef.current) {
+        setUserRole(null);
+      }
     } finally {
-      setIsRoleLoading(false);
+      if (mountedRef.current) {
+        setIsRoleLoading(false);
+      }
+      fetchingRoleRef.current = false;
     }
   };
 
   useEffect(() => {
-    // Set up auth state listener FIRST (prevents race conditions)
-    // IMPORTANT: Do NOT use async callback - causes auth deadlock
+    mountedRef.current = true;
+    
+    // Set up auth state listener - this is the SINGLE source of truth
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
+      (event, newSession) => {
+        console.log("[AuthContext] Auth event:", event, "User:", newSession?.user?.email);
+        
+        if (!mountedRef.current) return;
+
+        setSession(newSession);
+        setUser(newSession?.user ?? null);
         setIsAuthLoading(false);
 
-        if (session?.user) {
+        if (newSession?.user) {
           // Defer Supabase calls with setTimeout to prevent deadlock
           setTimeout(() => {
-            fetchUserRole(session.user.id);
+            if (mountedRef.current) {
+              fetchUserRole(newSession.user.id);
+            }
           }, 0);
         } else {
           setUserRole(null);
@@ -101,24 +138,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     );
 
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsAuthLoading(false);
-
-      if (session?.user) {
-        // Defer role fetch to prevent blocking
-        setTimeout(() => {
-          fetchUserRole(session.user.id);
-        }, 0);
-      } else {
-        setUserRole(null);
+    // Check for existing session - only for initial hydration
+    // The onAuthStateChange will handle the actual role fetching
+    supabase.auth.getSession().then(({ data: { session: existingSession } }) => {
+      console.log("[AuthContext] Initial session check:", existingSession?.user?.email ?? "no session");
+      
+      if (!mountedRef.current) return;
+      
+      // If no existing session, mark loading as complete
+      if (!existingSession) {
+        setIsAuthLoading(false);
         setIsRoleLoading(false);
       }
+      // If there IS a session, onAuthStateChange will handle it
+      // Don't duplicate the role fetch here
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log("[AuthContext] Cleanup - unmounting");
+      mountedRef.current = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
@@ -134,6 +174,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut = async () => {
+    console.log("[AuthContext] Signing out...");
     setUserRole(null);
     await supabase.auth.signOut();
   };
