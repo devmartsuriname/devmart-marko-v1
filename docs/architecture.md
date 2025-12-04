@@ -162,7 +162,7 @@ The following content is dynamically fetched from Supabase on public marketing p
 | CaseStudiesPage | Case Studies | `getPublishedCaseStudies()` |
 | PricingPage | Pricing Plans | `getPublishedPricingPlans()` |
 | TestimonialsPage | Testimonials | `getPublishedTestimonials()` |
-| FaqPage | FAQ Items | `getPublishedFaqItems()` |
+| FaqPage | FAQ Items (Dynamic - Phase 6G) | `getActiveFaqItems()` |
 | ContactPage | Site Settings | `useSettings()` context |
 | Footer/Header | Site Settings | `useSettings()` context |
 
