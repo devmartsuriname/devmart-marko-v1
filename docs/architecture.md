@@ -154,10 +154,11 @@ The following content is dynamically fetched from Supabase on public marketing p
 
 | Page | Content Source | Query Function |
 |------|----------------|----------------|
-| HomePage | Services, Testimonials, Case Studies, Blog, Pricing, **Partner Logos** | `getPublished*()`, `getActivePartnerLogos()` |
+| HomePage | Services, Testimonials, Case Studies, Blog, Pricing, Partner Logos, **Newsletter** | `getPublished*()`, `getActivePartnerLogos()`, `subscribeToNewsletter()` |
 | AboutPage | Team Members, **Partner Logos** | `getActiveTeamMembers()`, `getActivePartnerLogos()` |
 | TeamPage | Team Members, **Partner Logos** | `getActiveTeamMembers()`, `getActivePartnerLogos()` |
 | ServicesPage | Services | `getPublishedServices()` |
+| SingleServicePage | Service Details, **Newsletter** | `getServiceBySlug()`, `subscribeToNewsletter()` |
 | BlogPage | Blog Posts | `getPublishedBlogPosts()` |
 | CaseStudiesPage | Case Studies | `getPublishedCaseStudies()` |
 | PricingPage | Pricing Plans | `getPublishedPricingPlans()` |
