@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase D Deferred Modules - COMPLETE ✅
+## Current Status: Phase 6G Public FAQ Wiring - COMPLETE ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -24,7 +24,8 @@
 **Phase B Documentation Sync:** 2025-12-03 ✅  
 **Phase D Deferred Modules (v2):** 2025-12-03 ✅  
 **Phase D Polish (Auth Fix, Seed Data, Style Guide):** 2025-12-03 ✅  
-**Implementation Status:** V2 modules (Partner Logos, Newsletter, Homepage Blocks) implemented with admin UI, seed data, and auth fix.
+**Phase 6G Public FAQ Wiring:** 2025-12-04 ✅  
+**Implementation Status:** Public FAQ page now dynamically fetches from Supabase using `getActiveFaqItems()`.
 
 ---
 
@@ -114,6 +115,56 @@ This ensures 1:1 visual parity across all admin inner pages.
 - **Empty state:** "No homepage blocks configured" with seeding hint
 - **Error state:** Alert with "Retry" button
 - **Console logging:** `[HomepageBlocksAdminPage]` tag for debugging
+
+---
+
+## Phase 6G: Public FAQ Page Dynamic Wiring (2025-12-04)
+
+**Status:** COMPLETE ✅
+
+### Summary
+
+Wired public FAQ page to Supabase using `getActiveFaqItems()` query function. FAQ section dynamically renders all active FAQ items in accordion format.
+
+### Pages Updated
+
+| Page | Implementation |
+|------|----------------|
+| `FaqPage.tsx` | Fetches FAQ items on mount, renders accordion with question/answer |
+
+### Implementation Details
+
+- **Query function:** `getActiveFaqItems()` from `src/integrations/supabase/queries/faqItems.ts`
+- **State management:** `faqs`, `isLoading`, `error` states with `useEffect` fetch
+- **Loading state:** Shows loading indicator while fetching
+- **Error state:** Displays error message with graceful fallback
+- **Empty state:** Shows "No FAQs available" message when no active items
+- **Accordion rendering:** Maps over `faqs` array rendering `question` and `answer` fields
+- **Sort order:** Items ordered by `sort_order` ascending, then `question` ascending
+
+### Query Function
+
+```typescript
+// src/integrations/supabase/queries/faqItems.ts
+export async function getActiveFaqItems() {
+  const { data, error } = await supabase
+    .from("faq_items")
+    .select("*")
+    .eq("status", "active")
+    .order("sort_order", { ascending: true })
+    .order("question", { ascending: true });
+
+  return { data, error };
+}
+```
+
+### RLS Policy
+
+Public SELECT policy requires `status = 'active'` (configured in Phase 5D).
+
+### Note
+
+The testimonials section at the bottom of FaqPage remains static (separate from FAQ wiring scope).
 
 ---
 
