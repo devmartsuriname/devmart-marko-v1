@@ -149,7 +149,7 @@ const HomePage = () => {
             muted
             playsInline
             className="banner-video-bg"
-            src="/videos/hero-background.mp4"
+            src="/videos/hero-background.webm"
             style={{
               position: "absolute",
               inset: 0,
