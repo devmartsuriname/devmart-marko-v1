@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Plus } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
 import { getAllPartnerLogos, PartnerLogo } from "@/integrations/supabase/queries/partnerLogos";
 import AddPartnerLogoModal from "@/components/admin/partners/AddPartnerLogoModal";
@@ -86,28 +87,29 @@ export default function PartnersAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="admin-page">
-        <div className="admin-page-header">
+      <div>
+        <div className="admin-card-header">
           <div>
-            <h1 className="admin-page-title">Partner Logos</h1>
-            <p className="admin-page-description">Manage partner and client logos displayed on the marketing site.</p>
+            <h2 className="admin-card-title">Partner Logos</h2>
+            <p className="admin-card-description" style={{ marginBottom: 0 }}>Manage partner and client logos displayed on the marketing site.</p>
           </div>
         </div>
         <div className="admin-card">
-          <div className="admin-loading-state">Loading partner logos...</div>
+          <div className="admin-table-empty">Loading partners...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-page-header">
+    <div>
+      <div className="admin-card-header">
         <div>
-          <h1 className="admin-page-title">Partner Logos</h1>
-          <p className="admin-page-description">Manage partner and client logos displayed on the marketing site.</p>
+          <h2 className="admin-card-title">Partner Logos</h2>
+          <p className="admin-card-description" style={{ marginBottom: 0 }}>Manage partner and client logos displayed on the marketing site.</p>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={() => setIsAddModalOpen(true)}>
+          <Plus size={16} />
           Add Partner
         </button>
       </div>

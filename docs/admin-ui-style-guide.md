@@ -1,7 +1,7 @@
 # Devmart Admin UI Style Guide
 
-> **Version:** 1.3 (Phase D V2 Modules Polish)  
-> **Last Updated:** December 3, 2025  
+> **Version:** 1.4 (Phase D Visual Parity)  
+> **Last Updated:** December 4, 2025  
 > **Source:** `src/styles/admin.css`
 
 This document provides a comprehensive reference for all CSS classes, tokens, and usage patterns implemented in the Devmart Admin Backend UI.
@@ -1315,6 +1315,90 @@ if (error) {
 
 ---
 
+## 18. Inner Page Layout Standard
+
+All admin inner pages follow this canonical structure to ensure visual consistency:
+
+### 18.1 Canonical Structure
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ admin-card-header                                       │
+│   ├── Left: admin-card-title + admin-card-description  │
+│   └── Right: Primary action button (with Plus icon)    │
+├─────────────────────────────────────────────────────────┤
+│ admin-toolbar (optional)                                │
+│   ├── admin-search (left)                              │
+│   └── admin-filter-pills (right)                       │
+├─────────────────────────────────────────────────────────┤
+│ DataTable or admin-card with content                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 18.2 Required Classes
+
+| Element | Class | Notes |
+|---------|-------|-------|
+| Page wrapper | `<div>` | Simple div, no special class |
+| Header row | `admin-card-header` | Flex container with space-between |
+| Title | `admin-card-title` | H2 element, 18px font-size, 600 weight |
+| Description | `admin-card-description` | Add `style={{ marginBottom: 0 }}` in header |
+| Primary button | `admin-btn admin-btn-primary` | Include `<Plus size={16} />` icon |
+| Toolbar | `admin-toolbar` | Flex container for search/filters |
+
+### 18.3 Reference Implementation
+
+```jsx
+import { Plus } from "lucide-react";
+
+return (
+  <div>
+    <div className="admin-card-header">
+      <div>
+        <h2 className="admin-card-title">Module Name</h2>
+        <p className="admin-card-description" style={{ marginBottom: 0 }}>
+          Description of what this module manages.
+        </p>
+      </div>
+      <button 
+        className="admin-btn admin-btn-primary"
+        onClick={() => setIsAddModalOpen(true)}
+      >
+        <Plus size={16} />
+        Add Item
+      </button>
+    </div>
+    
+    {/* Optional toolbar */}
+    <div className="admin-toolbar">
+      <div className="admin-search">
+        <input type="text" className="admin-input" placeholder="Search..." />
+      </div>
+      <div className="admin-filter-pills">
+        <button className="admin-btn admin-btn-sm admin-btn-primary">All</button>
+        <button className="admin-btn admin-btn-sm admin-btn-ghost">Active</button>
+      </div>
+    </div>
+    
+    <DataTable columns={columns} rows={rows} ... />
+  </div>
+);
+```
+
+### 18.4 Visual Parity Checklist
+
+When creating new admin pages, verify:
+
+- [ ] Page header uses `admin-card-header`, not `admin-page-header`
+- [ ] Title uses `<h2 className="admin-card-title">`, not h1
+- [ ] Description uses `admin-card-description` with `marginBottom: 0`
+- [ ] Primary action button includes `<Plus size={16} />` icon
+- [ ] Toolbar spacing matches other modules (20px margin-bottom on header)
+- [ ] Loading state uses same header structure as main state
+- [ ] Works correctly in both light and dark themes
+
+---
+
 ## Quick Reference Card
 
 ```
@@ -1332,5 +1416,6 @@ ICONS:           .admin-icon-{16|20|24}, .admin-icon-{muted|accent}
 SETTINGS:        .settings-tabs, .settings-tab, .admin-color-picker-wrapper
 TOOLBAR:         .admin-toolbar, .admin-search, .admin-filter-pills
 EMPTY STATE:     .admin-empty-state
+PAGE HEADER:     .admin-card-header, .admin-card-title, .admin-card-description
 ```
-```
+
