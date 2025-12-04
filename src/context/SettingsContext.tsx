@@ -99,6 +99,13 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
     const root = document.documentElement;
     const primaryColor = settings.primary_color;
 
+    // Helper to update theme-dependent opacity
+    const updateAccentColor6 = (rgb: { r: number; g: number; b: number }) => {
+      const isLightMode = document.body.classList.contains("lightmode");
+      const opacity = isLightMode ? 0.33 : 0.85;
+      root.style.setProperty("--accent-color-6", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+    };
+
     // Only update if we have a valid hex color
     if (primaryColor && isValidHexColor(primaryColor)) {
       // Set main accent color
@@ -107,18 +114,23 @@ export const SettingsProvider = ({ children }: SettingsProviderProps) => {
       // Convert to RGB for box-shadow values
       const rgb = hexToRgb(primaryColor);
       if (rgb) {
-        // Detect current theme mode
-        const isLightMode = document.body.classList.contains("lightmode");
-        
-        // Set semi-transparent version (85% opacity dark, 33% light)
-        const opacity = isLightMode ? 0.33 : 0.85;
-        root.style.setProperty("--accent-color-6", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`);
+        // Set initial theme-dependent opacity
+        updateAccentColor6(rgb);
         
         // Set box-shadow values with RGB
         root.style.setProperty("--box-shadow-top-left", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
         root.style.setProperty("--box-shadow-bottom-right", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.45)`);
         root.style.setProperty("--box-shadow-top-left-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
         root.style.setProperty("--box-shadow-bottom-right-wide", `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+
+        // Watch for theme changes and recompute accent-color-6
+        const observer = new MutationObserver(() => {
+          updateAccentColor6(rgb);
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+        // Cleanup observer on unmount or settings change
+        return () => observer.disconnect();
       }
     }
     // If setting is missing/invalid, CSS fallback values remain in effect
