@@ -12,7 +12,7 @@
 | RLS Policies | 100% | Public read for published, role-based write |
 | Query Layer | 100% | 14 query files with typed functions |
 | Admin CMS | 100% | 14 pages with full CRUD operations |
-| Frontend Integration | 98% | All pages wired, branding colors optional |
+| Frontend Integration | 100% | All pages wired, branding colors implemented |
 | Authentication | 100% | Supabase Auth with session persistence |
 | Authorization | 100% | Admin/Editor roles enforced |
 | Documentation | 100% | backend.md, architecture.md synchronized |
@@ -22,6 +22,40 @@
 The project has successfully completed all backend development phases and is ready to transition to the frontend polish phase. All admin-managed content flows correctly to public pages. No blocking issues identified.
 
 **Next Phase:** Frontend visual polish, responsive refinements, animation tuning
+
+---
+
+## Dynamic Branding Colors (Phase C4) ✅
+
+The public marketing site supports runtime brand color customization:
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐
+│  Admin Panel    │────▶│  site_settings   │────▶│ SettingsContext  │
+│  (Settings UI)  │     │  (Supabase DB)   │     │  (React)         │
+└─────────────────┘     └──────────────────┘     └────────┬─────────┘
+                                                          │
+                                                          ▼
+                                               ┌─────────────────────┐
+                                               │ CSS Variables       │
+                                               │ --accent-color      │
+                                               │ --accent-color-6    │
+                                               │ --box-shadow-*      │
+                                               └─────────────────────┘
+                                                          │
+                                                          ▼
+                                               ┌─────────────────────┐
+                                               │ Marketing Pages     │
+                                               │ (Buttons, CTAs,     │
+                                               │  Links, Accents)    │
+                                               └─────────────────────┘
+```
+
+**Key Points:**
+- Brand colors are pulled from Supabase `site_settings` table
+- CSS variables are updated at runtime in `SettingsProvider` via `useEffect`
+- Only affects public marketing site; admin uses separate `--admin-*` tokens
+- Fallback to CSS defaults if settings unavailable
 
 ---
 

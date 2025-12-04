@@ -68,13 +68,39 @@ The backend is **100% complete and stable**. The frontend integration is **98% c
 
 | Item | Priority | Status |
 |------|----------|--------|
-| Branding colors CSS wiring | Low | 🟡 Optional enhancement |
+| Branding colors CSS wiring | Low | ✅ Implemented (Phase C4) |
 | Leaked password protection | Low | 🟡 Supabase setting (not code) |
+
+---
+
+## Phase C4 – Branding Colors Wiring (2025-12-04) ✅
+
+### Overview
+Brand colors (`primary_color`, `accent_color`) stored in `site_settings` are now dynamically applied to the public marketing site at runtime.
+
+### How It Works
+1. **Database Storage:** `site_settings` table contains `primary_color` and `accent_color` keys (default: `#4be89b` Devmart green)
+2. **Runtime Injection:** `SettingsContext` reads these values and injects them into CSS variables via `document.documentElement.style.setProperty()`
+3. **CSS Variables Updated:**
+   - `--accent-color` → Main brand color (buttons, links, CTAs)
+   - `--accent-color-6` → Semi-transparent version (opacity varies by theme: 85% dark, 33% light)
+   - `--box-shadow-*` → Box shadow colors derived from primary color RGB values
+
+### Scope
+- ✅ Public marketing site (all pages using template CSS)
+- ❌ Admin panel (uses separate `--admin-*` token system, unaffected)
+
+### Fallback Behavior
+- If `primary_color` is missing or invalid hex, CSS fallback values in `style.css` remain in effect
+- No FOUC (flash of unstyled content) – defaults are always present
+
+### Admin Usage
+Admins can change brand colors via **Settings → SEO & Branding → Branding Colors** panel. Changes take effect immediately on the public site without code deployment.
 
 ### Transition Readiness
 
 **Backend:** ✅ 100% Complete  
-**Frontend Integration:** ✅ 98% Complete (only optional branding colors remain)  
+**Frontend Integration:** ✅ 100% Complete  
 **Admin CMS:** ✅ Fully Operational  
 **Security:** ✅ RLS enforced, role-based access  
 **Documentation:** ✅ Synchronized  
