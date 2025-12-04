@@ -2614,9 +2614,25 @@ body.lightmode .case-studies-content::before {
   transform: rotateZ(5deg);
 }
 
-.cs-component a {
+.cs-component a,
+.cs-component span {
   color: var(--primary);
   font-size: var(--font-size-base);
+}
+
+.cs-component:hover a,
+.cs-component:hover span {
+  color: var(--secondary);
+}
+
+.lightmode .cs-component a,
+.lightmode .cs-component span {
+  color: var(--primary);
+}
+
+.lightmode .cs-component:hover a,
+.lightmode .cs-component:hover span {
+  color: var(--secondary);
 }
 
 /* ================== 30. Team Components ================== */
@@ -5250,5 +5266,56 @@ body.lightmode .cta-service-banner::before {
   .copyright,
   .legal-link {
     font-size: var(--font-size-xs);
+  }
+}
+
+/* ================== Back to Top Button ================== */
+
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: var(--accent-color-3);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--box-shadow-top-left), var(--box-shadow-bottom-right);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: backToTopFadeIn 0.3s ease forwards;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(75, 232, 155, 0.4);
+}
+
+@keyframes backToTopFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lightmode .back-to-top-btn {
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
   }
 }

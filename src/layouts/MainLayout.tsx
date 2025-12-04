@@ -2,10 +2,18 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import BackToTopButton from "../components/ui/BackToTopButton";
 import { initializeTemplateScripts } from "../utils/templateScripts";
 
 const MainLayout = () => {
   const location = useLocation();
+  
+  // Scroll to top on route change (unless hash anchor present)
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }, [location.pathname]);
   
   useEffect(() => {
     // Initialize template scripts after component mount
@@ -118,6 +126,7 @@ const MainLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <BackToTopButton />
     </>
   );
 };
