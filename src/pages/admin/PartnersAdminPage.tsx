@@ -45,12 +45,18 @@ export default function PartnersAdminPage() {
     {
       key: "logo_url",
       label: "Logo",
-      render: (value: string) => (
-        <img
-          src={value}
-          alt="Partner logo"
-          style={{ width: 60, height: 40, objectFit: "contain", background: "var(--admin-bg-tertiary)", borderRadius: 4 }}
-        />
+      render: (value: string, row: PartnerLogo) => (
+        value ? (
+          <img
+            src={value}
+            alt="Partner logo"
+            style={{ width: 60, height: 40, objectFit: "contain", background: "var(--admin-bg-tertiary)", borderRadius: 4 }}
+          />
+        ) : (
+          <div style={{ width: 60, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--admin-bg-tertiary)', borderRadius: 4, color: 'var(--admin-text-muted)', fontWeight: 600, fontSize: '1.25rem' }}>
+            {row.name?.charAt(0)?.toUpperCase() || '?'}
+          </div>
+        )
       ),
     },
     { key: "name", label: "Name" },
@@ -125,7 +131,7 @@ export default function PartnersAdminPage() {
           <input
             type="text"
             className="admin-input"
-            placeholder="Search by name..."
+            placeholder="Search partners..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
