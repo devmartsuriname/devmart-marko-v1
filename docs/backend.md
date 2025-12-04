@@ -1,6 +1,6 @@
 # Backend Documentation - Devmart Marko v1
 
-## Current Status: Phase C-2 Newsletter Form Wiring - COMPLETE ✅
+## Current Status: Phase C-3 FaqPage Testimonials Wiring - COMPLETE ✅
 
 **Frontend Completion Date:** 2025-11-27  
 **Phase 2 Backend MVP Implementation:** 2025-11-28  
@@ -26,7 +26,37 @@
 **Phase D Polish (Auth Fix, Seed Data, Style Guide):** 2025-12-03 ✅  
 **Phase 6G Public FAQ Wiring:** 2025-12-04 ✅
 **Phase C-2 Newsletter Form Wiring:** 2025-12-04 ✅
-**Implementation Status:** Newsletter subscription forms on HomePage and SingleServicePage now submit to Supabase using `subscribeToNewsletter()`.
+**Phase C-3 FaqPage Testimonials Wiring:** 2025-12-04 ✅
+**Implementation Status:** FaqPage now fetches both FAQs and Testimonials from Supabase dynamically.
+
+---
+
+## Phase C-3: FaqPage Testimonials Wiring (2025-12-04)
+
+**Status:** COMPLETE ✅
+
+### Summary
+
+Wired the testimonials section on FaqPage to Supabase, making the entire page fully dynamic.
+
+### Implementation Details
+
+- **Parallel fetching:** Uses `Promise.all()` to fetch FAQs and testimonials concurrently
+- **Query function:** `getPublishedTestimonials()` from `testimonials.ts`
+- **Dynamic stars:** Renders star icons based on `testimonial.rating` (default 5)
+- **Avatar fallback:** Uses default image if `avatar_url` is null
+- **Company display:** Shows company name after author title when available
+- **Empty state:** Shows friendly message when no testimonials exist
+- **HTML preservation:** All template structure, CSS classes, and Swiper config preserved
+
+### Code Pattern
+
+```typescript
+const [faqResult, testimonialsResult] = await Promise.all([
+  getActiveFaqItems(),
+  getPublishedTestimonials(),
+]);
+```
 
 ---
 

@@ -163,7 +163,7 @@ The following content is dynamically fetched from Supabase on public marketing p
 | CaseStudiesPage | Case Studies | `getPublishedCaseStudies()` |
 | PricingPage | Pricing Plans | `getPublishedPricingPlans()` |
 | TestimonialsPage | Testimonials | `getPublishedTestimonials()` |
-| FaqPage | FAQ Items (Dynamic - Phase 6G) | `getActiveFaqItems()` |
+| FaqPage | FAQ Items, Testimonials (Dynamic) | `getActiveFaqItems()`, `getPublishedTestimonials()` |
 | ContactPage | Site Settings | `useSettings()` context |
 | Footer/Header | Site Settings | `useSettings()` context |
 
