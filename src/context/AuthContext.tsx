@@ -125,6 +125,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setIsAuthLoading(false);
 
         if (newSession?.user) {
+          // Set role loading IMMEDIATELY to prevent race condition before setTimeout
+          setIsRoleLoading(true);
           // Defer Supabase calls with setTimeout to prevent deadlock
           setTimeout(() => {
             if (mountedRef.current) {
