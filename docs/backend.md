@@ -4,6 +4,38 @@
 
 ---
 
+## Phase C6 – Pricing Plan Highlight Benefits (2025-12-04) ✅
+
+### Overview
+Added dynamic "Premium Highlights" feature to pricing plans, allowing admins to configure up to 3 highlighted benefit rows that appear on featured pricing cards (e.g., "Dedicated Account Manager", "Priority Support 24/7").
+
+### Database Schema
+Three new nullable text columns added to `pricing_plans` table:
+- `highlight_1` (text, nullable) - First highlight benefit line
+- `highlight_2` (text, nullable) - Second highlight benefit line
+- `highlight_3` (text, nullable) - Third highlight benefit line
+
+### Admin UI
+- **Location:** Admin → Pricing → Add/Edit Plan modal
+- **Section:** "Premium Highlights (shown on highlighted plans)" - appears below the Status/Sort Order/Highlighted row
+- **Fields:** Three text inputs for Highlight Line 1, 2, and 3
+- **Behavior:** Optional fields; empty values render as no highlight (graceful degradation)
+
+### Frontend Rendering
+- **Location:** HomePage pricing section, middle (highlighted) card
+- **Condition:** Renders only when `highlighted: true` AND at least one highlight field is non-empty
+- **Icons:** fa-user-tie, fa-headset, fa-chart-line (matching Marko demo aesthetic)
+- **Styling:** Uses existing `.core-benefits` and `.benefit` CSS classes from template
+
+### Default Data (Business Platform)
+```
+highlight_1: "Dedicated Account Manager"
+highlight_2: "Priority Support 24/7"
+highlight_3: "Customized Growth Strategy"
+```
+
+---
+
 ## Full System Audit Report (2025-12-04)
 
 **Audit Date:** 2025-12-04  

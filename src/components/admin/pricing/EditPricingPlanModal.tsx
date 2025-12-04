@@ -27,6 +27,9 @@ export const EditPricingPlanModal = ({
     highlighted: false,
     status: "published" as "draft" | "published" | "archived",
     sort_order: "0",
+    highlight_1: "",
+    highlight_2: "",
+    highlight_3: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -43,6 +46,9 @@ export const EditPricingPlanModal = ({
         highlighted: pricingPlan.highlighted,
         status: pricingPlan.status,
         sort_order: pricingPlan.sort_order.toString(),
+        highlight_1: pricingPlan.highlight_1 || "",
+        highlight_2: pricingPlan.highlight_2 || "",
+        highlight_3: pricingPlan.highlight_3 || "",
       });
     }
   }, [open, pricingPlan]);
@@ -81,6 +87,9 @@ export const EditPricingPlanModal = ({
       highlighted: formData.highlighted,
       status: formData.status,
       sort_order: parseInt(formData.sort_order),
+      highlight_1: formData.highlight_1 || null,
+      highlight_2: formData.highlight_2 || null,
+      highlight_3: formData.highlight_3 || null,
     });
 
     setIsSubmitting(false);
@@ -268,6 +277,51 @@ export const EditPricingPlanModal = ({
               <label htmlFor="highlighted" className="admin-form-label" style={{ cursor: "pointer", margin: 0 }}>
                 Highlighted
               </label>
+            </div>
+          </div>
+
+          {/* Premium Highlights Section */}
+          <div style={{ borderTop: "1px solid var(--admin-border)", paddingTop: "1rem", marginTop: "0.5rem" }}>
+            <p className="admin-form-label" style={{ marginBottom: "0.75rem", fontSize: "0.875rem", color: "var(--admin-text-muted)" }}>
+              Premium Highlights (shown on highlighted plans)
+            </p>
+            <div style={{ display: "grid", gap: "0.75rem" }}>
+              <div>
+                <label htmlFor="highlight_1" className="admin-form-label">Highlight Line 1</label>
+                <input
+                  id="highlight_1"
+                  type="text"
+                  className="admin-form-input"
+                  value={formData.highlight_1}
+                  onChange={(e) => setFormData({ ...formData, highlight_1: e.target.value })}
+                  disabled={isSubmitting}
+                  placeholder="e.g., Dedicated Account Manager"
+                />
+              </div>
+              <div>
+                <label htmlFor="highlight_2" className="admin-form-label">Highlight Line 2</label>
+                <input
+                  id="highlight_2"
+                  type="text"
+                  className="admin-form-input"
+                  value={formData.highlight_2}
+                  onChange={(e) => setFormData({ ...formData, highlight_2: e.target.value })}
+                  disabled={isSubmitting}
+                  placeholder="e.g., Priority Support 24/7"
+                />
+              </div>
+              <div>
+                <label htmlFor="highlight_3" className="admin-form-label">Highlight Line 3</label>
+                <input
+                  id="highlight_3"
+                  type="text"
+                  className="admin-form-input"
+                  value={formData.highlight_3}
+                  onChange={(e) => setFormData({ ...formData, highlight_3: e.target.value })}
+                  disabled={isSubmitting}
+                  placeholder="e.g., Customized Growth Strategy"
+                />
+              </div>
             </div>
           </div>
 

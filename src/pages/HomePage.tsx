@@ -1238,20 +1238,26 @@ const HomePage = () => {
                             <i className="fa-solid fa-arrow-right"></i>
                           </div>
                         </Link>
-                        {homePricingPlans[1].highlighted && (
+                        {homePricingPlans[1].highlighted && (homePricingPlans[1].highlight_1 || homePricingPlans[1].highlight_2 || homePricingPlans[1].highlight_3) && (
                           <div className="core-benefits">
-                            <div className="benefit">
-                              <i className="fa-solid fa-brain"></i>
-                              <a href="#">Dedicated Account Manager</a>
-                            </div>
-                            <div className="benefit">
-                              <i className="fa-brands fa-accessible-icon"></i>
-                              <a href="#">Priority Support 24/7</a>
-                            </div>
-                            <div className="benefit">
-                              <i className="fa-solid fa-bug"></i>
-                              <a href="#">Customized Growth Strategy</a>
-                            </div>
+                            {homePricingPlans[1].highlight_1 && (
+                              <div className="benefit">
+                                <i className="fa-solid fa-user-tie"></i>
+                                <a href="#">{homePricingPlans[1].highlight_1}</a>
+                              </div>
+                            )}
+                            {homePricingPlans[1].highlight_2 && (
+                              <div className="benefit">
+                                <i className="fa-solid fa-headset"></i>
+                                <a href="#">{homePricingPlans[1].highlight_2}</a>
+                              </div>
+                            )}
+                            {homePricingPlans[1].highlight_3 && (
+                              <div className="benefit">
+                                <i className="fa-solid fa-chart-line"></i>
+                                <a href="#">{homePricingPlans[1].highlight_3}</a>
+                              </div>
+                            )}
                           </div>
                         )}
                         {homePricingPlans[1].features && Array.isArray(homePricingPlans[1].features) && (
