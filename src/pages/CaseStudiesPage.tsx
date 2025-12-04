@@ -270,21 +270,37 @@ const CaseStudiesPage = () => {
                             src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                         </div>
                         <div className="detail">
@@ -362,6 +378,10 @@ const CaseStudiesPage = () => {
                                 src="/marko-digital-marketing-agency-html/image/Photo-13.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
+                                loading="lazy"
+                                width="80"
+                                height="80"
+                                decoding="async"
                               />
                             </div>
                             <div className="d-flex flex-column">

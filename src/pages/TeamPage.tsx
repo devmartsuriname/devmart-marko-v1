@@ -127,6 +127,10 @@ const TeamPage = () => {
                             src={member.photo_url || "/marko-digital-marketing-agency-html/image/dummy-img-600x800.jpg"}
                             alt={member.full_name}
                             className="img-fluid"
+                            loading="lazy"
+                            width="600"
+                            height="800"
+                            decoding="async"
                           />
                           <div className="social-team-wrapper">
                             <div className="social-team-spacer"></div>
@@ -200,11 +204,15 @@ const TeamPage = () => {
                           {partner.website_url ? (
                             <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
                               <div className="partner-slide">
-                                <img
-                                  src={partner.logo_url}
-                                  alt={partner.name}
-                                  className="partner-logo img-fluid"
-                                />
+                              <img
+                                src={partner.logo_url}
+                                alt={partner.name}
+                                className="partner-logo img-fluid"
+                                loading="lazy"
+                                width="150"
+                                height="50"
+                                decoding="async"
+                              />
                               </div>
                             </a>
                           ) : (
@@ -213,6 +221,10 @@ const TeamPage = () => {
                                 src={partner.logo_url}
                                 alt={partner.name}
                                 className="partner-logo img-fluid"
+                                loading="lazy"
+                                width="150"
+                                height="50"
+                                decoding="async"
                               />
                             </div>
                           )}
@@ -280,21 +292,37 @@ const TeamPage = () => {
                             src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                         </div>
                         <div className="detail">
@@ -372,6 +400,10 @@ const TeamPage = () => {
                                 src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
                                 alt="Testimonial Person Image"
                                 className="img-fluid"
+                                loading="lazy"
+                                width="80"
+                                height="80"
+                                decoding="async"
                               />
                             </div>
                             <div className="d-flex flex-column">

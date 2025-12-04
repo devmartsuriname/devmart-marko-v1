@@ -144,7 +144,11 @@ const BlogPage = () => {
                     <div className="blog-image">
                       <img 
                         src={post.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
-                        alt={post.title} 
+                        alt={post.title}
+                        loading="lazy"
+                        width="600"
+                        height="400"
+                        decoding="async"
                       />
                     </div>
                     <div className="card-body">

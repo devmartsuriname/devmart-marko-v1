@@ -53,7 +53,7 @@ const Header = () => {
           <div className="navbar-container">
             <div className="logo-container">
               <Link className="navbar-brand" to="/">
-                <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" className="site-logo img-fluid" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} />
+                <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" className="site-logo img-fluid" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} width="150" height="50" decoding="async" />
               </Link>
             </div>
             <button className="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

@@ -21,7 +21,7 @@ const Footer = () => {
                   <div className="col col-xl-4">
                     <div className="footer-logo-container">
                       <div className="logo-container-footer">
-                        <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} className="site-logo img-fluid" />
+                        <img src="/marko-digital-marketing-agency-html/image/devmart-logo.png" alt={`${getSetting("site_name", "Devmart Suriname")} Logo`} className="site-logo img-fluid" width="150" height="50" decoding="async" />
                       </div>
                       <h4>{getSetting("tagline", "Delivering Reliable Web Solutions with Innovation & Precision")}</h4>
                       <p>

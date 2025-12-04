@@ -198,6 +198,10 @@ const SingleServicePage = () => {
                 src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
                 alt="Service Image"
                 className="single-service-img"
+                loading="lazy"
+                width="600"
+                height="400"
+                decoding="async"
               />
               <div className="single-service-title-layout">
                 <div className="">
@@ -243,6 +247,10 @@ const SingleServicePage = () => {
                           src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
                           alt="Service Image"
                           className="img-fluid"
+                          loading="lazy"
+                          width="600"
+                          height="400"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -252,6 +260,10 @@ const SingleServicePage = () => {
                           src="/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"
                           alt="Service Image"
                           className="img-fluid"
+                          loading="lazy"
+                          width="600"
+                          height="400"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -380,21 +392,37 @@ const SingleServicePage = () => {
                             src="/marko-digital-marketing-agency-html/image/Photo-1.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-2.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-3.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                           <img
                             src="/marko-digital-marketing-agency-html/image/Photo-4.jpg"
                             alt="Testimonial Reviewer"
                             className="avatar"
+                            loading="lazy"
+                            width="48"
+                            height="48"
+                            decoding="async"
                           />
                         </div>
                         <div className="detail">

@@ -157,7 +157,11 @@ const SinglePostPage = () => {
                           <img 
                             src={recentPost.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
                             alt={recentPost.title} 
-                            className="img-fluid" 
+                            className="img-fluid"
+                            loading="lazy"
+                            width="600"
+                            height="400"
+                            decoding="async"
                           />
                         </div>
                         <div className="d-grid">
@@ -190,7 +194,11 @@ const SinglePostPage = () => {
                   <img 
                     src={post.featured_image || "/marko-digital-marketing-agency-html/image/dummy-img-600x400.jpg"} 
                     alt={post.title} 
-                    className="img-fluid" 
+                    className="img-fluid"
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                    decoding="async"
                   />
                 </div>
                 <h3>{post.title}</h3>

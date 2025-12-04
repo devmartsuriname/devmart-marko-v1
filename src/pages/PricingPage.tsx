@@ -369,7 +369,7 @@ const PricingPage = () => {
                       <div className="digital-process-step animate-box animated animate__animated" data-animate="animate__fadeInUp">
                         <div className="d-flex justify-content-between">
                           <div>
-                            <img src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-N952ZWA.png" alt="Digital Process Icon" className="process-icon" />
+                            <img src="/marko-digital-marketing-agency-html/image/digital-marketing-icons-N952ZWA.png" alt="Digital Process Icon" className="process-icon" loading="lazy" width="64" height="64" decoding="async" />
                           </div>
                           <span>01</span>
                         </div>
@@ -385,7 +385,7 @@ const PricingPage = () => {
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-11.png" alt="Digital Process Icon" className="process-icon" />
+                              <img src="/marko-digital-marketing-agency-html/image/Icon-11.png" alt="Digital Process Icon" className="process-icon" loading="lazy" width="64" height="64" decoding="async" />
                             </div>
                             <span>02</span>
                           </div>
@@ -402,7 +402,7 @@ const PricingPage = () => {
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-10.png" alt="Digital Process Icon" className="process-icon" />
+                              <img src="/marko-digital-marketing-agency-html/image/Icon-10.png" alt="Digital Process Icon" className="process-icon" loading="lazy" width="64" height="64" decoding="async" />
                             </div>
                             <span>03</span>
                           </div>
@@ -419,7 +419,7 @@ const PricingPage = () => {
                         <div className="digital-process-step">
                           <div className="d-flex justify-content-between">
                             <div>
-                              <img src="/marko-digital-marketing-agency-html/image/Icon-12.png" alt="Digital Process Icon" className="process-icon" />
+                              <img src="/marko-digital-marketing-agency-html/image/Icon-12.png" alt="Digital Process Icon" className="process-icon" loading="lazy" width="64" height="64" decoding="async" />
                             </div>
                             <span>04</span>
                           </div>
