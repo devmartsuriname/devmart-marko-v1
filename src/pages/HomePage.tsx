@@ -614,9 +614,20 @@ const HomePage = () => {
                   {[1, 2, 3, 4, 5, 6].map((i) => (
                     <div key={i} className="col">
                       <div className="card card-service animate-box animated animate__animated" data-animate="animate__fadeInLeft">
-                        <div className="d-flex flex-column gspace-2">
-                          <h4>Loading services...</h4>
+                        <div className="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
+                          <div>
+                            <div className="service-icon-wrapper">
+                              <div className="service-icon" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '48px', height: '48px', borderRadius: '8px' }}></div>
+                            </div>
+                          </div>
+                          <div className="service-title" style={{ flex: 1 }}>
+                            <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '24px', width: '80%', borderRadius: '4px' }}></div>
+                          </div>
                         </div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px', marginBottom: '8px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '90%', borderRadius: '4px', marginBottom: '8px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '70%', borderRadius: '4px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '48px', width: '100%', borderRadius: '8px', marginTop: '16px' }}></div>
                       </div>
                     </div>
                   ))}
@@ -724,25 +735,51 @@ const HomePage = () => {
                   <>
                     <div className="d-flex flex-column flex-xl-row gspace-2">
                       <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="case-studies-component large align-self-end justify-content-end align-items-end" style={{ marginBottom: '16px' }}>
+                          {[1, 2, 3, 4].map((t) => (
+                            <div key={t} className="cs-component" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '60px', height: '28px', borderRadius: '4px' }}></div>
+                          ))}
+                        </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h4>Loading case studies...</h4>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '28px', width: '70%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '85%', borderRadius: '4px' }}></div>
                         </div>
                       </div>
                       <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
                         <div className="d-flex flex-column gspace-2">
-                          <h4>Loading...</h4>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '28px', width: '65%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '90%', borderRadius: '4px' }}></div>
+                        </div>
+                        <div className="case-studies-component small align-self-end justify-content-end align-items-end" style={{ marginTop: '16px' }}>
+                          {[1, 2, 3].map((t) => (
+                            <div key={t} className="cs-component" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '50px', height: '24px', borderRadius: '4px' }}></div>
+                          ))}
                         </div>
                       </div>
                     </div>
                     <div className="d-flex flex-column flex-xl-row gspace-2">
                       <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="case-studies-component small align-self-start justify-content-start align-items-start" style={{ marginBottom: '16px' }}>
+                          {[1, 2, 3].map((t) => (
+                            <div key={t} className="cs-component" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '55px', height: '24px', borderRadius: '4px' }}></div>
+                          ))}
+                        </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h4>Loading...</h4>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '28px', width: '60%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '95%', borderRadius: '4px' }}></div>
                         </div>
                       </div>
                       <div className="card case-studies-content animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="case-studies-component large align-self-start justify-content-start align-items-start" style={{ marginBottom: '16px' }}>
+                          {[1, 2, 3, 4, 5].map((t) => (
+                            <div key={t} className="cs-component" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '58px', height: '28px', borderRadius: '4px' }}></div>
+                          ))}
+                        </div>
                         <div className="d-flex flex-column gspace-2">
-                          <h4>Loading...</h4>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '28px', width: '75%', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px' }}></div>
                         </div>
                       </div>
                     </div>
@@ -928,20 +965,32 @@ const HomePage = () => {
                   <div className="swiper-wrapper">
                     {isLoading ? (
                       <>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="d-flex flex-column gspace-2">
-                              <h4>Loading testimonials...</h4>
+                        {[1, 2, 3].map((i) => (
+                          <div key={i} className="swiper-slide">
+                            <div className="card card-testimonial">
+                              <div className="stars" style={{ display: 'flex', gap: '4px', marginBottom: '16px' }}>
+                                {[1, 2, 3, 4, 5].map((s) => (
+                                  <div key={s} style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '20px', height: '20px', borderRadius: '4px' }}></div>
+                                ))}
+                              </div>
+                              <div className="d-flex flex-row align-items-center justify-content-between">
+                                <div className="d-flex flex-row gspace-2">
+                                  <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '60px', height: '60px', borderRadius: '50%' }}></div>
+                                  <div className="d-flex flex-column" style={{ gap: '8px' }}>
+                                    <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '18px', width: '120px', borderRadius: '4px' }}></div>
+                                    <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '14px', width: '160px', borderRadius: '4px' }}></div>
+                                  </div>
+                                </div>
+                                <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', width: '48px', height: '48px', borderRadius: '8px' }}></div>
+                              </div>
+                              <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px' }}></div>
+                                <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '95%', borderRadius: '4px' }}></div>
+                                <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '80%', borderRadius: '4px' }}></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="d-flex flex-column gspace-2">
-                              <h4>Loading...</h4>
-                            </div>
-                          </div>
-                        </div>
+                        ))}
                       </>
                     ) : homeTestimonials.length === 0 ? (
                       <div className="swiper-slide">
@@ -1164,18 +1213,82 @@ const HomePage = () => {
               {isLoading ? (
                 <>
                   <div className="col">
-                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Loading pricing plans...</h4>
+                    <div className="pricing-container">
+                      <div className="card card-pricing-title animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                        <div className="spacer"></div>
+                        <div className="content">
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '32px', width: '80%', borderRadius: '4px', marginBottom: '16px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '20px', width: '60%', borderRadius: '4px' }}></div>
+                        </div>
+                      </div>
+                      <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '24px', width: '50%', borderRadius: '4px', marginBottom: '12px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '80%', borderRadius: '4px', marginBottom: '16px' }}></div>
+                        <div className="d-flex flex-row gspace-1 align-items-center" style={{ marginBottom: '16px' }}>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '40px', width: '80px', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '50px', borderRadius: '4px' }}></div>
+                        </div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '48px', width: '100%', borderRadius: '8px', marginBottom: '16px' }}></div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {[1, 2, 3].map((f) => (
+                            <div key={f} style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: `${85 - f * 10}%`, borderRadius: '4px' }}></div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="col">
-                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Loading...</h4>
+                    <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                      <div className="spacer"></div>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '28px', width: '55%', borderRadius: '4px', marginBottom: '12px' }}></div>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '85%', borderRadius: '4px', marginBottom: '16px' }}></div>
+                      <div className="d-flex flex-row gspace-1 align-items-center" style={{ marginBottom: '16px' }}>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '44px', width: '90px', borderRadius: '4px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '50px', borderRadius: '4px' }}></div>
+                      </div>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '48px', width: '100%', borderRadius: '8px', marginBottom: '16px' }}></div>
+                      <div className="core-benefits" style={{ marginBottom: '16px' }}>
+                        {[1, 2, 3].map((b) => (
+                          <div key={b} className="benefit" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '24px', height: '24px', borderRadius: '50%' }}></div>
+                            <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '14px', width: '100px', borderRadius: '4px' }}></div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {[1, 2, 3, 4].map((f) => (
+                          <div key={f} style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: `${90 - f * 8}%`, borderRadius: '4px' }}></div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <div className="col">
-                    <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Loading...</h4>
+                    <div className="pricing-container">
+                      <div className="card pricing-highlight-box animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                        <div className="d-flex flex-column gspace-2 w-100">
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '24px', width: '70%', borderRadius: '4px', marginBottom: '8px' }}></div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {[1, 2, 3].map((h) => (
+                              <div key={h} style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '18px', width: '85%', borderRadius: '4px' }}></div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="spacer"></div>
+                      </div>
+                      <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '24px', width: '45%', borderRadius: '4px', marginBottom: '12px' }}></div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '75%', borderRadius: '4px', marginBottom: '16px' }}></div>
+                        <div className="d-flex flex-row gspace-1 align-items-center" style={{ marginBottom: '16px' }}>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '40px', width: '85px', borderRadius: '4px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '50px', borderRadius: '4px' }}></div>
+                        </div>
+                        <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '48px', width: '100%', borderRadius: '8px', marginBottom: '16px' }}></div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {[1, 2, 3].map((f) => (
+                            <div key={f} style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: `${80 - f * 8}%`, borderRadius: '4px' }}></div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </>
@@ -1466,20 +1579,29 @@ const HomePage = () => {
             <div className="row row-cols-md-2 row-cols-1 grid-spacer-3">
               {isLoading ? (
                 <>
-                  <div className="col">
-                    <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="card-body">
-                        <h4>Loading blog posts...</h4>
+                  {[1, 2].map((i) => (
+                    <div key={i} className="col">
+                      <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div className="blog-image" style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '200px', borderRadius: '8px' }}></div>
+                        <div className="card-body">
+                          <div className="d-flex flex-row gspace-2" style={{ marginBottom: '12px' }}>
+                            <div className="d-flex flex-row gspace-1 align-items-center">
+                              <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '16px', height: '16px', borderRadius: '4px' }}></div>
+                              <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '14px', width: '100px', borderRadius: '4px' }}></div>
+                            </div>
+                            <div className="d-flex flex-row gspace-1 align-items-center">
+                              <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '16px', height: '16px', borderRadius: '4px' }}></div>
+                              <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '14px', width: '70px', borderRadius: '4px' }}></div>
+                            </div>
+                          </div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '24px', width: '85%', borderRadius: '4px', marginBottom: '12px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '100%', borderRadius: '4px', marginBottom: '8px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '16px', width: '90%', borderRadius: '4px', marginBottom: '16px' }}></div>
+                          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', height: '18px', width: '80px', borderRadius: '4px' }}></div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="col">
-                    <div className="card card-blog animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <div className="card-body">
-                        <h4>Loading...</h4>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </>
               ) : homeBlogPosts.length === 0 ? (
                 <div className="col">
