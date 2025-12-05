@@ -1,2 +1,12 @@
 /* Empty CSS file - Template CSS is loaded via index.html */
 /* All styling comes from the original Marko template */
+
+/* Skeleton loading animation for dynamic content */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

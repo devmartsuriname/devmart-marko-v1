@@ -101,24 +101,17 @@ const PricingPage = () => {
                   </div>
                   {isLoading ? (
                     <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Loading...</h4>
-                      <p>Loading pricing details...</p>
+                      <div className="skeleton-text skeleton-title" style={{ height: '24px', width: '70%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '12px' }}></div>
+                      <div className="skeleton-text" style={{ height: '16px', width: '90%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '20px' }}></div>
                       <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                        <h3>—</h3>
-                        <p>/Month</p>
+                        <div className="skeleton-text" style={{ height: '40px', width: '80px', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
+                        <div className="skeleton-text" style={{ height: '16px', width: '50px', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                       </div>
-                      <Link to="/contact" className="btn btn-accent">
-                        <div className="btn-title">
-                          <span>View Details</span>
-                        </div>
-                        <div className="icon-circle">
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </div>
-                      </Link>
-                      <ul className="check-list">
-                        <li><Link to="/contact">Loading features...</Link></li>
-                        <li><Link to="/contact">Loading features...</Link></li>
-                        <li><Link to="/contact">Loading features...</Link></li>
+                      <div className="skeleton-btn" style={{ height: '48px', width: '100%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '30px', marginTop: '20px' }}></div>
+                      <ul className="check-list" style={{ marginTop: '20px' }}>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '85%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '75%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '80%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
                       </ul>
                     </div>
                   ) : error ? (
@@ -160,38 +153,31 @@ const PricingPage = () => {
                 {isLoading ? (
                   <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
                     <div className="spacer"></div>
-                    <h4>Loading...</h4>
-                    <p>Loading premium plan...</p>
+                    <div className="skeleton-text skeleton-title" style={{ height: '28px', width: '60%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '12px' }}></div>
+                    <div className="skeleton-text" style={{ height: '16px', width: '85%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '20px' }}></div>
                     <div className="d-flex flex-row gspace-1 align-items-center">
-                      <h3>—</h3>
-                      <p>/Month</p>
+                      <div className="skeleton-text" style={{ height: '48px', width: '100px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
+                      <div className="skeleton-text" style={{ height: '16px', width: '60px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                     </div>
-                    <Link to="/contact" className="btn btn-accent">
-                      <div className="btn-title">
-                        <span>View Details</span>
-                      </div>
-                      <div className="icon-circle">
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </div>
-                    </Link>
-                    <div className="core-benefits">
+                    <div className="skeleton-btn" style={{ height: '52px', width: '100%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '30px', marginTop: '20px' }}></div>
+                    <div className="core-benefits" style={{ marginTop: '20px' }}>
                       <div className="benefit">
-                        <i className="fa-solid fa-user-tie"></i>
-                        <span>Loading...</span>
+                        <div className="skeleton-icon" style={{ height: '24px', width: '24px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '50%' }}></div>
+                        <div className="skeleton-text" style={{ height: '14px', width: '100px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                       </div>
                       <div className="benefit">
-                        <i className="fa-solid fa-headset"></i>
-                        <span>Loading...</span>
+                        <div className="skeleton-icon" style={{ height: '24px', width: '24px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '50%' }}></div>
+                        <div className="skeleton-text" style={{ height: '14px', width: '90px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                       </div>
                       <div className="benefit">
-                        <i className="fa-solid fa-chart-line"></i>
-                        <span>Loading...</span>
+                        <div className="skeleton-icon" style={{ height: '24px', width: '24px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '50%' }}></div>
+                        <div className="skeleton-text" style={{ height: '14px', width: '110px', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                       </div>
                     </div>
-                    <ul className="check-list">
-                      <li><span>Loading features...</span></li>
-                      <li><span>Loading features...</span></li>
-                      <li><span>Loading features...</span></li>
+                    <ul className="check-list" style={{ marginTop: '20px' }}>
+                      <li><div className="skeleton-text" style={{ height: '14px', width: '85%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                      <li><div className="skeleton-text" style={{ height: '14px', width: '70%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                      <li><div className="skeleton-text" style={{ height: '14px', width: '80%', background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
                     </ul>
                   </div>
                 ) : error ? (
@@ -277,24 +263,17 @@ const PricingPage = () => {
                   </div>
                   {isLoading ? (
                     <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
-                      <h4>Loading...</h4>
-                      <p>Loading pricing details...</p>
+                      <div className="skeleton-text skeleton-title" style={{ height: '24px', width: '75%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '12px' }}></div>
+                      <div className="skeleton-text" style={{ height: '16px', width: '85%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px', marginBottom: '20px' }}></div>
                       <div className="d-flex flex-row gspace-1 align-items-center h-100">
-                        <h3>—</h3>
-                        <p>/Month</p>
+                        <div className="skeleton-text" style={{ height: '40px', width: '90px', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
+                        <div className="skeleton-text" style={{ height: '16px', width: '55px', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div>
                       </div>
-                      <Link to="/contact" className="btn btn-accent">
-                        <div className="btn-title">
-                          <span>View Details</span>
-                        </div>
-                        <div className="icon-circle">
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </div>
-                      </Link>
-                      <ul className="check-list">
-                        <li><Link to="/contact">Loading features...</Link></li>
-                        <li><Link to="/contact">Loading features...</Link></li>
-                        <li><Link to="/contact">Loading features...</Link></li>
+                      <div className="skeleton-btn" style={{ height: '48px', width: '100%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '30px', marginTop: '20px' }}></div>
+                      <ul className="check-list" style={{ marginTop: '20px' }}>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '80%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '70%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
+                        <li><div className="skeleton-text" style={{ height: '14px', width: '75%', background: 'linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%)', backgroundSize: '200% 100%', animation: 'skeleton-shimmer 1.5s infinite', borderRadius: '4px' }}></div></li>
                       </ul>
                     </div>
                   ) : error ? (
