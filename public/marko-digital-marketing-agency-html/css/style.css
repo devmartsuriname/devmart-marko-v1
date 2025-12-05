@@ -1543,6 +1543,7 @@ body.lightmode .digital-process-banner {
 
 .process-icon {
   width: 20%;
+  height: auto;
 }
 
 .space-header {
