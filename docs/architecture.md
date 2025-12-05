@@ -323,6 +323,28 @@ The following content is dynamically fetched from Supabase on public marketing p
 | ContactPage | Site Settings | `useSettings()` context |
 | Footer/Header | Site Settings | `useSettings()` context |
 
+### Pricing Layout Convention
+
+Both HomePage and PricingPage use a **3-column pricing layout** with consistent data conventions:
+
+```
+┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
+│   LEFT COLUMN   │   │  MIDDLE COLUMN  │   │  RIGHT COLUMN   │
+│                 │   │   (Featured)    │   │                 │
+│  Entry Plan     │   │  Highlighted    │   │  Enterprise     │
+│  sort_order: 1  │   │  sort_order: 2  │   │  sort_order: 3  │
+│  highlighted:   │   │  highlighted:   │   │  highlighted:   │
+│     false       │   │     TRUE        │   │     false       │
+└─────────────────┘   └─────────────────┘   └─────────────────┘
+```
+
+**Key Fields:**
+- `sort_order` - Determines visual column position (1=left, 2=middle, 3=right)
+- `highlighted` - Boolean flag; exactly ONE plan should be `true` (displays with accent styling, glow, premium highlights)
+
+**Data Source:**
+Both pages use `getPublishedPricingPlans()` query, ensuring identical data rendering across the site.
+
 ### Diagram 3: Authentication & Authorization Flow
 
 <presentation-mermaid>
