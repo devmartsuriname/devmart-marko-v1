@@ -133,129 +133,13 @@ const PartnershipPage = () => {
                       </div>
                     ))
                   ) : (
-                    // Fallback: hardcoded partner logos if no data
-                    <>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-2.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
+                    // Empty state: No partners yet
+                    <div className="col-12">
+                      <div className="d-flex flex-column align-items-center justify-content-center gspace-2" style={{ padding: '60px 20px', textAlign: 'center' }}>
+                        <i className="fa-regular fa-handshake fa-3x" style={{ opacity: 0.3, marginBottom: '16px' }}></i>
+                        <p style={{ opacity: 0.6 }}>Partner showcase coming soon.</p>
                       </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-1.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-3.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-5.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-4.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-6.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-7.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col partnership-container">
-                        <div className="partnership-item">
-                          <div className="partner-logo-wrapper">
-                            <img
-                              src="/marko-digital-marketing-agency-html/image/client-8.png"
-                              alt="Partner Logo"
-                              className="partner-logo img-fluid"
-                              loading="lazy"
-                              width="150"
-                              height="50"
-                              decoding="async"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
@@ -495,114 +379,15 @@ const PartnershipPage = () => {
                         </div>
                       ))
                     ) : (
-                      // Fallback: hardcoded testimonials if no data
-                      <>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                    loading="lazy"
-                                    width="80"
-                                    height="80"
-                                    decoding="async"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">Emma Richard</span>
-                                  <p className="profile-info">CEO Nexatech</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "Devmart built our custom portal from the ground up. Their technical expertise and attention
-                              to detail exceeded all expectations."
-                            </p>
+                      // Empty state: No testimonials available
+                      <div className="swiper-slide">
+                        <div className="card card-testimonial">
+                          <div className="d-flex flex-column align-items-center justify-content-center gspace-2" style={{ padding: '40px 20px', textAlign: 'center', minHeight: '280px' }}>
+                            <i className="fa-regular fa-comment-dots fa-3x" style={{ opacity: 0.3, marginBottom: '16px' }}></i>
+                            <p style={{ opacity: 0.6 }}>No client testimonials yet. Your success story could be next!</p>
                           </div>
                         </div>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                    loading="lazy"
-                                    width="80"
-                                    height="80"
-                                    decoding="async"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">Michael Chen</span>
-                                  <p className="profile-info">CTO, DataFlow Inc</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "Working with Devmart was a game-changer. They delivered our enterprise platform on time
-                              and exceeded every requirement we had."
-                            </p>
-                          </div>
-                        </div>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                    loading="lazy"
-                                    width="80"
-                                    height="80"
-                                    decoding="async"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">Sarah Williams</span>
-                                  <p className="profile-info">Director, CloudSync</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "The team at Devmart truly understands what businesses need. Their solutions are practical,
-                              scalable, and beautifully designed."
-                            </p>
-                          </div>
-                        </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
