@@ -481,106 +481,15 @@ const TeamPage = () => {
                         </div>
                       ))
                     ) : (
-                      // Fallback: hardcoded testimonials if no data
-                      <>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-8.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                    loading="lazy"
-                                    width="80"
-                                    height="80"
-                                    decoding="async"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">Emma Richard</span>
-                                  <p className="profile-info">CEO Nexatech</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "Devmart completely transformed our digital infrastructure! Their development expertise helped
-                              us modernize operations and improve service delivery significantly."
-                            </p>
+                      // Empty state: No testimonials available
+                      <div className="swiper-slide">
+                        <div className="card card-testimonial">
+                          <div className="d-flex flex-column align-items-center justify-content-center gspace-2" style={{ padding: '40px 20px', textAlign: 'center', minHeight: '280px' }}>
+                            <i className="fa-regular fa-comment-dots fa-3x" style={{ opacity: 0.3, marginBottom: '16px' }}></i>
+                            <p style={{ opacity: 0.6 }}>No client testimonials yet. Your success story could be next!</p>
                           </div>
                         </div>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-11.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">David Mont</span>
-                                  <p className="profile-info">Marketing Director</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "We've worked with many agencies before, but Devmart stands out. Their technical expertise and
-                              commitment to quality gave us a competitive advantage."
-                            </p>
-                          </div>
-                        </div>
-                        <div className="swiper-slide">
-                          <div className="card card-testimonial">
-                            <div className="stars">
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                              <i className="fa-solid fa-star"></i>
-                            </div>
-                            <div className="d-flex flex-row align-items-center justify-content-between">
-                              <div className="d-flex flex-row gspace-2">
-                                <div className="testimonial-image">
-                                  <img
-                                    src="/marko-digital-marketing-agency-html/image/Photo-12.jpg"
-                                    alt="Testimonial Person Image"
-                                    className="img-fluid"
-                                  />
-                                </div>
-                                <div className="d-flex flex-column">
-                                  <span className="profile-name">Sophia Lewis</span>
-                                  <p className="profile-info">Founder</p>
-                                </div>
-                              </div>
-                              <i className="fa-solid fa-3x fa-quote-right accent-color"></i>
-                            </div>
-                            <p className="testimonial-description">
-                              "From concept to deployment, Devmart delivered exceptional results. Our platform now handles
-                              complex operations smoothly and our users love it!"
-                            </p>
-                          </div>
-                        </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
