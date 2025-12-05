@@ -44,11 +44,11 @@ const PricingPage = () => {
     return features;
   };
 
-  // Separate plans by highlighted status
-  const highlightedPlan = plans.find(p => p.highlighted);
+  // Separate plans by highlighted status with safeguards for misconfigured data
+  const highlightedPlan = plans.find(p => p.highlighted) || plans[1] || plans[0];
   const nonHighlightedPlans = plans.filter(p => !p.highlighted);
-  const firstPlan = nonHighlightedPlans[0];
-  const lastPlan = nonHighlightedPlans[1];
+  const firstPlan = nonHighlightedPlans[0] || plans[0];
+  const lastPlan = nonHighlightedPlans[1] || plans[2] || plans[plans.length - 1];
   return (
     <>
       <SEO
