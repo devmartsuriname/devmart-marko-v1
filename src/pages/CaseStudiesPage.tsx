@@ -379,7 +379,37 @@ const CaseStudiesPage = () => {
               <div className="overflow-hidden">
                 <div className="swiper swiperTestimonial">
                   <div className="swiper-wrapper">
-                    {testimonials.length > 0 ? (
+                    {isLoading ? (
+                      // Loading skeleton - 3 testimonial card placeholders
+                      [1, 2, 3].map((i) => (
+                        <div key={`skeleton-${i}`} className="swiper-slide">
+                          <div className="card card-testimonial">
+                            <div className="stars" style={{ display: 'flex', gap: '4px' }}>
+                              {[1, 2, 3, 4, 5].map(star => (
+                                <div key={star} style={{ width: '16px', height: '16px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '2px' }} />
+                              ))}
+                            </div>
+                            <div className="d-flex flex-row align-items-center justify-content-between">
+                              <div className="d-flex flex-row gspace-2">
+                                <div className="testimonial-image">
+                                  <div style={{ width: '80px', height: '80px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }} />
+                                </div>
+                                <div className="d-flex flex-column" style={{ gap: '8px' }}>
+                                  <div style={{ width: '120px', height: '18px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px' }} />
+                                  <div style={{ width: '80px', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                                </div>
+                              </div>
+                              <i className="fa-solid fa-3x fa-quote-right" style={{ opacity: 0.2 }}></i>
+                            </div>
+                            <div className="testimonial-description" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              <div style={{ width: '100%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                              <div style={{ width: '90%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                              <div style={{ width: '70%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : testimonials.length > 0 ? (
                       testimonials.map((testimonial) => (
                         <div key={testimonial.id} className="swiper-slide">
                           <div className="card card-testimonial">

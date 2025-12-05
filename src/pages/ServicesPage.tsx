@@ -220,7 +220,70 @@ const ServicesPage = () => {
               <h2 className="title-heading heading-container heading-container-short">Flexible Pricing Plans for Every Business</h2>
             </div>
             <div className="row row-cols-xl-3 row-cols-1 grid-spacer-2">
-              {pricingPlans.length > 0 ? (
+              {isLoading ? (
+                // Loading skeleton - 3 column pricing layout
+                <>
+                  <div className="col">
+                    <div className="pricing-container">
+                      <div className="card card-pricing-title animate-box animated animate__animated" data-animate="animate__fadeInLeft">
+                        <div className="spacer"></div>
+                        <div className="content">
+                          <div style={{ width: '80%', height: '24px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                          <div style={{ width: '60%', height: '16px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                        </div>
+                      </div>
+                      <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div style={{ width: '50%', height: '20px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '12px' }} />
+                        <div style={{ width: '80%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                        <div style={{ width: '30%', height: '32px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                        <div style={{ width: '100%', height: '48px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px', marginBottom: '16px' }} />
+                        {[1, 2, 3].map(i => (
+                          <div key={i} style={{ width: `${85 - i * 10}%`, height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '8px' }} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="card card-pricing pricing-highlight animate-box animated slow animate__animated" data-animate="animate__fadeInUp">
+                      <div className="spacer"></div>
+                      <div style={{ width: '60%', height: '22px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px', marginBottom: '12px' }} />
+                      <div style={{ width: '90%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                      <div style={{ width: '35%', height: '36px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px', marginBottom: '20px' }} />
+                      <div style={{ width: '100%', height: '48px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px', marginBottom: '20px' }} />
+                      <div className="core-benefits">
+                        {[1, 2, 3].map(i => (
+                          <div key={i} className="benefit" style={{ opacity: 0.5 }}>
+                            <div style={{ width: '24px', height: '24px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '50%' }} />
+                            <div style={{ width: '120px', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
+                          </div>
+                        ))}
+                      </div>
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} style={{ width: `${90 - i * 5}%`, height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '8px' }} />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="pricing-container">
+                      <div className="card pricing-highlight-box animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                        <div className="d-flex flex-column gspace-2 w-100">
+                          <div style={{ width: '70%', height: '18px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '12px' }} />
+                          {[1, 2, 3].map(i => (
+                            <div key={i} style={{ width: `${95 - i * 5}%`, height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '8px' }} />
+                          ))}
+                        </div>
+                        <div className="spacer"></div>
+                      </div>
+                      <div className="card card-pricing animate-box animated animate__animated" data-animate="animate__fadeInUp">
+                        <div style={{ width: '55%', height: '20px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '12px' }} />
+                        <div style={{ width: '75%', height: '14px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                        <div style={{ width: '30%', height: '32px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px', marginBottom: '16px' }} />
+                        <div style={{ width: '100%', height: '48px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px' }} />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : pricingPlans.length > 0 ? (
                 <>
                   {/* Column 1: CTA Card + Starter Plan */}
                   <div className="col">
