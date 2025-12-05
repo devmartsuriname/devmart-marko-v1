@@ -454,6 +454,67 @@ This section provides a complete reference for all Row-Level Security (RLS) poli
 | `case_studies` | `status='published'` | Admin: all | Admin | Admin | Admin | admin |
 | `pricing_plans` | `status='published'` | Admin: all | Admin | Admin | Admin | admin |
 | `testimonials` | `status='published'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
+
+---
+
+## Pricing Plans Data Conventions
+
+### Highlighted Plan Rule
+
+The `pricing_plans` table MUST have **exactly one** row with `highlighted = true`. This plan displays as the featured/prominent card in the middle column of pricing layouts.
+
+**Database Enforcement:**
+- Only one plan should have `highlighted = true` at any time
+- All other plans should have `highlighted = false`
+- Default value for new plans: `highlighted = false`
+
+**Example Valid State:**
+| Plan Name | sort_order | highlighted |
+|-----------|------------|-------------|
+| Starter Website | 1 | false |
+| Business Platform | 2 | **true** |
+| Government/Enterprise | 3 | false |
+
+### Sort Order Convention
+
+The `sort_order` column determines visual placement in pricing layouts:
+
+| sort_order | Position | Typical Plan Type |
+|------------|----------|-------------------|
+| 1 | Left column | Entry-level/Starter plan |
+| 2 | Middle column | Featured/highlighted plan |
+| 3 | Right column | Enterprise/premium plan |
+
+### Layout Implementation
+
+Both `HomePage.tsx` and `PricingPage.tsx` consume the same data source via `getPublishedPricingPlans()`:
+
+```typescript
+// Query returns plans sorted by sort_order ascending
+const { data: plans } = await getPublishedPricingPlans();
+
+// Layout logic
+const highlightedPlan = plans.find(p => p.highlighted);
+const nonHighlightedPlans = plans.filter(p => !p.highlighted);
+const firstPlan = nonHighlightedPlans[0];  // Left column
+const lastPlan = nonHighlightedPlans[1];   // Right column
+```
+
+### Safeguards
+
+PricingPage includes fallback logic to handle misconfigured data:
+- If no highlighted plan exists, falls back to `plans[1]`
+- If fewer than 3 plans exist, columns render conditionally
+- Each column checks for undefined before rendering
+
+### Premium Highlights
+
+The highlighted plan can display up to 3 benefit callouts via:
+- `highlight_1` - e.g., "Dedicated Account Manager"
+- `highlight_2` - e.g., "Priority Support 24/7"
+- `highlight_3` - e.g., "Customized Growth Strategy"
+
+These render only when `highlighted: true` AND at least one highlight field is populated.
 | `blog_posts` | `status='published'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
 | `team_members` | `status='active'` | Admin: all | Admin | Admin | Admin | admin |
 | `faq_items` | `status='active'` | Admin+Editor: all | Admin+Editor | Admin+Editor | Admin+Editor | admin, editor |
